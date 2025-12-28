@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | DLT - Distributed Ledger Technologies</title>
+    <meta name="description" content="This page is coming soon. Distributed Ledger Technologies is building the future of digital finance.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    
+    <style>
+        @font-face {
+            font-family: 'Ethnocentric';
+            src: url('fonts/ethnocentric.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        :root {
+            --bg-primary: #0a0a0f;
+            --neon-blue: #00d4ff;
+            --neon-blue-dim: rgba(0, 212, 255, 0.3);
+            --neon-blue-glow: rgba(0, 212, 255, 0.15);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-dim: #606070;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--neon-blue-glow) 0%, transparent 70%);
+            pointer-events: none;
+            animation: pulse 6s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+            max-width: 500px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        
+        .logo img {
+            width: 48px;
+            height: 48px;
+        }
+        
+        .logo-text {
+            font-family: 'Ethnocentric', -apple-system, sans-serif;
+            font-size: 32px;
+            color: var(--neon-blue);
+            text-shadow: 0 0 20px var(--neon-blue-dim);
+            letter-spacing: 2px;
+        }
+        
+        .icon-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 32px;
+            background: var(--neon-blue-glow);
+            border: 1px solid var(--neon-blue-dim);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .icon-container svg {
+            width: 56px;
+            height: 56px;
+            stroke: var(--neon-blue);
+            fill: none;
+            stroke-width: 1.5;
+        }
+        
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+        
+        h1 span {
+            color: var(--neon-blue);
+            text-shadow: 0 0 30px var(--neon-blue-dim);
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: var(--neon-blue);
+            color: var(--bg-primary);
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #00e5ff;
+            box-shadow: 0 0 30px var(--neon-blue-dim);
+            transform: translateY(-2px);
+        }
+        
+        .btn svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn:hover svg {
+            transform: translateX(-4px);
+        }
+        
+        .footer-note {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+        
+        .footer-note a {
+            color: var(--neon-blue);
+            text-decoration: none;
+        }
+        
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 36px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .icon-container {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .icon-container svg {
+                width: 44px;
+                height: 44px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <a href="/" class="logo">
+            <img src="images/logo.svg" alt="DLT Logo">
+            <span class="logo-text">DLT</span>
+        </a>
+        
+        <div class="icon-container">
+            <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 6v6l4 2"/>
+            </svg>
+        </div>
+        
+        <h1>Coming <span>Soon</span></h1>
+        
+        <p class="subtitle">We're working on something exciting. This page will be available soon. In the meantime, explore our products and learn more about DLT.</p>
+        
+        <a href="/" class="btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            Back to Home
+        </a>
+    </div>
+    
+    <p class="footer-note">© 2025 <a href="/">Distributed Ledger Technologies</a></p>
+</body>
+</html>
