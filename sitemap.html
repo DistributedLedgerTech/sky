@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Sitemap | DLT - Distributed Ledger Technologies</title>
+    <meta name="title" content="Sitemap | DLT - Distributed Ledger Technologies">
+    <meta name="description" content="Navigate Distributed Ledger Technologies website. Find all pages, sections, and resources.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://distributedledgertechnologies.com/sitemap.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Font -->
+    <style>
+        @font-face {
+            font-family: 'Ethnocentric';
+            src: url('fonts/ethnocentric.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --cyan: #00ffff;
+            --electric: #00f0ff;
+            --blue: #0080ff;
+            --purple: #8000ff;
+            --magenta: #ff00ff;
+            --green: #00ff80;
+            --gold: #ffd700;
+        }
+
+        html { 
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: crosshair;
+            min-height: 100vh;
+        }
+
+        ::selection {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        /* Background Grid */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 32px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-symbol {
+            width: 56px;
+            height: 56px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-symbol::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--cyan);
+            animation: logoRotate 20s linear infinite;
+        }
+
+        .logo-symbol::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid var(--cyan);
+            opacity: 0.5;
+            animation: logoRotate 15s linear infinite reverse;
+        }
+
+        @keyframes logoRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text-main {
+            font-family: 'Ethnocentric', 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--cyan);
+        }
+
+        .logo-text-sub {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.5em;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 64px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--cyan);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+
+        .mobile-menu.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--cyan);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 64px 60px;
+            text-align: center;
+        }
+
+        .page-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .page-eyebrow-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan));
+        }
+
+        .page-eyebrow-line:last-child {
+            background: linear-gradient(90deg, var(--cyan), transparent);
+        }
+
+        .page-eyebrow-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--cyan);
+        }
+
+        .page-title {
+            font-size: clamp(48px, 8vw, 100px);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+
+        .page-title .gradient {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Sitemap Content */
+        .sitemap-section {
+            padding: 40px 64px 120px;
+            flex: 1;
+        }
+
+        .sitemap-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+
+        .sitemap-group {
+            background: rgba(0, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            padding: 40px;
+            position: relative;
+            transition: all 0.4s;
+        }
+
+        .sitemap-group::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--cyan);
+            transition: height 0.4s;
+        }
+
+        .sitemap-group:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 20, 30, 0.9);
+        }
+
+        .sitemap-group:hover::before {
+            height: 100%;
+            box-shadow: 0 0 20px var(--cyan);
+        }
+
+        .sitemap-group-icon {
+            width: 48px;
+            height: 48px;
+            stroke: var(--cyan);
+            stroke-width: 1.5;
+            fill: none;
+            margin-bottom: 24px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .sitemap-group:hover .sitemap-group-icon {
+            opacity: 1;
+        }
+
+        .sitemap-group-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .sitemap-links {
+            list-style: none;
+        }
+
+        .sitemap-links li {
+            margin-bottom: 16px;
+        }
+
+        .sitemap-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+            padding: 8px 0;
+        }
+
+        .sitemap-links a::before {
+            content: '→';
+            color: rgba(0, 255, 255, 0.3);
+            transition: all 0.3s;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .sitemap-links a:hover {
+            color: var(--cyan);
+            transform: translateX(8px);
+        }
+
+        .sitemap-links a:hover::before {
+            color: var(--cyan);
+        }
+
+        .sitemap-links .sub-link {
+            padding-left: 24px;
+            font-size: 13px;
+        }
+
+        .sitemap-links .sub-link::before {
+            content: '↳';
+        }
+
+        .link-badge {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            padding: 3px 8px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: var(--cyan);
+            margin-left: auto;
+        }
+
+        .link-badge.external {
+            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+            color: var(--gold);
+        }
+
+        /* XML Sitemap Link */
+        .xml-sitemap {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 24px 32px;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .xml-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .xml-icon {
+            width: 32px;
+            height: 32px;
+            stroke: var(--cyan);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .xml-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .xml-text strong {
+            color: var(--white);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .xml-link {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border: 1px solid var(--cyan);
+            color: var(--cyan);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .xml-link:hover {
+            background: var(--cyan);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 64px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-copyright {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav {
+                padding: 24px 32px;
+            }
+
+            .page-header {
+                padding: 160px 32px 48px;
+            }
+
+            .sitemap-section {
+                padding: 32px 32px 80px;
+            }
+
+            .sitemap-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .xml-sitemap {
+                margin: 0 32px 48px;
+            }
+
+            .footer {
+                padding: 48px 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-header {
+                padding: 140px 24px 40px;
+            }
+
+            .page-eyebrow-line {
+                width: 40px;
+            }
+
+            .sitemap-section {
+                padding: 24px 24px 60px;
+            }
+
+            .sitemap-container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .sitemap-group {
+                padding: 32px 24px;
+            }
+
+            .xml-sitemap {
+                margin: 0 24px 40px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer {
+                padding: 40px 24px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 120px 16px 32px;
+            }
+
+            .sitemap-section {
+                padding: 20px 16px 48px;
+            }
+
+            .sitemap-group {
+                padding: 24px 16px;
+            }
+
+            .xml-sitemap {
+                margin: 0 16px 32px;
+                padding: 20px;
+            }
+
+            .footer {
+                padding: 32px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg-grid"></div>
+    <div class="vignette"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#products">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="index.html" class="logo" aria-label="DLT - Distributed Ledger Technologies Home">
+                <div class="logo-symbol">
+                    <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
+                </div>
+                <div>
+                    <div class="logo-text-main">DLT</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="about.html">About</a></li>
+                <li><a href="index.html#products">Products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="page-eyebrow">
+                <span class="page-eyebrow-line"></span>
+                <span class="page-eyebrow-text">Navigation</span>
+                <span class="page-eyebrow-line"></span>
+            </div>
+            <h1 class="page-title">
+                <span class="gradient">Sitemap</span>
+            </h1>
+            <p class="page-subtitle">
+                Complete directory of all pages and resources on the Distributed Ledger Technologies website.
+            </p>
+        </header>
+
+        <!-- Sitemap Content -->
+        <section class="sitemap-section">
+            <!-- XML Sitemap Link -->
+            <div class="xml-sitemap">
+                <div class="xml-info">
+                    <svg class="xml-icon" viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                        <path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3"/>
+                    </svg>
+                    <div class="xml-text">
+                        <strong>XML Sitemap</strong>
+                        For search engines and web crawlers
+                    </div>
+                </div>
+                <a href="sitemap.xml" class="xml-link" target="_blank">View XML Sitemap</a>
+            </div>
+
+            <div class="sitemap-container">
+                <!-- Main Pages -->
+                <div class="sitemap-group">
+                    <svg class="sitemap-group-icon" viewBox="0 0 24 24">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                    <h2 class="sitemap-group-title">Main Pages</h2>
+                    <ul class="sitemap-links">
+                        <li><a href="index.html">Home<span class="link-badge">Main</span></a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="sitemap.html">Sitemap</a></li>
+                    </ul>
+                </div>
+
+                <!-- Homepage Sections -->
+                <div class="sitemap-group">
+                    <svg class="sitemap-group-icon" viewBox="0 0 24 24">
+                        <rect x="3" y="3" width="7" height="7"/>
+                        <rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/>
+                        <rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <h2 class="sitemap-group-title">Homepage Sections</h2>
+                    <ul class="sitemap-links">
+                        <li><a href="index.html#products">Products Portfolio</a></li>
+                        <li><a href="index.html#credentials">Credentials</a></li>
+                    </ul>
+                </div>
+
+                <!-- Products -->
+                <div class="sitemap-group">
+                    <svg class="sitemap-group-icon" viewBox="0 0 24 24">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+                        <polyline points="2 17 12 22 22 17"/>
+                        <polyline points="2 12 12 17 22 12"/>
+                    </svg>
+                    <h2 class="sitemap-group-title">Products</h2>
+                    <ul class="sitemap-links">
+                        <li><a href="https://macmetalminer.com" target="_blank" rel="noopener">MacMetal Miner<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://xalon.com" target="_blank" rel="noopener">Echelon<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://hydrodollar.com" target="_blank" rel="noopener">HydroDollar<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://ayedex.com" target="_blank" rel="noopener">Ayedex<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://corawallet.com" target="_blank" rel="noopener">CORA<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://knexcoin.com" target="_blank" rel="noopener">KNEX<span class="link-badge external">External</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- About Sections -->
+                <div class="sitemap-group">
+                    <svg class="sitemap-group-icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 16v-4M12 8h.01"/>
+                    </svg>
+                    <h2 class="sitemap-group-title">About Sections</h2>
+                    <ul class="sitemap-links">
+                        <li><a href="about.html">Our Mission</a></li>
+                        <li><a href="about.html" class="sub-link">Core Values</a></li>
+                        <li><a href="about.html" class="sub-link">Our Story</a></li>
+                        <li><a href="about.html" class="sub-link">Philosophy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Careers -->
+                <div class="sitemap-group">
+                    <svg class="sitemap-group-icon" viewBox="0 0 24 24">
+                        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                        <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/>
+                    </svg>
+                    <h2 class="sitemap-group-title">Careers</h2>
+                    <ul class="sitemap-links">
+                        <li><a href="careers.html">Open Positions</a></li>
+                        <li><a href="careers.html" class="sub-link">Engineering</a></li>
+                        <li><a href="careers.html" class="sub-link">Product</a></li>
+                        <li><a href="careers.html" class="sub-link">Business</a></li>
+                        <li><a href="careers.html" class="sub-link">Benefits</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="sitemap-group">
+                    <svg class="sitemap-group-icon" viewBox="0 0 24 24">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                    </svg>
+                    <h2 class="sitemap-group-title">Legal</h2>
+                    <ul class="sitemap-links">
+                        <li><a href="index.html">Privacy Policy</a></li>
+                        <li><a href="index.html">Terms of Service</a></li>
+                        <li><a href="index.html">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <span class="footer-copyright">© 2026 Distributed Ledger Technologies. All Rights Reserved.</span>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                    <a href="careers.html">Careers</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('visible');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,4 +1,11 @@
+# Robots.txt for Distributed Ledger Technologies
+# https://distributedledgertechnologies.com
+
 User-agent: *
 Allow: /
 
-Sitemap: https://www.distributedledgertechnologies.com/sitemap.xml
+# Sitemap location
+Sitemap: https://distributedledgertechnologies.com/sitemap.xml
+
+# Crawl-delay (optional, for polite crawlers)
+Crawl-delay: 1
