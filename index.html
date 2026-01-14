@@ -2,17 +2,71 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     
-    <title>DLT | Distributed Ledger Technologies</title>
-    <meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.">
+    <!-- Primary Meta Tags -->
+    <title>DLT | Distributed Ledger Technologies - Enterprise Blockchain Infrastructure</title>
+    <meta name="title" content="DLT | Distributed Ledger Technologies - Enterprise Blockchain Infrastructure">
+    <meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance. Building critical infrastructure for the digital asset economy.">
+    <meta name="keywords" content="blockchain, distributed ledger, enterprise blockchain, cryptocurrency, Bitcoin mining, institutional blockchain, government blockchain, defense technology, financial infrastructure, digital assets, MacMetal Miner, Echelon, HydroDollar, Ayedex, CORA, Lightning Network, Bitcoin wallet, KNEX, proof of bandwidth, layer 1 blockchain">
+    <meta name="author" content="Distributed Ledger Technologies">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
     <meta name="theme-color" content="#000000">
     
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://distributedledgertechnologies.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://distributedledgertechnologies.com/">
+    <meta property="og:title" content="DLT | Distributed Ledger Technologies - Enterprise Blockchain Infrastructure">
+    <meta property="og:description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.">
+    <meta property="og:image" content="https://distributedledgertechnologies.com/og-image.png">
+    <meta property="og:site_name" content="Distributed Ledger Technologies">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://distributedledgertechnologies.com/">
+    <meta property="twitter:title" content="DLT | Distributed Ledger Technologies - Enterprise Blockchain Infrastructure">
+    <meta property="twitter:description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.">
+    <meta property="twitter:image" content="https://distributedledgertechnologies.com/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Distributed Ledger Technologies",
+        "alternateName": "DLT",
+        "url": "https://distributedledgertechnologies.com",
+        "logo": "https://distributedledgertechnologies.com/logo.png",
+        "description": "Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.",
+        "foundingDate": "2023",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "david@knexmail.com",
+            "contactType": "customer service"
+        },
+        "sameAs": []
+    }
+    </script>
     
     <style>
         *, *::before, *::after {
@@ -33,7 +87,10 @@
             --gold: #ffd700;
         }
 
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
 
         body {
             font-family: 'Space Grotesk', sans-serif;
@@ -41,6 +98,12 @@
             color: #fff;
             overflow-x: hidden;
             cursor: crosshair;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body.loading-active {
+            overflow: hidden;
         }
 
         ::selection {
@@ -48,7 +111,398 @@
             color: #000;
         }
 
-        /* Three.js Canvas */
+        /* ============================================
+           LOADING SCREEN
+           ============================================ */
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loading-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .loading-logo {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(32px, 8vw, 64px);
+            color: var(--cyan);
+            text-shadow: 
+                0 0 10px var(--cyan),
+                0 0 20px var(--cyan),
+                0 0 40px var(--cyan),
+                0 0 80px var(--cyan);
+            animation: loadingPulse 2s ease-in-out infinite;
+            letter-spacing: 0.3em;
+            font-weight: 700;
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan), 0 0 40px var(--cyan); }
+            50% { opacity: 0.7; text-shadow: 0 0 5px var(--cyan), 0 0 10px var(--cyan), 0 0 20px var(--cyan); }
+        }
+
+        .loading-subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(10px, 2vw, 14px);
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-top: 16px;
+        }
+
+        .loading-tagline {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(9px, 1.5vw, 11px);
+            color: var(--cyan);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 24px;
+            opacity: 0.8;
+        }
+
+        .loading-mission {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(8px, 1.2vw, 10px);
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-top: 8px;
+            max-width: 600px;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        .loading-terminal {
+            width: 90%;
+            max-width: 700px;
+            height: 280px;
+            background: rgba(0, 20, 25, 0.9);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        .terminal-header {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca3f; }
+
+        .terminal-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            margin-left: 12px;
+            letter-spacing: 0.1em;
+        }
+
+        .terminal-body {
+            padding: 16px;
+            height: calc(100% - 36px);
+            overflow-y: auto;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .terminal-line {
+            color: rgba(255,255,255,0.6);
+            opacity: 0;
+            animation: terminalFadeIn 0.3s ease forwards;
+        }
+
+        .terminal-line.success { color: var(--green); }
+        .terminal-line.info { color: var(--cyan); }
+        .terminal-line.warning { color: var(--gold); }
+        .terminal-line .prefix { color: var(--cyan); }
+
+        @keyframes terminalFadeIn {
+            to { opacity: 1; }
+        }
+
+        .loading-progress {
+            width: 90%;
+            max-width: 400px;
+            height: 2px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--cyan), var(--blue), var(--cyan));
+            width: 0%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .loading-percentage {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--cyan);
+            margin-top: 12px;
+            letter-spacing: 0.2em;
+        }
+
+        .loading-ip {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+            margin-top: 24px;
+            letter-spacing: 0.1em;
+        }
+
+        /* ============================================
+           COOKIE BANNER
+           ============================================ */
+        
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 10, 15, 0.98);
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 20px 32px;
+            z-index: 9999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .cookie-banner.visible {
+            transform: translateY(0);
+        }
+
+        .cookie-banner.hidden {
+            transform: translateY(100%);
+        }
+
+        .cookie-text {
+            flex: 1;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+
+        .cookie-text a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        .cookie-text a:hover {
+            text-decoration: underline;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .cookie-btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .cookie-btn:hover {
+            border-color: var(--cyan);
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .cookie-btn.accept {
+            background: var(--cyan);
+            color: #000;
+            border-color: var(--cyan);
+        }
+
+        .cookie-btn.accept:hover {
+            background: var(--white);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+        }
+
+        /* ============================================
+           MODAL STYLES
+           ============================================ */
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10001;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            background: rgba(0, 10, 15, 0.98);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-overlay.visible .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 24px 32px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cyan);
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .modal-body {
+            padding: 32px;
+            max-height: calc(90vh - 100px);
+            overflow-y: auto;
+        }
+
+        .modal-body h2 {
+            font-family: 'Space Mono', monospace;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin: 32px 0 16px;
+            letter-spacing: 0.1em;
+        }
+
+        .modal-body h2:first-child {
+            margin-top: 0;
+        }
+
+        .modal-body p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .modal-body ul {
+            margin: 16px 0;
+            padding-left: 24px;
+        }
+
+        .modal-body li {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+
+        .modal-body .effective-date {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        /* ============================================
+           THREE.JS CANVAS
+           ============================================ */
+        
         #webgl {
             position: fixed;
             top: 0;
@@ -92,9 +546,18 @@
         .content {
             position: relative;
             z-index: 10;
+            opacity: 0;
+            transition: opacity 0.8s ease;
         }
 
-        /* Navigation */
+        .content.visible {
+            opacity: 1;
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        
         .nav {
             position: fixed;
             top: 0;
@@ -213,7 +676,96 @@
             transform: translateX(0);
         }
 
-        /* Hero Section */
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--cyan);
+            transition: all 0.3s;
+        }
+
+        .mobile-menu-btn:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+
+        .mobile-menu.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--cyan);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        .mobile-menu-close:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        
         .hero {
             min-height: 100vh;
             display: flex;
@@ -263,7 +815,7 @@
         }
 
         .hero-title {
-            font-size: clamp(80px, 15vw, 200px);
+            font-size: clamp(48px, 12vw, 200px);
             font-weight: 700;
             line-height: 0.85;
             letter-spacing: -0.05em;
@@ -354,7 +906,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* X-RAY BUTTON - The Star of the Show */
+        /* ============================================
+           X-RAY BUTTON
+           ============================================ */
+        
         .xray-button {
             position: relative;
             display: inline-block;
@@ -368,7 +923,6 @@
             animation: fadeUp 1s ease forwards 1s;
         }
 
-        /* Base layer */
         .xray-base {
             position: absolute;
             inset: 0;
@@ -376,7 +930,6 @@
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* X-Ray depth layers - creates 3D effect */
         .xray-layer {
             position: absolute;
             border: 1px solid rgba(0, 255, 255, 0.1);
@@ -389,7 +942,6 @@
         .xray-layer-4 { inset: 12px 12px -12px -12px; opacity: 0.3; }
         .xray-layer-5 { inset: 15px 15px -15px -15px; opacity: 0.15; }
 
-        /* Corner brackets */
         .xray-corner {
             position: absolute;
             width: 12px;
@@ -421,7 +973,6 @@
         .xray-corner-br::before { bottom: 0; right: 0; width: 12px; height: 1px; }
         .xray-corner-br::after { bottom: 0; right: 0; width: 1px; height: 12px; }
 
-        /* Electric current flow */
         .xray-current {
             position: absolute;
             inset: 0;
@@ -476,7 +1027,6 @@
         @keyframes flowLeft { to { right: 200%; } }
         @keyframes flowUp { to { bottom: 200%; } }
 
-        /* Inner glow */
         .xray-glow {
             position: absolute;
             inset: 0;
@@ -485,7 +1035,6 @@
             transition: opacity 0.5s;
         }
 
-        /* Button text */
         .xray-text {
             position: relative;
             z-index: 10;
@@ -507,7 +1056,6 @@
             transition: transform 0.4s;
         }
 
-        /* Hover Effects */
         .xray-button:hover .xray-base {
             border-color: var(--cyan);
             box-shadow: 
@@ -528,7 +1076,10 @@
         .xray-button:hover .xray-glow { opacity: 1; }
         .xray-button:hover .xray-text svg { transform: translateX(8px); }
 
-        /* Hero Stats */
+        /* ============================================
+           HERO STATS
+           ============================================ */
+        
         .hero-stats {
             position: absolute;
             right: 64px;
@@ -623,7 +1174,10 @@
             transform: rotate(180deg);
         }
 
-        /* Section Styles */
+        /* ============================================
+           SECTIONS
+           ============================================ */
+        
         section {
             padding: 200px 64px;
             position: relative;
@@ -655,7 +1209,7 @@
         }
 
         .section-title {
-            font-size: clamp(48px, 10vw, 100px);
+            font-size: clamp(36px, 8vw, 100px);
             font-weight: 700;
             line-height: 0.95;
             letter-spacing: -0.04em;
@@ -666,7 +1220,10 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Products */
+        /* ============================================
+           PRODUCTS
+           ============================================ */
+        
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -703,7 +1260,6 @@
             opacity: 1;
         }
 
-        /* Wireframe corners */
         .product-card .corner {
             position: absolute;
             width: 20px;
@@ -806,7 +1362,10 @@
             transform: translateX(8px);
         }
 
-        /* Credentials */
+        /* ============================================
+           CREDENTIALS
+           ============================================ */
+        
         .credentials {
             background: linear-gradient(180deg, transparent, rgba(0, 255, 255, 0.02), transparent);
         }
@@ -869,7 +1428,10 @@
             color: rgba(255,255,255,0.4);
         }
 
-        /* Stats */
+        /* ============================================
+           STATS BAR
+           ============================================ */
+        
         .stats-bar {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -898,7 +1460,7 @@
 
         .stat-value {
             font-family: 'Space Mono', monospace;
-            font-size: 64px;
+            font-size: clamp(36px, 6vw, 64px);
             font-weight: 700;
             letter-spacing: -0.02em;
             background: linear-gradient(180deg, var(--white), rgba(255,255,255,0.4));
@@ -915,14 +1477,17 @@
             margin-top: 16px;
         }
 
-        /* CTA */
+        /* ============================================
+           CTA
+           ============================================ */
+        
         .cta {
             text-align: center;
             padding: 240px 64px;
         }
 
         .cta-title {
-            font-size: clamp(64px, 12vw, 150px);
+            font-size: clamp(48px, 10vw, 150px);
             font-weight: 700;
             letter-spacing: -0.05em;
             line-height: 0.9;
@@ -942,7 +1507,10 @@
             line-height: 1.7;
         }
 
-        /* Footer */
+        /* ============================================
+           FOOTER
+           ============================================ */
+        
         .footer {
             padding: 80px 64px;
             border-top: 1px solid rgba(255,255,255,0.05);
@@ -998,6 +1566,8 @@
             margin-top: 80px;
             padding-top: 40px;
             border-top: 1px solid rgba(255,255,255,0.05);
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         .footer-copyright {
@@ -1019,34 +1589,462 @@
             transform: translateY(0);
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav { padding: 24px 32px; }
-            .hero { padding: 0 32px; }
-            section { padding: 120px 32px; }
-            .hero-stats { display: none; }
-            .products-grid { grid-template-columns: 1fr; }
-            .credentials-grid { grid-template-columns: repeat(2, 1fr); }
-            .stats-bar { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        /* ============================================
+           RESPONSIVE STYLES
+           ============================================ */
+        
+        /* Large Tablets & Small Laptops */
+        @media (max-width: 1200px) {
+            .hero-stats {
+                right: 32px;
+                gap: 48px;
+            }
+            
+            .hero-stat-value {
+                font-size: 42px;
+            }
         }
 
+        /* Tablets */
+        @media (max-width: 1024px) {
+            .nav { 
+                padding: 24px 32px; 
+            }
+            
+            .hero { 
+                padding: 0 32px; 
+            }
+            
+            section { 
+                padding: 120px 32px; 
+            }
+            
+            .hero-stats { 
+                display: none; 
+            }
+            
+            .products-grid { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .credentials-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            
+            .stats-bar { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+            
+            .footer-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+            }
+
+            .cta {
+                padding: 160px 32px;
+            }
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .nav { padding: 16px 24px; }
-            .nav-links { display: none; }
-            .hero { padding: 0 24px; }
-            section { padding: 80px 24px; }
-            .credentials-grid { grid-template-columns: 1fr; }
-            .stats-bar { grid-template-columns: 1fr; }
-            .product-card { padding: 40px 32px; }
-            .footer { padding: 48px 24px; }
-            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-            .footer-bottom { flex-direction: column; gap: 24px; text-align: center; }
-            .scroll-hint { display: none; }
+            .nav { 
+                padding: 16px 24px; 
+            }
+            
+            .nav-links { 
+                display: none; 
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .hero { 
+                padding: 0 24px;
+                padding-top: 100px;
+            }
+            
+            section { 
+                padding: 80px 24px; 
+            }
+            
+            .credentials-grid { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .stats-bar { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .product-card { 
+                padding: 40px 24px; 
+            }
+            
+            .footer { 
+                padding: 48px 24px; 
+            }
+            
+            .footer-grid { 
+                grid-template-columns: 1fr; 
+                gap: 40px; 
+            }
+            
+            .footer-bottom { 
+                flex-direction: column; 
+                gap: 24px; 
+                text-align: center; 
+            }
+            
+            .scroll-hint { 
+                display: none; 
+            }
+
+            .hero-eyebrow {
+                margin-bottom: 32px;
+            }
+
+            .hero-eyebrow-line {
+                width: 40px;
+            }
+
+            .hero-title {
+                margin-bottom: 32px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+                margin-bottom: 48px;
+            }
+
+            .xray-button {
+                padding: 20px 32px;
+            }
+
+            .xray-text {
+                font-size: 10px;
+                letter-spacing: 0.2em;
+            }
+
+            .cta {
+                padding: 120px 24px;
+            }
+
+
+
+            .cookie-banner {
+                flex-direction: column;
+                padding: 20px 24px;
+                gap: 16px;
+            }
+
+            .cookie-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .cookie-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .loading-terminal {
+                height: 200px;
+            }
+
+            .stat-item {
+                padding: 48px 24px;
+            }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 480px) {
+            .nav {
+                padding: 12px 16px;
+            }
+
+            .hero {
+                padding: 0 16px;
+                padding-top: 80px;
+            }
+
+            section {
+                padding: 60px 16px;
+            }
+
+            .product-card {
+                padding: 32px 20px;
+            }
+
+            .product-title {
+                font-size: 28px;
+            }
+
+            .footer {
+                padding: 40px 16px;
+            }
+
+            .modal {
+                margin: 16px;
+            }
+
+            .modal-header {
+                padding: 16px 20px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+
+        }
+
+        /* High DPI Displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .overlay {
+                background: 
+                    repeating-linear-gradient(
+                        0deg,
+                        transparent 0px,
+                        transparent 1px,
+                        rgba(0, 255, 255, 0.008) 1px,
+                        rgba(0, 255, 255, 0.008) 2px
+                    );
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .loading-screen,
+            .cookie-banner,
+            .modal-overlay,
+            #webgl,
+            .overlay,
+            .vignette {
+                display: none !important;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .content {
+                opacity: 1 !important;
+            }
         }
     </style>
 </head>
-<body>
+<body class="loading-active">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-header">
+            <div class="loading-logo">DLT</div>
+            <div class="loading-subtitle">Distributed Ledger Technologies</div>
+            <div class="loading-tagline">Financial Inclusion • Digital Sovereignty</div>
+            <div class="loading-mission">Secure Infrastructure Supporting United States National Security Interests</div>
+        </div>
+
+        <div class="loading-terminal">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">SYSTEM INITIALIZATION</span>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                <!-- Terminal lines will be injected by JavaScript -->
+            </div>
+        </div>
+
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="progressBar"></div>
+        </div>
+        <div class="loading-percentage" id="loadingPercentage">0%</div>
+        <div class="loading-ip" id="userIP">DETECTING NODE ADDRESS...</div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-text">
+            We use cookies to enhance your experience and analyze site traffic. By continuing to use this site, you consent to our use of cookies. 
+            <a href="#" onclick="openModal('privacyModal'); return false;">Privacy Policy</a> • 
+            <a href="#" onclick="openModal('termsModal'); return false;">Terms of Service</a>
+        </div>
+        <div class="cookie-buttons">
+            <button class="cookie-btn" onclick="manageCookies()">Manage</button>
+            <button class="cookie-btn accept" onclick="acceptCookies()">Accept All</button>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div class="modal-overlay" id="privacyModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Privacy Policy</div>
+                <button class="modal-close" onclick="closeModal('privacyModal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="effective-date">Effective Date: January 1, 2026</p>
+                
+                <h2>1. Introduction</h2>
+                <p>Distributed Ledger Technologies ("DLT," "we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website distributedledgertechnologies.com and use our services.</p>
+
+                <h2>2. Information We Collect</h2>
+                <p>We may collect information about you in various ways, including:</p>
+                <ul>
+                    <li><strong>Personal Data:</strong> Name, email address, phone number, and other contact information you voluntarily provide.</li>
+                    <li><strong>Technical Data:</strong> IP address, browser type, operating system, device information, and browsing patterns.</li>
+                    <li><strong>Usage Data:</strong> Information about how you interact with our website and services.</li>
+                    <li><strong>Cookies and Tracking:</strong> We use cookies and similar technologies to enhance user experience and collect analytics data.</li>
+                </ul>
+
+                <h2>3. How We Use Your Information</h2>
+                <p>We use collected information for purposes including:</p>
+                <ul>
+                    <li>Providing and maintaining our services</li>
+                    <li>Responding to inquiries and support requests</li>
+                    <li>Analyzing usage patterns to improve our platform</li>
+                    <li>Sending communications about products and services</li>
+                    <li>Ensuring security and preventing fraud</li>
+                    <li>Complying with legal obligations</li>
+                </ul>
+
+                <h2>4. Information Sharing</h2>
+                <p>We do not sell your personal information. We may share data with:</p>
+                <ul>
+                    <li>Service providers who assist in our operations</li>
+                    <li>Legal authorities when required by law</li>
+                    <li>Business partners with your consent</li>
+                    <li>In connection with business transfers or acquisitions</li>
+                </ul>
+
+                <h2>5. Data Security</h2>
+                <p>We implement industry-standard security measures including encryption, secure servers, and access controls. However, no method of transmission over the Internet is 100% secure.</p>
+
+                <h2>6. Data Retention</h2>
+                <p>We retain personal information for as long as necessary to fulfill the purposes outlined in this policy, unless a longer retention period is required by law.</p>
+
+                <h2>7. Your Rights</h2>
+                <p>Depending on your jurisdiction, you may have rights to:</p>
+                <ul>
+                    <li>Access your personal data</li>
+                    <li>Correct inaccurate information</li>
+                    <li>Request deletion of your data</li>
+                    <li>Object to or restrict processing</li>
+                    <li>Data portability</li>
+                    <li>Withdraw consent</li>
+                </ul>
+
+                <h2>8. International Transfers</h2>
+                <p>Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place for such transfers.</p>
+
+                <h2>9. Children's Privacy</h2>
+                <p>Our services are not directed to individuals under 18. We do not knowingly collect personal information from children.</p>
+
+                <h2>10. Changes to This Policy</h2>
+                <p>We may update this Privacy Policy periodically. Changes will be posted on this page with an updated effective date.</p>
+
+                <h2>11. Contact Us</h2>
+                <p>For questions about this Privacy Policy or our data practices, contact us at: david@knexmail.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title">Terms of Service</div>
+                <button class="modal-close" onclick="closeModal('termsModal')">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="effective-date">Effective Date: January 1, 2026</p>
+                
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing or using the Distributed Ledger Technologies website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use our services.</p>
+
+                <h2>2. Description of Services</h2>
+                <p>DLT provides enterprise blockchain infrastructure solutions, including but not limited to MacMetal Miner, Echelon, HydroDollar, and Ayedex platforms. Services are subject to change without notice.</p>
+
+                <h2>3. Eligibility</h2>
+                <p>You must be at least 18 years old and capable of forming a binding contract to use our services. By using our services, you represent that you meet these requirements.</p>
+
+                <h2>4. User Accounts</h2>
+                <p>Some services may require account creation. You are responsible for:</p>
+                <ul>
+                    <li>Maintaining account confidentiality</li>
+                    <li>All activities under your account</li>
+                    <li>Notifying us of unauthorized access</li>
+                    <li>Providing accurate information</li>
+                </ul>
+
+                <h2>5. Acceptable Use</h2>
+                <p>You agree not to:</p>
+                <ul>
+                    <li>Violate any applicable laws or regulations</li>
+                    <li>Infringe intellectual property rights</li>
+                    <li>Transmit malicious code or interfere with systems</li>
+                    <li>Engage in unauthorized data collection</li>
+                    <li>Attempt to gain unauthorized access</li>
+                    <li>Use services for illegal activities</li>
+                </ul>
+
+                <h2>6. Intellectual Property</h2>
+                <p>All content, trademarks, and intellectual property on this website are owned by DLT or its licensors. You may not reproduce, distribute, or create derivative works without express permission.</p>
+
+                <h2>7. Disclaimer of Warranties</h2>
+                <p>Services are provided "AS IS" without warranties of any kind, express or implied. We do not guarantee uninterrupted, secure, or error-free operation.</p>
+
+                <h2>8. Limitation of Liability</h2>
+                <p>To the maximum extent permitted by law, DLT shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our services.</p>
+
+                <h2>9. Indemnification</h2>
+                <p>You agree to indemnify and hold harmless DLT and its affiliates from any claims, damages, or expenses arising from your violation of these terms or use of our services.</p>
+
+                <h2>10. Cryptocurrency Disclaimer</h2>
+                <p>Cryptocurrency and blockchain technologies involve significant risks. You acknowledge:</p>
+                <ul>
+                    <li>Digital asset values can be volatile</li>
+                    <li>Mining results are not guaranteed</li>
+                    <li>Regulatory frameworks may change</li>
+                    <li>You are solely responsible for compliance with local laws</li>
+                </ul>
+
+                <h2>11. Governing Law</h2>
+                <p>These terms are governed by the laws of the United States of America. Any disputes shall be resolved in courts of competent jurisdiction.</p>
+
+                <h2>12. Modifications</h2>
+                <p>We reserve the right to modify these terms at any time. Continued use after changes constitutes acceptance of modified terms.</p>
+
+                <h2>13. Severability</h2>
+                <p>If any provision of these terms is found unenforceable, the remaining provisions shall continue in effect.</p>
+
+                <h2>14. Contact</h2>
+                <p>Questions about these Terms of Service should be directed to: david@knexmail.com</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Three.js Canvas -->
     <canvas id="webgl"></canvas>
     
@@ -1054,11 +2052,25 @@
     <div class="overlay"></div>
     <div class="vignette"></div>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <a href="#products" onclick="closeMobileMenu()">Products</a>
+        <a href="#credentials" onclick="closeMobileMenu()">Credentials</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+        <a href="#" onclick="openModal('privacyModal'); closeMobileMenu(); return false;">Privacy</a>
+        <a href="#" onclick="openModal('termsModal'); closeMobileMenu(); return false;">Terms</a>
+    </div>
+
     <!-- Content -->
-    <div class="content">
+    <div class="content" id="mainContent">
         <!-- Navigation -->
         <nav class="nav">
-            <a href="/" class="logo">
+            <a href="/" class="logo" aria-label="DLT - Distributed Ledger Technologies Home">
                 <div class="logo-symbol">
                     <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
                 </div>
@@ -1068,10 +2080,15 @@
                 </div>
             </a>
             <ul class="nav-links">
-                <li><a href="#products">Products</a></li>
-                <li><a href="#credentials">Credentials</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#products" class="sound-hover">Products</a></li>
+                <li><a href="#credentials" class="sound-hover">Credentials</a></li>
+                <li><a href="#contact" class="sound-hover">Contact</a></li>
             </ul>
+            <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </nav>
 
         <!-- Hero -->
@@ -1091,7 +2108,7 @@
                 Institutional-grade solutions for governments, defense agencies, financial institutions, and global enterprises. We build the critical infrastructure powering the digital asset economy.
             </p>
 
-            <a href="#contact" class="xray-button">
+            <a href="#contact" class="xray-button sound-click">
                 <span class="xray-layer xray-layer-5"></span>
                 <span class="xray-layer xray-layer-4"></span>
                 <span class="xray-layer xray-layer-3"></span>
@@ -1118,15 +2135,15 @@
             </a>
 
             <div class="hero-stats">
-                <div class="hero-stat">
-                    <div class="hero-stat-value">4</div>
+                <div class="hero-stat sound-hover">
+                    <div class="hero-stat-value">6</div>
                     <div class="hero-stat-label">Enterprise Products</div>
                 </div>
-                <div class="hero-stat">
+                <div class="hero-stat sound-hover">
                     <div class="hero-stat-value">350+</div>
                     <div class="hero-stat-label">MH/s Capacity</div>
                 </div>
-                <div class="hero-stat">
+                <div class="hero-stat sound-hover">
                     <div class="hero-stat-value">24/7</div>
                     <div class="hero-stat-label">Global Operations</div>
                 </div>
@@ -1151,7 +2168,7 @@
             </div>
 
             <div class="products-grid">
-                <div class="product-card reveal">
+                <article class="product-card reveal sound-hover">
                     <div class="corner corner-tl"></div>
                     <div class="corner corner-br"></div>
                     <div class="product-number">[01]</div>
@@ -1161,13 +2178,13 @@
                         <span class="product-status-dot"></span>
                         Live v9.4
                     </div>
-                    <a href="https://macmetalminer.com" class="product-link" target="_blank">
+                    <a href="https://macmetalminer.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
                         Access Platform
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                </div>
+                </article>
 
-                <div class="product-card reveal">
+                <article class="product-card reveal sound-hover">
                     <div class="corner corner-tl"></div>
                     <div class="corner corner-br"></div>
                     <div class="product-number">[02]</div>
@@ -1177,13 +2194,13 @@
                         <span class="product-status-dot"></span>
                         Live
                     </div>
-                    <a href="https://xalon.com" class="product-link" target="_blank">
+                    <a href="https://xalon.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
                         Access Platform
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                </div>
+                </article>
 
-                <div class="product-card reveal">
+                <article class="product-card reveal sound-hover">
                     <div class="corner corner-tl"></div>
                     <div class="corner corner-br"></div>
                     <div class="product-number">[03]</div>
@@ -1193,13 +2210,13 @@
                         <span class="product-status-dot" style="background: #a78bfa; box-shadow: 0 0 10px #a78bfa;"></span>
                         Research
                     </div>
-                    <a href="https://hydrodollar.com" class="product-link" target="_blank">
+                    <a href="https://hydrodollar.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
                         Learn More
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                </div>
+                </article>
 
-                <div class="product-card reveal">
+                <article class="product-card reveal sound-hover">
                     <div class="corner corner-tl"></div>
                     <div class="corner corner-br"></div>
                     <div class="product-number">[04]</div>
@@ -1209,11 +2226,43 @@
                         <span class="product-status-dot"></span>
                         Live
                     </div>
-                    <a href="https://ayedex.com" class="product-link" target="_blank">
+                    <a href="https://ayedex.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
                         Access Platform
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                </div>
+                </article>
+
+                <article class="product-card reveal sound-hover">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="product-number">[05]</div>
+                    <h3 class="product-title">CORA</h3>
+                    <p class="product-description">Bitcoin Wallet for the Lightning Network. A progressive web app with no download required—access directly from your browser.</p>
+                    <div class="product-status" style="border-color: rgba(255, 165, 0, 0.3); color: #ffa500;">
+                        <span class="product-status-dot" style="background: #ffa500; box-shadow: 0 0 10px #ffa500;"></span>
+                        In Development
+                    </div>
+                    <a href="https://corawallet.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
+                        Learn More
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <article class="product-card reveal sound-hover">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="product-number">[06]</div>
+                    <h3 class="product-title">KNEX</h3>
+                    <p class="product-description">Proof-of-Bandwidth Consensus Mechanism. A new layer 1 blockchain architecture rewarding network infrastructure contribution.</p>
+                    <div class="product-status" style="border-color: rgba(0, 191, 255, 0.3); color: #00bfff;">
+                        <span class="product-status-dot" style="background: #00bfff; box-shadow: 0 0 10px #00bfff;"></span>
+                        Coming Soon
+                    </div>
+                    <a href="https://knexcoin.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
+                        Learn More
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
             </div>
         </section>
 
@@ -1230,7 +2279,7 @@
             </div>
 
             <div class="credentials-grid">
-                <div class="credential-card reveal">
+                <div class="credential-card reveal sound-hover">
                     <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>
                     </svg>
@@ -1238,7 +2287,7 @@
                     <div class="credential-desc">Banks • Exchanges • Asset Managers</div>
                 </div>
 
-                <div class="credential-card reveal">
+                <div class="credential-card reveal sound-hover">
                     <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                     </svg>
@@ -1246,7 +2295,7 @@
                     <div class="credential-desc">Intelligence • Treasury • DoD</div>
                 </div>
 
-                <div class="credential-card reveal">
+                <div class="credential-card reveal sound-hover">
                     <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <circle cx="12" cy="12" r="10"/>
                         <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
@@ -1255,7 +2304,7 @@
                     <div class="credential-desc">Fortune 500 • Multinationals</div>
                 </div>
 
-                <div class="credential-card reveal">
+                <div class="credential-card reveal sound-hover">
                     <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
                     </svg>
@@ -1267,19 +2316,19 @@
 
         <!-- Stats -->
         <div class="stats-bar">
-            <div class="stat-item reveal">
-                <div class="stat-value">4</div>
+            <div class="stat-item reveal sound-hover">
+                <div class="stat-value">6</div>
                 <div class="stat-label">Enterprise Products</div>
             </div>
-            <div class="stat-item reveal">
+            <div class="stat-item reveal sound-hover">
                 <div class="stat-value">100%</div>
                 <div class="stat-label">Native Software</div>
             </div>
-            <div class="stat-item reveal">
+            <div class="stat-item reveal sound-hover">
                 <div class="stat-value">350+</div>
                 <div class="stat-label">MH/s Hashrate</div>
             </div>
-            <div class="stat-item reveal">
+            <div class="stat-item reveal sound-hover">
                 <div class="stat-value">2023</div>
                 <div class="stat-label">Founded</div>
             </div>
@@ -1294,7 +2343,7 @@
             <p class="cta-subtitle reveal">
                 Connect with our team to discuss how DLT can power your digital asset infrastructure.
             </p>
-            <a href="mailto:david@knexmail.com" class="xray-button reveal">
+            <a href="mailto:david@knexmail.com" class="xray-button reveal sound-click">
                 <span class="xray-layer xray-layer-5"></span>
                 <span class="xray-layer xray-layer-4"></span>
                 <span class="xray-layer xray-layer-3"></span>
@@ -1325,7 +2374,7 @@
         <footer class="footer">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="/" class="logo">
+                    <a href="/" class="logo" aria-label="DLT Home">
                         <div class="logo-symbol">
                             <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
                         </div>
@@ -1335,26 +2384,28 @@
                 <div>
                     <div class="footer-title">Products</div>
                     <ul class="footer-links">
-                        <li><a href="https://macmetalminer.com">MacMetal Miner</a></li>
-                        <li><a href="https://xalon.com">Echelon</a></li>
-                        <li><a href="https://hydrodollar.com">HydroDollar</a></li>
-                        <li><a href="https://ayedex.com">Ayedex</a></li>
+                        <li><a href="https://macmetalminer.com" class="sound-hover" target="_blank" rel="noopener noreferrer">MacMetal Miner</a></li>
+                        <li><a href="https://xalon.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Echelon</a></li>
+                        <li><a href="https://hydrodollar.com" class="sound-hover" target="_blank" rel="noopener noreferrer">HydroDollar</a></li>
+                        <li><a href="https://ayedex.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
+                        <li><a href="https://corawallet.com" class="sound-hover" target="_blank" rel="noopener noreferrer">CORA</a></li>
+                        <li><a href="https://knexcoin.com" class="sound-hover" target="_blank" rel="noopener noreferrer">KNEX</a></li>
                     </ul>
                 </div>
                 <div>
                     <div class="footer-title">Company</div>
                     <ul class="footer-links">
-                        <li><a href="#credentials">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="mailto:david@knexmail.com">Careers</a></li>
+                        <li><a href="#credentials" class="sound-hover">About</a></li>
+                        <li><a href="#contact" class="sound-hover">Contact</a></li>
+                        <li><a href="mailto:david@knexmail.com" class="sound-hover">Careers</a></li>
                     </ul>
                 </div>
                 <div>
                     <div class="footer-title">Legal</div>
                     <ul class="footer-links">
-                        <li><a href="privacy.html">Privacy</a></li>
-                        <li><a href="terms.html">Terms</a></li>
-                        <li><a href="security.html">Security</a></li>
+                        <li><a href="#" onclick="openModal('privacyModal'); return false;" class="sound-hover">Privacy</a></li>
+                        <li><a href="#" onclick="openModal('termsModal'); return false;" class="sound-hover">Terms</a></li>
+                        <li><a href="#" onclick="openModal('termsModal'); return false;" class="sound-hover">Security</a></li>
                     </ul>
                 </div>
             </div>
@@ -1365,6 +2416,225 @@
     </div>
 
     <script>
+        // ============================================
+        // AUDIO CONTEXT & SOUNDS
+        // ============================================
+        
+        let audioContext = null;
+        let soundEnabled = true;
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playBeep(frequency = 2400, duration = 0.08, volume = 0.15) {
+            if (!soundEnabled || !audioContext) return;
+            
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            } catch (e) {
+                console.log('Audio not available');
+            }
+        }
+
+        function playHoverSound() {
+            playBeep(3200, 0.05, 0.08);
+        }
+
+        function playClickSound() {
+            playBeep(2000, 0.06, 0.12);
+            setTimeout(() => playBeep(2800, 0.04, 0.1), 50);
+        }
+
+        // Initialize audio on first user interaction
+        document.addEventListener('click', function initOnClick() {
+            initAudio();
+            document.removeEventListener('click', initOnClick);
+        }, { once: true });
+
+        // Attach sounds to elements
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.sound-hover').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    initAudio();
+                    playHoverSound();
+                });
+            });
+
+            document.querySelectorAll('.sound-click').forEach(el => {
+                el.addEventListener('click', () => {
+                    initAudio();
+                    playClickSound();
+                });
+            });
+        });
+
+        // ============================================
+        // LOADING SCREEN
+        // ============================================
+        
+        const terminalLines = [
+            { text: '[BOOT] Initializing DLT Secure Environment...', type: 'info', delay: 100 },
+            { text: '[SYS] Loading cryptographic modules...', type: '', delay: 200 },
+            { text: '[OK] AES-256 encryption active', type: 'success', delay: 300 },
+            { text: '[OK] RSA-4096 key pairs verified', type: 'success', delay: 400 },
+            { text: '[NET] Establishing secure connection...', type: '', delay: 500 },
+            { text: '[OK] TLS 1.3 handshake complete', type: 'success', delay: 650 },
+            { text: '[SYS] Loading Three.js rendering engine...', type: '', delay: 800 },
+            { text: '[OK] WebGL context initialized', type: 'success', delay: 950 },
+            { text: '[GPU] Hardware acceleration enabled', type: 'info', delay: 1100 },
+            { text: '[DOM] Parsing document structure...', type: '', delay: 1250 },
+            { text: '[CSS] Loading stylesheets (42 rules)...', type: '', delay: 1400 },
+            { text: '[OK] Custom font "Ethnocentric" loaded', type: 'success', delay: 1550 },
+            { text: '[JS] Executing initialization scripts...', type: '', delay: 1700 },
+            { text: '[OK] Event listeners attached', type: 'success', delay: 1850 },
+            { text: '[SEC] Validating session integrity...', type: 'warning', delay: 2000 },
+            { text: '[OK] CSRF tokens verified', type: 'success', delay: 2150 },
+            { text: '[API] Connecting to DLT infrastructure...', type: '', delay: 2300 },
+            { text: '[OK] Enterprise endpoints online', type: 'success', delay: 2500 },
+            { text: '[SYS] All systems operational', type: 'success', delay: 2700 },
+            { text: '[READY] Launching interface...', type: 'info', delay: 2900 }
+        ];
+
+        let currentProgress = 0;
+
+        async function runLoadingSequence() {
+            const terminalBody = document.getElementById('terminalBody');
+            const progressBar = document.getElementById('progressBar');
+            const percentageEl = document.getElementById('loadingPercentage');
+
+            // Fetch user IP
+            try {
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                document.getElementById('userIP').textContent = `NODE: ${ipData.ip}`;
+            } catch (e) {
+                document.getElementById('userIP').textContent = 'NODE: SECURE CONNECTION';
+            }
+
+            // Run terminal animation
+            for (let i = 0; i < terminalLines.length; i++) {
+                const line = terminalLines[i];
+                await new Promise(resolve => setTimeout(resolve, line.delay - (i > 0 ? terminalLines[i-1].delay : 0)));
+                
+                const lineEl = document.createElement('div');
+                lineEl.className = `terminal-line ${line.type}`;
+                lineEl.style.animationDelay = '0s';
+                lineEl.innerHTML = `<span class="prefix">></span> ${line.text}`;
+                terminalBody.appendChild(lineEl);
+                terminalBody.scrollTop = terminalBody.scrollHeight;
+
+                currentProgress = Math.min(100, Math.floor((i + 1) / terminalLines.length * 100));
+                progressBar.style.width = currentProgress + '%';
+                percentageEl.textContent = currentProgress + '%';
+            }
+
+            // Complete loading
+            await new Promise(resolve => setTimeout(resolve, 500));
+            progressBar.style.width = '100%';
+            percentageEl.textContent = '100%';
+
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Hide loading screen
+            document.getElementById('loadingScreen').classList.add('hidden');
+            document.body.classList.remove('loading-active');
+            document.getElementById('mainContent').classList.add('visible');
+
+            // Show cookie banner if not accepted
+            if (!localStorage.getItem('cookiesAccepted')) {
+                setTimeout(() => {
+                    document.getElementById('cookieBanner').classList.add('visible');
+                }, 1000);
+            }
+        }
+
+        // Start loading on page load
+        window.addEventListener('load', runLoadingSequence);
+
+        // ============================================
+        // COOKIE MANAGEMENT
+        // ============================================
+        
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookieBanner').classList.remove('visible');
+            document.getElementById('cookieBanner').classList.add('hidden');
+            playClickSound();
+        }
+
+        function manageCookies() {
+            openModal('privacyModal');
+            playClickSound();
+        }
+
+        // ============================================
+        // MODAL MANAGEMENT
+        // ============================================
+        
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('visible');
+            document.body.style.overflow = 'hidden';
+            playClickSound();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('visible');
+            document.body.style.overflow = '';
+            playClickSound();
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('visible');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.visible').forEach(modal => {
+                    modal.classList.remove('visible');
+                });
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+            playClickSound();
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('visible');
+            document.body.style.overflow = '';
+            playClickSound();
+        }
+
         // ============================================
         // THREE.JS - IMMERSIVE 3D WIREFRAME GRID
         // ============================================
@@ -1385,7 +2655,6 @@
         
         const gridGroup = new THREE.Group();
         
-        // Create multiple grid layers for depth
         for (let layer = 0; layer < 5; layer++) {
             const gridSize = 200;
             const divisions = 60;
@@ -1395,13 +2664,11 @@
             const z = -layer * 15;
             const opacity = 1 - (layer * 0.2);
             
-            // Horizontal lines
             for (let i = 0; i <= divisions; i++) {
                 const x = (i / divisions - 0.5) * gridSize;
                 gridPositions.push(x, 0, -gridSize/2 + z, x, 0, gridSize/2 + z);
             }
             
-            // Vertical lines
             for (let i = 0; i <= divisions; i++) {
                 const zPos = (i / divisions - 0.5) * gridSize + z;
                 gridPositions.push(-gridSize/2, 0, zPos, gridSize/2, 0, zPos);
@@ -1430,14 +2697,12 @@
         const particleGeometry = new THREE.BufferGeometry();
         const particlePositions = new Float32Array(particleCount * 3);
         const particleSpeeds = new Float32Array(particleCount);
-        const particleOpacities = new Float32Array(particleCount);
         
         for (let i = 0; i < particleCount; i++) {
             particlePositions[i * 3] = (Math.random() - 0.5) * 200;
             particlePositions[i * 3 + 1] = -20;
             particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 200 - 50;
             particleSpeeds[i] = Math.random() * 0.8 + 0.2;
-            particleOpacities[i] = Math.random();
         }
         
         particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
@@ -1455,7 +2720,7 @@
         scene.add(particles);
 
         // ============================================
-        // ENERGY STREAMS - FLOWING CURRENT
+        // ENERGY STREAMS
         // ============================================
         
         const streamCount = 30;
@@ -1493,52 +2758,6 @@
             
             streams.push(stream);
             scene.add(stream);
-        }
-
-        // ============================================
-        // FLOATING WIREFRAME OBJECTS
-        // ============================================
-        
-        const wireframes = [];
-        const shapes = [
-            () => new THREE.BoxGeometry(3, 3, 3),
-            () => new THREE.OctahedronGeometry(2),
-            () => new THREE.TetrahedronGeometry(2.5),
-            () => new THREE.IcosahedronGeometry(2)
-        ];
-        
-        for (let i = 0; i < 20; i++) {
-            const shapeIndex = Math.floor(Math.random() * shapes.length);
-            const geometry = shapes[shapeIndex]();
-            const edges = new THREE.EdgesGeometry(geometry);
-            
-            const material = new THREE.LineBasicMaterial({
-                color: 0x00ffff,
-                transparent: true,
-                opacity: Math.random() * 0.2 + 0.05
-            });
-            
-            const wireframe = new THREE.LineSegments(edges, material);
-            
-            wireframe.position.set(
-                (Math.random() - 0.5) * 100,
-                (Math.random() - 0.5) * 30,
-                (Math.random() - 0.5) * 60 - 30
-            );
-            
-            wireframe.userData = {
-                rotationSpeed: {
-                    x: (Math.random() - 0.5) * 0.01,
-                    y: (Math.random() - 0.5) * 0.01,
-                    z: (Math.random() - 0.5) * 0.01
-                },
-                floatSpeed: Math.random() * 0.5 + 0.2,
-                floatOffset: Math.random() * Math.PI * 2,
-                originalY: wireframe.position.y
-            };
-            
-            wireframes.push(wireframe);
-            scene.add(wireframe);
         }
 
         // ============================================
@@ -1590,22 +2809,18 @@
             requestAnimationFrame(animate);
             time += 0.01;
             
-            // Smooth camera movement
             targetX += (mouseX * 10 - targetX) * 0.02;
             targetY += (-mouseY * 5 - targetY) * 0.02;
             camera.position.x = targetX;
             camera.position.y = 15 + targetY;
             camera.lookAt(0, 0, -20);
             
-            // Animate grid
             gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
             
-            // Animate particles (flowing forward)
             const positions = particles.geometry.attributes.position.array;
             for (let i = 0; i < particleCount; i++) {
                 positions[i * 3 + 2] += particleSpeeds[i];
                 
-                // Reset when out of view
                 if (positions[i * 3 + 2] > 100) {
                     positions[i * 3 + 2] = -100;
                     positions[i * 3] = (Math.random() - 0.5) * 200;
@@ -1613,20 +2828,9 @@
             }
             particles.geometry.attributes.position.needsUpdate = true;
             
-            // Animate energy streams
             streams.forEach(stream => {
                 const pulse = Math.sin(time * stream.userData.speed + stream.userData.phase);
                 stream.material.opacity = stream.userData.baseOpacity + pulse * 0.15;
-            });
-            
-            // Animate wireframes
-            wireframes.forEach(wireframe => {
-                wireframe.rotation.x += wireframe.userData.rotationSpeed.x;
-                wireframe.rotation.y += wireframe.userData.rotationSpeed.y;
-                wireframe.rotation.z += wireframe.userData.rotationSpeed.z;
-                
-                wireframe.position.y = wireframe.userData.originalY + 
-                    Math.sin(time * wireframe.userData.floatSpeed + wireframe.userData.floatOffset) * 2;
             });
             
             renderer.render(scene, camera);
@@ -1664,10 +2868,13 @@
         
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }
             });
         });
