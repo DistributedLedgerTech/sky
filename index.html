@@ -2542,6 +2542,34 @@
 
         let currentProgress = 0;
 
+        // Check if navigating to a specific section (hash in URL)
+        function shouldSkipLoading() {
+            return window.location.hash && window.location.hash.length > 1;
+        }
+
+        function skipLoadingAndScrollToHash() {
+            // Immediately hide loading screen
+            document.getElementById('loadingScreen').classList.add('hidden');
+            document.body.classList.remove('loading-active');
+            document.getElementById('mainContent').classList.add('visible');
+            
+            // Scroll to the hash target
+            const hash = window.location.hash;
+            const targetElement = document.querySelector(hash);
+            if (targetElement) {
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ behavior: 'instant' });
+                }, 50);
+            }
+
+            // Show cookie banner if not accepted
+            if (!localStorage.getItem('cookiesAccepted')) {
+                setTimeout(() => {
+                    document.getElementById('cookieBanner').classList.add('visible');
+                }, 1000);
+            }
+        }
+
         async function runLoadingSequence() {
             const terminalBody = document.getElementById('terminalBody');
             const progressBar = document.getElementById('progressBar');
@@ -2593,8 +2621,14 @@
             }
         }
 
-        // Start loading on page load
-        window.addEventListener('load', runLoadingSequence);
+        // Start loading on page load - skip if navigating to hash section
+        window.addEventListener('load', () => {
+            if (shouldSkipLoading()) {
+                skipLoadingAndScrollToHash();
+            } else {
+                runLoadingSequence();
+            }
+        });
 
         // ============================================
         // COOKIE MANAGEMENT
