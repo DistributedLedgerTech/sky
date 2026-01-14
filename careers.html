@@ -1,0 +1,2550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Careers | DLT - Distributed Ledger Technologies</title>
+    <meta name="title" content="Careers | DLT - Distributed Ledger Technologies">
+    <meta name="description" content="Join Distributed Ledger Technologies. Explore career opportunities in blockchain, cryptocurrency, and enterprise technology. Build the future of digital finance.">
+    <meta name="keywords" content="blockchain jobs, cryptocurrency careers, DLT careers, blockchain developer jobs, fintech jobs, enterprise blockchain careers, Bitcoin jobs, Web3 careers">
+    <meta name="author" content="Distributed Ledger Technologies">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://distributedledgertechnologies.com/careers">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://distributedledgertechnologies.com/careers">
+    <meta property="og:title" content="Careers | DLT - Distributed Ledger Technologies">
+    <meta property="og:description" content="Join Distributed Ledger Technologies. Explore career opportunities in blockchain and enterprise technology.">
+    <meta property="og:image" content="https://distributedledgertechnologies.com/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://distributedledgertechnologies.com/careers">
+    <meta property="twitter:title" content="Careers | DLT - Distributed Ledger Technologies">
+    <meta property="twitter:description" content="Join Distributed Ledger Technologies. Explore career opportunities in blockchain and enterprise technology.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Font -->
+    <style>
+        @font-face {
+            font-family: 'Ethnocentric';
+            src: url('fonts/ethnocentric.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "JobPosting",
+        "hiringOrganization": {
+            "@type": "Organization",
+            "name": "Distributed Ledger Technologies",
+            "sameAs": "https://distributedledgertechnologies.com"
+        },
+        "jobLocation": {
+            "@type": "Place",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "US"
+            }
+        },
+        "employmentType": "FULL_TIME",
+        "description": "Multiple positions available in blockchain development, engineering, and business operations."
+    }
+    </script>
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --cyan: #00ffff;
+            --electric: #00f0ff;
+            --blue: #0080ff;
+            --purple: #8000ff;
+            --magenta: #ff00ff;
+            --green: #00ff80;
+            --gold: #ffd700;
+            --red: #ff003c;
+            --orange: #ff6600;
+        }
+
+        html { 
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: crosshair;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        /* Three.js Canvas */
+        #webgl {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Overlays */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 2px,
+                    rgba(0, 255, 255, 0.01) 2px,
+                    rgba(0, 255, 255, 0.01) 4px
+                );
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 2;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 32px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-symbol {
+            width: 56px;
+            height: 56px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-symbol::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--cyan);
+            animation: logoRotate 20s linear infinite;
+        }
+
+        .logo-symbol::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid var(--cyan);
+            opacity: 0.5;
+            animation: logoRotate 15s linear infinite reverse;
+        }
+
+        @keyframes logoRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text-main {
+            font-family: 'Ethnocentric', 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--cyan);
+        }
+
+        .logo-text-sub {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.5em;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 64px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '[';
+            position: absolute;
+            left: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(8px);
+        }
+
+        .nav-links a::after {
+            content: ']';
+            position: absolute;
+            right: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(-8px);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--cyan);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--cyan);
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+
+        .mobile-menu.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--cyan);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 64px 80px;
+            position: relative;
+        }
+
+        .page-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .page-eyebrow-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+            position: relative;
+        }
+
+        .page-eyebrow-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .page-eyebrow-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--cyan);
+        }
+
+        .page-title {
+            font-size: clamp(48px, 10vw, 120px);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+
+        .page-title .gradient {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.5);
+            max-width: 700px;
+            line-height: 1.8;
+        }
+
+        /* Stats Bar */
+        .careers-stats {
+            display: flex;
+            gap: 64px;
+            padding: 48px 64px;
+            background: rgba(0, 255, 255, 0.02);
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            margin-bottom: 80px;
+        }
+
+        .careers-stat {
+            text-align: center;
+        }
+
+        .careers-stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--cyan);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .careers-stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-top: 8px;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 0 64px 80px;
+        }
+
+        .benefits-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .benefits-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .benefit-card {
+            background: rgba(0, 10, 15, 0.6);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.4s;
+        }
+
+        .benefit-card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 20, 30, 0.8);
+            transform: translateY(-4px);
+        }
+
+        .benefit-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            stroke: var(--cyan);
+            opacity: 0.7;
+        }
+
+        .benefit-card:hover .benefit-icon {
+            opacity: 1;
+        }
+
+        .benefit-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .benefit-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.6;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            padding: 0 64px 48px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: rgba(0, 255, 255, 0.5);
+            color: var(--white);
+        }
+
+        .filter-btn.active {
+            border-color: var(--cyan);
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        /* Jobs Grid */
+        .jobs-section {
+            padding: 0 64px 120px;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .job-card {
+            background: rgba(0, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            padding: 40px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 0;
+            background: var(--cyan);
+            transition: height 0.4s;
+        }
+
+        .job-card:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 20, 30, 0.9);
+            transform: translateY(-4px);
+        }
+
+        .job-card:hover::before {
+            height: 100%;
+            box-shadow: 0 0 20px var(--cyan);
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .job-department {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        .job-title {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .job-meta {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 16px;
+        }
+
+        .job-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .job-meta-item svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--cyan);
+            opacity: 0.6;
+        }
+
+        .job-description {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .job-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .job-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: var(--cyan);
+        }
+
+        .job-level {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border: 1px solid;
+        }
+
+        .job-level.senior {
+            border-color: rgba(255, 215, 0, 0.3);
+            color: var(--gold);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .job-level.entry {
+            border-color: rgba(0, 255, 128, 0.3);
+            color: var(--green);
+            background: rgba(0, 255, 128, 0.1);
+        }
+
+        .job-apply-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .job-apply-btn svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--cyan);
+            transition: transform 0.3s;
+        }
+
+        .job-apply-btn:hover svg {
+            transform: translateX(8px);
+        }
+
+        /* Application Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10001;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .modal-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            width: 100%;
+            max-width: 700px;
+            background: rgba(0, 10, 15, 0.98);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            position: relative;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            margin: auto;
+        }
+
+        .modal-overlay.visible .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            padding: 32px 40px;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .modal-job-info {
+            flex: 1;
+        }
+
+        .modal-department {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 8px;
+        }
+
+        .modal-title {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--white);
+        }
+
+        .modal-close {
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .modal-close:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .modal-close svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .modal-body {
+            padding: 40px;
+        }
+
+        /* Application Form */
+        .application-form {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .form-section-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-title::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--cyan);
+            box-shadow: 0 0 8px var(--cyan);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: var(--red);
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: var(--white);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.05);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ffff' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 48px;
+        }
+
+        .form-select option {
+            background: #000;
+            color: var(--white);
+        }
+
+        /* File Upload */
+        .file-upload {
+            position: relative;
+        }
+
+        .file-upload-area {
+            border: 2px dashed rgba(0, 255, 255, 0.3);
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .file-upload-area:hover {
+            border-color: var(--cyan);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .file-upload-area.dragover {
+            border-color: var(--cyan);
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .file-upload-area.has-file {
+            border-color: var(--green);
+            background: rgba(0, 255, 128, 0.05);
+        }
+
+        .file-upload-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            stroke: var(--cyan);
+            opacity: 0.6;
+        }
+
+        .file-upload-area:hover .file-upload-icon {
+            opacity: 1;
+        }
+
+        .file-upload-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+        }
+
+        .file-upload-text strong {
+            color: var(--cyan);
+        }
+
+        .file-upload-hint {
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-name {
+            margin-top: 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-name svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--green);
+        }
+
+        /* Checkbox */
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            padding: 16px;
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            transition: all 0.3s;
+        }
+
+        .checkbox-item:hover {
+            border-color: rgba(0, 255, 255, 0.4);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .checkbox-item input {
+            display: none;
+        }
+
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.3s;
+            margin-top: 2px;
+        }
+
+        .checkbox-item input:checked + .checkbox-custom {
+            border-color: var(--cyan);
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .checkbox-item input:checked + .checkbox-custom::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+
+        .checkbox-label a {
+            color: var(--cyan);
+            text-decoration: none;
+        }
+
+        .checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 20px 48px;
+            background: transparent;
+            border: 1px solid var(--cyan);
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--cyan);
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover svg {
+            transform: translateX(8px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Success Message */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 60px 40px;
+        }
+
+        .form-success.visible {
+            display: block;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 0 30px rgba(0, 255, 128, 0.3);
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--green);
+        }
+
+        .success-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 12px;
+        }
+
+        .success-message {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 80px 64px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 64px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.7;
+            margin-top: 24px;
+            max-width: 280px;
+        }
+
+        .footer-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 24px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-copyright {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.1em;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .nav {
+                padding: 24px 32px;
+            }
+
+            .page-header {
+                padding: 160px 32px 60px;
+            }
+
+            .careers-stats {
+                padding: 40px 32px;
+                gap: 40px;
+            }
+
+            .benefits-section {
+                padding: 0 32px 60px;
+            }
+
+            .filter-bar {
+                padding: 0 32px 40px;
+            }
+
+            .jobs-section {
+                padding: 0 32px 80px;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 60px 32px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-header {
+                padding: 140px 24px 48px;
+            }
+
+            .careers-stats {
+                padding: 32px 24px;
+                flex-wrap: wrap;
+                gap: 32px;
+            }
+
+            .careers-stat {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .careers-stat-value {
+                font-size: 36px;
+            }
+
+            .benefits-section {
+                padding: 0 24px 48px;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-bar {
+                padding: 0 24px 32px;
+            }
+
+            .jobs-section {
+                padding: 0 24px 60px;
+            }
+
+            .job-card {
+                padding: 32px 24px;
+            }
+
+            .job-level {
+                position: static;
+                display: inline-block;
+                margin-bottom: 16px;
+            }
+
+            .job-header {
+                flex-direction: column;
+            }
+
+            .modal-header {
+                padding: 24px;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .modal-close {
+                position: absolute;
+                top: 16px;
+                right: 16px;
+            }
+
+            .modal-body {
+                padding: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                padding: 48px 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 120px 16px 40px;
+            }
+
+            .careers-stats {
+                padding: 24px 16px;
+            }
+
+            .benefits-section,
+            .filter-bar,
+            .jobs-section {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .job-card {
+                padding: 24px 16px;
+            }
+
+            .job-title {
+                font-size: 20px;
+            }
+
+            .modal {
+                margin: 16px;
+            }
+
+            .footer {
+                padding: 40px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="webgl"></canvas>
+    
+    <!-- Overlays -->
+    <div class="overlay"></div>
+    <div class="vignette"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+    </div>
+
+    <!-- Application Modal -->
+    <div class="modal-overlay" id="applicationModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-job-info">
+                    <div class="modal-department" id="modalDepartment">Engineering</div>
+                    <h2 class="modal-title" id="modalTitle">Senior Blockchain Developer</h2>
+                </div>
+                <button class="modal-close" onclick="closeModal()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="applicationForm" class="application-form">
+                    <input type="hidden" name="jobTitle" id="formJobTitle" value="">
+                    
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <div class="form-section-title">Personal Information</div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name <span class="required">*</span></label>
+                                <input type="text" name="firstName" class="form-input sound-hover" placeholder="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name <span class="required">*</span></label>
+                                <input type="text" name="lastName" class="form-input sound-hover" placeholder="Doe" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email Address <span class="required">*</span></label>
+                                <input type="email" name="email" class="form-input sound-hover" placeholder="john@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number <span class="required">*</span></label>
+                                <input type="tel" name="phone" class="form-input sound-hover" placeholder="+1 (555) 123-4567" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">LinkedIn Profile URL</label>
+                                <input type="url" name="linkedin" class="form-input sound-hover" placeholder="https://linkedin.com/in/yourprofile">
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Portfolio / GitHub URL</label>
+                                <input type="url" name="portfolio" class="form-input sound-hover" placeholder="https://github.com/yourusername">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documents -->
+                    <div class="form-section">
+                        <div class="form-section-title">Documents</div>
+                        
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Resume / CV <span class="required">*</span></label>
+                                <div class="file-upload">
+                                    <div class="file-upload-area" id="resumeUpload">
+                                        <svg class="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                            <path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3"/>
+                                        </svg>
+                                        <div class="file-upload-text"><strong>Click to upload</strong> or drag and drop</div>
+                                        <div class="file-upload-hint">PDF, DOC, DOCX (Max 10MB)</div>
+                                    </div>
+                                    <input type="file" name="resume" id="resumeInput" accept=".pdf,.doc,.docx" required>
+                                    <div class="file-name" id="resumeName" style="display: none;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20 6L9 17l-5-5"/>
+                                        </svg>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Cover Letter</label>
+                                <div class="file-upload">
+                                    <div class="file-upload-area" id="coverLetterUpload">
+                                        <svg class="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                            <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                                        </svg>
+                                        <div class="file-upload-text"><strong>Click to upload</strong> or drag and drop</div>
+                                        <div class="file-upload-hint">PDF, DOC, DOCX (Max 10MB)</div>
+                                    </div>
+                                    <input type="file" name="coverLetter" id="coverLetterInput" accept=".pdf,.doc,.docx">
+                                    <div class="file-name" id="coverLetterName" style="display: none;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20 6L9 17l-5-5"/>
+                                        </svg>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="form-section">
+                        <div class="form-section-title">Additional Information</div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">How Did You Hear About Us?</label>
+                                <select name="referralSource" class="form-select sound-hover">
+                                    <option value="">Select Source</option>
+                                    <option value="linkedin">LinkedIn</option>
+                                    <option value="indeed">Indeed</option>
+                                    <option value="glassdoor">Glassdoor</option>
+                                    <option value="referral">Employee Referral</option>
+                                    <option value="website">Company Website</option>
+                                    <option value="twitter">Twitter / X</option>
+                                    <option value="github">GitHub</option>
+                                    <option value="conference">Conference / Event</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Earliest Start Date</label>
+                                <input type="date" name="startDate" class="form-input sound-hover">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Salary Expectation (USD)</label>
+                                <input type="text" name="salary" class="form-input sound-hover" placeholder="e.g., $120,000 - $150,000">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Work Authorization</label>
+                                <select name="workAuth" class="form-select sound-hover">
+                                    <option value="">Select Status</option>
+                                    <option value="citizen">US Citizen</option>
+                                    <option value="permanent">Permanent Resident</option>
+                                    <option value="visa">Work Visa</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agreement -->
+                    <div class="form-section">
+                        <label class="checkbox-item sound-hover">
+                            <input type="checkbox" name="agreement" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">
+                                I have read and agree to the <a href="#" onclick="event.stopPropagation();">Privacy Policy</a> and <a href="#" onclick="event.stopPropagation();">Terms of Service</a>. I certify that all information provided is accurate and complete. <span class="required">*</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="submit-btn sound-click">
+                        <span>Submit Application</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Success Message -->
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="success-title">Application Submitted</h3>
+                    <p class="success-message">Thank you for your interest in joining DLT. Our team will review your application and contact you within 5-7 business days.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="index.html" class="logo" aria-label="DLT - Distributed Ledger Technologies Home">
+                <div class="logo-symbol">
+                    <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
+                </div>
+                <div>
+                    <div class="logo-text-main">DLT</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products" class="sound-hover">Products</a></li>
+                <li><a href="contact.html" class="sound-hover">Contact</a></li>
+                <li><a href="careers.html" class="sound-hover active">Careers</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="page-eyebrow reveal">
+                <span class="page-eyebrow-line"></span>
+                <span class="page-eyebrow-text">Join Our Team</span>
+            </div>
+            <h1 class="page-title reveal">
+                <span class="gradient">Careers</span>
+            </h1>
+            <p class="page-subtitle reveal">
+                Build the future of blockchain technology. Join a team of innovators, engineers, and visionaries creating enterprise-grade solutions that power the digital asset economy.
+            </p>
+        </header>
+
+        <!-- Stats -->
+        <div class="careers-stats reveal">
+            <div class="careers-stat">
+                <div class="careers-stat-value">12</div>
+                <div class="careers-stat-label">Open Positions</div>
+            </div>
+            <div class="careers-stat">
+                <div class="careers-stat-value">6</div>
+                <div class="careers-stat-label">Departments</div>
+            </div>
+            <div class="careers-stat">
+                <div class="careers-stat-value">100%</div>
+                <div class="careers-stat-label">Remote Friendly</div>
+            </div>
+            <div class="careers-stat">
+                <div class="careers-stat-value">∞</div>
+                <div class="careers-stat-label">Growth Potential</div>
+            </div>
+        </div>
+
+        <!-- Benefits -->
+        <section class="benefits-section">
+            <div class="benefits-title reveal">Why Join DLT</div>
+            <div class="benefits-grid">
+                <div class="benefit-card reveal sound-hover">
+                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                    </svg>
+                    <div class="benefit-title">Remote First</div>
+                    <div class="benefit-desc">Work from anywhere in the world with flexible hours</div>
+                </div>
+                <div class="benefit-card reveal sound-hover">
+                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                    </svg>
+                    <div class="benefit-title">Competitive Pay</div>
+                    <div class="benefit-desc">Top-tier compensation with crypto bonuses</div>
+                </div>
+                <div class="benefit-card reveal sound-hover">
+                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                        <path d="M22 4L12 14.01l-3-3"/>
+                    </svg>
+                    <div class="benefit-title">Equity Options</div>
+                    <div class="benefit-desc">Own a piece of the future you're building</div>
+                </div>
+                <div class="benefit-card reveal sound-hover">
+                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+                    </svg>
+                    <div class="benefit-title">Learning Budget</div>
+                    <div class="benefit-desc">Annual allowance for courses and conferences</div>
+                </div>
+                <div class="benefit-card reveal sound-hover">
+                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <path d="M16 2v4M8 2v4M3 10h18"/>
+                    </svg>
+                    <div class="benefit-title">Unlimited PTO</div>
+                    <div class="benefit-desc">Take the time you need to recharge</div>
+                </div>
+                <div class="benefit-card reveal sound-hover">
+                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+                    </svg>
+                    <div class="benefit-title">Health Benefits</div>
+                    <div class="benefit-desc">Comprehensive medical, dental, and vision</div>
+                </div>
+                <div class="benefit-card reveal sound-hover">
+                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    <div class="benefit-title">Cutting Edge</div>
+                    <div class="benefit-desc">Work with the latest blockchain technology</div>
+                </div>
+                <div class="benefit-card reveal sound-hover">
+                    <svg class="benefit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+                    </svg>
+                    <div class="benefit-title">Great Team</div>
+                    <div class="benefit-desc">Collaborate with world-class talent</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filter Bar -->
+        <div class="filter-bar reveal">
+            <button class="filter-btn active sound-click" data-filter="all">All Positions</button>
+            <button class="filter-btn sound-click" data-filter="senior">Senior Level</button>
+            <button class="filter-btn sound-click" data-filter="entry">Entry Level</button>
+            <button class="filter-btn sound-click" data-filter="engineering">Engineering</button>
+            <button class="filter-btn sound-click" data-filter="product">Product</button>
+            <button class="filter-btn sound-click" data-filter="business">Business</button>
+        </div>
+
+        <!-- Jobs Grid -->
+        <section class="jobs-section">
+            <div class="jobs-grid">
+                <!-- Senior Blockchain Developer -->
+                <article class="job-card reveal sound-hover" data-level="senior" data-department="engineering">
+                    <span class="job-level senior">Senior</span>
+                    <div class="job-department">Engineering</div>
+                    <h3 class="job-title">Senior Blockchain Developer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Lead the development of core blockchain infrastructure, smart contracts, and decentralized applications. 5+ years experience required.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Rust</span>
+                        <span class="job-tag">Solidity</span>
+                        <span class="job-tag">Bitcoin</span>
+                        <span class="job-tag">Ethereum</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Engineering', 'Senior Blockchain Developer'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Junior Software Engineer -->
+                <article class="job-card reveal sound-hover" data-level="entry" data-department="engineering">
+                    <span class="job-level entry">Entry Level</span>
+                    <div class="job-department">Engineering</div>
+                    <h3 class="job-title">Junior Software Engineer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Join our engineering team to build cutting-edge blockchain applications. Great opportunity for recent graduates passionate about crypto.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">JavaScript</span>
+                        <span class="job-tag">TypeScript</span>
+                        <span class="job-tag">React</span>
+                        <span class="job-tag">Node.js</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Engineering', 'Junior Software Engineer'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Senior macOS/iOS Developer -->
+                <article class="job-card reveal sound-hover" data-level="senior" data-department="engineering">
+                    <span class="job-level senior">Senior</span>
+                    <div class="job-department">Engineering</div>
+                    <h3 class="job-title">Senior macOS/iOS Developer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Build native Apple Silicon applications for our MacMetal Miner product. Expert knowledge of Swift, Metal API, and GPU programming required.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Swift</span>
+                        <span class="job-tag">Metal</span>
+                        <span class="job-tag">Apple Silicon</span>
+                        <span class="job-tag">macOS</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Engineering', 'Senior macOS/iOS Developer'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- DevOps Engineer -->
+                <article class="job-card reveal sound-hover" data-level="entry" data-department="engineering">
+                    <span class="job-level entry">Entry Level</span>
+                    <div class="job-department">Engineering</div>
+                    <h3 class="job-title">DevOps Engineer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Manage and scale our cloud infrastructure. Experience with containerization, CI/CD pipelines, and blockchain node operations a plus.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Docker</span>
+                        <span class="job-tag">Kubernetes</span>
+                        <span class="job-tag">AWS</span>
+                        <span class="job-tag">Linux</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Engineering', 'DevOps Engineer'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Senior Smart Contract Engineer -->
+                <article class="job-card reveal sound-hover" data-level="senior" data-department="engineering">
+                    <span class="job-level senior">Senior</span>
+                    <div class="job-department">Engineering</div>
+                    <h3 class="job-title">Senior Smart Contract Engineer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Design and implement secure smart contracts for our Echelon and CORA platforms. Deep expertise in Stellar/Soroban and security auditing required.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Soroban</span>
+                        <span class="job-tag">Rust</span>
+                        <span class="job-tag">Stellar</span>
+                        <span class="job-tag">Security</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Engineering', 'Senior Smart Contract Engineer'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Senior Product Manager -->
+                <article class="job-card reveal sound-hover" data-level="senior" data-department="product">
+                    <span class="job-level senior">Senior</span>
+                    <div class="job-department">Product</div>
+                    <h3 class="job-title">Senior Product Manager</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Drive product strategy and roadmap for our enterprise blockchain solutions. Experience with B2B fintech products and crypto markets required.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Strategy</span>
+                        <span class="job-tag">Roadmapping</span>
+                        <span class="job-tag">Fintech</span>
+                        <span class="job-tag">Agile</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Product', 'Senior Product Manager'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Junior Product Analyst -->
+                <article class="job-card reveal sound-hover" data-level="entry" data-department="product">
+                    <span class="job-level entry">Entry Level</span>
+                    <div class="job-department">Product</div>
+                    <h3 class="job-title">Junior Product Analyst</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Analyze user behavior, market trends, and product metrics to inform product decisions. Interest in blockchain and data analysis required.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Analytics</span>
+                        <span class="job-tag">SQL</span>
+                        <span class="job-tag">Excel</span>
+                        <span class="job-tag">Research</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Product', 'Junior Product Analyst'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Senior Security Engineer -->
+                <article class="job-card reveal sound-hover" data-level="senior" data-department="engineering">
+                    <span class="job-level senior">Senior</span>
+                    <div class="job-department">Security</div>
+                    <h3 class="job-title">Senior Security Engineer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Protect our systems and users through security architecture, penetration testing, and incident response. Crypto security experience essential.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Penetration Testing</span>
+                        <span class="job-tag">Cryptography</span>
+                        <span class="job-tag">SOC2</span>
+                        <span class="job-tag">Audit</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Security', 'Senior Security Engineer'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Marketing Coordinator -->
+                <article class="job-card reveal sound-hover" data-level="entry" data-department="business">
+                    <span class="job-level entry">Entry Level</span>
+                    <div class="job-department">Marketing</div>
+                    <h3 class="job-title">Marketing Coordinator</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Support marketing initiatives including content creation, social media management, and campaign execution. Passion for crypto culture a must.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Content</span>
+                        <span class="job-tag">Social Media</span>
+                        <span class="job-tag">Campaigns</span>
+                        <span class="job-tag">Crypto</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Marketing', 'Marketing Coordinator'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Senior Business Development Manager -->
+                <article class="job-card reveal sound-hover" data-level="senior" data-department="business">
+                    <span class="job-level senior">Senior</span>
+                    <div class="job-department">Business Development</div>
+                    <h3 class="job-title">Senior Business Development Manager</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Drive strategic partnerships with enterprises, financial institutions, and government agencies. Proven track record in enterprise sales required.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Enterprise Sales</span>
+                        <span class="job-tag">Partnerships</span>
+                        <span class="job-tag">Government</span>
+                        <span class="job-tag">Finance</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Business Development', 'Senior Business Development Manager'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Junior UX/UI Designer -->
+                <article class="job-card reveal sound-hover" data-level="entry" data-department="product">
+                    <span class="job-level entry">Entry Level</span>
+                    <div class="job-department">Design</div>
+                    <h3 class="job-title">Junior UX/UI Designer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Create intuitive, beautiful interfaces for our blockchain applications. Strong portfolio showcasing web and mobile design required.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Figma</span>
+                        <span class="job-tag">UI Design</span>
+                        <span class="job-tag">Prototyping</span>
+                        <span class="job-tag">Web3</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Design', 'Junior UX/UI Designer'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+
+                <!-- Senior Cryptography Researcher -->
+                <article class="job-card reveal sound-hover" data-level="senior" data-department="engineering">
+                    <span class="job-level senior">Senior</span>
+                    <div class="job-department">Research</div>
+                    <h3 class="job-title">Senior Cryptography Researcher</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Research and develop novel cryptographic protocols for our KNEX proof-of-bandwidth consensus mechanism. PhD in cryptography or related field preferred.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Cryptography</span>
+                        <span class="job-tag">Consensus</span>
+                        <span class="job-tag">Research</span>
+                        <span class="job-tag">Publications</span>
+                    </div>
+                    <a href="#" class="job-apply-btn" onclick="openModal('Research', 'Senior Cryptography Researcher'); return false;">
+                        Apply Now
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" aria-label="DLT Home">
+                        <div class="logo-symbol">
+                            <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
+                        </div>
+                    </a>
+                    <p>Building institutional-grade blockchain infrastructure for the digital asset economy.</p>
+                </div>
+                <div>
+                    <div class="footer-title">Products</div>
+                    <ul class="footer-links">
+                        <li><a href="https://macmetalminer.com" target="_blank" rel="noopener noreferrer">MacMetal Miner</a></li>
+                        <li><a href="https://xalon.com" target="_blank" rel="noopener noreferrer">Echelon</a></li>
+                        <li><a href="https://hydrodollar.com" target="_blank" rel="noopener noreferrer">HydroDollar</a></li>
+                        <li><a href="https://ayedex.com" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
+                        <li><a href="https://corawallet.com" target="_blank" rel="noopener noreferrer">CORA</a></li>
+                        <li><a href="https://knexcoin.com" target="_blank" rel="noopener noreferrer">KNEX</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="index.html#credentials">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copyright">© 2026 Distributed Ledger Technologies. All Rights Reserved.</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // AUDIO CONTEXT & SOUNDS
+        // ============================================
+        
+        let audioContext = null;
+        let soundEnabled = true;
+        let audioInitialized = false;
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            audioInitialized = true;
+        }
+
+        function playBeep(frequency = 2400, duration = 0.08, volume = 0.15) {
+            if (!soundEnabled || !audioContext || !audioInitialized) return;
+            
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            } catch (e) {
+                console.log('Audio not available');
+            }
+        }
+
+        function playHoverSound() {
+            playBeep(3200, 0.05, 0.08);
+        }
+
+        function playClickSound() {
+            playBeep(2000, 0.06, 0.12);
+            setTimeout(() => playBeep(2800, 0.04, 0.1), 50);
+        }
+
+        function playSuccessSound() {
+            playBeep(1200, 0.1, 0.1);
+            setTimeout(() => playBeep(1600, 0.1, 0.1), 100);
+            setTimeout(() => playBeep(2000, 0.15, 0.12), 200);
+        }
+
+        // Initialize audio on ANY user interaction
+        function setupAudioInit() {
+            const initEvents = ['click', 'touchstart', 'keydown', 'mousemove', 'scroll'];
+            
+            function handleFirstInteraction() {
+                initAudio();
+                initEvents.forEach(event => {
+                    document.removeEventListener(event, handleFirstInteraction);
+                });
+            }
+            
+            initEvents.forEach(event => {
+                document.addEventListener(event, handleFirstInteraction, { once: false, passive: true });
+            });
+        }
+        
+        setupAudioInit();
+
+        // Attach sounds to elements
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.sound-hover').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    playHoverSound();
+                });
+            });
+
+            document.querySelectorAll('.sound-click').forEach(el => {
+                el.addEventListener('click', () => {
+                    playClickSound();
+                });
+            });
+        });
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+            playClickSound();
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('visible');
+            document.body.style.overflow = '';
+            playClickSound();
+        }
+
+        // ============================================
+        // JOB FILTERS
+        // ============================================
+        
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const jobCards = document.querySelectorAll('.job-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.dataset.filter;
+                
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filter jobs
+                jobCards.forEach(card => {
+                    const level = card.dataset.level;
+                    const department = card.dataset.department;
+                    
+                    let show = false;
+                    
+                    if (filter === 'all') {
+                        show = true;
+                    } else if (filter === 'senior' || filter === 'entry') {
+                        show = level === filter;
+                    } else if (filter === 'engineering') {
+                        show = department === 'engineering';
+                    } else if (filter === 'product') {
+                        show = department === 'product';
+                    } else if (filter === 'business') {
+                        show = department === 'business';
+                    }
+                    
+                    card.style.display = show ? 'block' : 'none';
+                });
+            });
+        });
+
+        // ============================================
+        // APPLICATION MODAL
+        // ============================================
+        
+        function openModal(department, title) {
+            document.getElementById('modalDepartment').textContent = department;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('formJobTitle').value = title;
+            document.getElementById('applicationModal').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+            playClickSound();
+            
+            // Reset form
+            document.getElementById('applicationForm').reset();
+            document.getElementById('applicationForm').style.display = 'flex';
+            document.getElementById('formSuccess').classList.remove('visible');
+            
+            // Reset file upload displays
+            document.getElementById('resumeName').style.display = 'none';
+            document.getElementById('coverLetterName').style.display = 'none';
+            document.getElementById('resumeUpload').classList.remove('has-file');
+            document.getElementById('coverLetterUpload').classList.remove('has-file');
+        }
+
+        function closeModal() {
+            document.getElementById('applicationModal').classList.remove('visible');
+            document.body.style.overflow = '';
+            playClickSound();
+        }
+
+        // Close modal on overlay click
+        document.getElementById('applicationModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('applicationModal')) {
+                closeModal();
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // ============================================
+        // FILE UPLOAD HANDLING
+        // ============================================
+        
+        function setupFileUpload(inputId, uploadAreaId, fileNameId) {
+            const input = document.getElementById(inputId);
+            const uploadArea = document.getElementById(uploadAreaId);
+            const fileName = document.getElementById(fileNameId);
+            
+            input.addEventListener('change', () => {
+                if (input.files.length > 0) {
+                    fileName.querySelector('span').textContent = input.files[0].name;
+                    fileName.style.display = 'flex';
+                    uploadArea.classList.add('has-file');
+                    playClickSound();
+                }
+            });
+            
+            // Drag and drop
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('dragover');
+            });
+            
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('dragover');
+            });
+            
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('dragover');
+                if (e.dataTransfer.files.length > 0) {
+                    input.files = e.dataTransfer.files;
+                    fileName.querySelector('span').textContent = e.dataTransfer.files[0].name;
+                    fileName.style.display = 'flex';
+                    uploadArea.classList.add('has-file');
+                    playClickSound();
+                }
+            });
+        }
+
+        setupFileUpload('resumeInput', 'resumeUpload', 'resumeName');
+        setupFileUpload('coverLetterInput', 'coverLetterUpload', 'coverLetterName');
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
+        
+        const applicationForm = document.getElementById('applicationForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        applicationForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = applicationForm.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Submitting...</span>';
+
+            setTimeout(() => {
+                applicationForm.style.display = 'none';
+                formSuccess.classList.add('visible');
+                playSuccessSound();
+            }, 1500);
+        });
+
+        // ============================================
+        // THREE.JS BACKGROUND
+        // ============================================
+        
+        const canvas = document.getElementById('webgl');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 15, 40);
+        camera.lookAt(0, 0, 0);
+
+        // Grid
+        const gridGroup = new THREE.Group();
+        
+        for (let layer = 0; layer < 5; layer++) {
+            const gridSize = 200;
+            const divisions = 60;
+            const gridGeometry = new THREE.BufferGeometry();
+            const gridPositions = [];
+            
+            const z = -layer * 15;
+            const opacity = 1 - (layer * 0.2);
+            
+            for (let i = 0; i <= divisions; i++) {
+                const x = (i / divisions - 0.5) * gridSize;
+                gridPositions.push(x, 0, -gridSize/2 + z, x, 0, gridSize/2 + z);
+            }
+            
+            for (let i = 0; i <= divisions; i++) {
+                const zPos = (i / divisions - 0.5) * gridSize + z;
+                gridPositions.push(-gridSize/2, 0, zPos, gridSize/2, 0, zPos);
+            }
+            
+            gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPositions, 3));
+            
+            const gridMaterial = new THREE.LineBasicMaterial({
+                color: 0x00ffff,
+                transparent: true,
+                opacity: opacity * 0.15
+            });
+            
+            const grid = new THREE.LineSegments(gridGeometry, gridMaterial);
+            grid.position.y = -20;
+            gridGroup.add(grid);
+        }
+        
+        scene.add(gridGroup);
+
+        // Particles
+        const particleCount = 2000;
+        const particleGeometry = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(particleCount * 3);
+        const particleSpeeds = new Float32Array(particleCount);
+        
+        for (let i = 0; i < particleCount; i++) {
+            particlePositions[i * 3] = (Math.random() - 0.5) * 200;
+            particlePositions[i * 3 + 1] = -20;
+            particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 200 - 50;
+            particleSpeeds[i] = Math.random() * 0.8 + 0.2;
+        }
+        
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        
+        const particleMaterial = new THREE.PointsMaterial({
+            color: 0x00ffff,
+            size: 0.3,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending,
+            sizeAttenuation: true
+        });
+        
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
+
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        // Animation
+        let time = 0;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+            
+            targetX += (mouseX * 10 - targetX) * 0.02;
+            targetY += (-mouseY * 5 - targetY) * 0.02;
+            camera.position.x = targetX;
+            camera.position.y = 15 + targetY;
+            camera.lookAt(0, 0, -20);
+            
+            gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
+            
+            const positions = particles.geometry.attributes.position.array;
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3 + 2] += particleSpeeds[i];
+                
+                if (positions[i * 3 + 2] > 100) {
+                    positions[i * 3 + 2] = -100;
+                    positions[i * 3] = (Math.random() - 0.5) * 200;
+                }
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+
+        // Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
