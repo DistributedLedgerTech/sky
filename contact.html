@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Contact Us | DLT - Distributed Ledger Technologies</title>
+    <meta name="title" content="Contact Us | DLT - Distributed Ledger Technologies">
+    <meta name="description" content="Get in touch with Distributed Ledger Technologies. Enterprise blockchain consultations, partnerships, and inquiries. Connect with our team today.">
+    <meta name="keywords" content="contact DLT, blockchain consultation, enterprise blockchain inquiry, cryptocurrency partnership, distributed ledger contact">
+    <meta name="author" content="Distributed Ledger Technologies">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#000000">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://distributedledgertechnologies.com/contact">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://distributedledgertechnologies.com/contact">
+    <meta property="og:title" content="Contact Us | DLT - Distributed Ledger Technologies">
+    <meta property="og:description" content="Get in touch with Distributed Ledger Technologies. Enterprise blockchain consultations, partnerships, and inquiries.">
+    <meta property="og:image" content="https://distributedledgertechnologies.com/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://distributedledgertechnologies.com/contact">
+    <meta property="twitter:title" content="Contact Us | DLT - Distributed Ledger Technologies">
+    <meta property="twitter:description" content="Get in touch with Distributed Ledger Technologies. Enterprise blockchain consultations, partnerships, and inquiries.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Font -->
+    <style>
+        @font-face {
+            font-family: 'Ethnocentric';
+            src: url('fonts/ethnocentric.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": "Contact Distributed Ledger Technologies",
+        "description": "Get in touch with DLT for enterprise blockchain solutions",
+        "url": "https://distributedledgertechnologies.com/contact",
+        "mainEntity": {
+            "@type": "Organization",
+            "name": "Distributed Ledger Technologies",
+            "email": "david@knexmail.com",
+            "url": "https://distributedledgertechnologies.com"
+        }
+    }
+    </script>
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --cyan: #00ffff;
+            --electric: #00f0ff;
+            --blue: #0080ff;
+            --purple: #8000ff;
+            --magenta: #ff00ff;
+            --green: #00ff80;
+            --gold: #ffd700;
+            --red: #ff003c;
+        }
+
+        html { 
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: crosshair;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        /* Three.js Canvas */
+        #webgl {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Overlays */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 2px,
+                    rgba(0, 255, 255, 0.01) 2px,
+                    rgba(0, 255, 255, 0.01) 4px
+                );
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 2;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 32px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-symbol {
+            width: 56px;
+            height: 56px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-symbol::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--cyan);
+            animation: logoRotate 20s linear infinite;
+        }
+
+        .logo-symbol::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid var(--cyan);
+            opacity: 0.5;
+            animation: logoRotate 15s linear infinite reverse;
+        }
+
+        @keyframes logoRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text-main {
+            font-family: 'Ethnocentric', 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: var(--cyan);
+        }
+
+        .logo-text-sub {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.5em;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 64px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '[';
+            position: absolute;
+            left: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(8px);
+        }
+
+        .nav-links a::after {
+            content: ']';
+            position: absolute;
+            right: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(-8px);
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .nav-links a.active {
+            color: var(--cyan);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--cyan);
+            transition: all 0.3s;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+
+        .mobile-menu.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--cyan);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 64px 80px;
+            position: relative;
+        }
+
+        .page-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .page-eyebrow-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+            position: relative;
+        }
+
+        .page-eyebrow-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .page-eyebrow-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--cyan);
+        }
+
+        .page-title {
+            font-size: clamp(48px, 10vw, 120px);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+
+        .page-title .gradient {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.5);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        /* Main Content */
+        .contact-container {
+            padding: 0 64px 120px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 80px;
+        }
+
+        /* Contact Form */
+        .contact-form-wrapper {
+            background: rgba(0, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            padding: 48px;
+            position: relative;
+        }
+
+        .contact-form-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        }
+
+        .form-section {
+            margin-bottom: 48px;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-section-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .form-section-title::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: var(--red);
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            color: var(--white);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.05);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ffff' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 48px;
+        }
+
+        .form-select option {
+            background: #000;
+            color: var(--white);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Checkbox & Radio Groups */
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 12px 16px;
+            border: 1px solid rgba(0, 255, 255, 0.15);
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .checkbox-item:hover,
+        .radio-item:hover {
+            border-color: rgba(0, 255, 255, 0.4);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .checkbox-item input,
+        .radio-item input {
+            display: none;
+        }
+
+        .checkbox-custom,
+        .radio-custom {
+            width: 18px;
+            height: 18px;
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .radio-custom {
+            border-radius: 50%;
+        }
+
+        .checkbox-item input:checked + .checkbox-custom,
+        .radio-item input:checked + .radio-custom {
+            border-color: var(--cyan);
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .checkbox-item input:checked + .checkbox-custom::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 2px;
+            width: 5px;
+            height: 9px;
+            border: solid #000;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .radio-item input:checked + .radio-custom::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            background: #000;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .checkbox-label,
+        .radio-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Range Slider */
+        .range-container {
+            padding: 8px 0;
+        }
+
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .range-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .range-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            color: var(--cyan);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .form-range {
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.2);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .form-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--cyan);
+            border-radius: 0;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--cyan);
+        }
+
+        .form-range::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--cyan);
+            border-radius: 0;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 15px var(--cyan);
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 20px 48px;
+            background: transparent;
+            border: 1px solid var(--cyan);
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            overflow: hidden;
+            width: 100%;
+            margin-top: 32px;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .submit-btn:hover {
+            background: rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .submit-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--cyan);
+            transition: transform 0.3s;
+        }
+
+        .submit-btn:hover svg {
+            transform: translateX(8px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Sidebar */
+        .contact-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .sidebar-card {
+            background: rgba(0, 10, 15, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            padding: 32px;
+            position: relative;
+        }
+
+        .sidebar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--cyan), transparent);
+        }
+
+        .sidebar-card-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--cyan);
+            margin-bottom: 20px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .contact-info-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .contact-info-item:first-child {
+            padding-top: 0;
+        }
+
+        .contact-info-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-info-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--cyan);
+        }
+
+        .contact-info-content {
+            flex: 1;
+        }
+
+        .contact-info-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 4px;
+        }
+
+        .contact-info-value {
+            font-size: 14px;
+            color: var(--white);
+        }
+
+        .contact-info-value a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info-value a:hover {
+            color: var(--cyan);
+        }
+
+        /* Response Time */
+        .response-time {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: rgba(0, 255, 128, 0.1);
+            border: 1px solid rgba(0, 255, 128, 0.2);
+        }
+
+        .response-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--green);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        .response-text {
+            font-size: 12px;
+            color: var(--green);
+        }
+
+        /* Office Hours */
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 13px;
+        }
+
+        .hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .hours-day {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .hours-time {
+            color: var(--white);
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+        }
+
+        .hours-time.closed {
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* Quick Links */
+        .quick-links {
+            list-style: none;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .quick-link:last-child {
+            border-bottom: none;
+        }
+
+        .quick-link a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quick-link a:hover {
+            color: var(--cyan);
+        }
+
+        .quick-link svg {
+            width: 16px;
+            height: 16px;
+            stroke: var(--cyan);
+            opacity: 0.5;
+        }
+
+        .quick-link a:hover svg {
+            opacity: 1;
+        }
+
+        /* Security Badge */
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .security-icon {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .security-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--cyan);
+        }
+
+        .security-text {
+            flex: 1;
+        }
+
+        .security-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 4px;
+        }
+
+        .security-desc {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* Success Message */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 80px 48px;
+        }
+
+        .form-success.visible {
+            display: block;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 32px;
+            box-shadow: 0 0 30px rgba(0, 255, 128, 0.3);
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--green);
+        }
+
+        .success-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--green);
+            margin-bottom: 16px;
+        }
+
+        .success-message {
+            font-size: 16px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 80px 64px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 64px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.7;
+            margin-top: 24px;
+            max-width: 280px;
+        }
+
+        .footer-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 24px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-copyright {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.1em;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .contact-container {
+                grid-template-columns: 1fr 350px;
+                gap: 48px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .nav {
+                padding: 24px 32px;
+            }
+
+            .page-header {
+                padding: 160px 32px 60px;
+            }
+
+            .contact-container {
+                padding: 0 32px 80px;
+                grid-template-columns: 1fr;
+            }
+
+            .contact-sidebar {
+                order: -1;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+
+            .footer {
+                padding: 60px 32px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-header {
+                padding: 140px 24px 48px;
+            }
+
+            .contact-container {
+                padding: 0 24px 60px;
+            }
+
+            .contact-form-wrapper {
+                padding: 32px 24px;
+            }
+
+            .contact-sidebar {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .checkbox-item,
+            .radio-item {
+                min-width: 100%;
+            }
+
+            .footer {
+                padding: 48px 24px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 120px 16px 40px;
+            }
+
+            .contact-container {
+                padding: 0 16px 48px;
+            }
+
+            .contact-form-wrapper {
+                padding: 24px 16px;
+            }
+
+            .sidebar-card {
+                padding: 24px 16px;
+            }
+
+            .footer {
+                padding: 40px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Three.js Canvas -->
+    <canvas id="webgl"></canvas>
+    
+    <!-- Overlays -->
+    <div class="overlay"></div>
+    <div class="vignette"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Products</a>
+        <a href="index.html#credentials">Credentials</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="index.html" class="logo" aria-label="DLT - Distributed Ledger Technologies Home">
+                <div class="logo-symbol">
+                    <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
+                </div>
+                <div>
+                    <div class="logo-text-main">DLT</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html#products" class="sound-hover">Products</a></li>
+                <li><a href="index.html#credentials" class="sound-hover">Credentials</a></li>
+                <li><a href="contact.html" class="sound-hover active">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="page-eyebrow reveal">
+                <span class="page-eyebrow-line"></span>
+                <span class="page-eyebrow-text">Get In Touch</span>
+            </div>
+            <h1 class="page-title reveal">
+                <span class="gradient">Contact Us</span>
+            </h1>
+            <p class="page-subtitle reveal">
+                Ready to transform your enterprise with blockchain technology? Our team is here to discuss your needs and provide tailored solutions.
+            </p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="contact-container">
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper reveal">
+                <form id="contactForm" class="contact-form">
+                    <!-- Personal Information -->
+                    <div class="form-section">
+                        <div class="form-section-title">Personal Information</div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">First Name <span class="required">*</span></label>
+                                <input type="text" name="firstName" class="form-input sound-hover" placeholder="John" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Last Name <span class="required">*</span></label>
+                                <input type="text" name="lastName" class="form-input sound-hover" placeholder="Doe" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Email Address <span class="required">*</span></label>
+                                <input type="email" name="email" class="form-input sound-hover" placeholder="john@company.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" name="phone" class="form-input sound-hover" placeholder="+1 (555) 123-4567">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Company Information -->
+                    <div class="form-section">
+                        <div class="form-section-title">Company Information</div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Company Name <span class="required">*</span></label>
+                                <input type="text" name="company" class="form-input sound-hover" placeholder="Acme Corporation" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Job Title</label>
+                                <input type="text" name="jobTitle" class="form-input sound-hover" placeholder="Chief Technology Officer">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Industry</label>
+                                <select name="industry" class="form-select sound-hover">
+                                    <option value="">Select Industry</option>
+                                    <option value="financial">Financial Services</option>
+                                    <option value="government">Government & Defense</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="energy">Energy & Utilities</option>
+                                    <option value="manufacturing">Manufacturing</option>
+                                    <option value="retail">Retail & E-Commerce</option>
+                                    <option value="real-estate">Real Estate</option>
+                                    <option value="logistics">Supply Chain & Logistics</option>
+                                    <option value="legal">Legal Services</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Company Size</label>
+                                <select name="companySize" class="form-select sound-hover">
+                                    <option value="">Select Size</option>
+                                    <option value="1-10">1-10 employees</option>
+                                    <option value="11-50">11-50 employees</option>
+                                    <option value="51-200">51-200 employees</option>
+                                    <option value="201-500">201-500 employees</option>
+                                    <option value="501-1000">501-1,000 employees</option>
+                                    <option value="1001-5000">1,001-5,000 employees</option>
+                                    <option value="5000+">5,000+ employees</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Company Website</label>
+                                <input type="url" name="website" class="form-input sound-hover" placeholder="https://www.company.com">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Country</label>
+                                <select name="country" class="form-select sound-hover">
+                                    <option value="">Select Country</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="AE">United Arab Emirates</option>
+                                    <option value="CH">Switzerland</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">State/Region</label>
+                                <input type="text" name="state" class="form-input sound-hover" placeholder="California">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inquiry Details -->
+                    <div class="form-section">
+                        <div class="form-section-title">Inquiry Details</div>
+                        
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Inquiry Type <span class="required">*</span></label>
+                                <select name="inquiryType" class="form-select sound-hover" required>
+                                    <option value="">Select Type</option>
+                                    <option value="consultation">Enterprise Consultation</option>
+                                    <option value="partnership">Strategic Partnership</option>
+                                    <option value="product">Product Inquiry</option>
+                                    <option value="demo">Request Demo</option>
+                                    <option value="pricing">Pricing Information</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="investment">Investment Inquiry</option>
+                                    <option value="media">Media & Press</option>
+                                    <option value="careers">Careers</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Products of Interest</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item sound-hover">
+                                        <input type="checkbox" name="products" value="macmetal">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">MacMetal Miner</span>
+                                    </label>
+                                    <label class="checkbox-item sound-hover">
+                                        <input type="checkbox" name="products" value="echelon">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">Echelon</span>
+                                    </label>
+                                    <label class="checkbox-item sound-hover">
+                                        <input type="checkbox" name="products" value="hydrodollar">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">HydroDollar</span>
+                                    </label>
+                                    <label class="checkbox-item sound-hover">
+                                        <input type="checkbox" name="products" value="ayedex">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">Ayedex</span>
+                                    </label>
+                                    <label class="checkbox-item sound-hover">
+                                        <input type="checkbox" name="products" value="cora">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">CORA</span>
+                                    </label>
+                                    <label class="checkbox-item sound-hover">
+                                        <input type="checkbox" name="products" value="knex">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">KNEX</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Estimated Budget Range</label>
+                                <div class="range-container">
+                                    <div class="range-value" id="budgetValue">$50,000 - $100,000</div>
+                                    <input type="range" name="budget" class="form-range" min="0" max="5" value="2" id="budgetRange">
+                                    <div class="range-labels">
+                                        <span class="range-label">&lt; $10K</span>
+                                        <span class="range-label">$1M+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Project Timeline</label>
+                                <div class="radio-group">
+                                    <label class="radio-item sound-hover">
+                                        <input type="radio" name="timeline" value="immediate">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Immediate</span>
+                                    </label>
+                                    <label class="radio-item sound-hover">
+                                        <input type="radio" name="timeline" value="1-3months">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">1-3 Months</span>
+                                    </label>
+                                    <label class="radio-item sound-hover">
+                                        <input type="radio" name="timeline" value="3-6months">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">3-6 Months</span>
+                                    </label>
+                                    <label class="radio-item sound-hover">
+                                        <input type="radio" name="timeline" value="6-12months">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">6-12 Months</span>
+                                    </label>
+                                    <label class="radio-item sound-hover">
+                                        <input type="radio" name="timeline" value="exploring">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Just Exploring</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information -->
+                    <div class="form-section">
+                        <div class="form-section-title">Additional Information</div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">How Did You Hear About Us?</label>
+                                <select name="referralSource" class="form-select sound-hover">
+                                    <option value="">Select Source</option>
+                                    <option value="search">Search Engine (Google, Bing)</option>
+                                    <option value="social">Social Media</option>
+                                    <option value="referral">Referral / Word of Mouth</option>
+                                    <option value="conference">Conference / Event</option>
+                                    <option value="press">Press / News Article</option>
+                                    <option value="linkedin">LinkedIn</option>
+                                    <option value="twitter">Twitter / X</option>
+                                    <option value="github">GitHub</option>
+                                    <option value="podcast">Podcast</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Message <span class="required">*</span></label>
+                                <textarea name="message" class="form-textarea sound-hover" placeholder="Please describe your project, requirements, or questions in detail. The more information you provide, the better we can assist you." required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Preferred Contact Method</label>
+                                <div class="radio-group">
+                                    <label class="radio-item sound-hover">
+                                        <input type="radio" name="contactMethod" value="email" checked>
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Email</span>
+                                    </label>
+                                    <label class="radio-item sound-hover">
+                                        <input type="radio" name="contactMethod" value="phone">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Phone</span>
+                                    </label>
+                                    <label class="radio-item sound-hover">
+                                        <input type="radio" name="contactMethod" value="video">
+                                        <span class="radio-custom"></span>
+                                        <span class="radio-label">Video Call</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label">Best Time to Reach You</label>
+                                <select name="bestTime" class="form-select sound-hover">
+                                    <option value="">Select Time</option>
+                                    <option value="morning">Morning (8AM - 12PM EST)</option>
+                                    <option value="afternoon">Afternoon (12PM - 5PM EST)</option>
+                                    <option value="evening">Evening (5PM - 8PM EST)</option>
+                                    <option value="anytime">Anytime</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item sound-hover">
+                                        <input type="checkbox" name="newsletter" value="yes">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">Subscribe to our newsletter for updates and insights</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item sound-hover">
+                                        <input type="checkbox" name="privacy" value="agree" required>
+                                        <span class="checkbox-custom"></span>
+                                        <span class="checkbox-label">I agree to the Privacy Policy and Terms of Service <span class="required">*</span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn sound-click">
+                        <span>Submit Inquiry</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Success Message -->
+                <div class="form-success" id="formSuccess">
+                    <div class="success-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="success-title">Message Sent Successfully</h3>
+                    <p class="success-message">Thank you for your inquiry. Our team will review your message and respond within 24-48 business hours.</p>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="contact-sidebar">
+                <!-- Contact Info -->
+                <div class="sidebar-card reveal">
+                    <div class="sidebar-card-title">Contact Information</div>
+                    
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <path d="M22 6l-10 7L2 6"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info-content">
+                            <div class="contact-info-label">Email</div>
+                            <div class="contact-info-value">
+                                <a href="mailto:david@knexmail.com">david@knexmail.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info-content">
+                            <div class="contact-info-label">Website</div>
+                            <div class="contact-info-value">
+                                <a href="https://distributedledgertechnologies.com">distributedledgertechnologies.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="contact-info-content">
+                            <div class="contact-info-label">Headquarters</div>
+                            <div class="contact-info-value">United States</div>
+                        </div>
+                    </div>
+
+                    <div class="response-time">
+                        <span class="response-dot"></span>
+                        <span class="response-text">Typical response within 24-48 hours</span>
+                    </div>
+                </div>
+
+                <!-- Office Hours -->
+                <div class="sidebar-card reveal">
+                    <div class="sidebar-card-title">Business Hours</div>
+                    <ul class="hours-list">
+                        <li class="hours-item">
+                            <span class="hours-day">Monday</span>
+                            <span class="hours-time">9:00 AM - 6:00 PM EST</span>
+                        </li>
+                        <li class="hours-item">
+                            <span class="hours-day">Tuesday</span>
+                            <span class="hours-time">9:00 AM - 6:00 PM EST</span>
+                        </li>
+                        <li class="hours-item">
+                            <span class="hours-day">Wednesday</span>
+                            <span class="hours-time">9:00 AM - 6:00 PM EST</span>
+                        </li>
+                        <li class="hours-item">
+                            <span class="hours-day">Thursday</span>
+                            <span class="hours-time">9:00 AM - 6:00 PM EST</span>
+                        </li>
+                        <li class="hours-item">
+                            <span class="hours-day">Friday</span>
+                            <span class="hours-time">9:00 AM - 5:00 PM EST</span>
+                        </li>
+                        <li class="hours-item">
+                            <span class="hours-day">Saturday</span>
+                            <span class="hours-time closed">Closed</span>
+                        </li>
+                        <li class="hours-item">
+                            <span class="hours-day">Sunday</span>
+                            <span class="hours-time closed">Closed</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="sidebar-card reveal">
+                    <div class="sidebar-card-title">Quick Links</div>
+                    <ul class="quick-links">
+                        <li class="quick-link">
+                            <a href="https://macmetalminer.com" target="_blank" rel="noopener noreferrer" class="sound-hover">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+                                </svg>
+                                MacMetal Miner
+                            </a>
+                        </li>
+                        <li class="quick-link">
+                            <a href="https://xalon.com" target="_blank" rel="noopener noreferrer" class="sound-hover">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+                                </svg>
+                                Echelon
+                            </a>
+                        </li>
+                        <li class="quick-link">
+                            <a href="https://corawallet.com" target="_blank" rel="noopener noreferrer" class="sound-hover">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+                                </svg>
+                                CORA Wallet
+                            </a>
+                        </li>
+                        <li class="quick-link">
+                            <a href="https://knexcoin.com" target="_blank" rel="noopener noreferrer" class="sound-hover">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/>
+                                </svg>
+                                KNEX
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Security Badge -->
+                <div class="sidebar-card reveal">
+                    <div class="security-badge">
+                        <div class="security-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <path d="M9 12l2 2 4-4"/>
+                            </svg>
+                        </div>
+                        <div class="security-text">
+                            <div class="security-title">Secure & Encrypted</div>
+                            <div class="security-desc">Your information is protected with enterprise-grade encryption</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" aria-label="DLT Home">
+                        <div class="logo-symbol">
+                            <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
+                        </div>
+                    </a>
+                    <p>Building institutional-grade blockchain infrastructure for the digital asset economy.</p>
+                </div>
+                <div>
+                    <div class="footer-title">Products</div>
+                    <ul class="footer-links">
+                        <li><a href="https://macmetalminer.com" target="_blank" rel="noopener noreferrer">MacMetal Miner</a></li>
+                        <li><a href="https://xalon.com" target="_blank" rel="noopener noreferrer">Echelon</a></li>
+                        <li><a href="https://hydrodollar.com" target="_blank" rel="noopener noreferrer">HydroDollar</a></li>
+                        <li><a href="https://ayedex.com" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
+                        <li><a href="https://corawallet.com" target="_blank" rel="noopener noreferrer">CORA</a></li>
+                        <li><a href="https://knexcoin.com" target="_blank" rel="noopener noreferrer">KNEX</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="index.html#credentials">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="mailto:david@knexmail.com">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="index.html#" onclick="alert('Privacy Policy'); return false;">Privacy</a></li>
+                        <li><a href="index.html#" onclick="alert('Terms of Service'); return false;">Terms</a></li>
+                        <li><a href="index.html#" onclick="alert('Security Information'); return false;">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copyright">© 2026 Distributed Ledger Technologies. All Rights Reserved.</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // AUDIO CONTEXT & SOUNDS
+        // ============================================
+        
+        let audioContext = null;
+        let soundEnabled = true;
+        let audioInitialized = false;
+
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            audioInitialized = true;
+        }
+
+        function playBeep(frequency = 2400, duration = 0.08, volume = 0.15) {
+            if (!soundEnabled || !audioContext || !audioInitialized) return;
+            
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.value = frequency;
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(volume, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+            } catch (e) {
+                console.log('Audio not available');
+            }
+        }
+
+        function playHoverSound() {
+            playBeep(3200, 0.05, 0.08);
+        }
+
+        function playClickSound() {
+            playBeep(2000, 0.06, 0.12);
+            setTimeout(() => playBeep(2800, 0.04, 0.1), 50);
+        }
+
+        function playSuccessSound() {
+            playBeep(1200, 0.1, 0.1);
+            setTimeout(() => playBeep(1600, 0.1, 0.1), 100);
+            setTimeout(() => playBeep(2000, 0.15, 0.12), 200);
+        }
+
+        // Initialize audio on ANY user interaction
+        function setupAudioInit() {
+            const initEvents = ['click', 'touchstart', 'keydown', 'mousemove', 'scroll'];
+            
+            function handleFirstInteraction() {
+                initAudio();
+                initEvents.forEach(event => {
+                    document.removeEventListener(event, handleFirstInteraction);
+                });
+            }
+            
+            initEvents.forEach(event => {
+                document.addEventListener(event, handleFirstInteraction, { once: false, passive: true });
+            });
+        }
+        
+        setupAudioInit();
+
+        // Attach sounds to elements
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.sound-hover').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    playHoverSound();
+                });
+            });
+
+            document.querySelectorAll('.sound-click').forEach(el => {
+                el.addEventListener('click', () => {
+                    playClickSound();
+                });
+            });
+        });
+
+        // ============================================
+        // MOBILE MENU
+        // ============================================
+        
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+            playClickSound();
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('visible');
+            document.body.style.overflow = '';
+            playClickSound();
+        }
+
+        // ============================================
+        // BUDGET RANGE SLIDER
+        // ============================================
+        
+        const budgetLabels = [
+            'Under $10,000',
+            '$10,000 - $50,000',
+            '$50,000 - $100,000',
+            '$100,000 - $500,000',
+            '$500,000 - $1,000,000',
+            '$1,000,000+'
+        ];
+
+        const budgetRange = document.getElementById('budgetRange');
+        const budgetValue = document.getElementById('budgetValue');
+
+        if (budgetRange && budgetValue) {
+            budgetRange.addEventListener('input', function() {
+                budgetValue.textContent = budgetLabels[this.value];
+                playHoverSound();
+            });
+        }
+
+        // ============================================
+        // FORM SUBMISSION
+        // ============================================
+        
+        const contactForm = document.getElementById('contactForm');
+        const formSuccess = document.getElementById('formSuccess');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission
+                const submitBtn = contactForm.querySelector('.submit-btn');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span>Sending...</span>';
+
+                setTimeout(() => {
+                    contactForm.style.display = 'none';
+                    formSuccess.classList.add('visible');
+                    playSuccessSound();
+                    
+                    // Scroll to success message
+                    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 1500);
+            });
+        }
+
+        // ============================================
+        // THREE.JS BACKGROUND
+        // ============================================
+        
+        const canvas = document.getElementById('webgl');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 15, 40);
+        camera.lookAt(0, 0, 0);
+
+        // Grid
+        const gridGroup = new THREE.Group();
+        
+        for (let layer = 0; layer < 5; layer++) {
+            const gridSize = 200;
+            const divisions = 60;
+            const gridGeometry = new THREE.BufferGeometry();
+            const gridPositions = [];
+            
+            const z = -layer * 15;
+            const opacity = 1 - (layer * 0.2);
+            
+            for (let i = 0; i <= divisions; i++) {
+                const x = (i / divisions - 0.5) * gridSize;
+                gridPositions.push(x, 0, -gridSize/2 + z, x, 0, gridSize/2 + z);
+            }
+            
+            for (let i = 0; i <= divisions; i++) {
+                const zPos = (i / divisions - 0.5) * gridSize + z;
+                gridPositions.push(-gridSize/2, 0, zPos, gridSize/2, 0, zPos);
+            }
+            
+            gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPositions, 3));
+            
+            const gridMaterial = new THREE.LineBasicMaterial({
+                color: 0x00ffff,
+                transparent: true,
+                opacity: opacity * 0.15
+            });
+            
+            const grid = new THREE.LineSegments(gridGeometry, gridMaterial);
+            grid.position.y = -20;
+            gridGroup.add(grid);
+        }
+        
+        scene.add(gridGroup);
+
+        // Particles
+        const particleCount = 2000;
+        const particleGeometry = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(particleCount * 3);
+        const particleSpeeds = new Float32Array(particleCount);
+        
+        for (let i = 0; i < particleCount; i++) {
+            particlePositions[i * 3] = (Math.random() - 0.5) * 200;
+            particlePositions[i * 3 + 1] = -20;
+            particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 200 - 50;
+            particleSpeeds[i] = Math.random() * 0.8 + 0.2;
+        }
+        
+        particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        
+        const particleMaterial = new THREE.PointsMaterial({
+            color: 0x00ffff,
+            size: 0.3,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending,
+            sizeAttenuation: true
+        });
+        
+        const particles = new THREE.Points(particleGeometry, particleMaterial);
+        scene.add(particles);
+
+        // Mouse interaction
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        // Animation
+        let time = 0;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+            
+            targetX += (mouseX * 10 - targetX) * 0.02;
+            targetY += (-mouseY * 5 - targetY) * 0.02;
+            camera.position.x = targetX;
+            camera.position.y = 15 + targetY;
+            camera.lookAt(0, 0, -20);
+            
+            gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
+            
+            const positions = particles.geometry.attributes.position.array;
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3 + 2] += particleSpeeds[i];
+                
+                if (positions[i * 3 + 2] > 100) {
+                    positions[i * 3 + 2] = -100;
+                    positions[i * 3] = (Math.random() - 0.5) * 200;
+                }
+            }
+            particles.geometry.attributes.position.needsUpdate = true;
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+
+        // Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
