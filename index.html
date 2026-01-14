@@ -1,1831 +1,1787 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>DLT | Distributed Ledger Technologies</title>
     <meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.">
     <meta name="theme-color" content="#000000">
-
-```
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-<style>
-    *, *::before, *::after {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    :root {
-        --black: #000000;
-        --white: #ffffff;
-        --cyan: #00ffff;
-        --electric: #00f0ff;
-        --blue: #0080ff;
-        --purple: #8000ff;
-        --magenta: #ff00ff;
-        --hotpink: #ff0080;
-        --neonpink: #ff00aa;
-        --green: #00ff80;
-        --gold: #ffd700;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-        font-family: 'Space Grotesk', sans-serif;
-        background: #000;
-        color: #fff;
-        overflow-x: hidden;
-        cursor: crosshair;
-    }
-
-    ::selection {
-        background: var(--hotpink);
-        color: #000;
-    }
-
-    /* Three.js Canvas */
-    #webgl {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        background: transparent;
-    }
-
-    /* Scanlines + Noise */
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-        z-index: 1;
-        background: 
-            repeating-linear-gradient(
-                0deg,
-                transparent 0px,
-                transparent 2px,
-                rgba(255, 0, 128, 0.01) 2px,
-                rgba(255, 0, 128, 0.01) 4px
-            );
-    }
-
-    .vignette {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-        z-index: 2;
-        background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
-    }
-
-    /* Content */
-    .content {
-        position: relative;
-        z-index: 10;
-    }
-
-    /* Navigation */
-    .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000;
-        padding: 32px 64px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        mix-blend-mode: difference;
-    }
-
-    .logo {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .logo-symbol {
-        width: 56px;
-        height: 56px;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .logo-symbol::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border: 1px solid var(--cyan);
-        animation: logoRotate 20s linear infinite;
-    }
-
-    .logo-symbol::after {
-        content: '';
-        position: absolute;
-        inset: 4px;
-        border: 1px solid var(--cyan);
-        opacity: 0.5;
-        animation: logoRotate 15s linear infinite reverse;
-    }
-
-    @keyframes logoRotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-
-    .logo-text-main {
-        font-family: 'Space Mono', monospace;
-        font-size: 18px;
-        font-weight: 700;
-        letter-spacing: 0.3em;
-        color: var(--cyan);
-    }
-
-    .logo-text-sub {
-        font-size: 10px;
-        font-weight: 400;
-        letter-spacing: 0.5em;
-        color: rgba(255,255,255,0.4);
-        text-transform: uppercase;
-        margin-top: 4px;
-    }
-
-    .nav-links {
-        display: flex;
-        gap: 64px;
-        list-style: none;
-    }
-
-    .nav-links a {
-        font-family: 'Space Mono', monospace;
-        font-size: 11px;
-        font-weight: 400;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.5);
-        text-decoration: none;
-        position: relative;
-        padding: 8px 0;
-        transition: color 0.3s;
-    }
-
-    .nav-links a::before {
-        content: '[';
-        position: absolute;
-        left: -12px;
-        opacity: 0;
-        color: var(--cyan);
-        transition: all 0.3s;
-        transform: translateX(8px);
-    }
-
-    .nav-links a::after {
-        content: ']';
-        position: absolute;
-        right: -12px;
-        opacity: 0;
-        color: var(--cyan);
-        transition: all 0.3s;
-        transform: translateX(-8px);
-    }
-
-    .nav-links a:hover {
-        color: var(--cyan);
-    }
-
-    .nav-links a:hover::before,
-    .nav-links a:hover::after {
-        opacity: 1;
-        transform: translateX(0);
-    }
-
-    /* Hero Section */
-    .hero {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 64px;
-        position: relative;
-    }
-
-    .hero-eyebrow {
-        display: flex;
-        align-items: center;
-        gap: 24px;
-        margin-bottom: 48px;
-    }
-
-    .hero-eyebrow-line {
-        width: 80px;
-        height: 1px;
-        background: linear-gradient(90deg, var(--cyan), transparent);
-        position: relative;
-    }
-
-    .hero-eyebrow-line::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: -2px;
-        width: 5px;
-        height: 5px;
-        background: var(--cyan);
-        box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
-        animation: pulseDot 2s ease-in-out infinite;
-    }
-
-    @keyframes pulseDot {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.5; transform: scale(1.5); }
-    }
-
-    .hero-eyebrow-text {
-        font-family: 'Space Mono', monospace;
-        font-size: 11px;
-        letter-spacing: 0.5em;
-        text-transform: uppercase;
-        color: var(--cyan);
-    }
-
-    .hero-title {
-        font-size: clamp(80px, 15vw, 200px);
-        font-weight: 700;
-        line-height: 0.85;
-        letter-spacing: -0.05em;
-        margin-bottom: 48px;
-    }
-
-    .hero-title .line {
-        display: block;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .hero-title .word {
-        display: inline-block;
-        transform: translateY(100%);
-        animation: revealWord 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .hero-title .line:nth-child(1) .word { animation-delay: 0.2s; }
-    .hero-title .line:nth-child(2) .word { animation-delay: 0.35s; }
-    .hero-title .line:nth-child(3) .word { animation-delay: 0.5s; }
-
-    @keyframes revealWord {
-        to { transform: translateY(0); }
-    }
-
-    .hero-title .stroke {
-        -webkit-text-stroke: 1.5px rgba(255,255,255,0.4);
-        -webkit-text-fill-color: transparent;
-        position: relative;
-    }
-
-    .hero-title .stroke::after {
-        content: attr(data-text);
-        position: absolute;
-        left: 0;
-        top: 0;
-        -webkit-text-stroke: 1.5px var(--cyan);
-        -webkit-text-fill-color: transparent;
-        opacity: 0;
-        animation: glitchStroke 4s ease-in-out infinite;
-    }
-
-    @keyframes glitchStroke {
-        0%, 100% { opacity: 0; transform: translate(0, 0); }
-        48%, 52% { opacity: 1; transform: translate(2px, -2px); }
-    }
-
-    .hero-title .gradient {
-        background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        position: relative;
-    }
-
-    .hero-title .gradient::before {
-        content: attr(data-text);
-        position: absolute;
-        left: 0;
-        top: 0;
-        background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 50%, var(--blue) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        opacity: 0;
-        animation: colorShift 6s ease-in-out infinite;
-    }
-
-    @keyframes colorShift {
-        0%, 100% { opacity: 0; }
-        50% { opacity: 1; }
-    }
-
-    .hero-description {
-        font-size: 18px;
-        font-weight: 300;
-        color: rgba(255,255,255,0.5);
-        max-width: 600px;
-        line-height: 1.8;
-        margin-bottom: 64px;
-        opacity: 0;
-        animation: fadeUp 1s ease forwards 0.8s;
-    }
-
-    @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(40px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* X-RAY BUTTON - The Star of the Show */
-    .xray-button {
-        position: relative;
-        display: inline-block;
-        padding: 24px 56px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        text-decoration: none;
-        perspective: 1000px;
-        opacity: 0;
-        animation: fadeUp 1s ease forwards 1s;
-    }
-
-    /* Base layer */
-    .xray-base {
-        position: absolute;
-        inset: 0;
-        border: 1px solid rgba(0, 255, 255, 0.2);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    /* X-Ray depth layers - creates 3D effect */
-    .xray-layer {
-        position: absolute;
-        border: 1px solid rgba(0, 255, 255, 0.1);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .xray-layer-1 { inset: 3px 3px -3px -3px; }
-    .xray-layer-2 { inset: 6px 6px -6px -6px; opacity: 0.7; }
-    .xray-layer-3 { inset: 9px 9px -9px -9px; opacity: 0.5; }
-    .xray-layer-4 { inset: 12px 12px -12px -12px; opacity: 0.3; }
-    .xray-layer-5 { inset: 15px 15px -15px -15px; opacity: 0.15; }
-
-    /* Corner brackets */
-    .xray-corner {
-        position: absolute;
-        width: 12px;
-        height: 12px;
-        transition: all 0.4s;
-    }
-
-    .xray-corner::before,
-    .xray-corner::after {
-        content: '';
-        position: absolute;
-        background: var(--cyan);
-        transition: all 0.4s;
-    }
-
-    .xray-corner-tl { top: -1px; left: -1px; }
-    .xray-corner-tl::before { top: 0; left: 0; width: 12px; height: 1px; }
-    .xray-corner-tl::after { top: 0; left: 0; width: 1px; height: 12px; }
-
-    .xray-corner-tr { top: -1px; right: -1px; }
-    .xray-corner-tr::before { top: 0; right: 0; width: 12px; height: 1px; }
-    .xray-corner-tr::after { top: 0; right: 0; width: 1px; height: 12px; }
-
-    .xray-corner-bl { bottom: -1px; left: -1px; }
-    .xray-corner-bl::before { bottom: 0; left: 0; width: 12px; height: 1px; }
-    .xray-corner-bl::after { bottom: 0; left: 0; width: 1px; height: 12px; }
-
-    .xray-corner-br { bottom: -1px; right: -1px; }
-    .xray-corner-br::before { bottom: 0; right: 0; width: 12px; height: 1px; }
-    .xray-corner-br::after { bottom: 0; right: 0; width: 1px; height: 12px; }
-
-    /* Electric current flow */
-    .xray-current {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
-    }
-
-    .xray-current-top,
-    .xray-current-right,
-    .xray-current-bottom,
-    .xray-current-left {
-        position: absolute;
-        background: linear-gradient(90deg, transparent, var(--cyan), var(--cyan), transparent);
-    }
-
-    .xray-current-top {
-        top: 0;
-        left: -100%;
-        width: 50%;
-        height: 1px;
-        animation: flowRight 2s linear infinite;
-    }
-
-    .xray-current-right {
-        right: 0;
-        top: -100%;
-        width: 1px;
-        height: 50%;
-        background: linear-gradient(180deg, transparent, var(--cyan), var(--cyan), transparent);
-        animation: flowDown 2s linear infinite 0.5s;
-    }
-
-    .xray-current-bottom {
-        bottom: 0;
-        right: -100%;
-        width: 50%;
-        height: 1px;
-        animation: flowLeft 2s linear infinite 1s;
-    }
-
-    .xray-current-left {
-        left: 0;
-        bottom: -100%;
-        width: 1px;
-        height: 50%;
-        background: linear-gradient(0deg, transparent, var(--cyan), var(--cyan), transparent);
-        animation: flowUp 2s linear infinite 1.5s;
-    }
-
-    @keyframes flowRight { to { left: 200%; } }
-    @keyframes flowDown { to { top: 200%; } }
-    @keyframes flowLeft { to { right: 200%; } }
-    @keyframes flowUp { to { bottom: 200%; } }
-
-    /* Inner glow */
-    .xray-glow {
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.05), transparent 70%);
-        opacity: 0;
-        transition: opacity 0.5s;
-    }
-
-    /* Button text */
-    .xray-text {
-        position: relative;
-        z-index: 10;
-        font-family: 'Space Mono', monospace;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        color: var(--white);
-        display: flex;
-        align-items: center;
-        gap: 16px;
-    }
-
-    .xray-text svg {
-        width: 18px;
-        height: 18px;
-        stroke: var(--cyan);
-        transition: transform 0.4s;
-    }
-
-    /* Hover Effects */
-    .xray-button:hover .xray-base {
-        border-color: var(--cyan);
-        box-shadow: 
-            0 0 30px rgba(0, 255, 255, 0.3),
-            inset 0 0 30px rgba(0, 255, 255, 0.1);
-    }
-
-    .xray-button:hover .xray-layer-1 { inset: 5px 5px -5px -5px; border-color: rgba(0, 255, 255, 0.3); }
-    .xray-button:hover .xray-layer-2 { inset: 10px 10px -10px -10px; border-color: rgba(0, 255, 255, 0.2); }
-    .xray-button:hover .xray-layer-3 { inset: 15px 15px -15px -15px; border-color: rgba(0, 255, 255, 0.15); }
-    .xray-button:hover .xray-layer-4 { inset: 20px 20px -20px -20px; border-color: rgba(0, 255, 255, 0.1); }
-    .xray-button:hover .xray-layer-5 { inset: 25px 25px -25px -25px; border-color: rgba(0, 255, 255, 0.05); }
-
-    .xray-button:hover .xray-corner { width: 16px; height: 16px; }
-    .xray-button:hover .xray-corner::before { box-shadow: 0 0 10px var(--cyan); }
-    .xray-button:hover .xray-corner::after { box-shadow: 0 0 10px var(--cyan); }
-
-    .xray-button:hover .xray-glow { opacity: 1; }
-    .xray-button:hover .xray-text svg { transform: translateX(8px); }
-
-    /* Hero Stats */
-    .hero-stats {
-        position: absolute;
-        right: 64px;
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 64px;
-    }
-
-    .hero-stat {
-        text-align: right;
-        opacity: 0;
-        animation: fadeUp 1s ease forwards;
-    }
-
-    .hero-stat:nth-child(1) { animation-delay: 1.2s; }
-    .hero-stat:nth-child(2) { animation-delay: 1.4s; }
-    .hero-stat:nth-child(3) { animation-delay: 1.6s; }
-
-    .hero-stat-value {
-        font-family: 'Space Mono', monospace;
-        font-size: 56px;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        color: var(--white);
-        position: relative;
-    }
-
-    .hero-stat-value::after {
-        content: '';
-        position: absolute;
-        right: 0;
-        bottom: -8px;
-        width: 40px;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, var(--cyan));
-    }
-
-    .hero-stat-label {
-        font-family: 'Space Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.4);
-        margin-top: 16px;
-    }
-
-    /* Scroll Indicator */
-    .scroll-hint {
-        position: absolute;
-        left: 64px;
-        bottom: 64px;
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        opacity: 0;
-        animation: fadeUp 1s ease forwards 1.8s;
-    }
-
-    .scroll-line {
-        width: 1px;
-        height: 80px;
-        background: rgba(255,255,255,0.1);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .scroll-line::after {
-        content: '';
-        position: absolute;
-        top: -100%;
-        left: 0;
-        width: 100%;
-        height: 40px;
-        background: linear-gradient(180deg, transparent, var(--cyan), transparent);
-        animation: scrollLine 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollLine {
-        0% { top: -100%; }
-        100% { top: 200%; }
-    }
-
-    .scroll-text {
-        font-family: 'Space Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.3);
-        writing-mode: vertical-rl;
-        transform: rotate(180deg);
-    }
-
-    /* Section Styles */
-    section {
-        padding: 200px 64px;
-        position: relative;
-    }
-
-    .section-header {
-        margin-bottom: 80px;
-    }
-
-    .section-eyebrow {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        margin-bottom: 24px;
-    }
-
-    .section-eyebrow-num {
-        font-family: 'Space Mono', monospace;
-        font-size: 12px;
-        color: var(--cyan);
-    }
-
-    .section-eyebrow-text {
-        font-family: 'Space Mono', monospace;
-        font-size: 11px;
-        letter-spacing: 0.5em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.4);
-    }
-
-    .section-title {
-        font-size: clamp(48px, 10vw, 100px);
-        font-weight: 700;
-        line-height: 0.95;
-        letter-spacing: -0.04em;
-    }
-
-    .section-title .stroke {
-        -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-        -webkit-text-fill-color: transparent;
-    }
-
-    /* Products */
-    .products-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1px;
-        background: rgba(0, 255, 255, 0.1);
-        margin-top: 80px;
-    }
-
-    .product-card {
-        background: rgba(0, 0, 0, 0.95);
-        padding: 64px;
-        position: relative;
-        transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        overflow: hidden;
-    }
-
-    .product-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-        opacity: 0;
-        transition: opacity 0.6s;
-    }
-
-    .product-card:hover {
-        background: rgba(0, 20, 25, 0.95);
-    }
-
-    .product-card:hover::before {
-        opacity: 1;
-    }
-
-    /* Wireframe corners */
-    .product-card .corner {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        transition: all 0.4s;
-    }
-
-    .product-card .corner::before,
-    .product-card .corner::after {
-        content: '';
-        position: absolute;
-        background: rgba(0, 255, 255, 0.3);
-        transition: all 0.4s;
-    }
-
-    .product-card .corner-tl { top: 20px; left: 20px; }
-    .product-card .corner-tl::before { top: 0; left: 0; width: 20px; height: 1px; }
-    .product-card .corner-tl::after { top: 0; left: 0; width: 1px; height: 20px; }
-
-    .product-card .corner-br { bottom: 20px; right: 20px; }
-    .product-card .corner-br::before { bottom: 0; right: 0; width: 20px; height: 1px; }
-    .product-card .corner-br::after { bottom: 0; right: 0; width: 1px; height: 20px; }
-
-    .product-card:hover .corner::before,
-    .product-card:hover .corner::after {
-        background: var(--cyan);
-        box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-    }
-
-    .product-number {
-        font-family: 'Space Mono', monospace;
-        font-size: 12px;
-        color: var(--cyan);
-        margin-bottom: 32px;
-        letter-spacing: 0.2em;
-    }
-
-    .product-title {
-        font-size: 36px;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        margin-bottom: 16px;
-    }
-
-    .product-description {
-        font-size: 15px;
-        color: rgba(255,255,255,0.5);
-        line-height: 1.8;
-        margin-bottom: 32px;
-        max-width: 400px;
-    }
-
-    .product-status {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 20px;
-        border: 1px solid rgba(0, 255, 128, 0.3);
-        font-family: 'Space Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: var(--green);
-    }
-
-    .product-status-dot {
-        width: 6px;
-        height: 6px;
-        background: var(--green);
-        border-radius: 50%;
-        box-shadow: 0 0 10px var(--green);
-        animation: pulseDot 2s ease-in-out infinite;
-    }
-
-    .product-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        margin-top: 32px;
-        color: rgba(255,255,255,0.5);
-        text-decoration: none;
-        font-family: 'Space Mono', monospace;
-        font-size: 11px;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        transition: all 0.3s;
-    }
-
-    .product-link:hover {
-        color: var(--cyan);
-    }
-
-    .product-link svg {
-        width: 16px;
-        height: 16px;
-        transition: transform 0.3s;
-    }
-
-    .product-link:hover svg {
-        transform: translateX(8px);
-    }
-
-    /* Credentials */
-    .credentials {
-        background: linear-gradient(180deg, transparent, rgba(0, 255, 255, 0.02), transparent);
-    }
-
-    .credentials-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1px;
-        background: rgba(255,255,255,0.05);
-        margin-top: 80px;
-    }
-
-    .credential-card {
-        background: #000;
-        padding: 48px 32px;
-        text-align: center;
-        transition: all 0.4s;
-        position: relative;
-    }
-
-    .credential-card::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), transparent);
-        opacity: 0;
-        transition: opacity 0.4s;
-    }
-
-    .credential-card:hover::before {
-        opacity: 1;
-    }
-
-    .credential-icon {
-        width: 48px;
-        height: 48px;
-        margin: 0 auto 24px;
-        stroke: var(--cyan);
-        opacity: 0.5;
-        transition: all 0.4s;
-    }
-
-    .credential-card:hover .credential-icon {
-        opacity: 1;
-        filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
-    }
-
-    .credential-title {
-        font-family: 'Space Mono', monospace;
-        font-size: 12px;
-        font-weight: 700;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        color: var(--white);
-        margin-bottom: 8px;
-    }
-
-    .credential-desc {
-        font-size: 12px;
-        color: rgba(255,255,255,0.4);
-    }
-
-    /* Stats */
-    .stats-bar {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1px;
-        background: rgba(0, 255, 255, 0.1);
-        padding: 0;
-    }
-
-    .stat-item {
-        background: #000;
-        padding: 80px 48px;
-        text-align: center;
-        position: relative;
-    }
-
-    .stat-item::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 1px;
-        height: 32px;
-        background: linear-gradient(180deg, var(--cyan), transparent);
-    }
-
-    .stat-value {
-        font-family: 'Space Mono', monospace;
-        font-size: 64px;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        background: linear-gradient(180deg, var(--white), rgba(255,255,255,0.4));
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .stat-label {
-        font-family: 'Space Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.4);
-        margin-top: 16px;
-    }
-
-    /* CTA */
-    .cta {
-        text-align: center;
-        padding: 240px 64px;
-    }
-
-    .cta-title {
-        font-size: clamp(64px, 12vw, 150px);
-        font-weight: 700;
-        letter-spacing: -0.05em;
-        line-height: 0.9;
-        margin-bottom: 32px;
-    }
-
-    .cta-title .stroke {
-        -webkit-text-stroke: 1px rgba(255,255,255,0.3);
-        -webkit-text-fill-color: transparent;
-    }
-
-    .cta-subtitle {
-        font-size: 18px;
-        color: rgba(255,255,255,0.4);
-        max-width: 500px;
-        margin: 0 auto 64px;
-        line-height: 1.7;
-    }
-
-    /* Footer */
-    .footer {
-        padding: 80px 64px;
-        border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .footer-grid {
-        display: grid;
-        grid-template-columns: 2fr repeat(3, 1fr);
-        gap: 64px;
-    }
-
-    .footer-brand p {
-        font-size: 14px;
-        color: rgba(255,255,255,0.4);
-        line-height: 1.7;
-        margin-top: 24px;
-        max-width: 280px;
-    }
-
-    .footer-title {
-        font-family: 'Space Mono', monospace;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.3);
-        margin-bottom: 24px;
-    }
-
-    .footer-links {
-        list-style: none;
-    }
-
-    .footer-links li {
-        margin-bottom: 12px;
-    }
-
-    .footer-links a {
-        color: rgba(255,255,255,0.5);
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.2s;
-    }
-
-    .footer-links a:hover {
-        color: var(--cyan);
-    }
-
-    .footer-bottom {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 80px;
-        padding-top: 40px;
-        border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .footer-copyright {
-        font-family: 'Space Mono', monospace;
-        font-size: 11px;
-        color: rgba(255,255,255,0.3);
-        letter-spacing: 0.1em;
-    }
-
-    /* Reveal animations */
-    .reveal {
-        opacity: 0;
-        transform: translateY(60px);
-        transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal.visible {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* Responsive */
-    @media (max-width: 1024px) {
-        .nav { padding: 24px 32px; }
-        .hero { padding: 0 32px; }
-        section { padding: 120px 32px; }
-        .hero-stats { display: none; }
-        .products-grid { grid-template-columns: 1fr; }
-        .credentials-grid { grid-template-columns: repeat(2, 1fr); }
-        .stats-bar { grid-template-columns: repeat(2, 1fr); }
-        .footer-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 768px) {
-        .nav { padding: 16px 24px; }
-        .nav-links { display: none; }
-        .hero { padding: 0 24px; }
-        section { padding: 80px 24px; }
-        .credentials-grid { grid-template-columns: 1fr; }
-        .stats-bar { grid-template-columns: 1fr; }
-        .product-card { padding: 40px 32px; }
-        .footer { padding: 48px 24px; }
-        .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-        .footer-bottom { flex-direction: column; gap: 24px; text-align: center; }
-        .scroll-hint { display: none; }
-    }
-</style>
-```
-
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --cyan: #00ffff;
+            --electric: #00f0ff;
+            --blue: #0080ff;
+            --purple: #8000ff;
+            --magenta: #ff00ff;
+            --green: #00ff80;
+            --gold: #ffd700;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        ::selection {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        /* Three.js Canvas */
+        #webgl {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        /* Scanlines + Noise */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 2px,
+                    rgba(0, 255, 255, 0.01) 2px,
+                    rgba(0, 255, 255, 0.01) 4px
+                );
+        }
+
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 2;
+            background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
+        }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 32px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-symbol {
+            width: 56px;
+            height: 56px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-symbol::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--cyan);
+            animation: logoRotate 20s linear infinite;
+        }
+
+        .logo-symbol::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px solid var(--cyan);
+            opacity: 0.5;
+            animation: logoRotate 15s linear infinite reverse;
+        }
+
+        @keyframes logoRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text-main {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--cyan);
+        }
+
+        .logo-text-sub {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.5em;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 64px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '[';
+            position: absolute;
+            left: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(8px);
+        }
+
+        .nav-links a::after {
+            content: ']';
+            position: absolute;
+            right: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(-8px);
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 64px;
+            position: relative;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .hero-eyebrow-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--cyan), transparent);
+            position: relative;
+        }
+
+        .hero-eyebrow-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .hero-eyebrow-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--cyan);
+        }
+
+        .hero-title {
+            font-size: clamp(80px, 15vw, 200px);
+            font-weight: 700;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            margin-bottom: 48px;
+        }
+
+        .hero-title .line {
+            display: block;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-title .word {
+            display: inline-block;
+            transform: translateY(100%);
+            animation: revealWord 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-title .line:nth-child(1) .word { animation-delay: 0.2s; }
+        .hero-title .line:nth-child(2) .word { animation-delay: 0.35s; }
+        .hero-title .line:nth-child(3) .word { animation-delay: 0.5s; }
+
+        @keyframes revealWord {
+            to { transform: translateY(0); }
+        }
+
+        .hero-title .stroke {
+            -webkit-text-stroke: 1.5px rgba(255,255,255,0.4);
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .hero-title .stroke::after {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            -webkit-text-stroke: 1.5px var(--cyan);
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: glitchStroke 4s ease-in-out infinite;
+        }
+
+        @keyframes glitchStroke {
+            0%, 100% { opacity: 0; transform: translate(0, 0); }
+            48%, 52% { opacity: 1; transform: translate(2px, -2px); }
+        }
+
+        .hero-title .gradient {
+            background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .hero-title .gradient::before {
+            content: attr(data-text);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 50%, var(--blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            animation: colorShift 6s ease-in-out infinite;
+        }
+
+        @keyframes colorShift {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .hero-description {
+            font-size: 18px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.5);
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 64px;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.8s;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* X-RAY BUTTON - The Star of the Show */
+        .xray-button {
+            position: relative;
+            display: inline-block;
+            padding: 24px 56px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            perspective: 1000px;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1s;
+        }
+
+        /* Base layer */
+        .xray-base {
+            position: absolute;
+            inset: 0;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* X-Ray depth layers - creates 3D effect */
+        .xray-layer {
+            position: absolute;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .xray-layer-1 { inset: 3px 3px -3px -3px; }
+        .xray-layer-2 { inset: 6px 6px -6px -6px; opacity: 0.7; }
+        .xray-layer-3 { inset: 9px 9px -9px -9px; opacity: 0.5; }
+        .xray-layer-4 { inset: 12px 12px -12px -12px; opacity: 0.3; }
+        .xray-layer-5 { inset: 15px 15px -15px -15px; opacity: 0.15; }
+
+        /* Corner brackets */
+        .xray-corner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            transition: all 0.4s;
+        }
+
+        .xray-corner::before,
+        .xray-corner::after {
+            content: '';
+            position: absolute;
+            background: var(--cyan);
+            transition: all 0.4s;
+        }
+
+        .xray-corner-tl { top: -1px; left: -1px; }
+        .xray-corner-tl::before { top: 0; left: 0; width: 12px; height: 1px; }
+        .xray-corner-tl::after { top: 0; left: 0; width: 1px; height: 12px; }
+
+        .xray-corner-tr { top: -1px; right: -1px; }
+        .xray-corner-tr::before { top: 0; right: 0; width: 12px; height: 1px; }
+        .xray-corner-tr::after { top: 0; right: 0; width: 1px; height: 12px; }
+
+        .xray-corner-bl { bottom: -1px; left: -1px; }
+        .xray-corner-bl::before { bottom: 0; left: 0; width: 12px; height: 1px; }
+        .xray-corner-bl::after { bottom: 0; left: 0; width: 1px; height: 12px; }
+
+        .xray-corner-br { bottom: -1px; right: -1px; }
+        .xray-corner-br::before { bottom: 0; right: 0; width: 12px; height: 1px; }
+        .xray-corner-br::after { bottom: 0; right: 0; width: 1px; height: 12px; }
+
+        /* Electric current flow */
+        .xray-current {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .xray-current-top,
+        .xray-current-right,
+        .xray-current-bottom,
+        .xray-current-left {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--cyan), var(--cyan), transparent);
+        }
+
+        .xray-current-top {
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 1px;
+            animation: flowRight 2s linear infinite;
+        }
+
+        .xray-current-right {
+            right: 0;
+            top: -100%;
+            width: 1px;
+            height: 50%;
+            background: linear-gradient(180deg, transparent, var(--cyan), var(--cyan), transparent);
+            animation: flowDown 2s linear infinite 0.5s;
+        }
+
+        .xray-current-bottom {
+            bottom: 0;
+            right: -100%;
+            width: 50%;
+            height: 1px;
+            animation: flowLeft 2s linear infinite 1s;
+        }
+
+        .xray-current-left {
+            left: 0;
+            bottom: -100%;
+            width: 1px;
+            height: 50%;
+            background: linear-gradient(0deg, transparent, var(--cyan), var(--cyan), transparent);
+            animation: flowUp 2s linear infinite 1.5s;
+        }
+
+        @keyframes flowRight { to { left: 200%; } }
+        @keyframes flowDown { to { top: 200%; } }
+        @keyframes flowLeft { to { right: 200%; } }
+        @keyframes flowUp { to { bottom: 200%; } }
+
+        /* Inner glow */
+        .xray-glow {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.05), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        /* Button text */
+        .xray-text {
+            position: relative;
+            z-index: 10;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .xray-text svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--cyan);
+            transition: transform 0.4s;
+        }
+
+        /* Hover Effects */
+        .xray-button:hover .xray-base {
+            border-color: var(--cyan);
+            box-shadow: 
+                0 0 30px rgba(0, 255, 255, 0.3),
+                inset 0 0 30px rgba(0, 255, 255, 0.1);
+        }
+
+        .xray-button:hover .xray-layer-1 { inset: 5px 5px -5px -5px; border-color: rgba(0, 255, 255, 0.3); }
+        .xray-button:hover .xray-layer-2 { inset: 10px 10px -10px -10px; border-color: rgba(0, 255, 255, 0.2); }
+        .xray-button:hover .xray-layer-3 { inset: 15px 15px -15px -15px; border-color: rgba(0, 255, 255, 0.15); }
+        .xray-button:hover .xray-layer-4 { inset: 20px 20px -20px -20px; border-color: rgba(0, 255, 255, 0.1); }
+        .xray-button:hover .xray-layer-5 { inset: 25px 25px -25px -25px; border-color: rgba(0, 255, 255, 0.05); }
+
+        .xray-button:hover .xray-corner { width: 16px; height: 16px; }
+        .xray-button:hover .xray-corner::before { box-shadow: 0 0 10px var(--cyan); }
+        .xray-button:hover .xray-corner::after { box-shadow: 0 0 10px var(--cyan); }
+
+        .xray-button:hover .xray-glow { opacity: 1; }
+        .xray-button:hover .xray-text svg { transform: translateX(8px); }
+
+        /* Hero Stats */
+        .hero-stats {
+            position: absolute;
+            right: 64px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 64px;
+        }
+
+        .hero-stat {
+            text-align: right;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .hero-stat:nth-child(1) { animation-delay: 1.2s; }
+        .hero-stat:nth-child(2) { animation-delay: 1.4s; }
+        .hero-stat:nth-child(3) { animation-delay: 1.6s; }
+
+        .hero-stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-stat-value::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan));
+        }
+
+        .hero-stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-top: 16px;
+        }
+
+        /* Scroll Indicator */
+        .scroll-hint {
+            position: absolute;
+            left: 64px;
+            bottom: 64px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1.8s;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 80px;
+            background: rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(180deg, transparent, var(--cyan), transparent);
+            animation: scrollLine 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollLine {
+            0% { top: -100%; }
+            100% { top: 200%; }
+        }
+
+        .scroll-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 200px 64px;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 80px;
+        }
+
+        .section-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .section-eyebrow-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--cyan);
+        }
+
+        .section-eyebrow-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .section-title {
+            font-size: clamp(48px, 10vw, 100px);
+            font-weight: 700;
+            line-height: 0.95;
+            letter-spacing: -0.04em;
+        }
+
+        .section-title .stroke {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Products */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: rgba(0, 255, 255, 0.1);
+            margin-top: 80px;
+        }
+
+        .product-card {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 64px;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+            opacity: 0;
+            transition: opacity 0.6s;
+        }
+
+        .product-card:hover {
+            background: rgba(0, 20, 25, 0.95);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Wireframe corners */
+        .product-card .corner {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            transition: all 0.4s;
+        }
+
+        .product-card .corner::before,
+        .product-card .corner::after {
+            content: '';
+            position: absolute;
+            background: rgba(0, 255, 255, 0.3);
+            transition: all 0.4s;
+        }
+
+        .product-card .corner-tl { top: 20px; left: 20px; }
+        .product-card .corner-tl::before { top: 0; left: 0; width: 20px; height: 1px; }
+        .product-card .corner-tl::after { top: 0; left: 0; width: 1px; height: 20px; }
+
+        .product-card .corner-br { bottom: 20px; right: 20px; }
+        .product-card .corner-br::before { bottom: 0; right: 0; width: 20px; height: 1px; }
+        .product-card .corner-br::after { bottom: 0; right: 0; width: 1px; height: 20px; }
+
+        .product-card:hover .corner::before,
+        .product-card:hover .corner::after {
+            background: var(--cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        .product-number {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--cyan);
+            margin-bottom: 32px;
+            letter-spacing: 0.2em;
+        }
+
+        .product-title {
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .product-description {
+            font-size: 15px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            max-width: 400px;
+        }
+
+        .product-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border: 1px solid rgba(0, 255, 128, 0.3);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .product-status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--green);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 32px;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .product-link:hover {
+            color: var(--cyan);
+        }
+
+        .product-link svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s;
+        }
+
+        .product-link:hover svg {
+            transform: translateX(8px);
+        }
+
+        /* Credentials */
+        .credentials {
+            background: linear-gradient(180deg, transparent, rgba(0, 255, 255, 0.02), transparent);
+        }
+
+        .credentials-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(255,255,255,0.05);
+            margin-top: 80px;
+        }
+
+        .credential-card {
+            background: #000;
+            padding: 48px 32px;
+            text-align: center;
+            transition: all 0.4s;
+            position: relative;
+        }
+
+        .credential-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .credential-card:hover::before {
+            opacity: 1;
+        }
+
+        .credential-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 24px;
+            stroke: var(--cyan);
+            opacity: 0.5;
+            transition: all 0.4s;
+        }
+
+        .credential-card:hover .credential-icon {
+            opacity: 1;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+        }
+
+        .credential-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--white);
+            margin-bottom: 8px;
+        }
+
+        .credential-desc {
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* Stats */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: rgba(0, 255, 255, 0.1);
+            padding: 0;
+        }
+
+        .stat-item {
+            background: #000;
+            padding: 80px 48px;
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: 32px;
+            background: linear-gradient(180deg, var(--cyan), transparent);
+        }
+
+        .stat-value {
+            font-family: 'Space Mono', monospace;
+            font-size: 64px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(180deg, var(--white), rgba(255,255,255,0.4));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-top: 16px;
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 240px 64px;
+        }
+
+        .cta-title {
+            font-size: clamp(64px, 12vw, 150px);
+            font-weight: 700;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .cta-title .stroke {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.4);
+            max-width: 500px;
+            margin: 0 auto 64px;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 80px 64px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 64px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.7;
+            margin-top: 24px;
+            max-width: 280px;
+        }
+
+        .footer-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 24px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-copyright {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.1em;
+        }
+
+        /* Reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav { padding: 24px 32px; }
+            .hero { padding: 0 32px; }
+            section { padding: 120px 32px; }
+            .hero-stats { display: none; }
+            .products-grid { grid-template-columns: 1fr; }
+            .credentials-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-bar { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav { padding: 16px 24px; }
+            .nav-links { display: none; }
+            .hero { padding: 0 24px; }
+            section { padding: 80px 24px; }
+            .credentials-grid { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: 1fr; }
+            .product-card { padding: 40px 32px; }
+            .footer { padding: 48px 24px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 24px; text-align: center; }
+            .scroll-hint { display: none; }
+        }
+    </style>
 </head>
 <body>
     <!-- Three.js Canvas -->
     <canvas id="webgl"></canvas>
+    
+    <!-- Overlays -->
+    <div class="overlay"></div>
+    <div class="vignette"></div>
 
-```
-<!-- Overlays -->
-<div class="overlay"></div>
-<div class="vignette"></div>
+    <!-- Content -->
+    <div class="content">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="/" class="logo">
+                <div class="logo-symbol">
+                    <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
+                </div>
+                <div>
+                    <div class="logo-text-main">DLT</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#products">Products</a></li>
+                <li><a href="#credentials">Credentials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
 
-<!-- Content -->
-<div class="content">
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="/" class="logo">
-            <div class="logo-symbol">
-                <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-eyebrow">
+                <span class="hero-eyebrow-line"></span>
+                <span class="hero-eyebrow-text">Pioneering Blockchain Since 2023</span>
             </div>
-            <div>
-                <div class="logo-text-main">DLT</div>
-                <div class="logo-text-sub">Distributed Ledger</div>
-            </div>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#products">Products</a></li>
-            <li><a href="#credentials">Credentials</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-eyebrow">
-            <span class="hero-eyebrow-line"></span>
-            <span class="hero-eyebrow-text">Pioneering Blockchain Since 2023</span>
+            <h1 class="hero-title">
+                <span class="line"><span class="word gradient" data-text="Enterprise">Enterprise</span></span>
+                <span class="line"><span class="word">Blockchain</span></span>
+                <span class="line"><span class="word stroke" data-text="Infrastructure">Infrastructure</span></span>
+            </h1>
+
+            <p class="hero-description">
+                Institutional-grade solutions for governments, defense agencies, financial institutions, and global enterprises. We build the critical infrastructure powering the digital asset economy.
+            </p>
+
+            <a href="#contact" class="xray-button">
+                <span class="xray-layer xray-layer-5"></span>
+                <span class="xray-layer xray-layer-4"></span>
+                <span class="xray-layer xray-layer-3"></span>
+                <span class="xray-layer xray-layer-2"></span>
+                <span class="xray-layer xray-layer-1"></span>
+                <span class="xray-base"></span>
+                <span class="xray-corner xray-corner-tl"></span>
+                <span class="xray-corner xray-corner-tr"></span>
+                <span class="xray-corner xray-corner-bl"></span>
+                <span class="xray-corner xray-corner-br"></span>
+                <span class="xray-current">
+                    <span class="xray-current-top"></span>
+                    <span class="xray-current-right"></span>
+                    <span class="xray-current-bottom"></span>
+                    <span class="xray-current-left"></span>
+                </span>
+                <span class="xray-glow"></span>
+                <span class="xray-text">
+                    Request Consultation
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </span>
+            </a>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value">4</div>
+                    <div class="hero-stat-label">Enterprise Products</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">350+</div>
+                    <div class="hero-stat-label">MH/s Capacity</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value">24/7</div>
+                    <div class="hero-stat-label">Global Operations</div>
+                </div>
+            </div>
+
+            <div class="scroll-hint">
+                <div class="scroll-line"></div>
+                <span class="scroll-text">Scroll</span>
+            </div>
+        </section>
+
+        <!-- Products -->
+        <section id="products">
+            <div class="section-header reveal">
+                <div class="section-eyebrow">
+                    <span class="section-eyebrow-num">[01]</span>
+                    <span class="section-eyebrow-text">Product Suite</span>
+                </div>
+                <h2 class="section-title">
+                    Institutional-Grade<br><span class="stroke">Solutions</span>
+                </h2>
+            </div>
+
+            <div class="products-grid">
+                <div class="product-card reveal">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="product-number">[01]</div>
+                    <h3 class="product-title">MacMetal Miner</h3>
+                    <p class="product-description">The industry's first native Metal GPU Bitcoin miner for Apple Silicon. Professional mining infrastructure with 350+ MH/s capacity.</p>
+                    <div class="product-status">
+                        <span class="product-status-dot"></span>
+                        Live v9.4
+                    </div>
+                    <a href="https://macmetalminer.com" class="product-link" target="_blank">
+                        Access Platform
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <div class="product-card reveal">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="product-number">[02]</div>
+                    <h3 class="product-title">Echelon</h3>
+                    <p class="product-description">The Sovereign Cash Protocol. Cryptographically secure bearer instruments for offline-capable digital payments.</p>
+                    <div class="product-status">
+                        <span class="product-status-dot"></span>
+                        Live
+                    </div>
+                    <a href="https://xalon.com" class="product-link" target="_blank">
+                        Access Platform
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <div class="product-card reveal">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="product-number">[03]</div>
+                    <h3 class="product-title">HydroDollar</h3>
+                    <p class="product-description">Experimental tokenomics framework for post-petrodollar monetary systems. Sound money backed by renewable energy.</p>
+                    <div class="product-status" style="border-color: rgba(128, 0, 255, 0.3); color: #a78bfa;">
+                        <span class="product-status-dot" style="background: #a78bfa; box-shadow: 0 0 10px #a78bfa;"></span>
+                        Research
+                    </div>
+                    <a href="https://hydrodollar.com" class="product-link" target="_blank">
+                        Learn More
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <div class="product-card reveal">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-br"></div>
+                    <div class="product-number">[04]</div>
+                    <h3 class="product-title">Ayedex</h3>
+                    <p class="product-description">High-performance Bitcoin mining pool infrastructure with optimized stratum servers and real-time analytics.</p>
+                    <div class="product-status">
+                        <span class="product-status-dot"></span>
+                        Live
+                    </div>
+                    <a href="https://ayedex.com" class="product-link" target="_blank">
+                        Access Platform
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Credentials -->
+        <section class="credentials" id="credentials">
+            <div class="section-header reveal">
+                <div class="section-eyebrow">
+                    <span class="section-eyebrow-num">[02]</span>
+                    <span class="section-eyebrow-text">Built For</span>
+                </div>
+                <h2 class="section-title">
+                    Enterprise &<br><span class="stroke">Institutional</span>
+                </h2>
+            </div>
+
+            <div class="credentials-grid">
+                <div class="credential-card reveal">
+                    <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>
+                    </svg>
+                    <div class="credential-title">Financial Institutions</div>
+                    <div class="credential-desc">Banks • Exchanges • Asset Managers</div>
+                </div>
+
+                <div class="credential-card reveal">
+                    <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    <div class="credential-title">Government & Defense</div>
+                    <div class="credential-desc">Intelligence • Treasury • DoD</div>
+                </div>
+
+                <div class="credential-card reveal">
+                    <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+                    </svg>
+                    <div class="credential-title">Global Enterprises</div>
+                    <div class="credential-desc">Fortune 500 • Multinationals</div>
+                </div>
+
+                <div class="credential-card reveal">
+                    <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+                    </svg>
+                    <div class="credential-title">Payment Networks</div>
+                    <div class="credential-desc">Card Networks • Settlement</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-item reveal">
+                <div class="stat-value">4</div>
+                <div class="stat-label">Enterprise Products</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Native Software</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-value">350+</div>
+                <div class="stat-label">MH/s Hashrate</div>
+            </div>
+            <div class="stat-item reveal">
+                <div class="stat-value">2023</div>
+                <div class="stat-label">Founded</div>
+            </div>
         </div>
 
-        <h1 class="hero-title">
-            <span class="line"><span class="word gradient" data-text="Enterprise">Enterprise</span></span>
-            <span class="line"><span class="word">Blockchain</span></span>
-            <span class="line"><span class="word stroke" data-text="Infrastructure">Infrastructure</span></span>
-        </h1>
-
-        <p class="hero-description">
-            Institutional-grade solutions for governments, defense agencies, financial institutions, and global enterprises. We build the critical infrastructure powering the digital asset economy.
-        </p>
-
-        <a href="#contact" class="xray-button">
-            <span class="xray-layer xray-layer-5"></span>
-            <span class="xray-layer xray-layer-4"></span>
-            <span class="xray-layer xray-layer-3"></span>
-            <span class="xray-layer xray-layer-2"></span>
-            <span class="xray-layer xray-layer-1"></span>
-            <span class="xray-base"></span>
-            <span class="xray-corner xray-corner-tl"></span>
-            <span class="xray-corner xray-corner-tr"></span>
-            <span class="xray-corner xray-corner-bl"></span>
-            <span class="xray-corner xray-corner-br"></span>
-            <span class="xray-current">
-                <span class="xray-current-top"></span>
-                <span class="xray-current-right"></span>
-                <span class="xray-current-bottom"></span>
-                <span class="xray-current-left"></span>
-            </span>
-            <span class="xray-glow"></span>
-            <span class="xray-text">
-                Request Consultation
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </span>
-        </a>
-
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <div class="hero-stat-value">4</div>
-                <div class="hero-stat-label">Enterprise Products</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-value">350+</div>
-                <div class="hero-stat-label">MH/s Capacity</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-value">24/7</div>
-                <div class="hero-stat-label">Global Operations</div>
-            </div>
-        </div>
-
-        <div class="scroll-hint">
-            <div class="scroll-line"></div>
-            <span class="scroll-text">Scroll</span>
-        </div>
-    </section>
-
-    <!-- Products -->
-    <section id="products">
-        <div class="section-header reveal">
-            <div class="section-eyebrow">
-                <span class="section-eyebrow-num">[01]</span>
-                <span class="section-eyebrow-text">Product Suite</span>
-            </div>
-            <h2 class="section-title">
-                Institutional-Grade<br><span class="stroke">Solutions</span>
+        <!-- CTA -->
+        <section class="cta" id="contact">
+            <h2 class="cta-title reveal">
+                <span class="stroke">Ready to</span><br>
+                <span class="gradient" data-text="Build?">Build?</span>
             </h2>
-        </div>
+            <p class="cta-subtitle reveal">
+                Connect with our team to discuss how DLT can power your digital asset infrastructure.
+            </p>
+            <a href="mailto:david@knexmail.com" class="xray-button reveal">
+                <span class="xray-layer xray-layer-5"></span>
+                <span class="xray-layer xray-layer-4"></span>
+                <span class="xray-layer xray-layer-3"></span>
+                <span class="xray-layer xray-layer-2"></span>
+                <span class="xray-layer xray-layer-1"></span>
+                <span class="xray-base"></span>
+                <span class="xray-corner xray-corner-tl"></span>
+                <span class="xray-corner xray-corner-tr"></span>
+                <span class="xray-corner xray-corner-bl"></span>
+                <span class="xray-corner xray-corner-br"></span>
+                <span class="xray-current">
+                    <span class="xray-current-top"></span>
+                    <span class="xray-current-right"></span>
+                    <span class="xray-current-bottom"></span>
+                    <span class="xray-current-left"></span>
+                </span>
+                <span class="xray-glow"></span>
+                <span class="xray-text">
+                    Contact Us
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </span>
+            </a>
+        </section>
 
-        <div class="products-grid">
-            <div class="product-card reveal">
-                <div class="corner corner-tl"></div>
-                <div class="corner corner-br"></div>
-                <div class="product-number">[01]</div>
-                <h3 class="product-title">MacMetal Miner</h3>
-                <p class="product-description">The industry's first native Metal GPU Bitcoin miner for Apple Silicon. Professional mining infrastructure with 350+ MH/s capacity.</p>
-                <div class="product-status">
-                    <span class="product-status-dot"></span>
-                    Live v9.4
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <div class="logo-symbol">
+                            <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
+                        </div>
+                    </a>
+                    <p>Building institutional-grade blockchain infrastructure for the digital asset economy.</p>
                 </div>
-                <a href="https://macmetalminer.com" class="product-link" target="_blank">
-                    Access Platform
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-
-            <div class="product-card reveal">
-                <div class="corner corner-tl"></div>
-                <div class="corner corner-br"></div>
-                <div class="product-number">[02]</div>
-                <h3 class="product-title">Echelon</h3>
-                <p class="product-description">The Sovereign Cash Protocol. Cryptographically secure bearer instruments for offline-capable digital payments.</p>
-                <div class="product-status">
-                    <span class="product-status-dot"></span>
-                    Live
+                <div>
+                    <div class="footer-title">Products</div>
+                    <ul class="footer-links">
+                        <li><a href="https://macmetalminer.com">MacMetal Miner</a></li>
+                        <li><a href="https://xalon.com">Echelon</a></li>
+                        <li><a href="https://hydrodollar.com">HydroDollar</a></li>
+                        <li><a href="https://ayedex.com">Ayedex</a></li>
+                    </ul>
                 </div>
-                <a href="https://xalon.com" class="product-link" target="_blank">
-                    Access Platform
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-
-            <div class="product-card reveal">
-                <div class="corner corner-tl"></div>
-                <div class="corner corner-br"></div>
-                <div class="product-number">[03]</div>
-                <h3 class="product-title">HydroDollar</h3>
-                <p class="product-description">Experimental tokenomics framework for post-petrodollar monetary systems. Sound money backed by renewable energy.</p>
-                <div class="product-status" style="border-color: rgba(128, 0, 255, 0.3); color: #a78bfa;">
-                    <span class="product-status-dot" style="background: #a78bfa; box-shadow: 0 0 10px #a78bfa;"></span>
-                    Research
+                <div>
+                    <div class="footer-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="#credentials">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="mailto:david@knexmail.com">Careers</a></li>
+                    </ul>
                 </div>
-                <a href="https://hydrodollar.com" class="product-link" target="_blank">
-                    Learn More
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-
-            <div class="product-card reveal">
-                <div class="corner corner-tl"></div>
-                <div class="corner corner-br"></div>
-                <div class="product-number">[04]</div>
-                <h3 class="product-title">Ayedex</h3>
-                <p class="product-description">High-performance Bitcoin mining pool infrastructure with optimized stratum servers and real-time analytics.</p>
-                <div class="product-status">
-                    <span class="product-status-dot"></span>
-                    Live
+                <div>
+                    <div class="footer-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="security.html">Security</a></li>
+                    </ul>
                 </div>
-                <a href="https://ayedex.com" class="product-link" target="_blank">
-                    Access Platform
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
             </div>
-        </div>
-    </section>
-
-    <!-- Credentials -->
-    <section class="credentials" id="credentials">
-        <div class="section-header reveal">
-            <div class="section-eyebrow">
-                <span class="section-eyebrow-num">[02]</span>
-                <span class="section-eyebrow-text">Built For</span>
+            <div class="footer-bottom">
+                <span class="footer-copyright">© 2026 Distributed Ledger Technologies. All Rights Reserved.</span>
             </div>
-            <h2 class="section-title">
-                Enterprise &<br><span class="stroke">Institutional</span>
-            </h2>
-        </div>
-
-        <div class="credentials-grid">
-            <div class="credential-card reveal">
-                <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/>
-                </svg>
-                <div class="credential-title">Financial Institutions</div>
-                <div class="credential-desc">Banks • Exchanges • Asset Managers</div>
-            </div>
-
-            <div class="credential-card reveal">
-                <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                </svg>
-                <div class="credential-title">Government & Defense</div>
-                <div class="credential-desc">Intelligence • Treasury • DoD</div>
-            </div>
-
-            <div class="credential-card reveal">
-                <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
-                </svg>
-                <div class="credential-title">Global Enterprises</div>
-                <div class="credential-desc">Fortune 500 • Multinationals</div>
-            </div>
-
-            <div class="credential-card reveal">
-                <svg class="credential-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-                </svg>
-                <div class="credential-title">Payment Networks</div>
-                <div class="credential-desc">Card Networks • Settlement</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats -->
-    <div class="stats-bar">
-        <div class="stat-item reveal">
-            <div class="stat-value">4</div>
-            <div class="stat-label">Enterprise Products</div>
-        </div>
-        <div class="stat-item reveal">
-            <div class="stat-value">100%</div>
-            <div class="stat-label">Native Software</div>
-        </div>
-        <div class="stat-item reveal">
-            <div class="stat-value">350+</div>
-            <div class="stat-label">MH/s Hashrate</div>
-        </div>
-        <div class="stat-item reveal">
-            <div class="stat-value">2023</div>
-            <div class="stat-label">Founded</div>
-        </div>
+        </footer>
     </div>
 
-    <!-- CTA -->
-    <section class="cta" id="contact">
-        <h2 class="cta-title reveal">
-            <span class="stroke">Ready to</span><br>
-            <span class="gradient" data-text="Build?">Build?</span>
-        </h2>
-        <p class="cta-subtitle reveal">
-            Connect with our team to discuss how DLT can power your digital asset infrastructure.
-        </p>
-        <a href="mailto:david@knexmail.com" class="xray-button reveal">
-            <span class="xray-layer xray-layer-5"></span>
-            <span class="xray-layer xray-layer-4"></span>
-            <span class="xray-layer xray-layer-3"></span>
-            <span class="xray-layer xray-layer-2"></span>
-            <span class="xray-layer xray-layer-1"></span>
-            <span class="xray-base"></span>
-            <span class="xray-corner xray-corner-tl"></span>
-            <span class="xray-corner xray-corner-tr"></span>
-            <span class="xray-corner xray-corner-bl"></span>
-            <span class="xray-corner xray-corner-br"></span>
-            <span class="xray-current">
-                <span class="xray-current-top"></span>
-                <span class="xray-current-right"></span>
-                <span class="xray-current-bottom"></span>
-                <span class="xray-current-left"></span>
-            </span>
-            <span class="xray-glow"></span>
-            <span class="xray-text">
-                Contact Us
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-            </span>
-        </a>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <a href="/" class="logo">
-                    <div class="logo-symbol">
-                        <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
-                    </div>
-                </a>
-                <p>Building institutional-grade blockchain infrastructure for the digital asset economy.</p>
-            </div>
-            <div>
-                <div class="footer-title">Products</div>
-                <ul class="footer-links">
-                    <li><a href="https://macmetalminer.com">MacMetal Miner</a></li>
-                    <li><a href="https://xalon.com">Echelon</a></li>
-                    <li><a href="https://hydrodollar.com">HydroDollar</a></li>
-                    <li><a href="https://ayedex.com">Ayedex</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-title">Company</div>
-                <ul class="footer-links">
-                    <li><a href="#credentials">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <li><a href="mailto:david@knexmail.com">Careers</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-title">Legal</div>
-                <ul class="footer-links">
-                    <li><a href="privacy.html">Privacy</a></li>
-                    <li><a href="terms.html">Terms</a></li>
-                    <li><a href="security.html">Security</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span class="footer-copyright">© 2026 Distributed Ledger Technologies. All Rights Reserved.</span>
-        </div>
-    </footer>
-</div>
-
-<script>
-    // ============================================
-    // GENESIS 1:1-5 - WORD BY WORD BINARY BURSTS
-    // ============================================
-    
-    const genesisText = "In the beginning God created the heaven and the earth. And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. And God said, Let there be light: and there was light. And God saw the light, that it was good: and God divided the light from the darkness. And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day.";
-    
-    // Split into words and convert each to binary
-    const genesisWords = genesisText.split(/\s+/);
-    const wordBinaries = genesisWords.map(word => {
-        return {
-            word: word,
-            binary: word.split('').map(char => 
-                char.charCodeAt(0).toString(2).padStart(8, '0')
-            ).join(' ')
-        };
-    });
-    
-    console.log("📖 GENESIS 1:1-5 - " + genesisWords.length + " WORDS");
-    console.log("First 5 words:", wordBinaries.slice(0, 5).map(w => w.word + " → " + w.binary.substring(0, 30) + "..."));
-    
-    // ============================================
-    // THREE.JS SETUP
-    // ============================================
-    
-    const canvas = document.getElementById('webgl');
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x000000, 0);
-
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-    camera.position.set(0, 0, 50);
-    camera.lookAt(0, 0, 0);
-
-    // ============================================
-    // HOT PINK NEON BINARY TEXTURES
-    // ============================================
-    
-    const hotPinkColor = '#ff0080';
-    const neonPinkGlow = '#ff00aa';
-    
-    function createBinaryTexture(char) {
-        const canvas = document.createElement('canvas');
-        canvas.width = 64;
-        canvas.height = 64;
-        const ctx = canvas.getContext('2d');
+    <script>
+        // ============================================
+        // THREE.JS - IMMERSIVE 3D WIREFRAME GRID
+        // ============================================
         
-        ctx.clearRect(0, 0, 64, 64);
-        
-        ctx.shadowColor = neonPinkGlow;
-        ctx.shadowBlur = 20;
-        
-        ctx.font = 'bold 48px "Space Mono", monospace';
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.fillStyle = hotPinkColor;
-        ctx.fillText(char, 32, 32);
-        ctx.fillText(char, 32, 32);
-        
-        const texture = new THREE.CanvasTexture(canvas);
-        texture.needsUpdate = true;
-        return texture;
-    }
-    
-    const texture0 = createBinaryTexture('0');
-    const texture1 = createBinaryTexture('1');
+        const canvas = document.getElementById('webgl');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // ============================================
-    // BINARY WORD BURST SYSTEM
-    // ============================================
-    
-    class BinaryWordBurst {
-        constructor(wordIndex, startDelay) {
-            this.wordIndex = wordIndex;
-            this.wordData = wordBinaries[wordIndex % wordBinaries.length];
-            this.sprites = [];
-            this.startDelay = startDelay;
-            this.active = false;
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 15, 40);
+        camera.lookAt(0, 0, 0);
+
+        // ============================================
+        // INFINITE GRID WITH DEPTH
+        // ============================================
+        
+        const gridGroup = new THREE.Group();
+        
+        // Create multiple grid layers for depth
+        for (let layer = 0; layer < 5; layer++) {
+            const gridSize = 200;
+            const divisions = 60;
+            const gridGeometry = new THREE.BufferGeometry();
+            const gridPositions = [];
             
-            // Path parameters - starts far back, curves forward
-            this.progress = 0; // 0 = far back, 1 = past camera
-            this.speed = 0.003 + Math.random() * 0.002;
+            const z = -layer * 15;
+            const opacity = 1 - (layer * 0.2);
             
-            // Random lane position with some variance
-            this.laneX = (Math.random() - 0.5) * 80;
-            this.laneY = (Math.random() - 0.5) * 40 + 10;
-            this.wobbleX = Math.random() * Math.PI * 2;
-            this.wobbleY = Math.random() * Math.PI * 2;
+            // Horizontal lines
+            for (let i = 0; i <= divisions; i++) {
+                const x = (i / divisions - 0.5) * gridSize;
+                gridPositions.push(x, 0, -gridSize/2 + z, x, 0, gridSize/2 + z);
+            }
             
-            this.createSprites();
+            // Vertical lines
+            for (let i = 0; i <= divisions; i++) {
+                const zPos = (i / divisions - 0.5) * gridSize + z;
+                gridPositions.push(-gridSize/2, 0, zPos, gridSize/2, 0, zPos);
+            }
+            
+            gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPositions, 3));
+            
+            const gridMaterial = new THREE.LineBasicMaterial({
+                color: 0x00ffff,
+                transparent: true,
+                opacity: opacity * 0.15
+            });
+            
+            const grid = new THREE.LineSegments(gridGeometry, gridMaterial);
+            grid.position.y = -20;
+            gridGroup.add(grid);
         }
         
-        createSprites() {
-            const binaryChars = this.wordData.binary.replace(/ /g, '').split('');
-            const charsPerRow = Math.ceil(Math.sqrt(binaryChars.length));
+        scene.add(gridGroup);
+
+        // ============================================
+        // BINARY PARTICLE SYSTEM - 0s and 1s
+        // ============================================
+        
+        // Create canvas textures for 0 and 1
+        function createBinaryTexture(char) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64;
+            canvas.height = 64;
+            const ctx = canvas.getContext('2d');
             
-            binaryChars.forEach((char, i) => {
+            ctx.fillStyle = 'transparent';
+            ctx.fillRect(0, 0, 64, 64);
+            
+            ctx.font = 'bold 48px "Space Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = '#00ffff';
+            ctx.fillText(char, 32, 32);
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.needsUpdate = true;
+            return texture;
+        }
+        
+        const texture0 = createBinaryTexture('0');
+        const texture1 = createBinaryTexture('1');
+        
+        // Create binary particles
+        const particleCount = 2000;
+        const binaryParticles = [];
+        const particleSpeeds = [];
+        
+        for (let i = 0; i < particleCount; i++) {
+            const isOne = Math.random() > 0.5;
+            const spriteMaterial = new THREE.SpriteMaterial({
+                map: isOne ? texture1 : texture0,
+                transparent: true,
+                opacity: Math.random() * 0.6 + 0.2,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const sprite = new THREE.Sprite(spriteMaterial);
+            
+            // Random size for depth variation
+            const size = Math.random() * 0.8 + 0.3;
+            sprite.scale.set(size, size, 1);
+            
+            sprite.position.set(
+                (Math.random() - 0.5) * 200,
+                -20 + (Math.random() - 0.5) * 5,
+                (Math.random() - 0.5) * 200 - 50
+            );
+            
+            particleSpeeds.push(Math.random() * 0.6 + 0.2);
+            binaryParticles.push(sprite);
+            scene.add(sprite);
+        }
+        
+        // Also create falling binary rain columns
+        const rainColumns = 40;
+        const rainParticles = [];
+        const rainSpeeds = [];
+        
+        for (let col = 0; col < rainColumns; col++) {
+            const x = (Math.random() - 0.5) * 150;
+            const z = (Math.random() - 0.5) * 100 - 30;
+            const columnHeight = Math.floor(Math.random() * 15) + 5;
+            
+            for (let i = 0; i < columnHeight; i++) {
+                const isOne = Math.random() > 0.5;
                 const spriteMaterial = new THREE.SpriteMaterial({
-                    map: char === '1' ? texture1 : texture0,
+                    map: isOne ? texture1 : texture0,
                     transparent: true,
-                    opacity: 0,
-                    blending: THREE.AdditiveBlending,
-                    depthWrite: false
+                    opacity: (1 - i / columnHeight) * 0.8,
+                    blending: THREE.AdditiveBlending
                 });
                 
                 const sprite = new THREE.Sprite(spriteMaterial);
+                sprite.scale.set(0.5, 0.5, 1);
+                sprite.position.set(x, 30 - i * 2, z);
                 
-                // Grid layout within burst
-                const row = Math.floor(i / charsPerRow);
-                const col = i % charsPerRow;
                 sprite.userData = {
-                    offsetX: (col - charsPerRow / 2) * 0.8,
-                    offsetY: (row - Math.ceil(binaryChars.length / charsPerRow) / 2) * 0.8,
-                    charIndex: i
+                    columnIndex: i,
+                    columnHeight: columnHeight,
+                    baseY: 30 - i * 2
                 };
                 
-                this.sprites.push(sprite);
+                rainParticles.push(sprite);
                 scene.add(sprite);
-            });
+            }
+            
+            rainSpeeds.push(Math.random() * 0.3 + 0.1);
         }
         
-        update(time, globalTime) {
-            // Check if should start
-            if (!this.active && globalTime > this.startDelay) {
-                this.active = true;
-            }
+        // Placeholder for animation compatibility
+        const particles = { geometry: { attributes: { position: { array: new Float32Array(0), needsUpdate: false } } } };
+
+        // Binary particles already added to scene above
+
+        // ============================================
+        // ENERGY STREAMS - FLOWING CURRENT
+        // ============================================
+        
+        const streamCount = 30;
+        const streams = [];
+        
+        for (let i = 0; i < streamCount; i++) {
+            const streamGeometry = new THREE.BufferGeometry();
+            const points = [];
+            const startX = (Math.random() - 0.5) * 150;
+            const startZ = -100;
             
-            if (!this.active) return;
-            
-            // Progress along the path
-            this.progress += this.speed;
-            
-            // Reset when past camera
-            if (this.progress > 1.2) {
-                this.progress = 0;
-                this.wordIndex = (this.wordIndex + Math.floor(wordBinaries.length / 3)) % wordBinaries.length;
-                this.wordData = wordBinaries[this.wordIndex];
-                this.laneX = (Math.random() - 0.5) * 80;
-                this.laneY = (Math.random() - 0.5) * 40 + 10;
-                
-                // Update textures for new word
-                const binaryChars = this.wordData.binary.replace(/ /g, '').split('');
-                this.sprites.forEach((sprite, i) => {
-                    if (i < binaryChars.length) {
-                        sprite.material.map = binaryChars[i] === '1' ? texture1 : texture0;
-                        sprite.material.needsUpdate = true;
-                        sprite.visible = true;
-                    } else {
-                        sprite.visible = false;
-                    }
-                });
-            }
-            
-            // Calculate position along curved path
-            // Starts at z = -800 (far back), curves forward to z = 100 (past camera)
-            const t = this.progress;
-            
-            // Z position - exponential curve for dramatic approach
-            const z = -800 + Math.pow(t, 0.7) * 900;
-            
-            // Scale increases dramatically as it approaches
-            const baseScale = 0.1 + Math.pow(t, 2) * 8;
-            
-            // Opacity fade in/out
-            let opacity = 1;
-            if (t < 0.1) {
-                opacity = t / 0.1;
-            } else if (t > 0.9) {
-                opacity = (1.2 - t) / 0.3;
-            }
-            opacity = Math.max(0, Math.min(1, opacity)) * 0.9;
-            
-            // Add wobble for organic feel
-            const wobbleAmountX = Math.sin(time * 2 + this.wobbleX) * (5 + t * 10);
-            const wobbleAmountY = Math.cos(time * 1.5 + this.wobbleY) * (3 + t * 5);
-            
-            // Curve path - starts centered, spreads outward
-            const spreadFactor = Math.pow(t, 1.5);
-            const x = this.laneX * spreadFactor + wobbleAmountX;
-            const y = this.laneY * spreadFactor + wobbleAmountY - t * 20; // Slight downward drift
-            
-            // Update each sprite in the burst
-            this.sprites.forEach((sprite, i) => {
-                if (!sprite.visible) return;
-                
-                const offsetX = sprite.userData.offsetX * baseScale;
-                const offsetY = sprite.userData.offsetY * baseScale;
-                
-                sprite.position.set(
-                    x + offsetX,
-                    y + offsetY,
-                    z
+            for (let j = 0; j <= 100; j++) {
+                const t = j / 100;
+                points.push(
+                    startX + Math.sin(t * Math.PI * 4) * 3,
+                    -20 + Math.sin(t * Math.PI * 2) * 0.5,
+                    startZ + t * 200
                 );
+            }
+            
+            streamGeometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+            
+            const streamMaterial = new THREE.LineBasicMaterial({
+                color: 0x00ffff,
+                transparent: true,
+                opacity: 0.2
+            });
+            
+            const stream = new THREE.Line(streamGeometry, streamMaterial);
+            stream.userData = {
+                baseOpacity: Math.random() * 0.3 + 0.1,
+                phase: Math.random() * Math.PI * 2,
+                speed: Math.random() * 2 + 1
+            };
+            
+            streams.push(stream);
+            scene.add(stream);
+        }
+
+        // ============================================
+        // FLOATING WIREFRAME OBJECTS
+        // ============================================
+        
+        const wireframes = [];
+        const shapes = [
+            () => new THREE.BoxGeometry(3, 3, 3),
+            () => new THREE.OctahedronGeometry(2),
+            () => new THREE.TetrahedronGeometry(2.5),
+            () => new THREE.IcosahedronGeometry(2)
+        ];
+        
+        for (let i = 0; i < 20; i++) {
+            const shapeIndex = Math.floor(Math.random() * shapes.length);
+            const geometry = shapes[shapeIndex]();
+            const edges = new THREE.EdgesGeometry(geometry);
+            
+            const material = new THREE.LineBasicMaterial({
+                color: 0x00ffff,
+                transparent: true,
+                opacity: Math.random() * 0.2 + 0.05
+            });
+            
+            const wireframe = new THREE.LineSegments(edges, material);
+            
+            wireframe.position.set(
+                (Math.random() - 0.5) * 100,
+                (Math.random() - 0.5) * 30,
+                (Math.random() - 0.5) * 60 - 30
+            );
+            
+            wireframe.userData = {
+                rotationSpeed: {
+                    x: (Math.random() - 0.5) * 0.01,
+                    y: (Math.random() - 0.5) * 0.01,
+                    z: (Math.random() - 0.5) * 0.01
+                },
+                floatSpeed: Math.random() * 0.5 + 0.2,
+                floatOffset: Math.random() * Math.PI * 2,
+                originalY: wireframe.position.y
+            };
+            
+            wireframes.push(wireframe);
+            scene.add(wireframe);
+        }
+
+        // ============================================
+        // VERTICAL ENERGY PILLARS
+        // ============================================
+        
+        const pillarCount = 15;
+        for (let i = 0; i < pillarCount; i++) {
+            const pillarGeometry = new THREE.BufferGeometry();
+            const x = (Math.random() - 0.5) * 150;
+            const z = (Math.random() - 0.5) * 100 - 30;
+            
+            pillarGeometry.setAttribute('position', new THREE.Float32BufferAttribute([
+                x, -20, z,
+                x, 50, z
+            ], 3));
+            
+            const pillarMaterial = new THREE.LineBasicMaterial({
+                color: 0x00ffff,
+                transparent: true,
+                opacity: 0.1
+            });
+            
+            const pillar = new THREE.Line(pillarGeometry, pillarMaterial);
+            scene.add(pillar);
+        }
+
+        // ============================================
+        // MOUSE INTERACTION
+        // ============================================
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+        });
+
+        // ============================================
+        // ANIMATION LOOP
+        // ============================================
+        
+        let time = 0;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+            
+            // Smooth camera movement
+            targetX += (mouseX * 10 - targetX) * 0.02;
+            targetY += (-mouseY * 5 - targetY) * 0.02;
+            camera.position.x = targetX;
+            camera.position.y = 15 + targetY;
+            camera.lookAt(0, 0, -20);
+            
+            // Animate grid
+            gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
+            
+            // Animate binary particles (flowing forward)
+            binaryParticles.forEach((sprite, i) => {
+                sprite.position.z += particleSpeeds[i];
                 
-                sprite.scale.set(baseScale, baseScale, 1);
-                sprite.material.opacity = opacity;
+                // Reset when out of view
+                if (sprite.position.z > 100) {
+                    sprite.position.z = -150;
+                    sprite.position.x = (Math.random() - 0.5) * 200;
+                    
+                    // Randomly change 0 to 1 or vice versa
+                    if (Math.random() > 0.7) {
+                        sprite.material.map = Math.random() > 0.5 ? texture1 : texture0;
+                        sprite.material.needsUpdate = true;
+                    }
+                }
+                
+                // Subtle flicker effect
+                if (Math.random() > 0.995) {
+                    sprite.material.opacity = Math.random() * 0.6 + 0.2;
+                }
             });
-        }
-        
-        dispose() {
-            this.sprites.forEach(sprite => {
-                scene.remove(sprite);
-                sprite.material.dispose();
+            
+            // Animate rain columns (falling down)
+            let rainIndex = 0;
+            for (let col = 0; col < rainColumns; col++) {
+                const speed = rainSpeeds[col];
+                const firstParticle = rainParticles[rainIndex];
+                if (!firstParticle) continue;
+                
+                const columnHeight = firstParticle.userData.columnHeight;
+                
+                for (let i = 0; i < columnHeight && rainIndex < rainParticles.length; i++) {
+                    const particle = rainParticles[rainIndex];
+                    if (particle) {
+                        particle.position.y -= speed;
+                        
+                        // Reset column when lead particle goes below threshold
+                        if (i === 0 && particle.position.y < -25) {
+                            // Reset entire column
+                            for (let j = 0; j < columnHeight && (rainIndex - i + j) < rainParticles.length; j++) {
+                                const p = rainParticles[rainIndex - i + j];
+                                if (p) {
+                                    p.position.y = 30 - j * 2;
+                                    // Randomly flip bits
+                                    if (Math.random() > 0.5) {
+                                        p.material.map = Math.random() > 0.5 ? texture1 : texture0;
+                                        p.material.needsUpdate = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    rainIndex++;
+                }
+            }
+            
+            // Animate energy streams
+            streams.forEach(stream => {
+                const pulse = Math.sin(time * stream.userData.speed + stream.userData.phase);
+                stream.material.opacity = stream.userData.baseOpacity + pulse * 0.15;
             });
-        }
-    }
-
-    // ============================================
-    // CREATE BURST WAVES
-    // ============================================
-    
-    const bursts = [];
-    const burstCount = 40; // Number of simultaneous bursts
-    
-    for (let i = 0; i < burstCount; i++) {
-        const wordIndex = i % wordBinaries.length;
-        const startDelay = i * 0.8; // Stagger start times
-        bursts.push(new BinaryWordBurst(wordIndex, startDelay));
-    }
-
-    // ============================================
-    // AMBIENT BINARY PARTICLES (Background depth)
-    // ============================================
-    
-    const ambientParticles = [];
-    const ambientCount = 500;
-    
-    for (let i = 0; i < ambientCount; i++) {
-        const bit = Math.random() > 0.5 ? '1' : '0';
-        const spriteMaterial = new THREE.SpriteMaterial({
-            map: bit === '1' ? texture1 : texture0,
-            transparent: true,
-            opacity: Math.random() * 0.3 + 0.1,
-            blending: THREE.AdditiveBlending,
-            depthWrite: false
-        });
-        
-        const sprite = new THREE.Sprite(spriteMaterial);
-        const size = Math.random() * 0.3 + 0.1;
-        sprite.scale.set(size, size, 1);
-        
-        sprite.position.set(
-            (Math.random() - 0.5) * 300,
-            (Math.random() - 0.5) * 200,
-            -500 - Math.random() * 300
-        );
-        
-        sprite.userData = {
-            speed: Math.random() * 0.5 + 0.2,
-            originalZ: sprite.position.z
-        };
-        
-        ambientParticles.push(sprite);
-        scene.add(sprite);
-    }
-
-    // ============================================
-    // GRID FLOOR (Cyan wireframe)
-    // ============================================
-    
-    const gridGroup = new THREE.Group();
-    
-    for (let layer = 0; layer < 3; layer++) {
-        const gridSize = 400;
-        const divisions = 80;
-        const gridGeometry = new THREE.BufferGeometry();
-        const gridPositions = [];
-        
-        const z = -layer * 100;
-        const opacity = 1 - (layer * 0.3);
-        
-        for (let i = 0; i <= divisions; i++) {
-            const x = (i / divisions - 0.5) * gridSize;
-            gridPositions.push(x, -60, -gridSize/2 + z, x, -60, gridSize/2 + z);
-        }
-        
-        for (let i = 0; i <= divisions; i++) {
-            const zPos = (i / divisions - 0.5) * gridSize + z;
-            gridPositions.push(-gridSize/2, -60, zPos, gridSize/2, -60, zPos);
-        }
-        
-        gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPositions, 3));
-        
-        const gridMaterial = new THREE.LineBasicMaterial({
-            color: 0x00ffff,
-            transparent: true,
-            opacity: opacity * 0.12
-        });
-        
-        const grid = new THREE.LineSegments(gridGeometry, gridMaterial);
-        gridGroup.add(grid);
-    }
-    
-    scene.add(gridGroup);
-
-    // ============================================
-    // FLOATING WIREFRAME SHAPES
-    // ============================================
-    
-    const wireframes = [];
-    const shapes = [
-        () => new THREE.BoxGeometry(4, 4, 4),
-        () => new THREE.OctahedronGeometry(3),
-        () => new THREE.TetrahedronGeometry(3.5),
-        () => new THREE.IcosahedronGeometry(3)
-    ];
-    
-    for (let i = 0; i < 15; i++) {
-        const geometry = shapes[Math.floor(Math.random() * shapes.length)]();
-        const edges = new THREE.EdgesGeometry(geometry);
-        
-        const material = new THREE.LineBasicMaterial({
-            color: 0x00ffff,
-            transparent: true,
-            opacity: Math.random() * 0.15 + 0.05
-        });
-        
-        const wireframe = new THREE.LineSegments(edges, material);
-        
-        wireframe.position.set(
-            (Math.random() - 0.5) * 150,
-            (Math.random() - 0.5) * 80,
-            -100 - Math.random() * 400
-        );
-        
-        wireframe.userData = {
-            rotationSpeed: {
-                x: (Math.random() - 0.5) * 0.008,
-                y: (Math.random() - 0.5) * 0.008,
-                z: (Math.random() - 0.5) * 0.008
-            },
-            floatSpeed: Math.random() * 0.3 + 0.1,
-            floatOffset: Math.random() * Math.PI * 2,
-            originalY: wireframe.position.y
-        };
-        
-        wireframes.push(wireframe);
-        scene.add(wireframe);
-    }
-
-    // ============================================
-    // MOUSE INTERACTION
-    // ============================================
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let targetCamX = 0;
-    let targetCamY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-    });
-
-    // ============================================
-    // ANIMATION LOOP
-    // ============================================
-    
-    let time = 0;
-    let globalTime = 0;
-    
-    function animate() {
-        requestAnimationFrame(animate);
-        time += 0.016;
-        globalTime += 0.016;
-        
-        // Smooth camera movement
-        targetCamX += (mouseX * 15 - targetCamX) * 0.03;
-        targetCamY += (-mouseY * 10 - targetCamY) * 0.03;
-        camera.position.x = targetCamX;
-        camera.position.y = targetCamY;
-        camera.lookAt(0, 0, -100);
-        
-        // Update all word bursts
-        bursts.forEach(burst => burst.update(time, globalTime));
-        
-        // Animate ambient particles
-        ambientParticles.forEach(sprite => {
-            sprite.position.z += sprite.userData.speed;
             
-            if (sprite.position.z > 50) {
-                sprite.position.z = -800;
-                sprite.position.x = (Math.random() - 0.5) * 300;
-                sprite.position.y = (Math.random() - 0.5) * 200;
-            }
-        });
-        
-        // Animate wireframes
-        wireframes.forEach(wireframe => {
-            wireframe.rotation.x += wireframe.userData.rotationSpeed.x;
-            wireframe.rotation.y += wireframe.userData.rotationSpeed.y;
-            wireframe.rotation.z += wireframe.userData.rotationSpeed.z;
+            // Animate wireframes
+            wireframes.forEach(wireframe => {
+                wireframe.rotation.x += wireframe.userData.rotationSpeed.x;
+                wireframe.rotation.y += wireframe.userData.rotationSpeed.y;
+                wireframe.rotation.z += wireframe.userData.rotationSpeed.z;
+                
+                wireframe.position.y = wireframe.userData.originalY + 
+                    Math.sin(time * wireframe.userData.floatSpeed + wireframe.userData.floatOffset) * 2;
+            });
             
-            wireframe.position.y = wireframe.userData.originalY + 
-                Math.sin(time * wireframe.userData.floatSpeed + wireframe.userData.floatOffset) * 3;
-        });
+            renderer.render(scene, camera);
+        }
         
-        // Subtle grid animation
-        gridGroup.rotation.y = Math.sin(time * 0.1) * 0.01;
+        animate();
+
+        // ============================================
+        // RESIZE HANDLER
+        // ============================================
         
-        renderer.render(scene, camera);
-    }
-    
-    animate();
-
-    // ============================================
-    // RESIZE HANDLER
-    // ============================================
-    
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // ============================================
-    // SCROLL ANIMATIONS
-    // ============================================
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
-    }, { threshold: 0.1 });
-    
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // ============================================
-    // SMOOTH SCROLL
-    // ============================================
-    
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ============================================
+        // SMOOTH SCROLL
+        // ============================================
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
         });
-    });
-
-    // ============================================
-    // LOG INFO
-    // ============================================
-    
-    console.log("🔮 GENESIS 1:1-5 BINARY WORD BURSTS");
-    console.log("Total words:", genesisWords.length);
-    console.log("Active bursts:", burstCount);
-    console.log("Words flow chronologically from back to front");
-</script>
-```
-
+    </script>
 </body>
 </html>
