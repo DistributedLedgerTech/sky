@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+```
 <title>DLT | Distributed Ledger Technologies</title>
 <meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.">
 <meta name="theme-color" content="#000000">
@@ -1364,7 +1364,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <span class="footer-copyright">© 2026 Distributed Ledger Technologies. All Rights Reserved.</span>
+            <span class="footer-copyright">© 2025 Distributed Ledger Technologies. All Rights Reserved.</span>
         </div>
     </footer>
 </div>
@@ -1428,36 +1428,104 @@
     scene.add(gridGroup);
 
     // ============================================
-    // FLOWING CURRENT PARTICLES
+    // BINARY PARTICLE SYSTEM - 0s and 1s
     // ============================================
     
-    const particleCount = 3000;
-    const particleGeometry = new THREE.BufferGeometry();
-    const particlePositions = new Float32Array(particleCount * 3);
-    const particleSpeeds = new Float32Array(particleCount);
-    const particleOpacities = new Float32Array(particleCount);
-    
-    for (let i = 0; i < particleCount; i++) {
-        particlePositions[i * 3] = (Math.random() - 0.5) * 200;
-        particlePositions[i * 3 + 1] = -20;
-        particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 200 - 50;
-        particleSpeeds[i] = Math.random() * 0.8 + 0.2;
-        particleOpacities[i] = Math.random();
+    // Create canvas textures for 0 and 1
+    function createBinaryTexture(char) {
+        const canvas = document.createElement('canvas');
+        canvas.width = 64;
+        canvas.height = 64;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.fillStyle = 'transparent';
+        ctx.fillRect(0, 0, 64, 64);
+        
+        ctx.font = 'bold 48px "Space Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = '#00ffff';
+        ctx.fillText(char, 32, 32);
+        
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.needsUpdate = true;
+        return texture;
     }
     
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const texture0 = createBinaryTexture('0');
+    const texture1 = createBinaryTexture('1');
     
-    const particleMaterial = new THREE.PointsMaterial({
-        color: 0x00ffff,
-        size: 0.3,
-        transparent: true,
-        opacity: 0.8,
-        blending: THREE.AdditiveBlending,
-        sizeAttenuation: true
-    });
+    // Create binary particles
+    const particleCount = 2000;
+    const binaryParticles = [];
+    const particleSpeeds = [];
     
-    const particles = new THREE.Points(particleGeometry, particleMaterial);
-    scene.add(particles);
+    for (let i = 0; i < particleCount; i++) {
+        const isOne = Math.random() > 0.5;
+        const spriteMaterial = new THREE.SpriteMaterial({
+            map: isOne ? texture1 : texture0,
+            transparent: true,
+            opacity: Math.random() * 0.6 + 0.2,
+            blending: THREE.AdditiveBlending
+        });
+        
+        const sprite = new THREE.Sprite(spriteMaterial);
+        
+        // Random size for depth variation
+        const size = Math.random() * 0.8 + 0.3;
+        sprite.scale.set(size, size, 1);
+        
+        sprite.position.set(
+            (Math.random() - 0.5) * 200,
+            -20 + (Math.random() - 0.5) * 5,
+            (Math.random() - 0.5) * 200 - 50
+        );
+        
+        particleSpeeds.push(Math.random() * 0.6 + 0.2);
+        binaryParticles.push(sprite);
+        scene.add(sprite);
+    }
+    
+    // Also create falling binary rain columns
+    const rainColumns = 40;
+    const rainParticles = [];
+    const rainSpeeds = [];
+    
+    for (let col = 0; col < rainColumns; col++) {
+        const x = (Math.random() - 0.5) * 150;
+        const z = (Math.random() - 0.5) * 100 - 30;
+        const columnHeight = Math.floor(Math.random() * 15) + 5;
+        
+        for (let i = 0; i < columnHeight; i++) {
+            const isOne = Math.random() > 0.5;
+            const spriteMaterial = new THREE.SpriteMaterial({
+                map: isOne ? texture1 : texture0,
+                transparent: true,
+                opacity: (1 - i / columnHeight) * 0.8,
+                blending: THREE.AdditiveBlending
+            });
+            
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.scale.set(0.5, 0.5, 1);
+            sprite.position.set(x, 30 - i * 2, z);
+            
+            sprite.userData = {
+                columnIndex: i,
+                columnHeight: columnHeight,
+                baseY: 30 - i * 2
+            };
+            
+            rainParticles.push(sprite);
+            scene.add(sprite);
+        }
+        
+        rainSpeeds.push(Math.random() * 0.3 + 0.1);
+    }
+    
+    // Placeholder for animation compatibility
+    const particles = { geometry: { attributes: { position: { array: new Float32Array(0), needsUpdate: false } } } };
+
+    // Binary particles already added to scene above
 
     // ============================================
     // ENERGY STREAMS - FLOWING CURRENT
@@ -1605,18 +1673,61 @@
         // Animate grid
         gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
         
-        // Animate particles (flowing forward)
-        const positions = particles.geometry.attributes.position.array;
-        for (let i = 0; i < particleCount; i++) {
-            positions[i * 3 + 2] += particleSpeeds[i];
+        // Animate binary particles (flowing forward)
+        binaryParticles.forEach((sprite, i) => {
+            sprite.position.z += particleSpeeds[i];
             
             // Reset when out of view
-            if (positions[i * 3 + 2] > 100) {
-                positions[i * 3 + 2] = -100;
-                positions[i * 3] = (Math.random() - 0.5) * 200;
+            if (sprite.position.z > 100) {
+                sprite.position.z = -150;
+                sprite.position.x = (Math.random() - 0.5) * 200;
+                
+                // Randomly change 0 to 1 or vice versa
+                if (Math.random() > 0.7) {
+                    sprite.material.map = Math.random() > 0.5 ? texture1 : texture0;
+                    sprite.material.needsUpdate = true;
+                }
+            }
+            
+            // Subtle flicker effect
+            if (Math.random() > 0.995) {
+                sprite.material.opacity = Math.random() * 0.6 + 0.2;
+            }
+        });
+        
+        // Animate rain columns (falling down)
+        let rainIndex = 0;
+        for (let col = 0; col < rainColumns; col++) {
+            const speed = rainSpeeds[col];
+            const firstParticle = rainParticles[rainIndex];
+            if (!firstParticle) continue;
+            
+            const columnHeight = firstParticle.userData.columnHeight;
+            
+            for (let i = 0; i < columnHeight && rainIndex < rainParticles.length; i++) {
+                const particle = rainParticles[rainIndex];
+                if (particle) {
+                    particle.position.y -= speed;
+                    
+                    // Reset column when lead particle goes below threshold
+                    if (i === 0 && particle.position.y < -25) {
+                        // Reset entire column
+                        for (let j = 0; j < columnHeight && (rainIndex - i + j) < rainParticles.length; j++) {
+                            const p = rainParticles[rainIndex - i + j];
+                            if (p) {
+                                p.position.y = 30 - j * 2;
+                                // Randomly flip bits
+                                if (Math.random() > 0.5) {
+                                    p.material.map = Math.random() > 0.5 ? texture1 : texture0;
+                                    p.material.needsUpdate = true;
+                                }
+                            }
+                        }
+                    }
+                }
+                rainIndex++;
             }
         }
-        particles.geometry.attributes.position.needsUpdate = true;
         
         // Animate energy streams
         streams.forEach(stream => {
@@ -1677,7 +1788,7 @@
         });
     });
 </script>
-
+```
 
 </body>
 </html>
