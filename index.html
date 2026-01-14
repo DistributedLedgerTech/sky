@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLT | Distributed Ledger Technologies</title>
+    <meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.">
+    <meta name="theme-color" content="#000000">
 
 ```
-<title>DLT | Distributed Ledger Technologies</title>
-<meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.">
-<meta name="theme-color" content="#000000">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -31,6 +30,8 @@
         --blue: #0080ff;
         --purple: #8000ff;
         --magenta: #ff00ff;
+        --hotpink: #ff0080;
+        --neonpink: #ff00aa;
         --green: #00ff80;
         --gold: #ffd700;
     }
@@ -46,7 +47,7 @@
     }
 
     ::selection {
-        background: var(--cyan);
+        background: var(--hotpink);
         color: #000;
     }
 
@@ -58,6 +59,7 @@
         width: 100%;
         height: 100%;
         z-index: 0;
+        background: transparent;
     }
 
     /* Scanlines + Noise */
@@ -74,8 +76,8 @@
                 0deg,
                 transparent 0px,
                 transparent 2px,
-                rgba(0, 255, 255, 0.01) 2px,
-                rgba(0, 255, 255, 0.01) 4px
+                rgba(255, 0, 128, 0.01) 2px,
+                rgba(255, 0, 128, 0.01) 4px
             );
     }
 
@@ -1364,87 +1366,70 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <span class="footer-copyright">© 2026 Distributed Ledger Technologies. All Rights Reserved.</span>
+            <span class="footer-copyright">© 2025 Distributed Ledger Technologies. All Rights Reserved.</span>
         </div>
     </footer>
 </div>
 
 <script>
     // ============================================
-    // THREE.JS - IMMERSIVE 3D WIREFRAME GRID
+    // GENESIS 1:1-5 - WORD BY WORD BINARY BURSTS
+    // ============================================
+    
+    const genesisText = "In the beginning God created the heaven and the earth. And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters. And God said, Let there be light: and there was light. And God saw the light, that it was good: and God divided the light from the darkness. And God called the light Day, and the darkness he called Night. And the evening and the morning were the first day.";
+    
+    // Split into words and convert each to binary
+    const genesisWords = genesisText.split(/\s+/);
+    const wordBinaries = genesisWords.map(word => {
+        return {
+            word: word,
+            binary: word.split('').map(char => 
+                char.charCodeAt(0).toString(2).padStart(8, '0')
+            ).join(' ')
+        };
+    });
+    
+    console.log("📖 GENESIS 1:1-5 - " + genesisWords.length + " WORDS");
+    console.log("First 5 words:", wordBinaries.slice(0, 5).map(w => w.word + " → " + w.binary.substring(0, 30) + "..."));
+    
+    // ============================================
+    // THREE.JS SETUP
     // ============================================
     
     const canvas = document.getElementById('webgl');
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(0, 15, 40);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
+    camera.position.set(0, 0, 50);
     camera.lookAt(0, 0, 0);
 
     // ============================================
-    // INFINITE GRID WITH DEPTH
+    // HOT PINK NEON BINARY TEXTURES
     // ============================================
     
-    const gridGroup = new THREE.Group();
+    const hotPinkColor = '#ff0080';
+    const neonPinkGlow = '#ff00aa';
     
-    // Create multiple grid layers for depth
-    for (let layer = 0; layer < 5; layer++) {
-        const gridSize = 200;
-        const divisions = 60;
-        const gridGeometry = new THREE.BufferGeometry();
-        const gridPositions = [];
-        
-        const z = -layer * 15;
-        const opacity = 1 - (layer * 0.2);
-        
-        // Horizontal lines
-        for (let i = 0; i <= divisions; i++) {
-            const x = (i / divisions - 0.5) * gridSize;
-            gridPositions.push(x, 0, -gridSize/2 + z, x, 0, gridSize/2 + z);
-        }
-        
-        // Vertical lines
-        for (let i = 0; i <= divisions; i++) {
-            const zPos = (i / divisions - 0.5) * gridSize + z;
-            gridPositions.push(-gridSize/2, 0, zPos, gridSize/2, 0, zPos);
-        }
-        
-        gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPositions, 3));
-        
-        const gridMaterial = new THREE.LineBasicMaterial({
-            color: 0x00ffff,
-            transparent: true,
-            opacity: opacity * 0.15
-        });
-        
-        const grid = new THREE.LineSegments(gridGeometry, gridMaterial);
-        grid.position.y = -20;
-        gridGroup.add(grid);
-    }
-    
-    scene.add(gridGroup);
-
-    // ============================================
-    // BINARY PARTICLE SYSTEM - 0s and 1s
-    // ============================================
-    
-    // Create canvas textures for 0 and 1
     function createBinaryTexture(char) {
         const canvas = document.createElement('canvas');
         canvas.width = 64;
         canvas.height = 64;
         const ctx = canvas.getContext('2d');
         
-        ctx.fillStyle = 'transparent';
-        ctx.fillRect(0, 0, 64, 64);
+        ctx.clearRect(0, 0, 64, 64);
+        
+        ctx.shadowColor = neonPinkGlow;
+        ctx.shadowBlur = 20;
         
         ctx.font = 'bold 48px "Space Mono", monospace';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillStyle = '#00ffff';
+        ctx.fillStyle = hotPinkColor;
+        ctx.fillText(char, 32, 32);
         ctx.fillText(char, 32, 32);
         
         const texture = new THREE.CanvasTexture(canvas);
@@ -1454,158 +1439,272 @@
     
     const texture0 = createBinaryTexture('0');
     const texture1 = createBinaryTexture('1');
+
+    // ============================================
+    // BINARY WORD BURST SYSTEM
+    // ============================================
     
-    // Create binary particles
-    const particleCount = 2000;
-    const binaryParticles = [];
-    const particleSpeeds = [];
+    class BinaryWordBurst {
+        constructor(wordIndex, startDelay) {
+            this.wordIndex = wordIndex;
+            this.wordData = wordBinaries[wordIndex % wordBinaries.length];
+            this.sprites = [];
+            this.startDelay = startDelay;
+            this.active = false;
+            
+            // Path parameters - starts far back, curves forward
+            this.progress = 0; // 0 = far back, 1 = past camera
+            this.speed = 0.003 + Math.random() * 0.002;
+            
+            // Random lane position with some variance
+            this.laneX = (Math.random() - 0.5) * 80;
+            this.laneY = (Math.random() - 0.5) * 40 + 10;
+            this.wobbleX = Math.random() * Math.PI * 2;
+            this.wobbleY = Math.random() * Math.PI * 2;
+            
+            this.createSprites();
+        }
+        
+        createSprites() {
+            const binaryChars = this.wordData.binary.replace(/ /g, '').split('');
+            const charsPerRow = Math.ceil(Math.sqrt(binaryChars.length));
+            
+            binaryChars.forEach((char, i) => {
+                const spriteMaterial = new THREE.SpriteMaterial({
+                    map: char === '1' ? texture1 : texture0,
+                    transparent: true,
+                    opacity: 0,
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
+                });
+                
+                const sprite = new THREE.Sprite(spriteMaterial);
+                
+                // Grid layout within burst
+                const row = Math.floor(i / charsPerRow);
+                const col = i % charsPerRow;
+                sprite.userData = {
+                    offsetX: (col - charsPerRow / 2) * 0.8,
+                    offsetY: (row - Math.ceil(binaryChars.length / charsPerRow) / 2) * 0.8,
+                    charIndex: i
+                };
+                
+                this.sprites.push(sprite);
+                scene.add(sprite);
+            });
+        }
+        
+        update(time, globalTime) {
+            // Check if should start
+            if (!this.active && globalTime > this.startDelay) {
+                this.active = true;
+            }
+            
+            if (!this.active) return;
+            
+            // Progress along the path
+            this.progress += this.speed;
+            
+            // Reset when past camera
+            if (this.progress > 1.2) {
+                this.progress = 0;
+                this.wordIndex = (this.wordIndex + Math.floor(wordBinaries.length / 3)) % wordBinaries.length;
+                this.wordData = wordBinaries[this.wordIndex];
+                this.laneX = (Math.random() - 0.5) * 80;
+                this.laneY = (Math.random() - 0.5) * 40 + 10;
+                
+                // Update textures for new word
+                const binaryChars = this.wordData.binary.replace(/ /g, '').split('');
+                this.sprites.forEach((sprite, i) => {
+                    if (i < binaryChars.length) {
+                        sprite.material.map = binaryChars[i] === '1' ? texture1 : texture0;
+                        sprite.material.needsUpdate = true;
+                        sprite.visible = true;
+                    } else {
+                        sprite.visible = false;
+                    }
+                });
+            }
+            
+            // Calculate position along curved path
+            // Starts at z = -800 (far back), curves forward to z = 100 (past camera)
+            const t = this.progress;
+            
+            // Z position - exponential curve for dramatic approach
+            const z = -800 + Math.pow(t, 0.7) * 900;
+            
+            // Scale increases dramatically as it approaches
+            const baseScale = 0.1 + Math.pow(t, 2) * 8;
+            
+            // Opacity fade in/out
+            let opacity = 1;
+            if (t < 0.1) {
+                opacity = t / 0.1;
+            } else if (t > 0.9) {
+                opacity = (1.2 - t) / 0.3;
+            }
+            opacity = Math.max(0, Math.min(1, opacity)) * 0.9;
+            
+            // Add wobble for organic feel
+            const wobbleAmountX = Math.sin(time * 2 + this.wobbleX) * (5 + t * 10);
+            const wobbleAmountY = Math.cos(time * 1.5 + this.wobbleY) * (3 + t * 5);
+            
+            // Curve path - starts centered, spreads outward
+            const spreadFactor = Math.pow(t, 1.5);
+            const x = this.laneX * spreadFactor + wobbleAmountX;
+            const y = this.laneY * spreadFactor + wobbleAmountY - t * 20; // Slight downward drift
+            
+            // Update each sprite in the burst
+            this.sprites.forEach((sprite, i) => {
+                if (!sprite.visible) return;
+                
+                const offsetX = sprite.userData.offsetX * baseScale;
+                const offsetY = sprite.userData.offsetY * baseScale;
+                
+                sprite.position.set(
+                    x + offsetX,
+                    y + offsetY,
+                    z
+                );
+                
+                sprite.scale.set(baseScale, baseScale, 1);
+                sprite.material.opacity = opacity;
+            });
+        }
+        
+        dispose() {
+            this.sprites.forEach(sprite => {
+                scene.remove(sprite);
+                sprite.material.dispose();
+            });
+        }
+    }
+
+    // ============================================
+    // CREATE BURST WAVES
+    // ============================================
     
-    for (let i = 0; i < particleCount; i++) {
-        const isOne = Math.random() > 0.5;
+    const bursts = [];
+    const burstCount = 40; // Number of simultaneous bursts
+    
+    for (let i = 0; i < burstCount; i++) {
+        const wordIndex = i % wordBinaries.length;
+        const startDelay = i * 0.8; // Stagger start times
+        bursts.push(new BinaryWordBurst(wordIndex, startDelay));
+    }
+
+    // ============================================
+    // AMBIENT BINARY PARTICLES (Background depth)
+    // ============================================
+    
+    const ambientParticles = [];
+    const ambientCount = 500;
+    
+    for (let i = 0; i < ambientCount; i++) {
+        const bit = Math.random() > 0.5 ? '1' : '0';
         const spriteMaterial = new THREE.SpriteMaterial({
-            map: isOne ? texture1 : texture0,
+            map: bit === '1' ? texture1 : texture0,
             transparent: true,
-            opacity: Math.random() * 0.6 + 0.2,
-            blending: THREE.AdditiveBlending
+            opacity: Math.random() * 0.3 + 0.1,
+            blending: THREE.AdditiveBlending,
+            depthWrite: false
         });
         
         const sprite = new THREE.Sprite(spriteMaterial);
-        
-        // Random size for depth variation
-        const size = Math.random() * 0.8 + 0.3;
+        const size = Math.random() * 0.3 + 0.1;
         sprite.scale.set(size, size, 1);
         
         sprite.position.set(
+            (Math.random() - 0.5) * 300,
             (Math.random() - 0.5) * 200,
-            -20 + (Math.random() - 0.5) * 5,
-            (Math.random() - 0.5) * 200 - 50
+            -500 - Math.random() * 300
         );
         
-        particleSpeeds.push(Math.random() * 0.6 + 0.2);
-        binaryParticles.push(sprite);
-        scene.add(sprite);
-    }
-    
-    // Also create falling binary rain columns
-    const rainColumns = 40;
-    const rainParticles = [];
-    const rainSpeeds = [];
-    
-    for (let col = 0; col < rainColumns; col++) {
-        const x = (Math.random() - 0.5) * 150;
-        const z = (Math.random() - 0.5) * 100 - 30;
-        const columnHeight = Math.floor(Math.random() * 15) + 5;
-        
-        for (let i = 0; i < columnHeight; i++) {
-            const isOne = Math.random() > 0.5;
-            const spriteMaterial = new THREE.SpriteMaterial({
-                map: isOne ? texture1 : texture0,
-                transparent: true,
-                opacity: (1 - i / columnHeight) * 0.8,
-                blending: THREE.AdditiveBlending
-            });
-            
-            const sprite = new THREE.Sprite(spriteMaterial);
-            sprite.scale.set(0.5, 0.5, 1);
-            sprite.position.set(x, 30 - i * 2, z);
-            
-            sprite.userData = {
-                columnIndex: i,
-                columnHeight: columnHeight,
-                baseY: 30 - i * 2
-            };
-            
-            rainParticles.push(sprite);
-            scene.add(sprite);
-        }
-        
-        rainSpeeds.push(Math.random() * 0.3 + 0.1);
-    }
-    
-    // Placeholder for animation compatibility
-    const particles = { geometry: { attributes: { position: { array: new Float32Array(0), needsUpdate: false } } } };
-
-    // Binary particles already added to scene above
-
-    // ============================================
-    // ENERGY STREAMS - FLOWING CURRENT
-    // ============================================
-    
-    const streamCount = 30;
-    const streams = [];
-    
-    for (let i = 0; i < streamCount; i++) {
-        const streamGeometry = new THREE.BufferGeometry();
-        const points = [];
-        const startX = (Math.random() - 0.5) * 150;
-        const startZ = -100;
-        
-        for (let j = 0; j <= 100; j++) {
-            const t = j / 100;
-            points.push(
-                startX + Math.sin(t * Math.PI * 4) * 3,
-                -20 + Math.sin(t * Math.PI * 2) * 0.5,
-                startZ + t * 200
-            );
-        }
-        
-        streamGeometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
-        
-        const streamMaterial = new THREE.LineBasicMaterial({
-            color: 0x00ffff,
-            transparent: true,
-            opacity: 0.2
-        });
-        
-        const stream = new THREE.Line(streamGeometry, streamMaterial);
-        stream.userData = {
-            baseOpacity: Math.random() * 0.3 + 0.1,
-            phase: Math.random() * Math.PI * 2,
-            speed: Math.random() * 2 + 1
+        sprite.userData = {
+            speed: Math.random() * 0.5 + 0.2,
+            originalZ: sprite.position.z
         };
         
-        streams.push(stream);
-        scene.add(stream);
+        ambientParticles.push(sprite);
+        scene.add(sprite);
     }
 
     // ============================================
-    // FLOATING WIREFRAME OBJECTS
+    // GRID FLOOR (Cyan wireframe)
+    // ============================================
+    
+    const gridGroup = new THREE.Group();
+    
+    for (let layer = 0; layer < 3; layer++) {
+        const gridSize = 400;
+        const divisions = 80;
+        const gridGeometry = new THREE.BufferGeometry();
+        const gridPositions = [];
+        
+        const z = -layer * 100;
+        const opacity = 1 - (layer * 0.3);
+        
+        for (let i = 0; i <= divisions; i++) {
+            const x = (i / divisions - 0.5) * gridSize;
+            gridPositions.push(x, -60, -gridSize/2 + z, x, -60, gridSize/2 + z);
+        }
+        
+        for (let i = 0; i <= divisions; i++) {
+            const zPos = (i / divisions - 0.5) * gridSize + z;
+            gridPositions.push(-gridSize/2, -60, zPos, gridSize/2, -60, zPos);
+        }
+        
+        gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPositions, 3));
+        
+        const gridMaterial = new THREE.LineBasicMaterial({
+            color: 0x00ffff,
+            transparent: true,
+            opacity: opacity * 0.12
+        });
+        
+        const grid = new THREE.LineSegments(gridGeometry, gridMaterial);
+        gridGroup.add(grid);
+    }
+    
+    scene.add(gridGroup);
+
+    // ============================================
+    // FLOATING WIREFRAME SHAPES
     // ============================================
     
     const wireframes = [];
     const shapes = [
-        () => new THREE.BoxGeometry(3, 3, 3),
-        () => new THREE.OctahedronGeometry(2),
-        () => new THREE.TetrahedronGeometry(2.5),
-        () => new THREE.IcosahedronGeometry(2)
+        () => new THREE.BoxGeometry(4, 4, 4),
+        () => new THREE.OctahedronGeometry(3),
+        () => new THREE.TetrahedronGeometry(3.5),
+        () => new THREE.IcosahedronGeometry(3)
     ];
     
-    for (let i = 0; i < 20; i++) {
-        const shapeIndex = Math.floor(Math.random() * shapes.length);
-        const geometry = shapes[shapeIndex]();
+    for (let i = 0; i < 15; i++) {
+        const geometry = shapes[Math.floor(Math.random() * shapes.length)]();
         const edges = new THREE.EdgesGeometry(geometry);
         
         const material = new THREE.LineBasicMaterial({
             color: 0x00ffff,
             transparent: true,
-            opacity: Math.random() * 0.2 + 0.05
+            opacity: Math.random() * 0.15 + 0.05
         });
         
         const wireframe = new THREE.LineSegments(edges, material);
         
         wireframe.position.set(
-            (Math.random() - 0.5) * 100,
-            (Math.random() - 0.5) * 30,
-            (Math.random() - 0.5) * 60 - 30
+            (Math.random() - 0.5) * 150,
+            (Math.random() - 0.5) * 80,
+            -100 - Math.random() * 400
         );
         
         wireframe.userData = {
             rotationSpeed: {
-                x: (Math.random() - 0.5) * 0.01,
-                y: (Math.random() - 0.5) * 0.01,
-                z: (Math.random() - 0.5) * 0.01
+                x: (Math.random() - 0.5) * 0.008,
+                y: (Math.random() - 0.5) * 0.008,
+                z: (Math.random() - 0.5) * 0.008
             },
-            floatSpeed: Math.random() * 0.5 + 0.2,
+            floatSpeed: Math.random() * 0.3 + 0.1,
             floatOffset: Math.random() * Math.PI * 2,
             originalY: wireframe.position.y
         };
@@ -1615,38 +1714,13 @@
     }
 
     // ============================================
-    // VERTICAL ENERGY PILLARS
-    // ============================================
-    
-    const pillarCount = 15;
-    for (let i = 0; i < pillarCount; i++) {
-        const pillarGeometry = new THREE.BufferGeometry();
-        const x = (Math.random() - 0.5) * 150;
-        const z = (Math.random() - 0.5) * 100 - 30;
-        
-        pillarGeometry.setAttribute('position', new THREE.Float32BufferAttribute([
-            x, -20, z,
-            x, 50, z
-        ], 3));
-        
-        const pillarMaterial = new THREE.LineBasicMaterial({
-            color: 0x00ffff,
-            transparent: true,
-            opacity: 0.1
-        });
-        
-        const pillar = new THREE.Line(pillarGeometry, pillarMaterial);
-        scene.add(pillar);
-    }
-
-    // ============================================
     // MOUSE INTERACTION
     // ============================================
     
     let mouseX = 0;
     let mouseY = 0;
-    let targetX = 0;
-    let targetY = 0;
+    let targetCamX = 0;
+    let targetCamY = 0;
     
     document.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -1658,81 +1732,32 @@
     // ============================================
     
     let time = 0;
+    let globalTime = 0;
     
     function animate() {
         requestAnimationFrame(animate);
-        time += 0.01;
+        time += 0.016;
+        globalTime += 0.016;
         
         // Smooth camera movement
-        targetX += (mouseX * 10 - targetX) * 0.02;
-        targetY += (-mouseY * 5 - targetY) * 0.02;
-        camera.position.x = targetX;
-        camera.position.y = 15 + targetY;
-        camera.lookAt(0, 0, -20);
+        targetCamX += (mouseX * 15 - targetCamX) * 0.03;
+        targetCamY += (-mouseY * 10 - targetCamY) * 0.03;
+        camera.position.x = targetCamX;
+        camera.position.y = targetCamY;
+        camera.lookAt(0, 0, -100);
         
-        // Animate grid
-        gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
+        // Update all word bursts
+        bursts.forEach(burst => burst.update(time, globalTime));
         
-        // Animate binary particles (flowing forward)
-        binaryParticles.forEach((sprite, i) => {
-            sprite.position.z += particleSpeeds[i];
+        // Animate ambient particles
+        ambientParticles.forEach(sprite => {
+            sprite.position.z += sprite.userData.speed;
             
-            // Reset when out of view
-            if (sprite.position.z > 100) {
-                sprite.position.z = -150;
-                sprite.position.x = (Math.random() - 0.5) * 200;
-                
-                // Randomly change 0 to 1 or vice versa
-                if (Math.random() > 0.7) {
-                    sprite.material.map = Math.random() > 0.5 ? texture1 : texture0;
-                    sprite.material.needsUpdate = true;
-                }
+            if (sprite.position.z > 50) {
+                sprite.position.z = -800;
+                sprite.position.x = (Math.random() - 0.5) * 300;
+                sprite.position.y = (Math.random() - 0.5) * 200;
             }
-            
-            // Subtle flicker effect
-            if (Math.random() > 0.995) {
-                sprite.material.opacity = Math.random() * 0.6 + 0.2;
-            }
-        });
-        
-        // Animate rain columns (falling down)
-        let rainIndex = 0;
-        for (let col = 0; col < rainColumns; col++) {
-            const speed = rainSpeeds[col];
-            const firstParticle = rainParticles[rainIndex];
-            if (!firstParticle) continue;
-            
-            const columnHeight = firstParticle.userData.columnHeight;
-            
-            for (let i = 0; i < columnHeight && rainIndex < rainParticles.length; i++) {
-                const particle = rainParticles[rainIndex];
-                if (particle) {
-                    particle.position.y -= speed;
-                    
-                    // Reset column when lead particle goes below threshold
-                    if (i === 0 && particle.position.y < -25) {
-                        // Reset entire column
-                        for (let j = 0; j < columnHeight && (rainIndex - i + j) < rainParticles.length; j++) {
-                            const p = rainParticles[rainIndex - i + j];
-                            if (p) {
-                                p.position.y = 30 - j * 2;
-                                // Randomly flip bits
-                                if (Math.random() > 0.5) {
-                                    p.material.map = Math.random() > 0.5 ? texture1 : texture0;
-                                    p.material.needsUpdate = true;
-                                }
-                            }
-                        }
-                    }
-                }
-                rainIndex++;
-            }
-        }
-        
-        // Animate energy streams
-        streams.forEach(stream => {
-            const pulse = Math.sin(time * stream.userData.speed + stream.userData.phase);
-            stream.material.opacity = stream.userData.baseOpacity + pulse * 0.15;
         });
         
         // Animate wireframes
@@ -1742,8 +1767,11 @@
             wireframe.rotation.z += wireframe.userData.rotationSpeed.z;
             
             wireframe.position.y = wireframe.userData.originalY + 
-                Math.sin(time * wireframe.userData.floatSpeed + wireframe.userData.floatOffset) * 2;
+                Math.sin(time * wireframe.userData.floatSpeed + wireframe.userData.floatOffset) * 3;
         });
+        
+        // Subtle grid animation
+        gridGroup.rotation.y = Math.sin(time * 0.1) * 0.01;
         
         renderer.render(scene, camera);
     }
@@ -1787,6 +1815,15 @@
             }
         });
     });
+
+    // ============================================
+    // LOG INFO
+    // ============================================
+    
+    console.log("🔮 GENESIS 1:1-5 BINARY WORD BURSTS");
+    console.log("Total words:", genesisWords.length);
+    console.log("Active bursts:", burstCount);
+    console.log("Words flow chronologically from back to front");
 </script>
 ```
 
