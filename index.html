@@ -2070,18 +2070,18 @@
                 <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
         </button>
+        <a href="about.html">About</a>
         <a href="#products" onclick="closeMobileMenu()">Products</a>
         <a href="#credentials" onclick="closeMobileMenu()">Credentials</a>
-        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
-        <a href="#" onclick="openModal('privacyModal'); closeMobileMenu(); return false;">Privacy</a>
-        <a href="#" onclick="openModal('termsModal'); closeMobileMenu(); return false;">Terms</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
     </div>
 
     <!-- Content -->
     <div class="content" id="mainContent">
         <!-- Navigation -->
         <nav class="nav">
-            <a href="/" class="logo" aria-label="DLT - Distributed Ledger Technologies Home">
+            <a href="index.html" class="logo" aria-label="DLT - Distributed Ledger Technologies Home">
                 <div class="logo-symbol">
                     <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
                 </div>
@@ -2091,9 +2091,11 @@
                 </div>
             </a>
             <ul class="nav-links">
+                <li><a href="about.html" class="sound-hover">About</a></li>
                 <li><a href="#products" class="sound-hover">Products</a></li>
                 <li><a href="#credentials" class="sound-hover">Credentials</a></li>
-                <li><a href="#contact" class="sound-hover">Contact</a></li>
+                <li><a href="contact.html" class="sound-hover">Contact</a></li>
+                <li><a href="careers.html" class="sound-hover">Careers</a></li>
             </ul>
             <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
                 <span></span>
@@ -2119,7 +2121,7 @@
                 Institutional-grade solutions for governments, defense agencies, financial institutions, and global enterprises. We build the critical infrastructure powering the digital asset economy.
             </p>
 
-            <a href="#contact" class="xray-button sound-click">
+            <a href="contact.html" class="xray-button sound-click">
                 <span class="xray-layer xray-layer-5"></span>
                 <span class="xray-layer xray-layer-4"></span>
                 <span class="xray-layer xray-layer-3"></span>
@@ -2354,7 +2356,7 @@
             <p class="cta-subtitle reveal">
                 Connect with our team to discuss how DLT can power your digital asset infrastructure.
             </p>
-            <a href="mailto:david@knexmail.com" class="xray-button reveal sound-click">
+            <a href="contact.html" class="xray-button reveal sound-click">
                 <span class="xray-layer xray-layer-5"></span>
                 <span class="xray-layer xray-layer-4"></span>
                 <span class="xray-layer xray-layer-3"></span>
@@ -2385,7 +2387,7 @@
         <footer class="footer">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="/" class="logo" aria-label="DLT Home">
+                    <a href="index.html" class="logo" aria-label="DLT Home">
                         <div class="logo-symbol">
                             <span style="font-family: 'Space Mono', monospace; font-size: 14px; font-weight: 700; color: var(--cyan); position: relative; z-index: 1;">DLT</span>
                         </div>
@@ -2406,9 +2408,9 @@
                 <div>
                     <div class="footer-title">Company</div>
                     <ul class="footer-links">
-                        <li><a href="https://www.distributedledgertechnologies.com/about.html" class="sound-hover">About</a></li>
-                        <li><a href="https://wwww.distributedledgertechnologies.com/contact.html" class="sound-hover">Contact</a></li>
-                        <li><a href="https://wwww.distributedledgertechnologies.com/careers.html" class="sound-hover">Careers</a></li>
+                        <li><a href="about.html" class="sound-hover">About</a></li>
+                        <li><a href="contact.html" class="sound-hover">Contact</a></li>
+                        <li><a href="careers.html" class="sound-hover">Careers</a></li>
                     </ul>
                 </div>
                 <div>
@@ -2433,15 +2435,20 @@
         
         let audioContext = null;
         let soundEnabled = true;
+        let audioInitialized = false;
 
         function initAudio() {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
             }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            audioInitialized = true;
         }
 
         function playBeep(frequency = 2400, duration = 0.08, volume = 0.15) {
-            if (!soundEnabled || !audioContext) return;
+            if (!soundEnabled || !audioContext || !audioInitialized) return;
             
             try {
                 const oscillator = audioContext.createOscillator();
@@ -2472,24 +2479,35 @@
             setTimeout(() => playBeep(2800, 0.04, 0.1), 50);
         }
 
-        // Initialize audio on first user interaction
-        document.addEventListener('click', function initOnClick() {
-            initAudio();
-            document.removeEventListener('click', initOnClick);
-        }, { once: true });
+        // Initialize audio on ANY user interaction
+        function setupAudioInit() {
+            const initEvents = ['click', 'touchstart', 'keydown', 'mousemove', 'scroll'];
+            
+            function handleFirstInteraction() {
+                initAudio();
+                // Remove all listeners after first interaction
+                initEvents.forEach(event => {
+                    document.removeEventListener(event, handleFirstInteraction);
+                });
+            }
+            
+            initEvents.forEach(event => {
+                document.addEventListener(event, handleFirstInteraction, { once: false, passive: true });
+            });
+        }
+        
+        setupAudioInit();
 
         // Attach sounds to elements
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.sound-hover').forEach(el => {
                 el.addEventListener('mouseenter', () => {
-                    initAudio();
                     playHoverSound();
                 });
             });
 
             document.querySelectorAll('.sound-click').forEach(el => {
                 el.addEventListener('click', () => {
-                    initAudio();
                     playClickSound();
                 });
             });
