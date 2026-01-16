@@ -2396,12 +2396,121 @@
                     console.error('Failed to load land data:', err);
                 });
             
+            // Global financial & emerging market nodes - Building the Future of Digital Finance
+            const financeNodes = [
+                // North America
+                { lat: 40.7, lon: -74, name: 'New York' },
+                { lat: 37.8, lon: -122.4, name: 'San Francisco' },
+                { lat: 34, lon: -118.2, name: 'Los Angeles' },
+                { lat: 41.9, lon: -87.6, name: 'Chicago' },
+                { lat: 43.7, lon: -79.4, name: 'Toronto' },
+                { lat: 25.8, lon: -80.2, name: 'Miami' },
+                
+                // Latin America - Emerging fintech hubs
+                { lat: 4.6, lon: -74.1, name: 'Bogotá' },
+                { lat: 6.2, lon: -75.6, name: 'Medellín' },
+                { lat: -23.5, lon: -46.6, name: 'São Paulo' },
+                { lat: -22.9, lon: -43.2, name: 'Rio de Janeiro' },
+                { lat: 19.4, lon: -99.1, name: 'Mexico City' },
+                { lat: -34.6, lon: -58.4, name: 'Buenos Aires' },
+                { lat: -33.4, lon: -70.6, name: 'Santiago' },
+                { lat: -12, lon: -77, name: 'Lima' },
+                { lat: 9, lon: -79.5, name: 'Panama City' },
+                { lat: 10.5, lon: -66.9, name: 'Caracas' },
+                
+                // Europe
+                { lat: 51.5, lon: -0.1, name: 'London' },
+                { lat: 50.1, lon: 8.7, name: 'Frankfurt' },
+                { lat: 48.9, lon: 2.3, name: 'Paris' },
+                { lat: 47.4, lon: 8.5, name: 'Zurich' },
+                { lat: 52.4, lon: 4.9, name: 'Amsterdam' },
+                { lat: 52.5, lon: 13.4, name: 'Berlin' },
+                { lat: 59.3, lon: 18.1, name: 'Stockholm' },
+                { lat: 55.7, lon: 12.6, name: 'Copenhagen' },
+                
+                // Middle East
+                { lat: 25.2, lon: 55.3, name: 'Dubai' },
+                { lat: 32.1, lon: 34.8, name: 'Tel Aviv' },
+                { lat: 24.7, lon: 46.7, name: 'Riyadh' },
+                
+                // Africa - Emerging markets
+                { lat: 6.5, lon: 3.4, name: 'Lagos' },
+                { lat: -1.3, lon: 36.8, name: 'Nairobi' },
+                { lat: -26.2, lon: 28, name: 'Johannesburg' },
+                { lat: 30, lon: 31.2, name: 'Cairo' },
+                { lat: -33.9, lon: 18.4, name: 'Cape Town' },
+                { lat: 5.6, lon: -0.2, name: 'Accra' },
+                { lat: 14.7, lon: -17.5, name: 'Dakar' },
+                { lat: -4.3, lon: 15.3, name: 'Kinshasa' },
+                { lat: 9, lon: 38.7, name: 'Addis Ababa' },
+                
+                // Asia Pacific
+                { lat: 35.7, lon: 139.7, name: 'Tokyo' },
+                { lat: 1.3, lon: 103.8, name: 'Singapore' },
+                { lat: 22.3, lon: 114.2, name: 'Hong Kong' },
+                { lat: 31.2, lon: 121.5, name: 'Shanghai' },
+                { lat: 39.9, lon: 116.4, name: 'Beijing' },
+                { lat: 37.5, lon: 127, name: 'Seoul' },
+                { lat: 19, lon: 72.8, name: 'Mumbai' },
+                { lat: 28.6, lon: 77.2, name: 'New Delhi' },
+                { lat: 13.8, lon: 100.5, name: 'Bangkok' },
+                { lat: -6.2, lon: 106.8, name: 'Jakarta' },
+                { lat: 14.6, lon: 121, name: 'Manila' },
+                { lat: 3.1, lon: 101.7, name: 'Kuala Lumpur' },
+                
+                // Oceania
+                { lat: -33.9, lon: 151.2, name: 'Sydney' },
+                { lat: -37.8, lon: 145, name: 'Melbourne' },
+                { lat: -36.8, lon: 174.8, name: 'Auckland' },
+            ];
+            
+            // Create glowing nodes
+            const nodeGeometry = new THREE.SphereGeometry(0.025, 12, 12);
+            const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff80 });
+            const nodeGlowGeometry = new THREE.SphereGeometry(0.05, 12, 12);
+            const nodeGlowMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0x00ff80, 
+                transparent: true, 
+                opacity: 0.4 
+            });
+            
+            const nodeObjects = [];
+            financeNodes.forEach(node => {
+                // Apply same coordinate squeeze as continents
+                const squeezedLat = node.lat * coordSqueeze;
+                const squeezedLon = node.lon * coordSqueeze;
+                const pos = latLonToVector3(squeezedLat, squeezedLon, 1.01);
+                
+                const nodeObj = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
+                nodeObj.position.copy(pos);
+                globeGroup.add(nodeObj);
+                
+                const glow = new THREE.Mesh(nodeGlowGeometry, nodeGlowMaterial.clone());
+                glow.position.copy(pos);
+                globeGroup.add(glow);
+                
+                nodeObjects.push({ node: nodeObj, glow, data: node });
+            });
+            
             globeGroup.rotation.x = 0.35;
             globeScene.add(globeGroup);
             
+            let globeTime = 0;
+            
             function animateGlobe() {
                 requestAnimationFrame(animateGlobe);
+                globeTime += 0.016;
+                
                 globeGroup.rotation.y += 0.002;
+                
+                // Pulse nodes
+                nodeObjects.forEach((obj, i) => {
+                    const pulse = 0.35 + Math.sin(globeTime * 2.5 + i * 0.3) * 0.25;
+                    obj.glow.material.opacity = pulse;
+                    const scale = 1 + Math.sin(globeTime * 2 + i * 0.25) * 0.4;
+                    obj.glow.scale.set(scale, scale, scale);
+                });
+                
                 globeRenderer.render(globeScene, globeCamera);
             }
             
@@ -2411,8 +2520,8 @@
             const globeWrapper = globeCanvas.parentElement;
             if (globeWrapper) {
                 const resizeObserver = new ResizeObserver(() => {
-                    const width = globeWrapper.clientWidth || 380;
-                    const height = globeWrapper.clientHeight || 420;
+                    const width = globeWrapper.clientWidth || 450;
+                    const height = globeWrapper.clientHeight || 450;
                     globeRenderer.setSize(width, height);
                     globeCamera.aspect = width / height;
                     globeCamera.updateProjectionMatrix();
