@@ -2331,6 +2331,7 @@
             let totalPoints = 0;
             
             const continentScale = 1.0;  // Continents on surface
+            const coordSqueeze = 0.80;   // 20% squeeze - bunches coordinates inward
             
             fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json')
                 .then(response => response.json())
@@ -2348,7 +2349,12 @@
                         if (geometry.type === 'Polygon') {
                             geometry.coordinates.forEach(ring => {
                                 if (ring.length > 3) {
-                                    const points = ring.map(coord => latLonToVector3(coord[1], coord[0], continentScale));
+                                    const points = ring.map(coord => {
+                                        // Squeeze coordinates inward toward center
+                                        const squeezedLat = coord[1] * coordSqueeze;
+                                        const squeezedLon = coord[0] * coordSqueeze;
+                                        return latLonToVector3(squeezedLat, squeezedLon, continentScale);
+                                    });
                                     totalPoints += points.length;
                                     const geo = new THREE.BufferGeometry().setFromPoints(points);
                                     const line = new THREE.Line(geo, continentMaterial.clone());
@@ -2360,7 +2366,11 @@
                             geometry.coordinates.forEach(polygon => {
                                 polygon.forEach(ring => {
                                     if (ring.length > 3) {
-                                        const points = ring.map(coord => latLonToVector3(coord[1], coord[0], continentScale));
+                                        const points = ring.map(coord => {
+                                            const squeezedLat = coord[1] * coordSqueeze;
+                                            const squeezedLon = coord[0] * coordSqueeze;
+                                            return latLonToVector3(squeezedLat, squeezedLon, continentScale);
+                                        });
                                         totalPoints += points.length;
                                         const geo = new THREE.BufferGeometry().setFromPoints(points);
                                         const line = new THREE.Line(geo, continentMaterial.clone());
