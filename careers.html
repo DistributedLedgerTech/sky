@@ -100,6 +100,7 @@
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
             -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
         }
 
         body {
@@ -111,6 +112,8 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             touch-action: manipulation;
+            width: 100%;
+            max-width: 100vw;
         }
 
         /* Prevent text selection on interactive elements for mobile */
@@ -174,6 +177,8 @@
         .content {
             position: relative;
             z-index: 10;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         /* Navigation */
@@ -1298,8 +1303,12 @@
         }
 
         @media (max-width: 768px) {
+            * {
+                max-width: 100%;
+            }
+
             .nav {
-                padding: 16px 24px;
+                padding: 16px 16px;
             }
 
             .nav-links {
@@ -1315,15 +1324,17 @@
             }
 
             .page-header {
-                padding: 120px 20px 40px;
+                padding: 120px 16px 40px;
+                overflow: hidden;
             }
 
             .page-title {
-                font-size: clamp(36px, 10vw, 60px);
+                font-size: clamp(32px, 9vw, 56px);
+                word-wrap: break-word;
             }
 
             .page-subtitle {
-                font-size: 15px;
+                font-size: 14px;
                 line-height: 1.7;
             }
 
@@ -1333,11 +1344,11 @@
 
             .page-eyebrow-text {
                 font-size: 10px;
-                letter-spacing: 0.3em;
+                letter-spacing: 0.2em;
             }
 
             .careers-stats {
-                padding: 28px 20px;
+                padding: 28px 16px;
                 flex-wrap: wrap;
                 gap: 24px;
                 justify-content: center;
@@ -1345,7 +1356,7 @@
 
             .careers-stat {
                 flex: 1;
-                min-width: 45%;
+                min-width: 42%;
                 max-width: 50%;
             }
 
@@ -1359,7 +1370,7 @@
             }
 
             .benefits-section {
-                padding: 0 20px 48px;
+                padding: 0 16px 48px;
             }
 
             .benefits-title {
@@ -1384,25 +1395,26 @@
             }
 
             .filter-bar {
-                padding: 0 20px 28px;
-                gap: 10px;
+                padding: 0 16px 28px;
+                gap: 8px;
+                flex-wrap: wrap;
             }
 
             .filter-btn {
                 font-size: 10px;
-                padding: 10px 16px;
+                padding: 10px 14px;
                 letter-spacing: 0.1em;
                 flex: 1;
-                min-width: calc(50% - 5px);
+                min-width: calc(50% - 4px);
                 text-align: center;
             }
 
             .jobs-section {
-                padding: 0 20px 60px;
+                padding: 0 16px 60px;
             }
 
             .job-card {
-                padding: 28px 20px;
+                padding: 24px 16px;
             }
 
             .job-level {
@@ -1568,12 +1580,19 @@
             }
 
             .footer {
-                padding: 48px 20px;
+                padding: 48px 16px;
             }
 
             .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
+                display: block;
+            }
+
+            .footer-column {
+                margin-bottom: 32px;
+            }
+
+            .footer-column:last-child {
+                margin-bottom: 0;
             }
 
             .footer-bottom {
@@ -2810,9 +2829,8 @@
             formData.set('position', jobTitle);
 
             try {
-                // Submit to Formspree (replace YOUR_CAREERS_FORM_ID with your actual Formspree form ID)
-                // Note: File uploads require Formspree paid plan or alternative service
-                const response = await fetch('https://formspree.io/f/YOUR_CAREERS_FORM_ID', {
+                // Submit to Formspree
+                const response = await fetch('https://formspree.io/f/maqqqedl', {
                     method: 'POST',
                     body: formData,
                     headers: {
