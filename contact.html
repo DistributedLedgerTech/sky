@@ -1124,13 +1124,21 @@
         /* Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* Make reveals visible faster on mobile */
+        @media (max-width: 768px) {
+            .reveal {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsive */
@@ -2476,7 +2484,10 @@
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1 });
+        }, { 
+            threshold: 0.01,
+            rootMargin: '50px 0px 50px 0px'
+        });
         
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
