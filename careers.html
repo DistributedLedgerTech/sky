@@ -1269,24 +1269,24 @@
             }
 
             .page-header {
-                padding: 160px 32px 60px;
+                padding: 120px 32px 40px;
             }
 
             .careers-stats {
-                padding: 40px 32px;
-                gap: 40px;
+                padding: 24px 32px;
+                gap: 32px;
             }
 
             .benefits-section {
-                padding: 0 32px 60px;
-            }
-
-            .filter-bar {
                 padding: 0 32px 40px;
             }
 
+            .filter-bar {
+                padding: 0 32px 24px;
+            }
+
             .jobs-section {
-                padding: 0 32px 80px;
+                padding: 0 32px 60px;
             }
 
             .jobs-grid {
@@ -1308,7 +1308,7 @@
             }
 
             .nav {
-                padding: 16px 16px;
+                padding: 12px 16px;
             }
 
             .nav-links {
@@ -1324,33 +1324,39 @@
             }
 
             .page-header {
-                padding: 120px 16px 40px;
+                padding: 90px 16px 20px;
                 overflow: hidden;
             }
 
             .page-title {
-                font-size: clamp(32px, 9vw, 56px);
+                font-size: clamp(28px, 8vw, 48px);
                 word-wrap: break-word;
+                margin-bottom: 8px;
             }
 
             .page-subtitle {
-                font-size: 14px;
-                line-height: 1.7;
+                font-size: 13px;
+                line-height: 1.5;
+                display: none; /* Hide on mobile to save space */
+            }
+
+            .page-eyebrow {
+                margin-bottom: 12px;
             }
 
             .page-eyebrow-line {
-                width: 40px;
+                width: 30px;
             }
 
             .page-eyebrow-text {
-                font-size: 10px;
-                letter-spacing: 0.2em;
+                font-size: 9px;
+                letter-spacing: 0.15em;
             }
 
             .careers-stats {
-                padding: 28px 16px;
+                padding: 16px 16px;
                 flex-wrap: wrap;
-                gap: 24px;
+                gap: 16px;
                 justify-content: center;
             }
 
@@ -1361,41 +1367,42 @@
             }
 
             .careers-stat-value {
-                font-size: 32px;
+                font-size: 28px;
             }
 
             .careers-stat-label {
-                font-size: 9px;
-                letter-spacing: 0.2em;
+                font-size: 8px;
+                letter-spacing: 0.15em;
             }
 
             .benefits-section {
-                padding: 0 16px 48px;
+                padding: 0 16px 32px;
             }
 
             .benefits-title {
-                font-size: 11px;
+                font-size: 10px;
+                margin-bottom: 16px;
             }
 
             .benefits-grid {
                 grid-template-columns: 1fr;
-                gap: 16px;
+                gap: 12px;
             }
 
             .benefit-card {
-                padding: 24px 20px;
+                padding: 16px;
             }
 
             .benefit-title {
-                font-size: 10px;
+                font-size: 9px;
             }
 
             .benefit-desc {
-                font-size: 13px;
+                font-size: 12px;
             }
 
             .filter-bar {
-                padding: 0 16px 28px;
+                padding: 0 16px 20px;
                 gap: 8px;
                 flex-wrap: wrap;
             }
@@ -1410,19 +1417,20 @@
             }
 
             .jobs-section {
-                padding: 0 16px 60px;
+                padding: 0 16px 40px;
             }
 
             .job-card {
-                padding: 24px 16px;
+                padding: 16px 14px;
+                margin-bottom: 12px;
             }
 
             .job-level {
                 position: static;
                 display: inline-block;
-                margin-bottom: 12px;
-                font-size: 9px;
-                padding: 6px 12px;
+                margin-bottom: 8px;
+                font-size: 8px;
+                padding: 4px 10px;
             }
 
             .job-header {
@@ -1430,36 +1438,44 @@
             }
 
             .job-department {
-                font-size: 9px;
+                font-size: 8px;
+                margin-bottom: 4px;
             }
 
             .job-title {
-                font-size: 20px;
-                margin-bottom: 10px;
+                font-size: 17px;
+                margin-bottom: 8px;
             }
 
             .job-meta {
                 flex-wrap: wrap;
-                gap: 16px;
-                margin-bottom: 14px;
+                gap: 10px;
+                margin-bottom: 10px;
             }
 
             .job-meta-item {
-                font-size: 11px;
+                font-size: 10px;
             }
 
             .job-description {
-                font-size: 13px;
-                line-height: 1.6;
+                font-size: 12px;
+                line-height: 1.5;
+                margin-bottom: 12px;
+                /* Limit description lines on mobile */
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
 
             .job-tags {
-                gap: 6px;
+                gap: 5px;
+                margin-bottom: 12px;
             }
 
             .job-tag {
-                font-size: 8px;
-                padding: 5px 10px;
+                font-size: 7px;
+                padding: 4px 8px;
             }
 
             .job-apply-btn {
@@ -1604,48 +1620,52 @@
 
         @media (max-width: 480px) {
             .nav {
-                padding: 12px 16px;
+                padding: 10px 12px;
             }
 
             .logo-symbol {
-                width: 44px;
-                height: 44px;
+                width: 36px;
+                height: 36px;
             }
 
             .logo-text-main {
-                font-size: 14px;
+                font-size: 12px;
             }
 
             .logo-text-sub {
-                font-size: 8px;
-                letter-spacing: 0.3em;
+                font-size: 7px;
+                letter-spacing: 0.2em;
             }
 
             .page-header {
-                padding: 100px 16px 32px;
+                padding: 75px 12px 16px;
             }
 
             .page-title {
-                font-size: clamp(32px, 12vw, 48px);
-                margin-bottom: 16px;
+                font-size: clamp(24px, 10vw, 36px);
+                margin-bottom: 0;
             }
 
             .page-subtitle {
-                font-size: 14px;
+                display: none;
             }
 
             .page-eyebrow {
-                margin-bottom: 20px;
-                gap: 16px;
+                margin-bottom: 10px;
+                gap: 10px;
             }
 
             .page-eyebrow-line {
-                width: 30px;
+                width: 24px;
+            }
+
+            .page-eyebrow-text {
+                font-size: 8px;
             }
 
             .careers-stats {
-                padding: 24px 16px;
-                gap: 20px;
+                padding: 12px 12px;
+                gap: 12px;
             }
 
             .careers-stat {
@@ -1653,22 +1673,26 @@
             }
 
             .careers-stat-value {
-                font-size: 28px;
+                font-size: 24px;
+            }
+
+            .careers-stat-label {
+                font-size: 7px;
             }
 
             .benefits-section,
             .filter-bar,
             .jobs-section {
-                padding-left: 16px;
-                padding-right: 16px;
+                padding-left: 12px;
+                padding-right: 12px;
             }
 
             .benefits-section {
-                padding-bottom: 40px;
+                padding-bottom: 24px;
             }
 
             .benefit-card {
-                padding: 20px 16px;
+                padding: 14px 12px;
             }
 
             .filter-bar {
@@ -1759,26 +1783,31 @@
         /* Extra small devices */
         @media (max-width: 360px) {
             .page-header {
-                padding: 90px 12px 28px;
+                padding: 65px 10px 12px;
             }
 
             .page-title {
-                font-size: 28px;
+                font-size: 22px;
+            }
+
+            .page-eyebrow {
+                margin-bottom: 8px;
             }
 
             .careers-stats {
-                padding: 20px 12px;
+                padding: 10px 10px;
+                gap: 10px;
             }
 
             .careers-stat-value {
-                font-size: 24px;
+                font-size: 20px;
             }
 
             .benefits-section,
             .filter-bar,
             .jobs-section {
-                padding-left: 12px;
-                padding-right: 12px;
+                padding-left: 10px;
+                padding-right: 10px;
             }
 
             .filter-btn {
@@ -1786,7 +1815,7 @@
             }
 
             .job-card {
-                padding: 20px 12px;
+                padding: 16px 10px;
             }
 
             .modal-overlay {
