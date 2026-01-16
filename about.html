@@ -2492,7 +2492,9 @@
                 nodeObjects.push({ node: nodeObj, glow, data: node });
             });
             
-            globeGroup.rotation.x = 0.35;
+            // Initial rotation to show Americas (North, Central, South) facing viewer
+            globeGroup.rotation.x = 0.3;  // Slight tilt
+            globeGroup.rotation.y = 1.6;  // Rotate to center Americas
             globeScene.add(globeGroup);
             
             let globeTime = 0;
@@ -2501,7 +2503,7 @@
                 requestAnimationFrame(animateGlobe);
                 globeTime += 0.016;
                 
-                globeGroup.rotation.y += 0.002;
+                globeGroup.rotation.y += 0.0015;  // Slower rotation
                 
                 // Pulse nodes
                 nodeObjects.forEach((obj, i) => {
