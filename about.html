@@ -451,6 +451,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 80px;
             align-items: center;
+            overflow: visible;
         }
 
         .mission-content {
@@ -498,16 +499,18 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: visible;
         }
 
         /* Three.js Globe Styles */
         .globe-wrapper {
-            width: 380px;
-            height: 420px;
+            width: 450px;
+            height: 450px;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: visible;
         }
 
         #globeCanvas {
@@ -517,6 +520,7 @@
             top: 0;
             left: 0;
             z-index: 1;
+            overflow: visible;
         }
 
         .globe-ui {
@@ -2280,25 +2284,25 @@
         }
 
         // ============================================
-        // THREE.JS GLOBE WITH HIGH-RES CONTINENTS
-        // Loads Natural Earth 50m data (~10,000+ points)
+        // THREE.JS GLOBE - CONTINENT OUTLINES ONLY
         // ============================================
         
         const globeCanvas = document.getElementById('globeCanvas');
         if (globeCanvas) {
             const globeRenderer = new THREE.WebGLRenderer({ canvas: globeCanvas, antialias: true, alpha: true });
-            globeRenderer.setSize(380, 420);
+            globeRenderer.setSize(450, 450);
             globeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            globeRenderer.sortObjects = true;
             
             const globeScene = new THREE.Scene();
-            const globeCamera = new THREE.PerspectiveCamera(45, 380 / 420, 0.1, 1000);
-            globeCamera.position.z = 4.5;
+            const globeCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+            globeCamera.position.z = 4.8;
             
             const globeGroup = new THREE.Group();
             
             // WGS84 oblate spheroid parameters
             const equatorialRadius = 1.5;
-            const polarRadius = equatorialRadius * 0.9966; // WGS84 ratio
+            const polarRadius = equatorialRadius * 0.9966;
             
             // Helper to convert lat/lon to 3D position on oblate spheroid
             function latLonToVector3(lat, lon, radiusScale = 1) {
@@ -2312,80 +2316,56 @@
                 return new THREE.Vector3(x, y, z);
             }
             
+            // Black ocean sphere (solid, opaque)
+            const oceanGeometry = new THREE.SphereGeometry(equatorialRadius * 0.995, 64, 48);
+            const oceanMaterial = new THREE.MeshBasicMaterial({
+                color: 0x000000,
+                side: THREE.FrontSide
+            });
+            const oceanSphere = new THREE.Mesh(oceanGeometry, oceanMaterial);
+            oceanSphere.scale.y = polarRadius / equatorialRadius;
+            globeGroup.add(oceanSphere);
+            
             // Load high-resolution land data from CDN
-            let frontLandLines = [];
-            let backLandLines = [];
+            let landLines = [];
             let totalPoints = 0;
             
-            // Scale factor: continents at natural size
-            const continentScale = 1.0;  // Front continents
-            const backScale = 0.98;      // Back continents slightly inside for depth effect
+            const continentScale = 1.0;  // Continents on surface
             
             fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json')
                 .then(response => response.json())
                 .then(topoData => {
-                    // Convert TopoJSON to GeoJSON
                     const geoData = topojson.feature(topoData, topoData.objects.land);
                     
-                    // Front-facing continents (cyan)
-                    const frontMaterial = new THREE.LineBasicMaterial({ 
+                    // Continent outlines (cyan)
+                    const continentMaterial = new THREE.LineBasicMaterial({ 
                         color: 0x00ffff, 
                         transparent: true, 
-                        opacity: 0.9,
-                        depthWrite: false
+                        opacity: 0.95
                     });
                     
-                    // Back-facing continents (white/light)
-                    const backMaterial = new THREE.LineBasicMaterial({ 
-                        color: 0xffffff, 
-                        transparent: true, 
-                        opacity: 0.25,
-                        depthWrite: false
-                    });
-                    
-                    // Process all polygons - create both front and back lines
                     function processGeometry(geometry) {
                         if (geometry.type === 'Polygon') {
                             geometry.coordinates.forEach(ring => {
                                 if (ring.length > 3) {
-                                    // Front lines (cyan)
-                                    const frontPoints = ring.map(coord => latLonToVector3(coord[1], coord[0], continentScale));
-                                    totalPoints += frontPoints.length;
-                                    const frontGeo = new THREE.BufferGeometry().setFromPoints(frontPoints);
-                                    const frontLine = new THREE.Line(frontGeo, frontMaterial.clone());
-                                    frontLine.renderOrder = 2;
-                                    frontLandLines.push(frontLine);
-                                    globeGroup.add(frontLine);
-                                    
-                                    // Back lines (white) - slightly smaller radius
-                                    const backPoints = ring.map(coord => latLonToVector3(coord[1], coord[0], backScale));
-                                    const backGeo = new THREE.BufferGeometry().setFromPoints(backPoints);
-                                    const backLine = new THREE.Line(backGeo, backMaterial.clone());
-                                    backLine.renderOrder = 1;
-                                    backLandLines.push(backLine);
-                                    globeGroup.add(backLine);
+                                    const points = ring.map(coord => latLonToVector3(coord[1], coord[0], continentScale));
+                                    totalPoints += points.length;
+                                    const geo = new THREE.BufferGeometry().setFromPoints(points);
+                                    const line = new THREE.Line(geo, continentMaterial.clone());
+                                    landLines.push(line);
+                                    globeGroup.add(line);
                                 }
                             });
                         } else if (geometry.type === 'MultiPolygon') {
                             geometry.coordinates.forEach(polygon => {
                                 polygon.forEach(ring => {
                                     if (ring.length > 3) {
-                                        // Front lines (cyan)
-                                        const frontPoints = ring.map(coord => latLonToVector3(coord[1], coord[0], continentScale));
-                                        totalPoints += frontPoints.length;
-                                        const frontGeo = new THREE.BufferGeometry().setFromPoints(frontPoints);
-                                        const frontLine = new THREE.Line(frontGeo, frontMaterial.clone());
-                                        frontLine.renderOrder = 2;
-                                        frontLandLines.push(frontLine);
-                                        globeGroup.add(frontLine);
-                                        
-                                        // Back lines (white)
-                                        const backPoints = ring.map(coord => latLonToVector3(coord[1], coord[0], backScale));
-                                        const backGeo = new THREE.BufferGeometry().setFromPoints(backPoints);
-                                        const backLine = new THREE.Line(backGeo, backMaterial.clone());
-                                        backLine.renderOrder = 1;
-                                        backLandLines.push(backLine);
-                                        globeGroup.add(backLine);
+                                        const points = ring.map(coord => latLonToVector3(coord[1], coord[0], continentScale));
+                                        totalPoints += points.length;
+                                        const geo = new THREE.BufferGeometry().setFromPoints(points);
+                                        const line = new THREE.Line(geo, continentMaterial.clone());
+                                        landLines.push(line);
+                                        globeGroup.add(line);
                                     }
                                 });
                             });
@@ -2400,201 +2380,18 @@
                         processGeometry(geoData);
                     }
                     
-                    console.log('Globe loaded with', totalPoints, 'points for continent outlines (front + back)');
+                    console.log('Globe loaded with', totalPoints, 'continent outline points');
                 })
                 .catch(err => {
                     console.error('Failed to load land data:', err);
                 });
             
-            // Network nodes for distributed topology
-            const networkNodes = [
-                { lat: 40.7, lon: -74, name: 'New York' },
-                { lat: 34, lon: -118, name: 'Los Angeles' },
-                { lat: 51.5, lon: -0.1, name: 'London' },
-                { lat: 35.7, lon: 139.7, name: 'Tokyo' },
-                { lat: 1.3, lon: 103.8, name: 'Singapore' },
-                { lat: 25.2, lon: 55.3, name: 'Dubai' },
-                { lat: -33.9, lon: 151.2, name: 'Sydney' },
-                { lat: -23.5, lon: -46.6, name: 'São Paulo' },
-                { lat: 19, lon: 72.8, name: 'Mumbai' },
-                { lat: 22.3, lon: 114.2, name: 'Hong Kong' },
-                { lat: 50.1, lon: 8.7, name: 'Frankfurt' },
-                { lat: 43.7, lon: -79.4, name: 'Toronto' },
-                { lat: 37.4, lon: -122, name: 'San Francisco' },
-                { lat: 41.9, lon: -87.6, name: 'Chicago' },
-                { lat: 48.9, lon: 2.3, name: 'Paris' },
-                { lat: 55.8, lon: 37.6, name: 'Moscow' },
-                { lat: 31.2, lon: 121.5, name: 'Shanghai' },
-                { lat: 37.5, lon: 127, name: 'Seoul' },
-                { lat: -26.2, lon: 28, name: 'Johannesburg' },
-                { lat: 19.4, lon: -99.1, name: 'Mexico City' },
-                { lat: 52.5, lon: 13.4, name: 'Berlin' },
-                { lat: 59.3, lon: 18.1, name: 'Stockholm' },
-                { lat: 13.8, lon: 100.5, name: 'Bangkok' },
-                { lat: -6.2, lon: 106.8, name: 'Jakarta' },
-            ];
-            
-            // Create glowing nodes
-            const nodeGeometry = new THREE.SphereGeometry(0.025, 12, 12);
-            const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff80 });
-            const nodeGlowGeometry = new THREE.SphereGeometry(0.05, 12, 12);
-            const nodeGlowMaterial = new THREE.MeshBasicMaterial({ 
-                color: 0x00ff80, 
-                transparent: true, 
-                opacity: 0.3 
-            });
-            
-            const nodeObjects = [];
-            networkNodes.forEach(node => {
-                const pos = latLonToVector3(node.lat, node.lon, 1.02);
-                const nodeObj = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
-                nodeObj.position.copy(pos);
-                globeGroup.add(nodeObj);
-                
-                const glow = new THREE.Mesh(nodeGlowGeometry, nodeGlowMaterial.clone());
-                glow.position.copy(pos);
-                globeGroup.add(glow);
-                
-                nodeObjects.push({ node: nodeObj, glow, data: node });
-            });
-            
-            // Distributed mesh network connections
-            const meshConnections = [
-                [0, 1], [0, 11], [1, 12], [12, 13], [0, 13], [11, 13], [1, 19],
-                [0, 2], [11, 2], [0, 10], [13, 14],
-                [2, 10], [2, 14], [10, 14], [10, 20], [14, 20], [20, 21], [2, 21], [14, 15],
-                [15, 5], [15, 8], [10, 5],
-                [5, 8], [5, 18],
-                [3, 9], [9, 16], [16, 17], [3, 17], [9, 4], [4, 22], [4, 23],
-                [3, 12], [1, 3], [17, 1],
-                [7, 0], [7, 18], [18, 5],
-                [6, 4], [6, 23], [6, 9],
-                [8, 22], [8, 4], [16, 4], [2, 5], [19, 7],
-            ];
-            
-            const connectionMaterial = new THREE.LineBasicMaterial({ 
-                color: 0x00ffff, 
-                transparent: true, 
-                opacity: 0.2
-            });
-            
-            const connectionLines = [];
-            meshConnections.forEach(([i, j]) => {
-                if (i >= networkNodes.length || j >= networkNodes.length) return;
-                const start = latLonToVector3(networkNodes[i].lat, networkNodes[i].lon, 1.02);
-                const end = latLonToVector3(networkNodes[j].lat, networkNodes[j].lon, 1.02);
-                
-                const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
-                const distance = start.distanceTo(end);
-                const arcHeight = 1.02 + distance * 0.1;
-                mid.normalize().multiplyScalar(arcHeight * equatorialRadius);
-                
-                const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-                const points = curve.getPoints(24);
-                const geometry = new THREE.BufferGeometry().setFromPoints(points);
-                const line = new THREE.Line(geometry, connectionMaterial.clone());
-                globeGroup.add(line);
-                connectionLines.push(line);
-            });
-            
-            // Data packets
-            const packetGeometry = new THREE.SphereGeometry(0.018, 8, 8);
-            const packetMaterial = new THREE.MeshBasicMaterial({ 
-                color: 0x00ff80, 
-                transparent: true, 
-                opacity: 0.9 
-            });
-            
-            const packets = [];
-            meshConnections.forEach(([i, j], idx) => {
-                if (i >= networkNodes.length || j >= networkNodes.length) return;
-                if (idx % 3 !== 0) return;
-                
-                const packet = new THREE.Mesh(packetGeometry, packetMaterial.clone());
-                packet.visible = false;
-                packet.userData = {
-                    startNode: networkNodes[i],
-                    endNode: networkNodes[j],
-                    progress: 0,
-                    speed: 0.006 + Math.random() * 0.006,
-                    delay: Math.random() * 5,
-                    active: false
-                };
-                globeGroup.add(packet);
-                packets.push(packet);
-            });
-            
-            // Outer atmosphere
-            const atmosphereGeometry = new THREE.SphereGeometry(equatorialRadius * 1.06, 32, 24);
-            const atmosphereMaterial = new THREE.MeshBasicMaterial({
-                color: 0x00ffff,
-                transparent: true,
-                opacity: 0.03,
-                side: THREE.BackSide
-            });
-            const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
-            atmosphere.scale.y = polarRadius / equatorialRadius;
-            globeGroup.add(atmosphere);
-            
             globeGroup.rotation.x = 0.35;
             globeScene.add(globeGroup);
             
-            let globeTime = 0;
-            
             function animateGlobe() {
                 requestAnimationFrame(animateGlobe);
-                globeTime += 0.016;
-                
                 globeGroup.rotation.y += 0.002;
-                
-                nodeObjects.forEach((obj, i) => {
-                    const pulse = 0.3 + Math.sin(globeTime * 2.5 + i * 0.4) * 0.2;
-                    obj.glow.material.opacity = pulse;
-                    const scale = 1 + Math.sin(globeTime * 2 + i * 0.3) * 0.3;
-                    obj.glow.scale.set(scale, scale, scale);
-                });
-                
-                connectionLines.forEach((line, i) => {
-                    line.material.opacity = 0.15 + Math.sin(globeTime * 1.5 + i * 0.2) * 0.08;
-                });
-                
-                packets.forEach((packet) => {
-                    if (!packet.userData.active) {
-                        packet.userData.delay -= 0.016;
-                        if (packet.userData.delay <= 0) {
-                            packet.userData.active = true;
-                            packet.visible = true;
-                            packet.userData.progress = 0;
-                        }
-                    } else {
-                        packet.userData.progress += packet.userData.speed;
-                        
-                        if (packet.userData.progress >= 1) {
-                            packet.userData.progress = 0;
-                            packet.userData.delay = 2 + Math.random() * 4;
-                            packet.userData.active = false;
-                            packet.visible = false;
-                        } else {
-                            const start = latLonToVector3(packet.userData.startNode.lat, packet.userData.startNode.lon, 1.02);
-                            const end = latLonToVector3(packet.userData.endNode.lat, packet.userData.endNode.lon, 1.02);
-                            const mid = new THREE.Vector3().addVectors(start, end).multiplyScalar(0.5);
-                            const distance = start.distanceTo(end);
-                            mid.normalize().multiplyScalar((1.02 + distance * 0.1) * equatorialRadius);
-                            
-                            const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-                            const point = curve.getPoint(packet.userData.progress);
-                            
-                            const rotatedPoint = point.clone();
-                            rotatedPoint.applyAxisAngle(new THREE.Vector3(0, 1, 0), globeGroup.rotation.y);
-                            rotatedPoint.applyAxisAngle(new THREE.Vector3(1, 0, 0), globeGroup.rotation.x);
-                            
-                            packet.position.copy(rotatedPoint);
-                        }
-                    }
-                });
-                
-                atmosphere.material.opacity = 0.025 + Math.sin(globeTime * 0.8) * 0.01;
-                
                 globeRenderer.render(globeScene, globeCamera);
             }
             
