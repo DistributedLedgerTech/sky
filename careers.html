@@ -2821,7 +2821,7 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span>Submitting...</span>';
 
-            // Collect form data
+            // Collect form data (including files)
             const formData = new FormData(applicationForm);
             
             // Get job title from modal
@@ -2829,7 +2829,7 @@
             formData.set('position', jobTitle);
 
             try {
-                // Submit to Formspree
+                // Submit to Formspree Pro (with file upload support)
                 const response = await fetch('https://formspree.io/f/maqqqedl', {
                     method: 'POST',
                     body: formData,
@@ -2838,14 +2838,19 @@
                     }
                 });
 
+                const result = await response.json();
+
                 if (response.ok) {
                     applicationForm.style.display = 'none';
                     formSuccess.classList.add('visible');
                     playSuccessSound();
                 } else {
-                    throw new Error('Form submission failed');
+                    console.error('Formspree error:', result);
+                    throw new Error(result.error || 'Form submission failed');
                 }
             } catch (error) {
+                console.error('Submission error:', error);
+                
                 // Fallback: Open email client with application data
                 const name = formData.get('firstName') + ' ' + formData.get('lastName');
                 const email = formData.get('email');
@@ -2862,11 +2867,11 @@
                     `Phone: ${phone}\n` +
                     `LinkedIn: ${linkedin}\n` +
                     `Portfolio: ${portfolio}\n\n` +
-                    `Note: Please reply to this email to request resume and cover letter attachments.`
+                    `Note: Please reply to request resume/cover letter attachments.`
                 );
                 
                 // Open email client
-                window.location.href = `mailto:careers@distributedledgertechnologies.com?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:david@knexmail.com?subject=${subject}&body=${body}`;
                 
                 // Show success
                 setTimeout(() => {
