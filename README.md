@@ -20,7 +20,7 @@
 
 ## About
 
-Distributed Ledger Technologies (DLT) is a blockchain infrastructure company founded in 2023, providing institutional-grade solutions for governments, defense, and global finance. We build critical infrastructure for the digital asset economy.
+Distributed Ledger Technologies (DLT) is a blockchain infrastructure company founded in 2020, providing institutional-grade solutions for governments, defense, and global finance. We build critical infrastructure for the digital asset economy.
 
 ### Core Values
 
@@ -227,7 +227,7 @@ The contact form uses [Formspree](https://formspree.io). To configure:
 
 ## License
 
-© 2023-2026 Distributed Ledger Technologies. All rights reserved.
+© 2020-2026 Distributed Ledger Technologies. All rights reserved.
 
 ---
 
