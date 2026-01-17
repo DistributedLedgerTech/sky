@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <rect fill="#000" width="100" height="100"/>
+  <rect x="3" y="3" width="94" height="94" fill="none" stroke="#00ffff" stroke-width="3"/>
+  <text x="50" y="65" font-size="38" text-anchor="middle" fill="#00ffff" font-family="monospace" font-weight="bold">DLT</text>
+</svg>
