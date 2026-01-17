@@ -38,6 +38,8 @@ Distributed Ledger Technologies (DLT) is a blockchain infrastructure company fou
 | **Echelon** | The Sovereign Cash Protocol for offline digital payments |
 | **HydroDollar** | Experimental post-petrodollar tokenomics |
 | **Ayedex** | Bitcoin mining pool infrastructure |
+| **Cora** | Bitcoin Wallet for the Lightning Network |
+| **Knexcoin** | Proof-of-Bandwidth layer 1 blockchain |
 
 ---
 
