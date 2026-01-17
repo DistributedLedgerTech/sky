@@ -3475,8 +3475,10 @@
                     
                     if (filter === 'all') {
                         show = true;
-                    } else if (filter === 'senior' || filter === 'entry') {
+                    } else if (filter === 'senior' || filter === 'entry' || filter === 'intern') {
                         show = level === filter;
+                    } else if (filter === 'ai') {
+                        show = department === 'ai';
                     } else if (filter === 'engineering') {
                         show = department === 'engineering';
                     } else if (filter === 'product') {
