@@ -718,15 +718,21 @@
         }
 
         .job-level.senior {
-            border-color: rgba(255, 215, 0, 0.3);
-            color: var(--gold);
-            background: rgba(255, 215, 0, 0.1);
+            border-color: rgba(0, 255, 128, 0.3);
+            color: #00ff80;
+            background: rgba(0, 255, 128, 0.1);
         }
 
         .job-level.entry {
-            border-color: rgba(0, 255, 128, 0.3);
-            color: var(--green);
-            background: rgba(0, 255, 128, 0.1);
+            border-color: rgba(148, 0, 211, 0.3);
+            color: #9400d3;
+            background: rgba(148, 0, 211, 0.1);
+        }
+
+        .job-level.intern {
+            border-color: rgba(255, 20, 147, 0.3);
+            color: #ff1493;
+            background: rgba(255, 20, 147, 0.1);
         }
 
         .job-apply-btn {
@@ -2102,6 +2108,56 @@
                         </div>
                     </div>
 
+                    <!-- Intern-Specific Fields (Hidden by default) -->
+                    <div class="form-section intern-fields" id="internFields" style="display: none;">
+                        <div class="form-section-title" style="color: #ff1493;">Academic Information (Interns Only)</div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" style="color: #ff1493;">GPA <span class="required">*</span></label>
+                                <input type="text" name="gpa" id="gpaInput" class="form-input sound-hover" placeholder="3.5 / 4.0" style="border-color: rgba(255, 20, 147, 0.3);">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="color: #ff1493;">University / College <span class="required">*</span></label>
+                                <input type="text" name="university" id="universityInput" class="form-input sound-hover" placeholder="University Name" style="border-color: rgba(255, 20, 147, 0.3);">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" style="color: #ff1493;">Major / Field of Study <span class="required">*</span></label>
+                                <input type="text" name="major" id="majorInput" class="form-input sound-hover" placeholder="Computer Science" style="border-color: rgba(255, 20, 147, 0.3);">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" style="color: #ff1493;">Expected Graduation</label>
+                                <input type="text" name="graduation" class="form-input sound-hover" placeholder="May 2026" style="border-color: rgba(255, 20, 147, 0.3);">
+                            </div>
+                        </div>
+
+                        <div class="form-row single">
+                            <div class="form-group">
+                                <label class="form-label" style="color: #ff1493;">College Transcript (Optional)</label>
+                                <div class="file-upload">
+                                    <div class="file-upload-area" id="transcriptUpload" style="border-color: rgba(255, 20, 147, 0.3);">
+                                        <svg class="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="#ff1493" stroke-width="1.5">
+                                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                            <path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3"/>
+                                        </svg>
+                                        <div class="file-upload-text"><strong style="color: #ff1493;">Click to upload</strong> or drag and drop</div>
+                                        <div class="file-upload-hint">PDF only (Max 10MB)</div>
+                                    </div>
+                                    <input type="file" name="transcript" id="transcriptInput" accept=".pdf">
+                                    <div class="file-name" id="transcriptName" style="display: none;">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="#ff1493" stroke-width="2">
+                                            <path d="M20 6L9 17l-5-5"/>
+                                        </svg>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Additional Information -->
                     <div class="form-section">
                         <div class="form-section-title">Additional Information</div>
@@ -2222,7 +2278,7 @@
         <!-- Stats -->
         <div class="careers-stats reveal">
             <div class="careers-stat">
-                <div class="careers-stat-value">12</div>
+                <div class="careers-stat-value">18</div>
                 <div class="careers-stat-label">Open Positions</div>
             </div>
             <div class="careers-stat">
@@ -2313,6 +2369,8 @@
             <button class="filter-btn active sound-click" data-filter="all">All Positions</button>
             <button class="filter-btn sound-click" data-filter="senior">Senior Level</button>
             <button class="filter-btn sound-click" data-filter="entry">Entry Level</button>
+            <button class="filter-btn sound-click" data-filter="intern" style="border-color: rgba(255, 20, 147, 0.3); color: #ff1493;">Internships</button>
+            <button class="filter-btn sound-click" data-filter="ai">AI</button>
             <button class="filter-btn sound-click" data-filter="engineering">Engineering</button>
             <button class="filter-btn sound-click" data-filter="product">Product</button>
             <button class="filter-btn sound-click" data-filter="business">Business</button>
@@ -2932,6 +2990,312 @@
                         </div>
                     </div>
                 </article>
+
+                <!-- Junior AI/ML Engineer -->
+                <article class="job-card reveal sound-hover" data-level="entry" data-department="ai">
+                    <span class="job-level entry">Entry Level</span>
+                    <div class="job-department">AI & Engineering</div>
+                    <h3 class="job-title">Junior AI/ML Engineer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Build and deploy machine learning models for blockchain analytics, fraud detection, and predictive systems. Work with cutting-edge AI infrastructure.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Python</span>
+                        <span class="job-tag">TensorFlow</span>
+                        <span class="job-tag">PyTorch</span>
+                        <span class="job-tag">ML Ops</span>
+                    </div>
+                    <div class="job-actions">
+                        <a href="#" class="job-apply-btn" onclick="openModal('AI & Engineering', 'Junior AI/ML Engineer'); return false;">
+                            Apply Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <div class="job-share">
+                            <span class="job-share-label">Share</span>
+                            <button class="share-btn twitter" onclick="shareJob('Junior AI/ML Engineer', 'twitter')" title="Share on X">
+                                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </button>
+                            <button class="share-btn facebook" onclick="shareJob('Junior AI/ML Engineer', 'facebook')" title="Share on Facebook">
+                                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </button>
+                            <button class="share-btn linkedin" onclick="shareJob('Junior AI/ML Engineer', 'linkedin')" title="Share on LinkedIn">
+                                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </button>
+                            <button class="share-btn whatsapp" onclick="shareJob('Junior AI/ML Engineer', 'whatsapp')" title="Share on WhatsApp">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            </button>
+                            <button class="share-btn sms" onclick="shareJob('Junior AI/ML Engineer', 'sms')" title="Share via SMS">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                            </button>
+                            <button class="share-btn email" onclick="shareJob('Junior AI/ML Engineer', 'email')" title="Share via Email">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Junior AI Prompt Engineer -->
+                <article class="job-card reveal sound-hover" data-level="entry" data-department="ai">
+                    <span class="job-level entry">Entry Level</span>
+                    <div class="job-department">AI & Engineering</div>
+                    <h3 class="job-title">Junior AI Prompt Engineer</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Full-time
+                        </div>
+                    </div>
+                    <p class="job-description">Design and optimize prompts for LLMs powering our blockchain tools and automation systems. Shape how AI interacts with our products and users.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">LLMs</span>
+                        <span class="job-tag">GPT/Claude</span>
+                        <span class="job-tag">Prompt Design</span>
+                        <span class="job-tag">NLP</span>
+                    </div>
+                    <div class="job-actions">
+                        <a href="#" class="job-apply-btn" onclick="openModal('AI & Engineering', 'Junior AI Prompt Engineer'); return false;">
+                            Apply Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <div class="job-share">
+                            <span class="job-share-label">Share</span>
+                            <button class="share-btn twitter" onclick="shareJob('Junior AI Prompt Engineer', 'twitter')" title="Share on X">
+                                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </button>
+                            <button class="share-btn facebook" onclick="shareJob('Junior AI Prompt Engineer', 'facebook')" title="Share on Facebook">
+                                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </button>
+                            <button class="share-btn linkedin" onclick="shareJob('Junior AI Prompt Engineer', 'linkedin')" title="Share on LinkedIn">
+                                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </button>
+                            <button class="share-btn whatsapp" onclick="shareJob('Junior AI Prompt Engineer', 'whatsapp')" title="Share on WhatsApp">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            </button>
+                            <button class="share-btn sms" onclick="shareJob('Junior AI Prompt Engineer', 'sms')" title="Share via SMS">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                            </button>
+                            <button class="share-btn email" onclick="shareJob('Junior AI Prompt Engineer', 'email')" title="Share via Email">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Software Engineering Intern -->
+                <article class="job-card reveal sound-hover" data-level="intern" data-department="engineering">
+                    <span class="job-level intern">Intern</span>
+                    <div class="job-department">Engineering</div>
+                    <h3 class="job-title">Software Engineering Intern</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote / Hybrid
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Part-time
+                        </div>
+                    </div>
+                    <p class="job-description">Join our engineering team as an intern and gain hands-on experience with blockchain development. Perfect for CS students looking to break into Web3.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">JavaScript</span>
+                        <span class="job-tag">Python</span>
+                        <span class="job-tag">Git</span>
+                        <span class="job-tag">Learning</span>
+                    </div>
+                    <div class="job-actions">
+                        <a href="#" class="job-apply-btn" onclick="openModal('Engineering', 'Software Engineering Intern', true); return false;">
+                            Apply Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <div class="job-share">
+                            <span class="job-share-label">Share</span>
+                            <button class="share-btn twitter" onclick="shareJob('Software Engineering Intern', 'twitter')" title="Share on X">
+                                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </button>
+                            <button class="share-btn facebook" onclick="shareJob('Software Engineering Intern', 'facebook')" title="Share on Facebook">
+                                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </button>
+                            <button class="share-btn linkedin" onclick="shareJob('Software Engineering Intern', 'linkedin')" title="Share on LinkedIn">
+                                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </button>
+                            <button class="share-btn whatsapp" onclick="shareJob('Software Engineering Intern', 'whatsapp')" title="Share on WhatsApp">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            </button>
+                            <button class="share-btn sms" onclick="shareJob('Software Engineering Intern', 'sms')" title="Share via SMS">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                            </button>
+                            <button class="share-btn email" onclick="shareJob('Software Engineering Intern', 'email')" title="Share via Email">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Blockchain Research Intern -->
+                <article class="job-card reveal sound-hover" data-level="intern" data-department="research">
+                    <span class="job-level intern">Intern</span>
+                    <div class="job-department">Research</div>
+                    <h3 class="job-title">Blockchain Research Intern</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Part-time
+                        </div>
+                    </div>
+                    <p class="job-description">Assist our research team in analyzing blockchain protocols, consensus mechanisms, and cryptographic systems. Ideal for graduate students in CS or Mathematics.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Research</span>
+                        <span class="job-tag">Cryptography</span>
+                        <span class="job-tag">Academic Writing</span>
+                        <span class="job-tag">Analysis</span>
+                    </div>
+                    <div class="job-actions">
+                        <a href="#" class="job-apply-btn" onclick="openModal('Research', 'Blockchain Research Intern', true); return false;">
+                            Apply Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <div class="job-share">
+                            <span class="job-share-label">Share</span>
+                            <button class="share-btn twitter" onclick="shareJob('Blockchain Research Intern', 'twitter')" title="Share on X">
+                                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </button>
+                            <button class="share-btn facebook" onclick="shareJob('Blockchain Research Intern', 'facebook')" title="Share on Facebook">
+                                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </button>
+                            <button class="share-btn linkedin" onclick="shareJob('Blockchain Research Intern', 'linkedin')" title="Share on LinkedIn">
+                                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </button>
+                            <button class="share-btn whatsapp" onclick="shareJob('Blockchain Research Intern', 'whatsapp')" title="Share on WhatsApp">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            </button>
+                            <button class="share-btn sms" onclick="shareJob('Blockchain Research Intern', 'sms')" title="Share via SMS">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                            </button>
+                            <button class="share-btn email" onclick="shareJob('Blockchain Research Intern', 'email')" title="Share via Email">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Marketing & Community Intern -->
+                <article class="job-card reveal sound-hover" data-level="intern" data-department="marketing">
+                    <span class="job-level intern">Intern</span>
+                    <div class="job-department">Marketing</div>
+                    <h3 class="job-title">Marketing & Community Intern</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Part-time
+                        </div>
+                    </div>
+                    <p class="job-description">Help grow our community and brand presence. Create content, manage social media, and engage with our global audience. Great for marketing or communications students.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Social Media</span>
+                        <span class="job-tag">Content</span>
+                        <span class="job-tag">Community</span>
+                        <span class="job-tag">Writing</span>
+                    </div>
+                    <div class="job-actions">
+                        <a href="#" class="job-apply-btn" onclick="openModal('Marketing', 'Marketing & Community Intern', true); return false;">
+                            Apply Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <div class="job-share">
+                            <span class="job-share-label">Share</span>
+                            <button class="share-btn twitter" onclick="shareJob('Marketing & Community Intern', 'twitter')" title="Share on X">
+                                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </button>
+                            <button class="share-btn facebook" onclick="shareJob('Marketing & Community Intern', 'facebook')" title="Share on Facebook">
+                                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </button>
+                            <button class="share-btn linkedin" onclick="shareJob('Marketing & Community Intern', 'linkedin')" title="Share on LinkedIn">
+                                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </button>
+                            <button class="share-btn whatsapp" onclick="shareJob('Marketing & Community Intern', 'whatsapp')" title="Share on WhatsApp">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            </button>
+                            <button class="share-btn sms" onclick="shareJob('Marketing & Community Intern', 'sms')" title="Share via SMS">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                            </button>
+                            <button class="share-btn email" onclick="shareJob('Marketing & Community Intern', 'email')" title="Share via Email">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Product Design Intern -->
+                <article class="job-card reveal sound-hover" data-level="intern" data-department="design">
+                    <span class="job-level intern">Intern</span>
+                    <div class="job-department">Design</div>
+                    <h3 class="job-title">Product Design Intern</h3>
+                    <div class="job-meta">
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            Remote
+                        </div>
+                        <div class="job-meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            Part-time
+                        </div>
+                    </div>
+                    <p class="job-description">Work with our design team to create intuitive interfaces for blockchain applications. Learn UX/UI best practices while contributing to real products.</p>
+                    <div class="job-tags">
+                        <span class="job-tag">Figma</span>
+                        <span class="job-tag">UI/UX</span>
+                        <span class="job-tag">Prototyping</span>
+                        <span class="job-tag">Design Systems</span>
+                    </div>
+                    <div class="job-actions">
+                        <a href="#" class="job-apply-btn" onclick="openModal('Design', 'Product Design Intern', true); return false;">
+                            Apply Now
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </a>
+                        <div class="job-share">
+                            <span class="job-share-label">Share</span>
+                            <button class="share-btn twitter" onclick="shareJob('Product Design Intern', 'twitter')" title="Share on X">
+                                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                            </button>
+                            <button class="share-btn facebook" onclick="shareJob('Product Design Intern', 'facebook')" title="Share on Facebook">
+                                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </button>
+                            <button class="share-btn linkedin" onclick="shareJob('Product Design Intern', 'linkedin')" title="Share on LinkedIn">
+                                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            </button>
+                            <button class="share-btn whatsapp" onclick="shareJob('Product Design Intern', 'whatsapp')" title="Share on WhatsApp">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            </button>
+                            <button class="share-btn sms" onclick="shareJob('Product Design Intern', 'sms')" title="Share via SMS">
+                                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                            </button>
+                            <button class="share-btn email" onclick="shareJob('Product Design Intern', 'email')" title="Share via Email">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </article>
             </div>
         </section>
 
@@ -3176,7 +3540,7 @@
         // APPLICATION MODAL
         // ============================================
         
-        function openModal(department, title) {
+        function openModal(department, title, isIntern = false) {
             document.getElementById('modalDepartment').textContent = department;
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('formJobTitle').value = title;
@@ -3194,6 +3558,30 @@
             document.getElementById('coverLetterName').style.display = 'none';
             document.getElementById('resumeUpload').classList.remove('has-file');
             document.getElementById('coverLetterUpload').classList.remove('has-file');
+            
+            // Handle intern-specific fields
+            const internFields = document.getElementById('internFields');
+            const gpaInput = document.getElementById('gpaInput');
+            const universityInput = document.getElementById('universityInput');
+            const majorInput = document.getElementById('majorInput');
+            const transcriptName = document.getElementById('transcriptName');
+            const transcriptUpload = document.getElementById('transcriptUpload');
+            
+            if (isIntern) {
+                internFields.style.display = 'block';
+                gpaInput.required = true;
+                universityInput.required = true;
+                majorInput.required = true;
+            } else {
+                internFields.style.display = 'none';
+                gpaInput.required = false;
+                universityInput.required = false;
+                majorInput.required = false;
+            }
+            
+            // Reset transcript upload display
+            if (transcriptName) transcriptName.style.display = 'none';
+            if (transcriptUpload) transcriptUpload.classList.remove('has-file');
         }
 
         function closeModal() {
@@ -3259,6 +3647,7 @@
 
         setupFileUpload('resumeInput', 'resumeUpload', 'resumeName');
         setupFileUpload('coverLetterInput', 'coverLetterUpload', 'coverLetterName');
+        setupFileUpload('transcriptInput', 'transcriptUpload', 'transcriptName');
 
         // ============================================
         // FORM SUBMISSION
