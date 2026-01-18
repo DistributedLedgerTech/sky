@@ -2951,10 +2951,23 @@
         
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+
         // ============================================
         // SMOOTH SCROLL
         // ============================================
         
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
-                cons
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
