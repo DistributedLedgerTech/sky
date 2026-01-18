@@ -249,7 +249,7 @@
         .loading-terminal {
             width: 90%;
             max-width: 700px;
-            height: 280px;
+            height: 360px;
             background: rgba(0, 20, 25, 0.9);
             border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 4px;
@@ -285,12 +285,25 @@
         }
 
         .terminal-body {
-            padding: 16px;
+            padding: 12px 16px;
             height: calc(100% - 36px);
             overflow-y: auto;
             font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            line-height: 1.8;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .terminal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .terminal-body::-webkit-scrollbar-track {
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .terminal-body::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 3px;
         }
 
         .terminal-line {
@@ -306,6 +319,41 @@
 
         @keyframes terminalFadeIn {
             to { opacity: 1; }
+        }
+
+        .terminal-prompt {
+            color: var(--green);
+        }
+
+        .terminal-cmd {
+            color: var(--cyan);
+        }
+
+        .terminal-path {
+            color: var(--blue);
+        }
+
+        .terminal-typing {
+            display: inline;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 14px;
+            background: var(--cyan);
+            animation: blink 0.5s step-end infinite;
+            vertical-align: text-bottom;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .terminal-fast {
+            opacity: 1 !important;
+            animation: none !important;
         }
 
         .loading-progress {
@@ -1823,7 +1871,7 @@
             }
 
             .loading-terminal {
-                height: 200px;
+                height: 340px;
             }
 
             .stat-item {
@@ -2583,26 +2631,47 @@
         // ============================================
         
         const terminalLines = [
-            { text: '[BOOT] Initializing DLT Secure Environment...', type: 'info', delay: 100 },
-            { text: '[SYS] Loading cryptographic modules...', type: '', delay: 200 },
-            { text: '[OK] AES-256 encryption active', type: 'success', delay: 300 },
-            { text: '[OK] RSA-4096 key pairs verified', type: 'success', delay: 400 },
-            { text: '[NET] Establishing secure connection...', type: '', delay: 500 },
-            { text: '[OK] TLS 1.3 handshake complete', type: 'success', delay: 650 },
-            { text: '[SYS] Loading Three.js rendering engine...', type: '', delay: 800 },
-            { text: '[OK] WebGL context initialized', type: 'success', delay: 950 },
-            { text: '[GPU] Hardware acceleration enabled', type: 'info', delay: 1100 },
-            { text: '[DOM] Parsing document structure...', type: '', delay: 1250 },
-            { text: '[CSS] Loading stylesheets (42 rules)...', type: '', delay: 1400 },
-            { text: '[OK] Custom font "Ethnocentric" loaded', type: 'success', delay: 1550 },
-            { text: '[JS] Executing initialization scripts...', type: '', delay: 1700 },
-            { text: '[OK] Event listeners attached', type: 'success', delay: 1850 },
-            { text: '[SEC] Validating session integrity...', type: 'warning', delay: 2000 },
-            { text: '[OK] CSRF tokens verified', type: 'success', delay: 2150 },
-            { text: '[API] Connecting to DLT infrastructure...', type: '', delay: 2300 },
-            { text: '[OK] Enterprise endpoints online', type: 'success', delay: 2500 },
-            { text: '[SYS] All systems operational', type: 'success', delay: 2700 },
-            { text: '[READY] Launching interface...', type: 'info', delay: 2900 }
+            { text: 'dlt@secure:~$ ', cmd: 'sudo systemctl start dlt-core', type: 'prompt', delay: 50 },
+            { text: '[OK] DLT Core Service started', type: 'success', delay: 80 },
+            { text: 'dlt@secure:~$ ', cmd: './init_crypto.sh --verify', type: 'prompt', delay: 60 },
+            { text: '[CRYPTO] Loading cryptographic modules...', type: '', delay: 30 },
+            { text: '  ├── AES-256-GCM ................ OK', type: 'success', delay: 25 },
+            { text: '  ├── RSA-4096 ................... OK', type: 'success', delay: 20 },
+            { text: '  ├── SHA3-512 ................... OK', type: 'success', delay: 20 },
+            { text: '  └── ECDSA secp256k1 ............ OK', type: 'success', delay: 25 },
+            { text: 'dlt@secure:~$ ', cmd: 'openssl verify -CAfile /etc/ssl/certs/ca.pem', type: 'prompt', delay: 50 },
+            { text: '[OK] Certificate chain verified', type: 'success', delay: 40 },
+            { text: 'dlt@secure:~$ ', cmd: 'netstat -tln | grep LISTEN', type: 'prompt', delay: 60 },
+            { text: 'tcp  0  0  0.0.0.0:443    0.0.0.0:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  0.0.0.0:8333   0.0.0.0:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  0.0.0.0:9735   0.0.0.0:*  LISTEN', type: '', delay: 15 },
+            { text: 'dlt@secure:~$ ', cmd: 'curl -s https://api.dlt.internal/health', type: 'prompt', delay: 55 },
+            { text: '{"status":"healthy","nodes":847,"latency":"12ms"}', type: 'info', delay: 40 },
+            { text: 'dlt@secure:~$ ', cmd: 'cat /proc/gpu/metal_status', type: 'prompt', delay: 50 },
+            { text: '[GPU] Metal API v3.2 initialized', type: 'info', delay: 30 },
+            { text: '[GPU] Hardware acceleration: ENABLED', type: 'success', delay: 25 },
+            { text: 'dlt@secure:~$ ', cmd: 'node --version && npm run build:prod', type: 'prompt', delay: 60 },
+            { text: 'v20.11.0', type: '', delay: 20 },
+            { text: '> dlt-interface@2.0.0 build:prod', type: '', delay: 25 },
+            { text: '> webpack --mode production --config webpack.prod.js', type: '', delay: 30 },
+            { text: '  Compiling... 142 modules', type: '', delay: 40 },
+            { text: '  Optimizing chunks... done', type: '', delay: 35 },
+            { text: '  Build complete in 847ms', type: 'success', delay: 30 },
+            { text: 'dlt@secure:~$ ', cmd: 'docker ps --format "{{.Names}}: {{.Status}}"', type: 'prompt', delay: 55 },
+            { text: 'dlt-api: Up 47 hours (healthy)', type: '', delay: 20 },
+            { text: 'dlt-node: Up 47 hours (healthy)', type: '', delay: 18 },
+            { text: 'redis-cache: Up 47 hours', type: '', delay: 18 },
+            { text: 'dlt@secure:~$ ', cmd: 'systemctl status firewalld --no-pager', type: 'prompt', delay: 50 },
+            { text: '● firewalld.service - active (running)', type: 'success', delay: 30 },
+            { text: 'dlt@secure:~$ ', cmd: './verify_integrity.sh', type: 'prompt', delay: 45 },
+            { text: '[SEC] Running integrity checks...', type: 'warning', delay: 35 },
+            { text: '  Verifying checksums.......... PASS', type: 'success', delay: 25 },
+            { text: '  Scanning for anomalies....... CLEAR', type: 'success', delay: 25 },
+            { text: '  CSRF token validation........ PASS', type: 'success', delay: 20 },
+            { text: 'dlt@secure:~$ ', cmd: 'echo "READY" | tee /var/run/dlt.status', type: 'prompt', delay: 50 },
+            { text: 'READY', type: 'info', delay: 30 },
+            { text: '[SYSTEM] All services operational', type: 'success', delay: 40 },
+            { text: '[LAUNCH] Initializing user interface...', type: 'info', delay: 60 }
         ];
 
         let currentProgress = 0;
@@ -2652,17 +2721,55 @@
                 document.getElementById('userIP').textContent = 'NODE: SECURE CONNECTION';
             }
 
+            // Typing speed (ms per character)
+            const typeSpeed = 8;
+
+            // Function to simulate fast typing
+            async function typeText(element, text) {
+                for (let i = 0; i < text.length; i++) {
+                    element.textContent += text[i];
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    await new Promise(resolve => setTimeout(resolve, typeSpeed + Math.random() * 5));
+                }
+            }
+
             // Run terminal animation
             for (let i = 0; i < terminalLines.length; i++) {
                 const line = terminalLines[i];
-                await new Promise(resolve => setTimeout(resolve, line.delay - (i > 0 ? terminalLines[i-1].delay : 0)));
+                await new Promise(resolve => setTimeout(resolve, line.delay));
                 
                 const lineEl = document.createElement('div');
-                lineEl.className = `terminal-line ${line.type}`;
-                lineEl.style.animationDelay = '0s';
-                lineEl.innerHTML = `<span class="prefix">></span> ${line.text}`;
-                terminalBody.appendChild(lineEl);
-                terminalBody.scrollTop = terminalBody.scrollHeight;
+                lineEl.className = `terminal-line terminal-fast ${line.type}`;
+                
+                if (line.type === 'prompt' && line.cmd) {
+                    // Create prompt with typing effect
+                    const promptSpan = document.createElement('span');
+                    promptSpan.className = 'terminal-prompt';
+                    promptSpan.textContent = line.text;
+                    lineEl.appendChild(promptSpan);
+                    
+                    const cmdSpan = document.createElement('span');
+                    cmdSpan.className = 'terminal-cmd terminal-typing';
+                    lineEl.appendChild(cmdSpan);
+                    
+                    const cursor = document.createElement('span');
+                    cursor.className = 'terminal-cursor';
+                    lineEl.appendChild(cursor);
+                    
+                    terminalBody.appendChild(lineEl);
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    
+                    // Type the command
+                    await typeText(cmdSpan, line.cmd);
+                    
+                    // Remove cursor and add newline effect
+                    cursor.remove();
+                    await new Promise(resolve => setTimeout(resolve, 30));
+                } else {
+                    lineEl.innerHTML = `<span class="prefix">></span> ${line.text}`;
+                    terminalBody.appendChild(lineEl);
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                }
 
                 currentProgress = Math.min(100, Math.floor((i + 1) / terminalLines.length * 100));
                 progressBar.style.width = currentProgress + '%';
@@ -2670,11 +2777,11 @@
             }
 
             // Complete loading
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 400));
             progressBar.style.width = '100%';
             percentageEl.textContent = '100%';
 
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await new Promise(resolve => setTimeout(resolve, 250));
             
             // Hide loading screen
             document.getElementById('loadingScreen').classList.add('hidden');
