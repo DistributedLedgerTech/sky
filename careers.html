@@ -76,7 +76,7 @@
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
-    <!-- Structured Data - 18 Individual JobPosting Schemas -->
+    <!-- Structured Data - 20 Individual JobPosting Schemas -->
     <script type="application/ld+json">
     [
         {
@@ -1145,6 +1145,7 @@
         /* Stats Bar */
         .careers-stats {
             display: flex;
+            justify-content: center;
             gap: 64px;
             padding: 48px 64px;
             background: rgba(0, 255, 255, 0.02);
@@ -1415,6 +1416,12 @@
             border-color: rgba(148, 0, 211, 0.3);
             color: #9400d3;
             background: rgba(148, 0, 211, 0.1);
+        }
+
+        .job-level.mid {
+            border-color: rgba(255, 165, 0, 0.3);
+            color: #ffa500;
+            background: rgba(255, 165, 0, 0.1);
         }
 
         .job-level.intern {
@@ -2966,7 +2973,7 @@
         <!-- Stats -->
         <div class="careers-stats reveal">
             <div class="careers-stat">
-                <div class="careers-stat-value">18</div>
+                <div class="careers-stat-value">20</div>
                 <div class="careers-stat-label">Open Positions</div>
             </div>
             <div class="careers-stat">
@@ -3056,12 +3063,15 @@
         <div class="filter-bar reveal">
             <button class="filter-btn active sound-click" data-filter="all">All Positions</button>
             <button class="filter-btn sound-click" data-filter="senior">Senior Level</button>
+            <button class="filter-btn sound-click" data-filter="mid">Mid Level</button>
             <button class="filter-btn sound-click" data-filter="entry">Entry Level</button>
             <button class="filter-btn sound-click" data-filter="intern" style="border-color: rgba(255, 20, 147, 0.3); color: #ff1493;">Internships</button>
-            <button class="filter-btn sound-click" data-filter="ai">AI</button>
             <button class="filter-btn sound-click" data-filter="engineering">Engineering</button>
+            <button class="filter-btn sound-click" data-filter="ai">AI</button>
             <button class="filter-btn sound-click" data-filter="product">Product</button>
             <button class="filter-btn sound-click" data-filter="business">Business</button>
+            <button class="filter-btn sound-click" data-filter="marketing">Marketing</button>
+            <button class="filter-btn sound-click" data-filter="support">Support</button>
         </div>
 
         <!-- Jobs Grid -->
@@ -4265,16 +4275,20 @@
                     
                     if (filter === 'all') {
                         show = true;
-                    } else if (filter === 'senior' || filter === 'entry' || filter === 'intern') {
+                    } else if (filter === 'senior' || filter === 'mid' || filter === 'entry' || filter === 'intern') {
                         show = level === filter;
                     } else if (filter === 'ai') {
                         show = department === 'ai';
                     } else if (filter === 'engineering') {
-                        show = department === 'engineering';
+                        show = department === 'engineering' || department === 'research';
                     } else if (filter === 'product') {
-                        show = department === 'product';
+                        show = department === 'product' || department === 'design';
                     } else if (filter === 'business') {
                         show = department === 'business';
+                    } else if (filter === 'marketing') {
+                        show = department === 'marketing';
+                    } else if (filter === 'support') {
+                        show = department === 'support';
                     }
                     
                     card.style.display = show ? 'block' : 'none';
