@@ -1871,7 +1871,9 @@
             }
 
             .loading-terminal {
-                height: 340px;
+                height: 55vh;
+                min-height: 300px;
+                max-height: 450px;
             }
 
             .stat-item {
@@ -1918,7 +1920,58 @@
                 padding: 20px;
             }
 
+            .loading-header {
+                margin-bottom: 20px;
+            }
 
+            .loading-logo {
+                width: 70px;
+                height: 70px;
+            }
+
+            .loading-subtitle {
+                font-size: 9px;
+                margin-top: 10px;
+            }
+
+            .loading-tagline {
+                font-size: 8px;
+                margin-top: 12px;
+            }
+
+            .loading-mission {
+                font-size: 7px;
+                margin-top: 4px;
+            }
+
+            .loading-terminal {
+                margin-top: 20px;
+                height: 50vh;
+                min-height: 280px;
+            }
+
+            .terminal-body {
+                font-size: 9px;
+                line-height: 1.5;
+                padding: 10px 12px;
+            }
+
+            .loading-progress {
+                margin-top: 16px;
+            }
+
+            .loading-percentage {
+                margin-top: 8px;
+            }
+
+            .loading-ip {
+                margin-top: 12px;
+            }
+
+            .loading-skip {
+                margin-top: 16px;
+                padding: 6px 16px;
+            }
         }
 
         /* High DPI Displays */
@@ -2642,9 +2695,10 @@
             { text: 'dlt@secure:~$ ', cmd: 'openssl verify -CAfile /etc/ssl/certs/ca.pem', type: 'prompt', delay: 50 },
             { text: '[OK] Certificate chain verified', type: 'success', delay: 40 },
             { text: 'dlt@secure:~$ ', cmd: 'netstat -tln | grep LISTEN', type: 'prompt', delay: 60 },
-            { text: 'tcp  0  0  0.0.0.0:443    0.0.0.0:*  LISTEN', type: '', delay: 15 },
-            { text: 'tcp  0  0  0.0.0.0:8333   0.0.0.0:*  LISTEN', type: '', delay: 15 },
-            { text: 'tcp  0  0  0.0.0.0:9735   0.0.0.0:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  198.81.129.68:443    CIA.GOV:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  140.7.225.29:8333   DOD.MIL:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  153.31.119.142:9735 FBI.GOV:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  23.63.99.56:4443    NSA.GOV:*  LISTEN', type: '', delay: 15 },
             { text: 'dlt@secure:~$ ', cmd: 'curl -s https://api.dlt.internal/health', type: 'prompt', delay: 55 },
             { text: '{"status":"healthy","nodes":847,"latency":"12ms"}', type: 'info', delay: 40 },
             { text: 'dlt@secure:~$ ', cmd: 'cat /proc/gpu/metal_status', type: 'prompt', delay: 50 },
