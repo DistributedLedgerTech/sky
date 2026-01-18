@@ -34,8 +34,8 @@
     <!-- Primary Meta Tags -->
     <title>DLT | Distributed Ledger Technologies - Enterprise Blockchain Infrastructure</title>
     <meta name="title" content="DLT | Distributed Ledger Technologies - Enterprise Blockchain Infrastructure">
-    <meta name="description" content="DLT (Distributed Ledger Technologies) — Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.">
-    <meta name="keywords" content="DLT, Distributed Ledger Technologies, blockchain, distributed ledger, enterprise blockchain, cryptocurrency, Bitcoin mining, institutional blockchain, government blockchain, defense technology, financial infrastructure, digital assets, MacMetal Miner, Echelon, HydroDollar, Ayedex, Cora, Lightning Network, Bitcoin wallet, Knexcoin, proof of bandwidth, layer 1 blockchain">
+    <meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance. Building critical infrastructure for the digital asset economy.">
+    <meta name="keywords" content="blockchain, distributed ledger, enterprise blockchain, cryptocurrency, Bitcoin mining, institutional blockchain, government blockchain, defense technology, financial infrastructure, digital assets, MacMetal Miner, Echelon, HydroDollar, Ayedex, Cora, Lightning Network, Bitcoin wallet, Knexcoin, proof of bandwidth, layer 1 blockchain">
     <meta name="author" content="Distributed Ledger Technologies">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -76,7 +76,6 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-title" content="DLT">
     <link rel="manifest" href="/site.webmanifest">
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
     
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -97,6 +96,20 @@
     <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
+    <!-- Skip Loading Function (must be defined before button) -->
+    <script>
+        function skipLoading() {
+            document.getElementById('loadingScreen').classList.add('hidden');
+            document.body.classList.remove('loading-active');
+            document.getElementById('mainContent').classList.add('visible');
+            if (!localStorage.getItem('cookiesAccepted')) {
+                setTimeout(function() {
+                    document.getElementById('cookieBanner').classList.add('visible');
+                }, 500);
+            }
+        }
+    </script>
+    
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -106,7 +119,7 @@
         "alternateName": "DLT",
         "url": "https://www.distributedledgertechnologies.com",
         "logo": "https://www.distributedledgertechnologies.com/logo.png",
-        "description": "DLT (Distributed Ledger Technologies) — Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.",
+        "description": "Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance.",
         "foundingDate": "2020",
         "contactPoint": {
             "@type": "ContactPoint",
@@ -327,6 +340,31 @@
             color: rgba(255,255,255,0.3);
             margin-top: 24px;
             letter-spacing: 0.1em;
+        }
+
+        .loading-skip {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            margin-top: 30px;
+            cursor: pointer;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInSkip 1s ease 4s forwards;
+        }
+
+        .loading-skip:hover {
+            color: rgba(255,255,255,0.8);
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.05);
+        }
+
+        @keyframes fadeInSkip {
+            to { opacity: 1; }
         }
 
         /* ============================================
@@ -1889,7 +1927,7 @@
             </div>
             <div class="loading-subtitle">Distributed Ledger Technologies</div>
             <div class="loading-tagline">Financial Inclusion • Digital Sovereignty</div>
-            <div class="loading-mission">Headquartered in The United States of America</div>
+            <div class="loading-mission">Serving the interests of The United States of America</div>
         </div>
 
         <div class="loading-terminal">
@@ -1909,6 +1947,7 @@
         </div>
         <div class="loading-percentage" id="loadingPercentage">0%</div>
         <div class="loading-ip" id="userIP">DETECTING NODE ADDRESS...</div>
+        <button class="loading-skip" id="skipLoading" onclick="skipLoading()">SKIP →</button>
     </div>
 
     <!-- Cookie Banner -->
@@ -1997,7 +2036,7 @@
                 <p>We may update this Privacy Policy periodically. Changes will be posted on this page with an updated effective date.</p>
 
                 <h2>11. Contact Us</h2>
-                <p>For questions about this Privacy Policy or our data practices, contact us at: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="52313d3c2633312612363b2126203b30272637363e37363537202637313a3c3d3e3d353b37217c313d3f">[email&#160;protected]</a></p>
+                <p>For questions about this Privacy Policy or our data practices, contact us at: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2f4c40415b4e4c5b6f4b465c5b5d464d5a5b4a4b434a4b484a5d5b4a4c474140434048464a5c014c4042">[email&#160;protected]</a></p>
             </div>
         </div>
     </div>
@@ -2076,7 +2115,7 @@
                 <p>If any provision of these terms is found unenforceable, the remaining provisions shall continue in effect.</p>
 
                 <h2>14. Contact</h2>
-                <p>Questions about these Terms of Service should be directed to: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7c4c8c9d3c6c4d3e7c3ced4d3d5cec5d2d3c2c3cbc2c3c0c2d5d3c2c4cfc9c8cbc8c0cec2d489c4c8ca">[email&#160;protected]</a></p>
+                <p>Questions about these Terms of Service should be directed to: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d6b5b9b8a2b7b5a296b2bfa5a2a4bfb4a3a2b3b2bab3b2b1b3a4a2b3b5beb8b9bab9b1bfb3a5f8b5b9bb">[email&#160;protected]</a></p>
             </div>
         </div>
     </div>
@@ -2601,9 +2640,12 @@
             const progressBar = document.getElementById('progressBar');
             const percentageEl = document.getElementById('loadingPercentage');
 
-            // Fetch user IP
+            // Fetch user IP with timeout to prevent hanging
             try {
-                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 3000);
+                const ipResponse = await fetch('https://api.ipify.org?format=json', { signal: controller.signal });
+                clearTimeout(timeout);
                 const ipData = await ipResponse.json();
                 document.getElementById('userIP').textContent = `NODE: ${ipData.ip}`;
             } catch (e) {
@@ -2950,7 +2992,6 @@
         }, { threshold: 0.1 });
         
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
 
         // ============================================
         // SMOOTH SCROLL
