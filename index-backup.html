@@ -77,10 +77,9 @@
     <meta name="apple-mobile-web-app-title" content="DLT">
     <link rel="manifest" href="/site.webmanifest">
 
-    <!-- Preconnect & Preload -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- Custom Font -->
@@ -94,15 +93,12 @@
         }
     </style>
 
-    <!-- Three.js + TopoJSON -->
+    <!-- Three.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
 
     <!-- Skip Loading Function -->
     <script>
         function skipLoading() {
-            if (typeof loadingDone !== 'undefined') loadingDone = true;
-            if (typeof stopAmbientHum === 'function') stopAmbientHum();
             document.getElementById('loadingScreen').classList.add('hidden');
             document.body.classList.remove('loading-active');
             document.getElementById('mainContent').classList.add('visible');
@@ -201,333 +197,51 @@
          CSS MODULE 2: LOADING SCREEN
          ============================================ -->
     <style>
-        /* ── Loading screen base ── */
         .loading-screen {
             position: fixed; inset: 0;
             background: #000;
             z-index: 10000;
             display: flex; flex-direction: column;
-            overflow: hidden;
+            justify-content: center; align-items: center;
+            transition: opacity var(--duration-slow) ease, visibility var(--duration-slow) ease;
         }
-        .loading-screen.hidden {
-            opacity: 0; visibility: hidden; pointer-events: none;
-            filter: brightness(1.5);
-            transition: opacity 0.6s ease, visibility 0.6s ease, filter 0.3s ease;
-        }
+        .loading-screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* ── Phase 1: Globe fills entire screen, centered ── */
-        .loading-globe-container {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
-            z-index: 2;
-            /* Use transform for GPU-accelerated smooth slide */
-            transform: translateX(0);
-            transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .loading-globe-container.slid-left {
-            /* Shift the full-screen container left so globe centers in the left 40% */
-            transform: translateX(-30vw);
-        }
-        .loading-globe-wrapper {
-            width: min(70vw, 70vh);
-            height: min(70vw, 70vh);
-            position: relative;
-            transition: width 1.8s cubic-bezier(0.25, 1, 0.5, 1), height 1.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .loading-globe-container.slid-left .loading-globe-wrapper {
-            width: min(32vw, 460px);
-            height: min(32vw, 460px);
-        }
-        #loadingGlobeCanvas { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
-        .loading-globe-label {
-            position: absolute; bottom: -4px; left: 0; right: 0;
-            text-align: center; font-family: var(--font-mono); font-size: 9px;
-            letter-spacing: 0.25em; color: var(--green);
-            text-shadow: 0 0 8px var(--green); z-index: 2; pointer-events: none;
-            opacity: 0; transition: opacity 0.8s ease 0.6s;
-        }
-        .loading-globe-container.slid-left .loading-globe-label { opacity: 1; }
-        .loading-globe-header {
-            position: absolute; top: -4px; left: 0; right: 0;
-            text-align: center; z-index: 2; pointer-events: none;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            opacity: 0; transition: opacity 0.8s ease 0.6s;
-        }
-        .loading-globe-container.slid-left .loading-globe-header { opacity: 1; }
-        .loading-globe-dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: globeDotPulse 1.5s ease-in-out infinite; }
-        .loading-globe-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
-        @keyframes globeDotPulse { 0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--cyan); } 50% { opacity: 0.5; box-shadow: 0 0 5px var(--cyan); } }
+        .loading-header { text-align: center; margin-bottom: 40px; }
+        .loading-logo { width: clamp(80px, 20vw, 120px); height: clamp(80px, 20vw, 120px); filter: drop-shadow(0 0 10px var(--cyan)); }
+        .loading-logo img { width: 100%; height: 100%; object-fit: contain; }
+        .loading-subtitle { font-family: var(--font-mono); font-size: clamp(10px, 2vw, 14px); color: rgba(255,255,255,0.6); letter-spacing: 0.5em; text-transform: uppercase; margin-top: 16px; }
+        .loading-tagline { font-family: var(--font-mono); font-size: clamp(9px, 1.5vw, 11px); color: var(--cyan); letter-spacing: 0.3em; text-transform: uppercase; margin-top: 24px; opacity: 0.8; }
+        .loading-mission { font-family: var(--font-mono); font-size: clamp(8px, 1.2vw, 10px); color: rgba(255,255,255,0.4); letter-spacing: 0.2em; text-transform: uppercase; margin-top: 8px; max-width: 600px; text-align: center; line-height: 1.8; }
 
-        /* ── Phase 2: Linux desktop pane slides in from right ── */
-        .loading-desktop-container {
-            position: absolute;
-            top: 0; right: 0; bottom: 0;
-            width: 60vw;
-            display: flex; flex-direction: column;
-            z-index: 3;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
-        }
-        .loading-desktop-container.visible {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        /* ── Linux desktop area ── */
-        .linux-desktop {
-            flex: 1;
-            background: #0a0a0f;
-            display: flex; flex-direction: column;
-            padding: 16px 20px 0 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        /* Subtle grid wallpaper */
-        .linux-desktop::before {
-            content: '';
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-        }
-        /* Scanline overlay */
-        .linux-desktop::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.015) 2px, rgba(0,255,255,0.015) 4px);
-            pointer-events: none; z-index: 1;
-        }
-
-        /* ── Desktop icons (decorative) ── */
-        .desktop-icons {
-            display: flex; gap: 28px;
-            padding: 8px 4px 12px;
-            z-index: 2;
-        }
-        .desktop-icon {
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
-            cursor: default; opacity: 0.5;
-        }
-        .desktop-icon-img {
-            width: 32px; height: 32px;
-            border: 1px solid rgba(0,255,255,0.15);
-            border-radius: 4px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px;
-            background: rgba(0,255,255,0.03);
-        }
-        .desktop-icon-name {
-            font-family: var(--font-mono); font-size: 8px;
-            color: rgba(255,255,255,0.5); letter-spacing: 0.05em;
-        }
-
-        /* ── Terminal window inside desktop ── */
-        .loading-terminal {
-            flex: 1;
-            background: rgba(0,0,0,0.92);
-            border: 1px solid rgba(0,255,255,0.2);
-            border-radius: 6px 6px 0 0;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0,255,255,0.1), 0 0 40px rgba(0,255,255,0.05), inset 0 0 30px rgba(0,255,255,0.02);
-            display: flex; flex-direction: column;
-            z-index: 2;
-            margin-bottom: 0;
-        }
-        .terminal-header {
-            background: rgba(0, 255, 255, 0.08);
-            padding: 6px 14px;
-            display: flex; align-items: center; gap: 8px;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.15);
-            flex-shrink: 0;
-        }
+        .loading-terminal { width: 90%; max-width: 700px; height: 360px; background: var(--surface-1); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-top: 40px; }
+        .terminal-header { background: rgba(0, 255, 255, 0.1); padding: 8px 16px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(0, 255, 255, 0.2); }
         .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
         .terminal-dot.red { background: #ff5f56; }
         .terminal-dot.yellow { background: #ffbd2e; }
         .terminal-dot.green { background: #27ca3f; }
-        .terminal-title {
-            font-family: var(--font-mono); font-size: 11px;
-            color: rgba(255,255,255,0.5); margin-left: 12px; letter-spacing: 0.1em;
-        }
-        .terminal-header-right {
-            margin-left: auto;
-            font-family: var(--font-mono); font-size: 9px;
-            color: rgba(0,255,255,0.3); letter-spacing: 0.1em;
-        }
-        .terminal-body {
-            flex: 1;
-            padding: 10px 14px;
-            overflow-y: auto;
-            font-family: var(--font-mono); font-size: 11px; line-height: 1.5;
-            position: relative;
-        }
-        .terminal-body::before {
-            content: ''; position: absolute; inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
-            pointer-events: none; z-index: 1;
-        }
-        .terminal-body::-webkit-scrollbar { width: 5px; }
-        .terminal-body::-webkit-scrollbar-track { background: rgba(0, 255, 255, 0.03); }
-        .terminal-body::-webkit-scrollbar-thumb { background: rgba(0, 255, 255, 0.15); border-radius: 3px; }
-
-        /* Terminal line types */
-        .terminal-line { color: rgba(255,255,255,0.6); text-shadow: 0 0 3px rgba(0,255,255,0.2); white-space: pre-wrap; word-break: break-all; }
-        .terminal-line.success { color: var(--green); text-shadow: 0 0 4px rgba(0,255,136,0.4); }
-        .terminal-line.info { color: var(--cyan); text-shadow: 0 0 4px rgba(0,255,255,0.4); }
-        .terminal-line.warning { color: var(--gold); text-shadow: 0 0 4px rgba(255,215,0,0.3); animation: terminalGlitch 0.3s ease forwards; }
-        .terminal-line.node-connect { color: #00ff88; }
-        .terminal-line.node-ip { color: rgba(0,255,255,0.7); }
+        .terminal-title { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.5); margin-left: 12px; letter-spacing: 0.1em; }
+        .terminal-body { padding: 12px 16px; height: calc(100% - 36px); overflow-y: auto; font-family: var(--font-mono); font-size: 10px; line-height: 1.6; }
+        .terminal-body::-webkit-scrollbar { width: 6px; }
+        .terminal-body::-webkit-scrollbar-track { background: rgba(0, 255, 255, 0.05); }
+        .terminal-body::-webkit-scrollbar-thumb { background: rgba(0, 255, 255, 0.2); border-radius: 3px; }
+        .terminal-line { color: rgba(255,255,255,0.6); opacity: 0; animation: terminalFadeIn 0.3s ease forwards; }
+        .terminal-line.success { color: var(--green); }
+        .terminal-line.info { color: var(--cyan); }
+        .terminal-line.warning { color: var(--gold); }
         .terminal-line .prefix { color: var(--cyan); }
         .terminal-prompt { color: var(--green); }
         .terminal-cmd { color: var(--cyan); }
         .terminal-typing { display: inline; }
-        .terminal-cursor { display: inline-block; width: 7px; height: 13px; background: var(--cyan); animation: blink 0.5s step-end infinite; vertical-align: text-bottom; margin-left: 2px; }
-        .terminal-fast { opacity: 1 !important; }
+        .terminal-cursor { display: inline-block; width: 8px; height: 14px; background: var(--cyan); animation: blink 0.5s step-end infinite; vertical-align: text-bottom; margin-left: 2px; }
+        .terminal-fast { opacity: 1 !important; animation: none !important; }
 
-        /* ── Taskbar (Linux panel at bottom) ── */
-        .linux-taskbar {
-            height: 36px;
-            background: linear-gradient(180deg, rgba(0,255,255,0.06) 0%, rgba(0,0,0,0.95) 100%);
-            border-top: 1px solid rgba(0,255,255,0.15);
-            display: flex; align-items: center;
-            padding: 0 12px;
-            gap: 12px;
-            font-family: var(--font-mono);
-            z-index: 4;
-            flex-shrink: 0;
-        }
-        .taskbar-menu {
-            font-size: 9px; letter-spacing: 0.15em; color: var(--cyan);
-            padding: 4px 10px;
-            border: 1px solid rgba(0,255,255,0.2);
-            border-radius: 3px;
-            cursor: default;
-            text-transform: uppercase;
-            background: rgba(0,255,255,0.04);
-        }
-        .taskbar-divider {
-            width: 1px; height: 20px;
-            background: rgba(0,255,255,0.1);
-        }
-        .taskbar-app {
-            font-size: 9px; color: rgba(255,255,255,0.6);
-            padding: 3px 8px;
-            border-bottom: 2px solid var(--cyan);
-            letter-spacing: 0.05em;
-        }
-        .taskbar-spacer { flex: 1; }
-        .taskbar-tray {
-            display: flex; align-items: center; gap: 10px;
-        }
-        .tray-item {
-            font-size: 8px; color: rgba(255,255,255,0.35);
-            letter-spacing: 0.05em;
-        }
-        .tray-item.network { color: var(--green); }
-        .taskbar-clock {
-            font-size: 10px; color: rgba(255,255,255,0.5);
-            letter-spacing: 0.1em;
-            padding-left: 8px;
-            border-left: 1px solid rgba(0,255,255,0.1);
-        }
-
-        /* ── Progress bar (now inside taskbar area) ── */
-        .loading-progress {
-            position: absolute; bottom: 36px; left: 0; right: 0;
-            height: 2px; background: rgba(255,255,255,0.05);
-            overflow: hidden; z-index: 5;
-            opacity: 0; transition: opacity 0.5s ease;
-        }
-        .loading-desktop-container.visible .loading-progress { opacity: 1; }
-        .loading-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--cyan), var(--blue), var(--cyan));
-            width: 0%;
-            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 8px var(--cyan), 0 0 15px rgba(0,255,255,0.3);
-        }
-
-        /* ── Skip button ── */
-        .loading-skip {
-            position: absolute; bottom: 48px; right: 16px;
-            font-family: var(--font-mono); font-size: 10px;
-            color: rgba(255,255,255,0.3); background: transparent;
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 5px 14px; cursor: pointer;
-            letter-spacing: 0.15em; text-transform: uppercase;
-            transition: all 0.2s ease;
-            opacity: 0; animation: fadeInSkip 0.5s ease 2s forwards;
-            z-index: 10;
-        }
+        .loading-progress { width: 90%; max-width: 400px; height: 2px; background: rgba(255,255,255,0.1); margin-top: 32px; position: relative; overflow: hidden; }
+        .loading-progress-bar { height: 100%; background: linear-gradient(90deg, var(--cyan), var(--blue), var(--cyan)); width: 0%; transition: width 0.3s ease; box-shadow: 0 0 10px var(--cyan); }
+        .loading-percentage { font-family: var(--font-mono); font-size: 12px; color: var(--cyan); margin-top: 12px; letter-spacing: 0.2em; }
+        .loading-ip { font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,0.3); margin-top: 24px; letter-spacing: 0.1em; }
+        .loading-skip { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.4); background: transparent; border: 1px solid rgba(255,255,255,0.2); padding: 8px 20px; cursor: pointer; margin-top: 20px; letter-spacing: 0.2em; text-transform: uppercase; transition: all var(--duration-fast) ease; opacity: 0; animation: fadeInSkip 0.5s ease 4s forwards; }
         .loading-skip:hover { color: var(--cyan); border-color: var(--cyan); }
-
-        /* ── Node status indicator (bottom-left, over globe) ── */
-        .loading-node-status {
-            position: absolute; bottom: 12px; left: 16px;
-            font-family: var(--font-mono); font-size: 9px;
-            color: rgba(0,255,255,0.4); letter-spacing: 0.1em;
-            z-index: 5;
-            opacity: 0; transition: opacity 0.5s ease;
-        }
-        .loading-node-status.visible { opacity: 1; }
-
-        /* ── Terminal visual effects ── */
-        @keyframes terminalGlitch {
-            0% { transform: translate(0); opacity: 1; }
-            10% { transform: translate(-2px, 1px); opacity: 0.8; }
-            20% { transform: translate(2px, -1px); opacity: 1; }
-            30% { transform: translate(0); }
-            100% { transform: translate(0); }
-        }
-        @keyframes terminalShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-2px); }
-            75% { transform: translateX(2px); }
-        }
-        .terminal-shake { animation: terminalShake 0.15s ease 2; }
-        @keyframes terminalFlicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-        .terminal-flicker { animation: terminalFlicker 0.08s ease 1; }
-        @keyframes nodeFlash {
-            0% { background: rgba(0,255,255,0.15); }
-            100% { background: transparent; }
-        }
-
-        /* ── Mobile loading screen ── */
-        @media (max-width: 900px) {
-            .loading-globe-container {
-                position: relative; width: 100%; height: 35vh;
-                transition: height 0.8s ease;
-            }
-            .loading-globe-container.slid-left {
-                width: 100%; height: 25vh;
-            }
-            .loading-globe-wrapper { width: min(50vw, 50vh); height: min(50vw, 50vh); }
-            .loading-globe-container.slid-left .loading-globe-wrapper {
-                width: min(25vw, 200px); height: min(25vw, 200px);
-            }
-            .loading-desktop-container {
-                position: relative; width: 100%; flex: 1;
-                transform: translateY(100%);
-            }
-            .loading-desktop-container.visible { transform: translateY(0); }
-            .loading-screen { flex-direction: column; }
-            .desktop-icons { display: none; }
-            .terminal-body { font-size: 9px; }
-            .linux-taskbar { height: 30px; }
-            .taskbar-tray { display: none; }
-        }
-        @media (max-width: 480px) {
-            .loading-globe-wrapper { width: min(40vw, 40vh); height: min(40vw, 40vh); }
-            .loading-globe-container.slid-left .loading-globe-wrapper {
-                width: 140px; height: 140px;
-            }
-            .terminal-body { font-size: 8px; padding: 8px 10px; }
-        }
     </style>
 
     <!-- ============================================
@@ -1040,81 +754,29 @@
          LOADING SCREEN
          ============================================ -->
     <div class="loading-screen" id="loadingScreen">
-        <!-- Globe: starts full-screen centered, then slides left -->
-        <div class="loading-globe-container" id="globeContainer">
-            <div class="loading-globe-wrapper" id="globeWrapper">
-                <canvas id="loadingGlobeCanvas"></canvas>
-                <div class="loading-globe-header">
-                    <span class="loading-globe-dot"></span>
-                    <span class="loading-globe-title">GLOBAL NETWORK</span>
-                    <span class="loading-globe-dot"></span>
-                </div>
-                <div class="loading-globe-label">CONNECTED WORLDWIDE</div>
+        <div class="loading-header">
+            <div class="loading-logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ffff' stroke-width='3'/%3E%3Ctext x='50' y='62' font-size='28' text-anchor='middle' fill='%2300ffff' font-family='monospace' font-weight='bold'%3EDLT%3C/text%3E%3C/svg%3E" alt="DLT Logo">
             </div>
+            <div class="loading-subtitle">Distributed Ledger Technologies</div>
+            <div class="loading-tagline">Financial Inclusion &bull; Digital Sovereignty</div>
+            <div class="loading-mission">Serving the interests of The United States of America</div>
         </div>
-
-        <!-- Linux desktop: slides in from right -->
-        <div class="loading-desktop-container" id="desktopContainer">
-            <div class="linux-desktop">
-                <!-- Desktop icons row -->
-                <div class="desktop-icons">
-                    <div class="desktop-icon">
-                        <div class="desktop-icon-img">&#128274;</div>
-                        <span class="desktop-icon-name">Crypto</span>
-                    </div>
-                    <div class="desktop-icon">
-                        <div class="desktop-icon-img">&#128200;</div>
-                        <span class="desktop-icon-name">Ledger</span>
-                    </div>
-                    <div class="desktop-icon">
-                        <div class="desktop-icon-img">&#128441;</div>
-                        <span class="desktop-icon-name">Nodes</span>
-                    </div>
-                    <div class="desktop-icon">
-                        <div class="desktop-icon-img">&#128736;</div>
-                        <span class="desktop-icon-name">Config</span>
-                    </div>
-                </div>
-
-                <!-- Terminal window -->
-                <div class="loading-terminal" id="loadingTerminal">
-                    <div class="terminal-header">
-                        <span class="terminal-dot red"></span>
-                        <span class="terminal-dot yellow"></span>
-                        <span class="terminal-dot green"></span>
-                        <span class="terminal-title">dlt-node &mdash; network bootstrap</span>
-                        <span class="terminal-header-right" id="terminalPID">PID 1847</span>
-                    </div>
-                    <div class="terminal-body" id="terminalBody"></div>
-                </div>
+        <div class="loading-terminal">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">SYSTEM INITIALIZATION</span>
             </div>
-
-            <!-- Progress bar above taskbar -->
-            <div class="loading-progress">
-                <div class="loading-progress-bar" id="progressBar"></div>
-            </div>
-
-            <!-- Linux taskbar -->
-            <div class="linux-taskbar">
-                <div class="taskbar-menu">&#9776; DLT</div>
-                <div class="taskbar-divider"></div>
-                <div class="taskbar-app">&#9632; Terminal</div>
-                <div class="taskbar-spacer"></div>
-                <div class="taskbar-tray">
-                    <span class="tray-item network" id="trayNetwork">&#9679; NET</span>
-                    <span class="tray-item" id="trayNodes">0 nodes</span>
-                    <span class="tray-item">CPU 12%</span>
-                    <span class="tray-item">MEM 42Gi</span>
-                </div>
-                <div class="taskbar-clock" id="taskbarClock">00:00:00</div>
-            </div>
+            <div class="terminal-body" id="terminalBody"></div>
         </div>
-
-        <!-- Node status overlay (bottom-left over globe) -->
-        <div class="loading-node-status" id="nodeStatus">DETECTING NODE ADDRESS...</div>
-
-        <!-- Skip button -->
-        <button class="loading-skip" id="skipBtn" onclick="skipLoading()">SKIP [ENTER] &rarr;</button>
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="progressBar"></div>
+        </div>
+        <div class="loading-percentage" id="loadingPercentage">0%</div>
+        <div class="loading-ip" id="userIP">DETECTING NODE ADDRESS...</div>
+        <button class="loading-skip" id="skipLoading" onclick="skipLoading()">SKIP &rarr;</button>
     </div>
 
     <!-- ============================================
@@ -1658,49 +1320,6 @@
         function playHoverSound() { playBeep(3200, 0.05, 0.08); }
         function playClickSound() { playBeep(2000, 0.06, 0.12); setTimeout(() => playBeep(2800, 0.04, 0.1), 50); }
 
-        // Terminal sound effects
-        function playKeystrokeSound() {
-            if (!soundEnabled || !audioContext || !audioInitialized) return;
-            try {
-                const osc = audioContext.createOscillator();
-                const gain = audioContext.createGain();
-                const filter = audioContext.createBiquadFilter();
-                osc.connect(filter); filter.connect(gain); gain.connect(audioContext.destination);
-                osc.type = 'square';
-                osc.frequency.value = 800 + Math.random() * 400;
-                filter.type = 'highpass'; filter.frequency.value = 2000;
-                gain.gain.setValueAtTime(0.015, audioContext.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.03);
-                osc.start(audioContext.currentTime); osc.stop(audioContext.currentTime + 0.03);
-            } catch (e) {}
-        }
-        function playSuccessBeep() { playBeep(1200, 0.08, 0.04); setTimeout(() => playBeep(1600, 0.06, 0.03), 60); }
-        function playWarningTone() { playBeep(400, 0.15, 0.05); setTimeout(() => playBeep(350, 0.15, 0.04), 100); }
-        function playBootChime() {
-            [523, 659, 784, 1047].forEach((freq, i) => setTimeout(() => playBeep(freq, 0.2, 0.03), i * 80));
-        }
-        let ambientOsc = null, ambientGain = null;
-        function startAmbientHum() {
-            if (!soundEnabled || !audioContext || !audioInitialized) return;
-            try {
-                ambientOsc = audioContext.createOscillator();
-                ambientGain = audioContext.createGain();
-                ambientOsc.connect(ambientGain); ambientGain.connect(audioContext.destination);
-                ambientOsc.type = 'sine'; ambientOsc.frequency.value = 60;
-                ambientGain.gain.setValueAtTime(0, audioContext.currentTime);
-                ambientGain.gain.linearRampToValueAtTime(0.015, audioContext.currentTime + 1);
-                ambientOsc.start();
-            } catch (e) {}
-        }
-        function stopAmbientHum() {
-            if (!ambientGain || !ambientOsc) return;
-            try {
-                ambientGain.gain.linearRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
-                ambientOsc.stop(audioContext.currentTime + 0.6);
-                ambientOsc = null; ambientGain = null;
-            } catch (e) {}
-        }
-
         (function setupAudioInit() {
             const events = ['click', 'touchstart', 'keydown', 'mousemove', 'scroll'];
             function handler() {
@@ -1717,147 +1336,52 @@
     </script>
 
     <!-- ============================================
-         LOADING GLOBE (Three.js)
-         ============================================ -->
-    <script>
-    (function() {
-        const gc = document.getElementById('loadingGlobeCanvas');
-        if (!gc) return;
-        gc.style.opacity = '0';
-
-        const wrapper = gc.parentElement;
-        const w = wrapper.clientWidth || 380, h = wrapper.clientHeight || 380;
-        const renderer = new THREE.WebGLRenderer({ canvas: gc, antialias: true, alpha: true });
-        renderer.setSize(w, h);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
-        camera.position.z = 4.8;
-
-        const group = new THREE.Group();
-        const eqR = 1.5, polR = eqR * 0.9966, cScale = 1.0, cSqueeze = 0.80;
-
-        function ll2v(lat, lon, rs) {
-            rs = rs || 1;
-            const phi = (90 - lat) * Math.PI / 180, theta = (lon + 180) * Math.PI / 180;
-            const r = eqR * rs, rp = polR * rs;
-            return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), rp * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
-        }
-
-        const nodes = [
-            {lat:40.7,lon:-74},{lat:37.8,lon:-122.4},{lat:34,lon:-118.2},{lat:41.9,lon:-87.6},{lat:25.8,lon:-80.2},
-            {lat:4.6,lon:-74.1},{lat:6.2,lon:-75.6},{lat:-23.5,lon:-46.6},{lat:19.4,lon:-99.1},{lat:-34.6,lon:-58.4},
-            {lat:51.5,lon:-0.1},{lat:50.1,lon:8.7},{lat:48.9,lon:2.3},{lat:47.4,lon:8.5},{lat:52.5,lon:13.4},
-            {lat:25.2,lon:55.3},{lat:32.1,lon:34.8},{lat:6.5,lon:3.4},{lat:-1.3,lon:36.8},{lat:-26.2,lon:28},
-            {lat:30,lon:31.2},{lat:35.7,lon:139.7},{lat:1.3,lon:103.8},{lat:22.3,lon:114.2},{lat:31.2,lon:121.5},
-            {lat:37.5,lon:127},{lat:19,lon:72.8},{lat:28.6,lon:77.2},{lat:13.8,lon:100.5},{lat:-33.9,lon:151.2}
-        ];
-
-        const nodeObjs = [];
-        let gTime = 0;
-
-        fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json')
-            .then(r => r.json())
-            .then(topo => {
-                // Ocean sphere
-                const oGeo = new THREE.SphereGeometry(eqR * 0.995, 64, 48);
-                const oMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide });
-                const ocean = new THREE.Mesh(oGeo, oMat);
-                ocean.scale.y = polR / eqR;
-                group.add(ocean);
-
-                // Continent outlines
-                const geo = topojson.feature(topo, topo.objects.land);
-                const cMat = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.95 });
-                function procGeo(g) {
-                    const procRing = (ring) => {
-                        if (ring.length > 3) {
-                            const pts = ring.map(c => ll2v(c[1] * cSqueeze, c[0] * cSqueeze, cScale));
-                            group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), cMat.clone()));
-                        }
-                    };
-                    if (g.type === 'Polygon') g.coordinates.forEach(procRing);
-                    else if (g.type === 'MultiPolygon') g.coordinates.forEach(p => p.forEach(procRing));
-                }
-                if (geo.type === 'FeatureCollection') geo.features.forEach(f => procGeo(f.geometry));
-                else if (geo.type === 'Feature') procGeo(geo.geometry);
-                else procGeo(geo);
-
-                // Nodes
-                const nGeo = new THREE.SphereGeometry(0.025, 12, 12);
-                const nMat = new THREE.MeshBasicMaterial({ color: 0x00ff80 });
-                const glowGeo = new THREE.SphereGeometry(0.05, 12, 12);
-                const glowMat = new THREE.MeshBasicMaterial({ color: 0x00ff80, transparent: true, opacity: 0.4 });
-                nodes.forEach(n => {
-                    const pos = ll2v(n.lat * cSqueeze, n.lon * cSqueeze, 1.01);
-                    const nm = new THREE.Mesh(nGeo, nMat.clone());
-                    nm.position.copy(pos); group.add(nm);
-                    const gl = new THREE.Mesh(glowGeo, glowMat.clone());
-                    gl.position.copy(pos); group.add(gl);
-                    nodeObjs.push({ glow: gl });
-                });
-
-                group.rotation.x = 0.3; group.rotation.y = 1.62;
-                scene.add(group);
-                gc.style.transition = 'opacity 0.5s ease-in'; gc.style.opacity = '1';
-
-                function animate() {
-                    requestAnimationFrame(animate);
-                    gTime += 0.016;
-                    group.rotation.y += 0.002;
-                    nodeObjs.forEach((o, i) => {
-                        o.glow.material.opacity = 0.35 + Math.sin(gTime * 2.5 + i * 0.3) * 0.25;
-                        const s = 1 + Math.sin(gTime * 2 + i * 0.25) * 0.4;
-                        o.glow.scale.set(s, s, s);
-                    });
-                    renderer.render(scene, camera);
-                }
-                animate();
-            })
-            .catch(() => { gc.style.opacity = '1'; });
-
-        // Responsive resize
-        const ro = new ResizeObserver(() => {
-            const nw = wrapper.clientWidth || 380, nh = wrapper.clientHeight || 380;
-            renderer.setSize(nw, nh);
-            camera.aspect = nw / nh;
-            camera.updateProjectionMatrix();
-        });
-        ro.observe(wrapper);
-    })();
-    </script>
-
-    <!-- ============================================
          JS MODULE 2: LOADING SEQUENCE
          ============================================ -->
     <script>
-        // ── Node registry: cities with realistic IPs for the boot sequence ──
-        const peerNodes = [
-            { city: 'New York',     ip: '198.51.100.14',  port: 7076, lat: 40.7,  lon: -74 },
-            { city: 'San Francisco',ip: '203.0.113.42',   port: 7076, lat: 37.8,  lon: -122.4 },
-            { city: 'Washington DC',ip: '192.0.2.88',     port: 7076, lat: 38.9,  lon: -77 },
-            { city: 'Chicago',      ip: '198.51.100.201', port: 7076, lat: 41.9,  lon: -87.6 },
-            { city: 'Miami',        ip: '203.0.113.77',   port: 7076, lat: 25.8,  lon: -80.2 },
-            { city: 'London',       ip: '192.0.2.156',    port: 7076, lat: 51.5,  lon: -0.1 },
-            { city: 'Frankfurt',    ip: '198.51.100.93',  port: 7076, lat: 50.1,  lon: 8.7 },
-            { city: 'Zurich',       ip: '203.0.113.118',  port: 7076, lat: 47.4,  lon: 8.5 },
-            { city: 'Paris',        ip: '192.0.2.34',     port: 7076, lat: 48.9,  lon: 2.3 },
-            { city: 'Tokyo',        ip: '198.51.100.167', port: 7076, lat: 35.7,  lon: 139.7 },
-            { city: 'Singapore',    ip: '203.0.113.205',  port: 7076, lat: 1.3,   lon: 103.8 },
-            { city: 'Hong Kong',    ip: '192.0.2.249',    port: 7076, lat: 22.3,  lon: 114.2 },
-            { city: 'Seoul',        ip: '198.51.100.31',  port: 7076, lat: 37.5,  lon: 127 },
-            { city: 'Dubai',        ip: '203.0.113.144',  port: 7076, lat: 25.2,  lon: 55.3 },
-            { city: 'Sydney',       ip: '192.0.2.178',    port: 7076, lat: -33.9, lon: 151.2 },
-            { city: 'Mumbai',       ip: '198.51.100.62',  port: 7076, lat: 19,    lon: 72.8 },
-            { city: 'Bogota',       ip: '203.0.113.89',   port: 7076, lat: 4.6,   lon: -74.1 },
-            { city: 'Sao Paulo',    ip: '192.0.2.211',    port: 7076, lat: -23.5, lon: -46.6 },
-            { city: 'Cairo',        ip: '198.51.100.135', port: 7076, lat: 30,    lon: 31.2 },
-            { city: 'Nairobi',      ip: '203.0.113.56',   port: 7076, lat: -1.3,  lon: 36.8 },
-            { city: 'Berlin',       ip: '192.0.2.102',    port: 7076, lat: 52.5,  lon: 13.4 },
-            { city: 'Tel Aviv',     ip: '198.51.100.224', port: 7076, lat: 32.1,  lon: 34.8 },
-            { city: 'Lagos',        ip: '203.0.113.173',  port: 7076, lat: 6.5,   lon: 3.4 },
-            { city: 'Mexico City',  ip: '192.0.2.67',     port: 7076, lat: 19.4,  lon: -99.1 },
+        const terminalLines = [
+            { text: 'dlt@secure:~$ ', cmd: 'sudo systemctl start dlt-core', type: 'prompt', delay: 50 },
+            { text: '[OK] DLT Core Service started', type: 'success', delay: 80 },
+            { text: 'dlt@secure:~$ ', cmd: './init_crypto.sh --verify', type: 'prompt', delay: 60 },
+            { text: '[CRYPTO] Loading cryptographic modules...', type: '', delay: 30 },
+            { text: '  \u251C\u2500\u2500 AES-256-GCM ................ OK', type: 'success', delay: 25 },
+            { text: '  \u251C\u2500\u2500 RSA-4096 ................... OK', type: 'success', delay: 20 },
+            { text: '  \u251C\u2500\u2500 SHA3-512 ................... OK', type: 'success', delay: 20 },
+            { text: '  \u2514\u2500\u2500 ECDSA secp256k1 ............ OK', type: 'success', delay: 25 },
+            { text: 'dlt@secure:~$ ', cmd: 'openssl verify -CAfile /etc/ssl/certs/ca.pem', type: 'prompt', delay: 50 },
+            { text: '[OK] Certificate chain verified', type: 'success', delay: 40 },
+            { text: 'dlt@secure:~$ ', cmd: 'netstat -tln | grep LISTEN', type: 'prompt', delay: 60 },
+            { text: 'tcp  0  0  198.81.129.68:443    CIA.GOV:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  140.7.225.29:8333   DOD.MIL:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  153.31.119.142:9735 FBI.GOV:*  LISTEN', type: '', delay: 15 },
+            { text: 'tcp  0  0  23.63.99.56:4443    NSA.GOV:*  LISTEN', type: '', delay: 15 },
+            { text: 'dlt@secure:~$ ', cmd: 'curl -s https://api.dlt.internal/health', type: 'prompt', delay: 55 },
+            { text: '{"status":"healthy","nodes":847,"latency":"12ms"}', type: 'info', delay: 40 },
+            { text: 'dlt@secure:~$ ', cmd: 'cat /proc/gpu/metal_status', type: 'prompt', delay: 50 },
+            { text: '[GPU] Metal API v3.2 initialized', type: 'info', delay: 30 },
+            { text: '[GPU] Hardware acceleration: ENABLED', type: 'success', delay: 25 },
+            { text: 'dlt@secure:~$ ', cmd: 'node --version && npm run build:prod', type: 'prompt', delay: 60 },
+            { text: 'v20.11.0', type: '', delay: 20 },
+            { text: '> dlt-interface@2.0.0 build:prod', type: '', delay: 25 },
+            { text: '> webpack --mode production --config webpack.prod.js', type: '', delay: 30 },
+            { text: '  Compiling... 142 modules', type: '', delay: 40 },
+            { text: '  Optimizing chunks... done', type: '', delay: 35 },
+            { text: '  Build complete in 847ms', type: 'success', delay: 30 },
+            { text: 'dlt@secure:~$ ', cmd: 'docker ps --format "{{.Names}}: {{.Status}}"', type: 'prompt', delay: 55 },
+            { text: 'dlt-api: Up 47 hours (healthy)', type: '', delay: 20 },
+            { text: 'dlt-node: Up 47 hours (healthy)', type: '', delay: 18 },
+            { text: 'redis-cache: Up 47 hours', type: '', delay: 18 },
+            { text: 'dlt@secure:~$ ', cmd: 'systemctl status firewalld --no-pager', type: 'prompt', delay: 50 },
+            { text: '\u25CF firewalld.service - active (running)', type: 'success', delay: 30 },
+            { text: 'dlt@secure:~$ ', cmd: './verify_integrity.sh', type: 'prompt', delay: 45 },
+            { text: '[SEC] Running integrity checks...', type: 'warning', delay: 35 },
+            { text: '  Verifying checksums.......... PASS', type: 'success', delay: 25 },
+            { text: '  Scanning for anomalies....... CLEAR', type: 'success', delay: 25 },
+            { text: '  CSRF token validation........ PASS', type: 'success', delay: 20 },
+            { text: 'dlt@secure:~$ ', cmd: 'echo "READY" | tee /var/run/dlt.status', type: 'prompt', delay: 50 },
+            { text: 'READY', type: 'info', delay: 30 },
+            { text: '[SYSTEM] All services operational', type: 'success', delay: 40 },
+            { text: '[LAUNCH] Initializing user interface...', type: 'info', delay: 60 }
         ];
 
         function shouldSkipLoading() { return window.location.hash && window.location.hash.length > 1; }
@@ -1874,283 +1398,81 @@
             }
         }
 
-        // Character corruption effect
-        function corruptAndCorrect(el) {
-            const original = el.textContent;
-            const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
-            const corrupted = original.split('').map(c =>
-                Math.random() < 0.3 ? glitchChars[Math.floor(Math.random() * glitchChars.length)] : c
-            ).join('');
-            el.textContent = corrupted;
-            setTimeout(() => { el.textContent = original; }, 80);
-        }
-
-        let loadingDone = false;
-        let connectedNodes = 0;
-
-        function finishLoading() {
-            if (loadingDone) return;
-            loadingDone = true;
-            const pb = document.getElementById('progressBar');
-            if (pb) pb.style.width = '100%';
-            stopAmbientHum();
-            playBootChime();
-            setTimeout(() => {
-                document.getElementById('loadingScreen').classList.add('hidden');
-                document.body.classList.remove('loading-active');
-                document.getElementById('mainContent').classList.add('visible');
-                if (!localStorage.getItem('cookiesAccepted')) {
-                    setTimeout(() => document.getElementById('cookieBanner').classList.add('visible'), 1000);
-                }
-            }, 400);
-        }
-
-        // Taskbar clock
-        function updateTaskbarClock() {
-            const now = new Date();
-            const ts = [now.getHours(), now.getMinutes(), now.getSeconds()]
-                .map(n => String(n).padStart(2, '0')).join(':');
-            const el = document.getElementById('taskbarClock');
-            if (el) el.textContent = ts;
-        }
-
-        // ── Main loading sequence with animation phases ──
         async function runLoadingSequence() {
             const terminalBody = document.getElementById('terminalBody');
             const progressBar = document.getElementById('progressBar');
-            const globeContainer = document.getElementById('globeContainer');
-            const desktopContainer = document.getElementById('desktopContainer');
-            const nodeStatus = document.getElementById('nodeStatus');
-            const trayNodes = document.getElementById('trayNodes');
-            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const percentageEl = document.getElementById('loadingPercentage');
 
-            // Start taskbar clock
-            updateTaskbarClock();
-            const clockInterval = setInterval(updateTaskbarClock, 1000);
+            try {
+                const ctrl = new AbortController();
+                const t = setTimeout(() => ctrl.abort(), 3000);
+                const res = await fetch('https://api.ipify.org?format=json', { signal: ctrl.signal });
+                clearTimeout(t);
+                const data = await res.json();
+                document.getElementById('userIP').textContent = 'NODE: ' + data.ip;
+            } catch (e) {
+                document.getElementById('userIP').textContent = 'NODE: SECURE CONNECTION';
+            }
 
-            // Hard cap: auto-finish at 7 seconds
-            const capTimer = setTimeout(finishLoading, 7000);
-
-            // ── PHASE 1: Globe centered (1.8s) ──
-            await new Promise(r => setTimeout(r, 1800));
-            if (loadingDone) { clearInterval(clockInterval); return; }
-
-            // ── PHASE 2: Slide globe left, desktop slides in ──
-            globeContainer.classList.add('slid-left');
-            await new Promise(r => setTimeout(r, 700));
-            desktopContainer.classList.add('visible');
-            nodeStatus.classList.add('visible');
-            await new Promise(r => setTimeout(r, 1000));
-            if (loadingDone) { clearInterval(clockInterval); return; }
-
-            // Start ambient hum
-            startAmbientHum();
-
-            // IP detection (non-blocking, updates node status)
-            let userIP = '10.0.0.1';
-            (async function() {
-                try {
-                    const ctrl = new AbortController();
-                    const t = setTimeout(() => ctrl.abort(), 2000);
-                    const res = await fetch('https://api.ipify.org?format=json', { signal: ctrl.signal });
-                    clearTimeout(t);
-                    const d = await res.json();
-                    userIP = d.ip;
-                    if (nodeStatus) nodeStatus.textContent = 'LOCAL NODE: ' + d.ip;
-                } catch (e) {
-                    if (nodeStatus) nodeStatus.textContent = 'LOCAL NODE: SECURE';
-                }
-            })();
-
-            // ── PHASE 3: Terminal boot sequence ──
-            const typeSpeed = 6;
+            const typeSpeed = 8;
             async function typeText(el, text) {
-                if (reducedMotion) { el.textContent = text; return; }
                 for (let i = 0; i < text.length; i++) {
-                    if (loadingDone) return;
                     el.textContent += text[i];
-                    terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
-                    if (i % 3 === 0) playKeystrokeSound();
-                    await new Promise(r => setTimeout(r, typeSpeed + Math.random() * 4));
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    await new Promise(r => setTimeout(r, typeSpeed + Math.random() * 5));
                 }
             }
 
-            async function addPrompt(cmd) {
-                if (loadingDone) return;
+            for (let i = 0; i < terminalLines.length; i++) {
+                const line = terminalLines[i];
+                await new Promise(r => setTimeout(r, line.delay));
                 const lineEl = document.createElement('div');
-                lineEl.className = 'terminal-line terminal-fast';
-                const promptSpan = document.createElement('span');
-                promptSpan.className = 'terminal-prompt';
-                promptSpan.textContent = 'root@dlt-node:~# ';
-                lineEl.appendChild(promptSpan);
-                const cmdSpan = document.createElement('span');
-                cmdSpan.className = 'terminal-cmd terminal-typing';
-                lineEl.appendChild(cmdSpan);
-                const cursor = document.createElement('span');
-                cursor.className = 'terminal-cursor';
-                lineEl.appendChild(cursor);
-                terminalBody.appendChild(lineEl);
-                terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
-                await typeText(cmdSpan, cmd);
-                cursor.remove();
-                await new Promise(r => setTimeout(r, 25));
-            }
+                lineEl.className = 'terminal-line terminal-fast ' + line.type;
 
-            function addLine(text, type, flash) {
-                if (loadingDone) return null;
-                const lineEl = document.createElement('div');
-                lineEl.className = 'terminal-line terminal-fast ' + (type || '');
-                lineEl.textContent = text;
-                if (flash) lineEl.style.animation = 'nodeFlash 0.4s ease';
-                terminalBody.appendChild(lineEl);
-                terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
-                if (type === 'success') playSuccessBeep();
-                if (type === 'warning') {
-                    playWarningTone();
-                    if (!reducedMotion) {
-                        const terminal = document.getElementById('loadingTerminal');
-                        terminal.classList.add('terminal-shake');
-                        setTimeout(() => terminal.classList.remove('terminal-shake'), 300);
-                    }
-                }
-                if (!reducedMotion && Math.random() < 0.12) corruptAndCorrect(lineEl);
-                return lineEl;
-            }
-
-            function updateProgress(pct) {
-                if (progressBar) progressBar.style.width = Math.min(pct, 98) + '%';
-            }
-
-            function updateTrayNodes() {
-                if (trayNodes) trayNodes.textContent = connectedNodes + ' nodes';
-            }
-
-            const d = (ms) => new Promise(r => setTimeout(r, ms));
-
-            // ── Kernel boot ──
-            addLine('DLT-OS v3.2.1 (tty1)', ''); await d(30);
-            addLine('', ''); await d(15);
-            await addPrompt('systemctl start dlt-network.service');
-            await d(20);
-            addLine('[  OK  ] Started DLT Network Bootstrap Service', 'success'); await d(25);
-            updateProgress(5);
-
-            // ── Network interface ──
-            await addPrompt('ip link set eth0 up && dhclient eth0');
-            await d(30);
-            addLine('[NET] eth0: link up, negotiating 10GbE...', ''); await d(40);
-            addLine('[NET] DHCP lease acquired: ' + userIP, 'info'); await d(20);
-            addLine('[NET] MTU 9000 | duplex full | speed 10000Mb/s', ''); await d(15);
-            updateProgress(10);
-
-            // ── Crypto init ──
-            await addPrompt('./init_crypto.sh --module=all --fips=140-3');
-            await d(25);
-            addLine('[CRYPTO] Loading hardware security module...', ''); await d(30);
-            addLine('[CRYPTO] AES-256-GCM ......... READY', 'success'); await d(12);
-            addLine('[CRYPTO] Ed25519 .............. READY', 'success'); await d(12);
-            addLine('[CRYPTO] SHA3-512 ............. READY', 'success'); await d(12);
-            addLine('[CRYPTO] TLS 1.3 handshake .... VERIFIED', 'success'); await d(15);
-            updateProgress(18);
-
-            // ── Firewall ──
-            await addPrompt('iptables -L -n --line-numbers | tail -5');
-            await d(20);
-            addLine('Chain DLT-INPUT (policy DROP)', 'warning'); await d(15);
-            addLine('1  ACCEPT  tcp  --  0.0.0.0/0  0.0.0.0/0  tcp dpt:7076', ''); await d(10);
-            addLine('2  ACCEPT  tcp  --  0.0.0.0/0  0.0.0.0/0  tcp dpt:443', ''); await d(10);
-            addLine('3  DROP    all  --  0.0.0.0/0  0.0.0.0/0  /* deny-all */', 'warning'); await d(15);
-            updateProgress(22);
-
-            // ── Node discovery ──
-            addLine('', ''); await d(10);
-            await addPrompt('dlt-node --bootstrap --discover-peers --protocol=gossip');
-            await d(30);
-            addLine('[DISCOVERY] Querying seed nodes...', 'info'); await d(40);
-            addLine('[DISCOVERY] Peer gossip protocol v2.4 initialized', ''); await d(20);
-            addLine('[DISCOVERY] Scanning global mesh network...', ''); await d(30);
-            addLine('', ''); await d(10);
-            updateProgress(28);
-
-            // ── Node-by-node connections (the main event) ──
-            const shuffled = [...peerNodes].sort(() => Math.random() - 0.5);
-            const nodesToConnect = shuffled.slice(0, 18); // Connect to 18 random nodes
-
-            for (let i = 0; i < nodesToConnect.length; i++) {
-                if (loadingDone) { clearInterval(clockInterval); return; }
-                const node = nodesToConnect[i];
-                const latency = Math.floor(Math.random() * 180 + 12);
-
-                // Connection attempt
-                addLine('[PEER] Connecting ' + node.ip + ':' + node.port + ' (' + node.city + ')...', 'node-ip');
-                await d(Math.floor(Math.random() * 60 + 30));
-
-                // TLS handshake
-                addLine('  TLS 1.3 handshake ' + node.ip + ' ... OK (' + latency + 'ms)', 'success', true);
-                connectedNodes++;
-                updateTrayNodes();
-                await d(Math.floor(Math.random() * 25 + 10));
-
-                // Every few nodes, add variety
-                if (i === 3) {
-                    addLine('[CHAIN] Block sync initiated — height: 2,847,291', 'info'); await d(20);
-                }
-                if (i === 6) {
-                    addLine('[WARN] High latency detected: re-routing via Frankfurt relay', 'warning'); await d(30);
-                    addLine('[NET] Route optimized: ' + latency + 'ms -> ' + Math.floor(latency * 0.6) + 'ms', 'success'); await d(15);
-                }
-                if (i === 10) {
-                    addLine('[CONSENSUS] Quorum threshold reached: ' + connectedNodes + '/12 validators online', 'success'); await d(25);
-                }
-                if (i === 14) {
-                    addLine('[CHAIN] Ledger state synchronized | Finality: 412ms', 'info'); await d(20);
+                if (line.type === 'prompt' && line.cmd) {
+                    const promptSpan = document.createElement('span');
+                    promptSpan.className = 'terminal-prompt';
+                    promptSpan.textContent = line.text;
+                    lineEl.appendChild(promptSpan);
+                    const cmdSpan = document.createElement('span');
+                    cmdSpan.className = 'terminal-cmd terminal-typing';
+                    lineEl.appendChild(cmdSpan);
+                    const cursor = document.createElement('span');
+                    cursor.className = 'terminal-cursor';
+                    lineEl.appendChild(cursor);
+                    terminalBody.appendChild(lineEl);
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
+                    await typeText(cmdSpan, line.cmd);
+                    cursor.remove();
+                    await new Promise(r => setTimeout(r, 30));
+                } else {
+                    lineEl.innerHTML = '<span class="prefix">></span> ' + line.text;
+                    terminalBody.appendChild(lineEl);
+                    terminalBody.scrollTop = terminalBody.scrollHeight;
                 }
 
-                // Progress: 28% to 90% across node connections
-                updateProgress(28 + Math.floor((i + 1) / nodesToConnect.length * 62));
+                const progress = Math.min(100, Math.floor((i + 1) / terminalLines.length * 100));
+                progressBar.style.width = progress + '%';
+                percentageEl.textContent = progress + '%';
             }
 
-            if (loadingDone) { clearInterval(clockInterval); return; }
+            await new Promise(r => setTimeout(r, 400));
+            progressBar.style.width = '100%';
+            percentageEl.textContent = '100%';
+            await new Promise(r => setTimeout(r, 250));
 
-            // ── Consensus & finalization ──
-            addLine('', ''); await d(15);
-            addLine('[MESH] ' + connectedNodes + ' peers connected across 6 continents', 'success'); await d(30);
-            addLine('[CONSENSUS] Byzantine fault tolerance: ACTIVE (f=' + Math.floor(connectedNodes / 3) + ')', 'success'); await d(25);
-            updateProgress(94);
+            document.getElementById('loadingScreen').classList.add('hidden');
+            document.body.classList.remove('loading-active');
+            document.getElementById('mainContent').classList.add('visible');
 
-            await addPrompt('dlt-node --status');
-            await d(20);
-            addLine('', ''); await d(10);
-            addLine('  Node ID:     dlt-' + Math.random().toString(36).substr(2, 8), ''); await d(12);
-            addLine('  Network:     MAINNET', 'info'); await d(12);
-            addLine('  Peers:       ' + connectedNodes + ' / ' + peerNodes.length + ' discovered', ''); await d(12);
-            addLine('  Block:       #2,847,291', ''); await d(12);
-            addLine('  Uptime:      0h 0m 7s', ''); await d(12);
-            addLine('  Status:      OPERATIONAL', 'success'); await d(20);
-            updateProgress(98);
-
-            addLine('', ''); await d(10);
-            addLine('[SYSTEM] All services nominal — launching interface...', 'info'); await d(30);
-            updateProgress(100);
-
-            clearInterval(clockInterval);
-            clearTimeout(capTimer);
-            await d(300);
-            finishLoading();
+            if (!localStorage.getItem('cookiesAccepted')) {
+                setTimeout(() => document.getElementById('cookieBanner').classList.add('visible'), 1000);
+            }
         }
 
         window.addEventListener('load', () => {
             if (shouldSkipLoading()) skipLoadingAndScrollToHash();
             else runLoadingSequence();
-        });
-
-        // Keyboard shortcut to skip loading
-        document.addEventListener('keydown', function(e) {
-            if ((e.key === 'Enter' || e.key === ' ') &&
-                !document.getElementById('loadingScreen').classList.contains('hidden')) {
-                e.preventDefault();
-                skipLoading();
-            }
         });
     </script>
 

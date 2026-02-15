@@ -40,6 +40,22 @@ Distributed Ledger Technologies (DLT) is a blockchain infrastructure company fou
 | **Ayedex** | Bitcoin mining pool infrastructure |
 | **Cora** | Bitcoin Wallet for the Lightning Network |
 | **Knexcoin** | Proof-of-Bandwidth layer 1 blockchain |
+| **USDX Stablecoin** | Bitcoin-backed USD stablecoin on KnexCoin L1 — 200%+ BTC collateral, zero fees, sub-second settlement |
+
+---
+
+## Bitcoin-Backed Stablecoins
+
+DLT is building **USDX** — a Bitcoin-backed US dollar stablecoin on the KnexCoin Layer 1 blockchain. Unlike USDT and USDC which depend on bank deposits, USDX is backed by over-collateralized Bitcoin reserves that are transparent, auditable, and immune to bank seizure.
+
+| Stablecoin | Ticker | Backing |
+|------------|--------|---------|
+| US Dollar | **USDX** | 200%+ BTC collateral |
+| Euro | **EURX** | 200%+ BTC collateral |
+| British Pound | **GBPX** | 200%+ BTC collateral |
+| Colombian Peso | **COPX** | 200%+ BTC collateral |
+
+**Market opportunity**: $300B stablecoin market, 87% bank-backed, virtually zero Bitcoin-backed at scale.
 
 ---
 

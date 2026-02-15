@@ -1,0 +1,18 @@
+# Cloudflare Pages — Custom Headers
+# https://developers.cloudflare.com/pages/configuration/headers/
+
+# CORS for stellar.toml (required by Stellar protocol SEP-0001)
+/.well-known/stellar.toml
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, OPTIONS
+  Access-Control-Allow-Headers: Content-Type
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=300
+
+# Also serve from root path (some wallets check both)
+/stellar.toml
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, OPTIONS
+  Access-Control-Allow-Headers: Content-Type
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=300
