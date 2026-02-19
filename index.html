@@ -1084,7 +1084,7 @@
                         <span class="terminal-dot red"></span>
                         <span class="terminal-dot yellow"></span>
                         <span class="terminal-dot green"></span>
-                        <span class="terminal-title">dlt-node &mdash; network bootstrap</span>
+                        <span class="terminal-title">knex-node &mdash; post-quantum bootstrap</span>
                         <span class="terminal-header-right" id="terminalPID">PID 1847</span>
                     </div>
                     <div class="terminal-body" id="terminalBody"></div>
@@ -1965,7 +1965,7 @@
             })();
 
             // ── PHASE 3: Terminal boot sequence ──
-            const typeSpeed = 6;
+            const typeSpeed = 3;
             async function typeText(el, text) {
                 if (reducedMotion) { el.textContent = text; return; }
                 for (let i = 0; i < text.length; i++) {
@@ -1973,7 +1973,7 @@
                     el.textContent += text[i];
                     terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
                     if (i % 3 === 0) playKeystrokeSound();
-                    await new Promise(r => setTimeout(r, typeSpeed + Math.random() * 4));
+                    await new Promise(r => setTimeout(r, typeSpeed + Math.random() * 3));
                 }
             }
 
@@ -1983,7 +1983,7 @@
                 lineEl.className = 'terminal-line terminal-fast';
                 const promptSpan = document.createElement('span');
                 promptSpan.className = 'terminal-prompt';
-                promptSpan.textContent = 'root@dlt-node:~# ';
+                promptSpan.textContent = 'root@knex-node:~# ';
                 lineEl.appendChild(promptSpan);
                 const cmdSpan = document.createElement('span');
                 cmdSpan.className = 'terminal-cmd terminal-typing';
@@ -1995,7 +1995,7 @@
                 terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
                 await typeText(cmdSpan, cmd);
                 cursor.remove();
-                await new Promise(r => setTimeout(r, 25));
+                await new Promise(r => setTimeout(r, 12));
             }
 
             function addLine(text, type, flash) {
@@ -2029,50 +2029,90 @@
 
             const d = (ms) => new Promise(r => setTimeout(r, ms));
 
+            // ── Animated unicode progress bar helper (ease-in/out + exponential random) ──
+            async function animateBar(prefix, suffix, type, steps, stepMs, barWidth) {
+                if (loadingDone) return;
+                const totalBlocks = barWidth || 30;
+                const el = addLine(prefix + ' \u2502' + '\u2591'.repeat(totalBlocks) + '\u2502 0%', '');
+                for (let s = 1; s <= steps; s++) {
+                    if (loadingDone) return;
+                    const pct = Math.floor((s / steps) * 100);
+                    const filled = Math.floor((s / steps) * totalBlocks);
+                    const bar = '\u2588'.repeat(filled) + '\u2592'.repeat(Math.max(0, totalBlocks - filled));
+                    el.textContent = prefix + ' \u2502' + bar + '\u2502 ' + pct + '%';
+                    terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
+                    // Ease-in/out: slow start → fast middle → slow end + exponential random jitter
+                    const t = s / steps;
+                    const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+                    const jitter = Math.floor(Math.pow(Math.random(), 2) * 14);
+                    await d(Math.floor(stepMs * (1.6 - ease * 1.2)) + jitter);
+                }
+                el.textContent = prefix + ' \u2502' + '\u2588'.repeat(totalBlocks) + '\u2502 ' + suffix;
+                el.className = 'terminal-line terminal-fast ' + (type || 'success');
+                if (type === 'success') playSuccessBeep();
+            }
+
             // ── Kernel boot ──
-            addLine('DLT-OS v3.2.1 (tty1)', ''); await d(30);
-            addLine('', ''); await d(15);
-            await addPrompt('systemctl start dlt-network.service');
-            await d(20);
-            addLine('[  OK  ] Started DLT Network Bootstrap Service', 'success'); await d(25);
+            addLine('KnexCoin CORE v1.0.0 (tty1)', ''); await d(15);
+            addLine('', ''); await d(8);
+            await addPrompt('systemctl start knex-node.service');
+            await d(10);
+            addLine('[  OK  ] Started KnexCoin Node Service', 'success'); await d(12);
             updateProgress(5);
 
             // ── Network interface ──
             await addPrompt('ip link set eth0 up && dhclient eth0');
-            await d(30);
-            addLine('[NET] eth0: link up, negotiating 10GbE...', ''); await d(40);
-            addLine('[NET] DHCP lease acquired: ' + userIP, 'info'); await d(20);
-            addLine('[NET] MTU 9000 | duplex full | speed 10000Mb/s', ''); await d(15);
+            await d(15);
+            addLine('[NET] eth0: link up, negotiating 10GbE...', ''); await d(20);
+            addLine('[NET] DHCP lease acquired: ' + userIP, 'info'); await d(10);
+            addLine('[NET] MTU 9000 | duplex full | speed 10000Mb/s', ''); await d(6);
+            addLine('[NET] QUIC transport binding UDP :7077 ... OK', 'success'); await d(6);
+            addLine('[NET] HTTP API binding TCP :7076 ... OK', 'success'); await d(8);
             updateProgress(10);
 
-            // ── Crypto init ──
-            await addPrompt('./init_crypto.sh --module=all --fips=140-3');
-            await d(25);
-            addLine('[CRYPTO] Loading hardware security module...', ''); await d(30);
-            addLine('[CRYPTO] AES-256-GCM ......... READY', 'success'); await d(12);
-            addLine('[CRYPTO] Ed25519 .............. READY', 'success'); await d(12);
-            addLine('[CRYPTO] SHA3-512 ............. READY', 'success'); await d(12);
-            addLine('[CRYPTO] TLS 1.3 handshake .... VERIFIED', 'success'); await d(15);
-            updateProgress(18);
+            // ── Post-quantum crypto init with loading bars ──
+            await addPrompt('./init_crypto.sh --pq-hybrid --fips=204');
+            await d(12);
+            addLine('[CRYPTO] Initializing post-quantum cryptographic engine...', ''); await d(15);
+            await animateBar('[CRYPTO] aws-lc-rs provider', 'LOADED \u2714', 'success', 14, 6, 30);
+            addLine('[CRYPTO] Ed25519 (classical) ....... READY', 'success'); await d(6);
+            addLine('[CRYPTO] ML-DSA-65 (FIPS 204) ...... READY', 'success'); await d(6);
+            addLine('[CRYPTO] X25519MLKEM768 (FIPS 203) . READY', 'success'); await d(6);
+            addLine('[CRYPTO] SHA3-256 (FIPS 202) ....... READY', 'success'); await d(6);
+            addLine('[CRYPTO] Blake2b-256 (ledger) ...... READY', 'success'); await d(8);
+            await animateBar('[CRYPTO] Engine self-test', 'ALL CIPHERS PASSED \u2714', 'success', 12, 5, 30);
+            updateProgress(16);
 
-            // ── Firewall ──
-            await addPrompt('iptables -L -n --line-numbers | tail -5');
-            await d(20);
-            addLine('Chain DLT-INPUT (policy DROP)', 'warning'); await d(15);
-            addLine('1  ACCEPT  tcp  --  0.0.0.0/0  0.0.0.0/0  tcp dpt:7076', ''); await d(10);
-            addLine('2  ACCEPT  tcp  --  0.0.0.0/0  0.0.0.0/0  tcp dpt:443', ''); await d(10);
-            addLine('3  DROP    all  --  0.0.0.0/0  0.0.0.0/0  /* deny-all */', 'warning'); await d(15);
+            // ── PQ TLS + Identity with loading animation ──
+            addLine('[PQ-TLS] Hybrid key exchange: X25519 + ML-KEM-768', 'info'); await d(8);
+            addLine('[PQ-TLS] rustls provider: aws-lc-rs ... VERIFIED', 'success'); await d(8);
+            const pqKeyHex = Array.from({length: 8}, () => Math.floor(Math.random() * 256).toString(16).padStart(2, '0')).join('');
+            await animateBar('[PQ-ID]  Loading ML-DSA-65 identity', 'LOADED (2,592 bytes) \u2714', 'info', 16, 5, 30);
+            addLine('[PQ-ID]  Public key: ' + pqKeyHex + '...', 'info'); await d(8);
+            addLine('[PQ-ID]  Identity signature ... VALID', 'success'); await d(8);
             updateProgress(22);
 
+            // ── Firewall ──
+            await addPrompt('iptables -L -n --line-numbers | tail -6');
+            await d(10);
+            addLine('Chain KNEX-INPUT (policy DROP)', 'warning'); await d(8);
+            addLine('1  ACCEPT  tcp  --  0.0.0.0/0  0.0.0.0/0  tcp dpt:7076  /* api */', ''); await d(5);
+            addLine('2  ACCEPT  udp  --  0.0.0.0/0  0.0.0.0/0  udp dpt:7077  /* quic */', ''); await d(5);
+            addLine('3  ACCEPT  tcp  --  0.0.0.0/0  0.0.0.0/0  tcp dpt:443   /* tls */', ''); await d(5);
+            addLine('4  DROP    all  --  0.0.0.0/0  0.0.0.0/0  /* deny-all */', 'warning'); await d(8);
+            updateProgress(26);
+
             // ── Node discovery ──
-            addLine('', ''); await d(10);
-            await addPrompt('dlt-node --bootstrap --discover-peers --protocol=gossip');
-            await d(30);
-            addLine('[DISCOVERY] Querying seed nodes...', 'info'); await d(40);
-            addLine('[DISCOVERY] Peer gossip protocol v2.4 initialized', ''); await d(20);
-            addLine('[DISCOVERY] Scanning global mesh network...', ''); await d(30);
-            addLine('', ''); await d(10);
-            updateProgress(28);
+            addLine('', ''); await d(5);
+            await addPrompt('knex-node --bootstrap --pq-handshake --protocol=quic');
+            await d(15);
+            addLine('[DISCOVERY] Querying seed nodes: 198.252.104.24, 18.228.153.175', 'info'); await d(18);
+            addLine('[DISCOVERY] QUIC transport v1 initialized (Quinn + rustls)', ''); await d(10);
+            addLine('[DISCOVERY] PQ peer authentication: ML-DSA-65 signed challenges', 'info'); await d(10);
+            addLine('[DISCOVERY] Scanning global validator mesh...', ''); await d(15);
+            await animateBar('[DISCOVERY] QUIC mesh init', 'READY \u2014 24 endpoints mapped \u2714', 'success', 16, 5, 30);
+            addLine('', ''); await d(5);
+            updateProgress(30);
 
             // ── Node-by-node connections (the main event) ──
             const shuffled = [...peerNodes].sort(() => Math.random() - 0.5);
@@ -2084,55 +2124,95 @@
                 const latency = Math.floor(Math.random() * 180 + 12);
 
                 // Connection attempt
-                addLine('[PEER] Connecting ' + node.ip + ':' + node.port + ' (' + node.city + ')...', 'node-ip');
-                await d(Math.floor(Math.random() * 60 + 30));
+                addLine('[PEER] Connecting ' + node.ip + ':7077 (' + node.city + ')...', 'node-ip');
+                await d(Math.floor(Math.random() * 30 + 15));
 
-                // TLS handshake
-                addLine('  TLS 1.3 handshake ' + node.ip + ' ... OK (' + latency + 'ms)', 'success', true);
+                // PQ QUIC handshake
+                addLine('  QUIC+PQ handshake ... OK | X25519MLKEM768 | ML-DSA-65 verified (' + latency + 'ms)', 'success', true);
                 connectedNodes++;
                 updateTrayNodes();
-                await d(Math.floor(Math.random() * 25 + 10));
+                await d(Math.floor(Math.random() * 12 + 5));
 
-                // Every few nodes, add variety
+                // Milestone events during node connections
                 if (i === 3) {
-                    addLine('[CHAIN] Block sync initiated — height: 2,847,291', 'info'); await d(20);
+                    addLine('[CHAIN] Genesis: 929e6128...1fd4 | Syncing block-lattice DAG...', 'info'); await d(10);
                 }
-                if (i === 6) {
-                    addLine('[WARN] High latency detected: re-routing via Frankfurt relay', 'warning'); await d(30);
-                    addLine('[NET] Route optimized: ' + latency + 'ms -> ' + Math.floor(latency * 0.6) + 'ms', 'success'); await d(15);
+                if (i === 5) {
+                    addLine('[PQ] Post-quantum challenge-response with ' + node.city + ' ... PASSED', 'success'); await d(10);
                 }
-                if (i === 10) {
-                    addLine('[CONSENSUS] Quorum threshold reached: ' + connectedNodes + '/12 validators online', 'success'); await d(25);
+                if (i === 7) {
+                    addLine('[WARN] High latency detected: re-routing via Frankfurt QUIC relay', 'warning'); await d(15);
+                    addLine('[NET] Route optimized: ' + latency + 'ms \u2192 ' + Math.floor(latency * 0.6) + 'ms', 'success'); await d(8);
                 }
-                if (i === 14) {
-                    addLine('[CHAIN] Ledger state synchronized | Finality: 412ms', 'info'); await d(20);
+                if (i === 9) {
+                    // ── PoB Bandwidth Race (dramatic animated measurement) ──
+                    addLine('[PoB] Bandwidth challenge from S\u00e3o Paulo validator...', 'info'); await d(12);
+                    const pobEl = addLine('[PoB] Measuring: \u2502' + '\u2591'.repeat(30) + '\u2502 0.0 MB/s', '');
+                    const targetSpeed = (Math.random() * 5 + 4).toFixed(1);
+                    for (let b = 1; b <= 16; b++) {
+                        if (loadingDone) break;
+                        const bFilled = Math.floor((b / 16) * 30);
+                        const bEmpty = 30 - bFilled;
+                        const bSpeed = (targetSpeed * b / 16).toFixed(1);
+                        pobEl.textContent = '[PoB] Measuring: \u2502' + '\u2588'.repeat(bFilled) + '\u2591'.repeat(bEmpty) + '\u2502 ' + bSpeed + ' MB/s';
+                        terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
+                        // Ease-in/out: fast middle, slow start/end
+                        const t = b / 16;
+                        const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+                        await d(4 + Math.floor((1 - ease) * 16) + Math.floor(Math.random() * 5));
+                    }
+                    pobEl.textContent = '[PoB] Measured: \u2502' + '\u2588'.repeat(30) + '\u2502 ' + targetSpeed + ' MB/s';
+                    pobEl.className = 'terminal-line terminal-fast success';
+                    playSuccessBeep();
+                    await d(8);
+                    addLine('[PoB] Challenge PASSED \u2014 ranked Tier-3 (>5 MB/s threshold)', 'success'); await d(10);
+                }
+                if (i === 11) {
+                    addLine('[CONSENSUS] SPVT quorum: ' + connectedNodes + '/12 validators | Tier-3 threshold met', 'success'); await d(12);
+                }
+                if (i === 13) {
+                    // ── Genesis block verification with loading bar ──
+                    addLine('[CHAIN] Verifying genesis block integrity...', ''); await d(8);
+                    await animateBar('[CHAIN] DAG sync', 'SYNCHRONIZED \u2714', 'success', 16, 5, 30);
+                    addLine('[CHAIN] Supply: 100,000,000 KNEX (1,000,000,000,000,000 raw)', 'info'); await d(6);
+                    addLine('[CHAIN] Genesis: 8UtJC7GQ...PbgKvF \u2192 929e6128...1fd4', ''); await d(8);
+                }
+                if (i === 15) {
+                    addLine('[CHAIN] DAG frontier synchronized | Hybrid PQ finality: 412ms', 'info'); await d(10);
                 }
 
-                // Progress: 28% to 90% across node connections
-                updateProgress(28 + Math.floor((i + 1) / nodesToConnect.length * 62));
+                // Progress: 30% to 90% across node connections
+                updateProgress(30 + Math.floor((i + 1) / nodesToConnect.length * 60));
             }
 
             if (loadingDone) { clearInterval(clockInterval); return; }
 
             // ── Consensus & finalization ──
-            addLine('', ''); await d(15);
-            addLine('[MESH] ' + connectedNodes + ' peers connected across 6 continents', 'success'); await d(30);
-            addLine('[CONSENSUS] Byzantine fault tolerance: ACTIVE (f=' + Math.floor(connectedNodes / 3) + ')', 'success'); await d(25);
+            addLine('', ''); await d(8);
+            addLine('[MESH] ' + connectedNodes + ' peers connected | 6 continents | PQ-secured mesh', 'success'); await d(15);
+            addLine('[CONSENSUS] SPVT active | PoB validators online | BFT f=' + Math.floor(connectedNodes / 3), 'success'); await d(12);
             updateProgress(94);
 
-            await addPrompt('dlt-node --status');
-            await d(20);
-            addLine('', ''); await d(10);
-            addLine('  Node ID:     dlt-' + Math.random().toString(36).substr(2, 8), ''); await d(12);
-            addLine('  Network:     MAINNET', 'info'); await d(12);
-            addLine('  Peers:       ' + connectedNodes + ' / ' + peerNodes.length + ' discovered', ''); await d(12);
-            addLine('  Block:       #2,847,291', ''); await d(12);
-            addLine('  Uptime:      0h 0m 7s', ''); await d(12);
-            addLine('  Status:      OPERATIONAL', 'success'); await d(20);
+            // ── Final status with typed command ──
+            await addPrompt('knex-node --status');
+            await d(10);
+            addLine('', ''); await d(5);
+            addLine('  Node ID:     knex-' + Math.random().toString(36).substr(2, 8), ''); await d(5);
+            addLine('  Network:     MAINNET', 'info'); await d(5);
+            addLine('  Protocol:    Hybrid PQ (Ed25519 + ML-DSA-65)', ''); await d(5);
+            addLine('  Transport:   QUIC + PQ-TLS (X25519MLKEM768)', ''); await d(5);
+            addLine('  Peers:       ' + connectedNodes + ' / ' + peerNodes.length + ' discovered', ''); await d(5);
+            addLine('  Genesis:     929e6128...1fd4', ''); await d(5);
+            addLine('  Block:       #2,847,291', ''); await d(5);
+            addLine('  TPS:         2,065 (single core)', 'info'); await d(5);
+            addLine('  Uptime:      0h 0m 7s', ''); await d(5);
+            addLine('  Status:      OPERATIONAL \u2714', 'success'); await d(10);
             updateProgress(98);
 
-            addLine('', ''); await d(10);
-            addLine('[SYSTEM] All services nominal — launching interface...', 'info'); await d(30);
+            // ── Final typing effect ──
+            addLine('', ''); await d(5);
+            addLine('[SYSTEM] All services nominal \u2014 launching interface...', 'info'); await d(8);
+            await addPrompt('echo "Post-quantum node online. Lattice shields active."');
             updateProgress(100);
 
             clearInterval(clockInterval);
