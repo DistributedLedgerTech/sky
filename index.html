@@ -500,28 +500,42 @@
         }
 
         /* ── Mobile loading screen ── */
-        /* ── Mobile: globe centered on top, terminal below + glassmorphism ── */
+        /* ── Mobile: globe full-screen centered → slides to top + glassmorphism ── */
         @media (max-width: 900px) {
             .loading-screen { flex-direction: column; }
+            /* Phase 1: Globe fills full screen, perfectly centered */
             .loading-globe-container {
-                position: relative; width: 100%; height: 28vh;
+                position: absolute; inset: 0;
                 display: flex; align-items: center; justify-content: center;
-                transform: none !important;
-                transition: height 0.8s ease;
+                z-index: 4;
+                transform: translateX(0);
             }
+            .loading-globe-wrapper {
+                width: min(65vw, 65vh); height: min(65vw, 65vh);
+                transform: translateY(0);
+                transition: width 1.4s cubic-bezier(0.25, 1, 0.5, 1),
+                            height 1.4s cubic-bezier(0.25, 1, 0.5, 1),
+                            transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
+            }
+            /* Phase 2: Globe scales down and glides to top center */
             .loading-globe-container.slid-left {
-                width: 100%; height: 18vh;
-                transform: none !important;
+                transform: translateX(0);
             }
-            .loading-globe-wrapper { width: min(40vw, 40vh); height: min(40vw, 40vh); }
             .loading-globe-container.slid-left .loading-globe-wrapper {
-                width: min(22vw, 160px); height: min(22vw, 160px);
+                width: min(22vw, 140px); height: min(22vw, 140px);
+                transform: translateY(calc(-50vh + 2vh + min(11vw, 70px)));
             }
             .loading-desktop-container {
-                position: relative; width: 100%; flex: 1;
+                position: absolute;
+                left: 0; right: 0; bottom: 0;
+                top: calc(min(22vw, 140px) + 4vh);
+                width: 100%;
+                z-index: 3;
                 transform: translateY(100%);
+                opacity: 0;
+                transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
             }
-            .loading-desktop-container.visible { transform: translateY(0); }
+            .loading-desktop-container.visible { transform: translateY(0); opacity: 1; }
             .desktop-icons { display: none; }
             .linux-desktop {
                 padding: 8px 10px 0 10px;
@@ -579,11 +593,13 @@
             .loading-progress { bottom: 28px; }
         }
         @media (max-width: 480px) {
-            .loading-globe-container { height: 22vh; }
-            .loading-globe-container.slid-left { height: 15vh; }
-            .loading-globe-wrapper { width: min(35vw, 35vh); height: min(35vw, 35vh); }
+            .loading-globe-wrapper { width: min(60vw, 60vh); height: min(60vw, 60vh); }
             .loading-globe-container.slid-left .loading-globe-wrapper {
-                width: 120px; height: 120px;
+                width: 100px; height: 100px;
+                transform: translateY(calc(-50vh + 2vh + 50px));
+            }
+            .loading-desktop-container {
+                top: calc(100px + 3vh);
             }
             .terminal-body { font-size: 7.5px; padding: 6px 8px; line-height: 1.35; }
             .terminal-dot { width: 8px; height: 8px; }
@@ -594,8 +610,14 @@
         }
         @media (max-width: 360px) {
             .terminal-body { font-size: 6.5px; padding: 5px 6px; }
-            .loading-globe-container { height: 18vh; }
-            .loading-globe-container.slid-left { height: 12vh; }
+            .loading-globe-wrapper { width: min(55vw, 55vh); height: min(55vw, 55vh); }
+            .loading-globe-container.slid-left .loading-globe-wrapper {
+                width: 80px; height: 80px;
+                transform: translateY(calc(-50vh + 2vh + 40px));
+            }
+            .loading-desktop-container {
+                top: calc(80px + 2.5vh);
+            }
         }
     </style>
 
