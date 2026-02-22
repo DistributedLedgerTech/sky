@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DLT Pitch Deck — KnexCoin + AyeDEX + Bitcoin-Backed Stable Tokens</title>
+<style>
+/* ===================================================================
+   BLUEPRINT THEME — Technical Presentation System
+   10-slide landscape deck, optimized for PDF export
+   =================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  /* Blueprint palette */
+  --bp-bg:       #0a1628;
+  --bp-bg2:      #0d1e36;
+  --bp-grid:     rgba(60,140,255,.08);
+  --bp-gridH:    rgba(60,140,255,.14);
+  --bp-line:     rgba(60,140,255,.22);
+  --bp-lineH:    rgba(60,140,255,.40);
+  --bp-accent:   #3c8cff;
+  --bp-accent2:  #00d4ff;
+  --bp-glow:     rgba(60,140,255,.35);
+  --bp-green:    #00ff88;
+  --bp-gold:     #ffd700;
+  --bp-red:      #ff4466;
+  --bp-fg:       rgba(255,255,255,.94);
+  --bp-fg2:      rgba(255,255,255,.72);
+  --bp-fg3:      rgba(255,255,255,.50);
+
+  --ff: 'Space Grotesk', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Slide dimensions (16:9 landscape) */
+  --sw: 1280px;
+  --sh: 720px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: var(--ff);
+  color: var(--bp-fg);
+  background: var(--bp-bg);
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* ── BLUEPRINT GRID BACKGROUND ── */
+.bp-grid {
+  position: fixed; inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, var(--bp-grid) 0, var(--bp-grid) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(90deg, var(--bp-grid) 0, var(--bp-grid) 1px, transparent 1px, transparent 40px),
+    repeating-linear-gradient(0deg, var(--bp-gridH) 0, var(--bp-gridH) 1px, transparent 1px, transparent 200px),
+    repeating-linear-gradient(90deg, var(--bp-gridH) 0, var(--bp-gridH) 1px, transparent 1px, transparent 200px);
+  opacity: .55;
+}
+
+/* ── SLIDE SYSTEM ── */
+.deck { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+.slide {
+  position: absolute;
+  width: var(--sw); height: var(--sh);
+  max-width: 100vw; max-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(10,22,40,.98), rgba(13,30,54,.96)),
+    var(--bp-bg);
+  border: 1.5px solid var(--bp-line);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 48px 56px;
+  display: grid;
+  gap: 0;
+  opacity: 0;
+  transform: scale(.97);
+  pointer-events: none;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.slide.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+
+/* Grid layouts per slide type */
+.slide.layout-split { grid-template-columns: 1.1fr .9fr; grid-template-rows: auto 1fr; gap: 20px; }
+.slide.layout-full  { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: 20px; }
+.slide.layout-cover { grid-template-columns: 1fr; grid-template-rows: 1fr; place-items: center; text-align: center; }
+
+/* ── TYPOGRAPHY ── */
+.kicker {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--bp-accent);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.kicker::before {
+  content: '';
+  width: 18px; height: 1.5px;
+  background: var(--bp-accent);
+}
+
+h1 {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  margin-bottom: 14px;
+}
+h2 {
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -.02em;
+  margin-bottom: 12px;
+}
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+  margin-bottom: 6px;
+}
+p, .desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--bp-fg2);
+}
+.big-stat {
+  font-family: var(--mono);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--bp-accent2);
+}
+.accent { color: var(--bp-accent); }
+.accent2 { color: var(--bp-accent2); }
+.green { color: var(--bp-green); }
+.gold { color: var(--bp-gold); }
+.red { color: var(--bp-red); }
+
+/* ── CARDS ── */
+.card {
+  border: 1px solid var(--bp-line);
+  border-radius: 6px;
+  background: rgba(60,140,255,.04);
+  padding: 18px 20px;
+}
+.card.strong {
+  background: rgba(60,140,255,.08);
+  border-color: var(--bp-lineH);
+  box-shadow: 0 0 20px rgba(60,140,255,.06);
+}
+.card.glow {
+  box-shadow: 0 0 30px var(--bp-glow), inset 0 0 30px rgba(60,140,255,.03);
+  border-color: var(--bp-accent);
+}
+
+/* ── METRIC BOXES ── */
+.metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.metrics.cols3 { grid-template-columns: repeat(3, 1fr); }
+.metrics.cols4 { grid-template-columns: repeat(4, 1fr); }
+.m-box {
+  padding: 14px 16px;
+  border: 1px solid var(--bp-line);
+  border-radius: 6px;
+  background: rgba(60,140,255,.03);
+}
+.m-box .val {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--bp-accent2);
+  display: block;
+}
+.m-box .label {
+  font-size: 11px;
+  color: var(--bp-fg3);
+  margin-top: 4px;
+  letter-spacing: .02em;
+}
+
+/* ── BULLET ROWS ── */
+.bullets { display: flex; flex-direction: column; gap: 10px; }
+.bullet {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 10px 14px;
+  border: 1px solid rgba(60,140,255,.15);
+  border-radius: 6px;
+  background: rgba(60,140,255,.03);
+}
+.bullet .dot {
+  width: 8px; height: 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--bp-accent);
+  flex: 0 0 auto;
+  box-shadow: 0 0 6px var(--bp-accent);
+}
+.bullet b { font-size: 13px; font-weight: 600; }
+.bullet span { display: block; font-size: 12px; color: var(--bp-fg2); margin-top: 2px; line-height: 1.4; }
+
+/* ── TABLES ── */
+.bp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.bp-table th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--bp-accent);
+  padding: 8px 10px;
+  border-bottom: 1.5px solid var(--bp-lineH);
+  background: rgba(60,140,255,.05);
+}
+.bp-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--bp-line);
+  color: var(--bp-fg2);
+}
+.bp-table td:first-child { color: var(--bp-fg); font-weight: 500; }
+
+/* ── CODE / MONO BLOCKS ── */
+.mono-block {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--bp-accent2);
+  background: rgba(0,0,0,.35);
+  border: 1px solid var(--bp-line);
+  border-radius: 4px;
+  padding: 12px 14px;
+  line-height: 1.5;
+  white-space: pre;
+  overflow: auto;
+}
+
+/* ── COLUMN HELPERS ── */
+.col-span { grid-column: 1 / -1; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+.row { display: flex; gap: 14px; align-items: flex-start; }
+
+/* ── CORNER DECORATIONS ── */
+.slide::before, .slide::after {
+  content: '';
+  position: absolute;
+  width: 16px; height: 16px;
+  border-color: var(--bp-accent);
+  border-style: solid;
+  opacity: .4;
+}
+.slide::before { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
+.slide::after  { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
+
+/* ── SLIDE NUMBER ── */
+.slide-num {
+  position: absolute;
+  bottom: 14px; left: 20px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--bp-fg3);
+  letter-spacing: .08em;
+}
+.slide-brand {
+  position: absolute;
+  bottom: 14px; right: 20px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--bp-fg3);
+  letter-spacing: .08em;
+}
+
+/* ── NAVIGATION ── */
+.nav-bar {
+  position: fixed;
+  bottom: 20px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px;
+  z-index: 100;
+  padding: 8px 16px;
+  background: rgba(10,22,40,.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--bp-line);
+  border-radius: 12px;
+}
+.nav-bar button {
+  width: 36px; height: 36px;
+  border: 1px solid var(--bp-line);
+  border-radius: 6px;
+  background: rgba(60,140,255,.08);
+  color: var(--bp-fg);
+  cursor: pointer;
+  font-size: 16px;
+  display: grid; place-items: center;
+  transition: background .15s;
+}
+.nav-bar button:hover { background: rgba(60,140,255,.18); }
+.pips { display: flex; gap: 6px; }
+.pip {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1px solid var(--bp-line);
+  background: transparent;
+  cursor: pointer;
+  transition: all .2s;
+}
+.pip.active {
+  background: var(--bp-accent);
+  border-color: var(--bp-accent);
+  box-shadow: 0 0 8px var(--bp-accent);
+}
+.page-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--bp-fg3);
+  min-width: 38px;
+  text-align: center;
+}
+.nav-bar .export-btn {
+  width: auto;
+  padding: 0 14px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .04em;
+  gap: 6px;
+  display: flex; align-items: center;
+}
+
+/* ===================================================================
+   PRINT / PDF EXPORT STYLES
+   Landscape, all 10 slides, one per page
+   =================================================================== */
+@media print {
+  @page {
+    size: landscape;
+    margin: 0;
+  }
+  html, body {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    background: #0a1628;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .bp-grid, .nav-bar { display: none !important; }
+  .deck {
+    position: static;
+    width: auto;
+    height: auto;
+    display: block;
+  }
+  .slide {
+    position: relative !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    border: none;
+    border-radius: 0;
+    page-break-after: always;
+    page-break-inside: avoid;
+    break-after: page;
+    break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .slide:last-child {
+    page-break-after: auto;
+  }
+}
+
+/* ── RESPONSIVE (for non-PDF viewing on smaller screens) ── */
+@media (max-width: 1300px) and (not print) {
+  .slide { transform-origin: center center; scale: .85; }
+  .slide.active { transform: scale(.85); }
+}
+@media (max-width: 900px) and (not print) {
+  .slide.active { transform: scale(.6); }
+  .slide.layout-split { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="bp-grid"></div>
+
+<div class="deck" id="deck">
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 1 — COVER
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-cover active" data-title="Cover">
+  <div style="max-width:900px">
+    <div class="kicker">SkyKnet</div>
+    <h1 style="font-size:48px">
+      <span class="accent2">KnexCoin</span> + <span class="accent">AyeDEX</span> + <span class="gold">Bitcoin-Backed Stable Tokens</span>
+    </h1>
+    <p style="font-size:20px;margin:18px 0 30px;color:var(--bp-fg2)">
+      Merchant-driven price discovery on a feeless, sub-second Layer 1 DAG.
+    </p>
+    <div class="metrics cols4" style="max-width:780px;margin:0 auto">
+      <div class="m-box"><span class="val">369.69M</span><span class="label">Max KNEX Supply</span></div>
+      <div class="m-box"><span class="val">0 FEES</span><span class="label">Transaction Cost</span></div>
+      <div class="m-box"><span class="val">&lt;1s</span><span class="label">Finality</span></div>
+      <div class="m-box"><span class="val">10K+ TPS</span><span class="label">Throughput</span></div>
+    </div>
+  </div>
+  <div class="slide-num">01 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 2 — PROBLEM
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="Problem">
+  <div class="stack col-span">
+    <div class="kicker">The Problem</div>
+    <h2>Crypto price discovery is broken.<br/>Speculation dominates. Commerce is absent.</h2>
+  </div>
+  <div class="stack">
+    <div class="bullets">
+      <div class="bullet"><div class="dot"></div><div>
+        <b>Merchants hate volatility + fees</b>
+        <span>Payment networks charge 2-4%. Crypto prices swing 20% intraday. Merchants can't plan around either.</span>
+      </div></div>
+      <div class="bullet"><div class="dot"></div><div>
+        <b>DEX prices are manipulated</b>
+        <span>Low-liquidity pairs let whales move prices. Wash trading inflates volume. Price feeds are gameable.</span>
+      </div></div>
+      <div class="bullet"><div class="dot"></div><div>
+        <b>No real-world price anchor</b>
+        <span>Without commerce data, "value" is narrative. Nobody answers: "What can 1 KNEX actually buy?"</span>
+      </div></div>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card strong">
+      <h3 class="accent">Market Gap</h3>
+      <p>$300B stablecoin market. 500M+ crypto users. Zero merchant-driven exchanges. The price is set by traders, not buyers.</p>
+    </div>
+    <div class="card">
+      <h3>Our Thesis</h3>
+      <p>A currency's price should reflect what it <b>buys</b>, not what it trades for. Commerce-weighted price discovery makes KNEX value measurable and auditable.</p>
+    </div>
+  </div>
+  <div class="slide-num">02 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 3 — SOLUTION: AyeDEX
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="AyeDEX">
+  <div class="stack col-span">
+    <div class="kicker">The Solution</div>
+    <h2>AyeDEX: The world's first <span class="accent2">commerce-weighted</span> exchange.</h2>
+  </div>
+  <div class="stack">
+    <div class="bullets">
+      <div class="bullet"><div class="dot"></div><div>
+        <b>Merchants set prices</b>
+        <span>Coffee $4.99 = 0.40 KNEX. Every product listing is a sell-side market signal.</span>
+      </div></div>
+      <div class="bullet"><div class="dot"></div><div>
+        <b>Customers buy</b>
+        <span>KnexPay tap-to-pay. Each purchase is a buy-side market event on the live feed.</span>
+      </div></div>
+      <div class="bullet"><div class="dot"></div><div>
+        <b>Commerce anchors the price</b>
+        <span>Volume-weighted, recency-weighted, merchant-tier-weighted reference price.</span>
+      </div></div>
+    </div>
+    <div class="mono-block">SPOT  = Last transaction price (any type)
+REF   = Commerce-weighted rolling avg (last 100 merchant txns)
+SPEC  = Order book side (0.1-0.5% fee, lower weight)</div>
+  </div>
+  <div class="stack">
+    <div class="card glow">
+      <h3 class="accent2">Dual Price Feed</h3>
+      <table class="bp-table">
+        <tr><th>Feed</th><th>Source</th><th>Weight</th></tr>
+        <tr><td>Reference</td><td>Merchant commerce</td><td class="green">70%</td></tr>
+        <tr><td>Spot</td><td>Latest transaction</td><td>20%</td></tr>
+        <tr><td>Speculative</td><td>Order book trades</td><td>10%</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Anti-Manipulation</h3>
+      <p>Anomaly detection + attenuation (not censorship). Bad actors' weight reduced — market stays permissionless.</p>
+    </div>
+  </div>
+  <div class="slide-num">03 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 4 — KNEXCOIN L1
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="KnexCoin L1">
+  <div class="stack col-span">
+    <div class="kicker">Layer 1 Foundation</div>
+    <h2>KnexCoin: DAG Block-Lattice + <span class="accent">Proof-of-Bandwidth</span></h2>
+  </div>
+  <div class="stack">
+    <div class="mono-block">Block-Lattice DAG:
+  Alice: ──[send]──[receive]──[send]──→
+  Bob:   ──[receive]──[send]──→
+  Carol: ──[receive]──[receive]──[send]──→
+
+Each account = independent chain.
+Zero contention. Parallel throughput. Sub-second finality.</div>
+    <div class="card">
+      <h3>Cryptographic Stack</h3>
+      <table class="bp-table">
+        <tr><th>Component</th><th>Algorithm</th></tr>
+        <tr><td>Signatures</td><td>Ed25519 (RFC 8032)</td></tr>
+        <tr><td>Hashing</td><td>SHA-256 + Blake2b-256</td></tr>
+        <tr><td>Addresses</td><td>Base62, 50 chars (case-sensitive)</td></tr>
+        <tr><td>HD Derivation</td><td>BIP39 + PBKDF2 + HMAC-SHA512</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card strong">
+      <h3 class="accent2">Proof-of-Bandwidth Consensus</h3>
+      <p>Validators prove real network infrastructure contribution.</p>
+      <div class="bullets" style="margin-top:10px">
+        <div class="bullet"><div class="dot"></div><div>
+          <b>VRF-selected challengers</b>
+          <span>7 random validators issue bandwidth challenges</span>
+        </div></div>
+        <div class="bullet"><div class="dot"></div><div>
+          <b>Peer attestation</b>
+          <span>Measured throughput + latency + confidence scores</span>
+        </div></div>
+        <div class="bullet"><div class="dot"></div><div>
+          <b>VDF proof</b>
+          <span>Verifiable Delay Function prevents pre-computation</span>
+        </div></div>
+      </div>
+    </div>
+    <div class="metrics">
+      <div class="m-box"><span class="val">100 Mbps</span><span class="label">Min Validator Bandwidth</span></div>
+      <div class="m-box"><span class="val">10K KNEX</span><span class="label">Min Validator Stake</span></div>
+    </div>
+  </div>
+  <div class="slide-num">04 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 5 — TOKENOMICS
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="Tokenomics">
+  <div class="stack col-span">
+    <div class="kicker">Tokenomics</div>
+    <h2>369,690,000 KNEX &mdash; <span class="gold">Sacred Supply (3+6+9+6+9 = 33)</span></h2>
+  </div>
+  <div class="stack">
+    <table class="bp-table">
+      <tr><th>Allocation</th><th>Amount</th><th>%</th></tr>
+      <tr><td>PoB Validator Emission</td><td class="accent2">300,000,000</td><td>81.15%</td></tr>
+      <tr><td>Genesis Allocation</td><td>69,690,000</td><td>18.85%</td></tr>
+    </table>
+    <div class="card" style="margin-top:6px">
+      <h3>Genesis Breakdown</h3>
+      <table class="bp-table">
+        <tr><th>Fund</th><th>Amount</th><th>%</th></tr>
+        <tr><td>Development</td><td>20,907,000</td><td>30%</td></tr>
+        <tr><td>Foundation Treasury</td><td>17,422,500</td><td>25%</td></tr>
+        <tr><td>Ecosystem Growth</td><td>17,422,500</td><td>25%</td></tr>
+        <tr><td>Community & Bootstrap</td><td>13,938,000</td><td>20%</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card strong">
+      <h3 class="accent2">Emission Schedule</h3>
+      <table class="bp-table">
+        <tr><th>Era</th><th>Years</th><th>Emission</th></tr>
+        <tr><td>Era 1</td><td>0-3</td><td>Base rate</td></tr>
+        <tr><td>Era 2</td><td>3-6</td><td>50% (1st halving)</td></tr>
+        <tr><td>Era 3</td><td>6-9</td><td>25% (2nd halving)</td></tr>
+        <tr><td>Era 4</td><td>9-12</td><td>12.5% (3rd halving)</td></tr>
+        <tr><td>Tail</td><td>30+</td><td>0.1%/year perpetual</td></tr>
+      </table>
+    </div>
+    <div class="metrics">
+      <div class="m-box"><span class="val">3 YR</span><span class="label">Halving Cycle</span></div>
+      <div class="m-box"><span class="val">0.1%</span><span class="label">Tail Emission</span></div>
+      <div class="m-box"><span class="val">0</span><span class="label">Coin Burns (Ever)</span></div>
+      <div class="m-box"><span class="val">7</span><span class="label">Decimal Places</span></div>
+    </div>
+  </div>
+  <div class="slide-num">05 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 6 — COUNTER-CYCLICAL REWARDS (NAI)
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="NAI Rewards">
+  <div class="stack col-span">
+    <div class="kicker">Network Activity Index</div>
+    <h2>Counter-Cyclical Rewards: <span class="green">More in bear, less in bull.</span></h2>
+  </div>
+  <div class="stack">
+    <p>NAI adjusts validator rewards inversely to network activity. Keeps validators online when it matters most &mdash; during low-activity periods.</p>
+    <div class="card strong">
+      <h3>Damping Factor</h3>
+      <div class="mono-block">TARGET  = 90-day rolling average NAI score
+CURRENT = Latest epoch NAI score
+
+Damping = clamp(TARGET / CURRENT, 0.25, 3.0)
+
+Bear market  → activity LOW  → damping 3.0× → 300% rewards
+Bull market  → activity HIGH → damping 0.25× → 25% rewards
+Neutral      → damping 1.0×  → standard rewards</div>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card">
+      <h3>Activity Metrics (per epoch = 1 hour)</h3>
+      <table class="bp-table">
+        <tr><th>Metric</th><th>Weight</th><th>Baseline</th></tr>
+        <tr><td>Transaction Volume</td><td>40%</td><td>1M KNEX</td></tr>
+        <tr><td>DEX Volume (D-accounts)</td><td>30%</td><td>500K KNEX</td></tr>
+        <tr><td>Active Accounts</td><td>20%</td><td>100</td></tr>
+        <tr><td>Active Validators</td><td>10%</td><td>50</td></tr>
+      </table>
+    </div>
+    <div class="metrics">
+      <div class="m-box"><span class="val">90 DAY</span><span class="label">Rolling Window</span></div>
+      <div class="m-box"><span class="val">0 ORACLES</span><span class="label">External Dependencies</span></div>
+      <div class="m-box"><span class="val">0.25&times;&ndash;3.0&times;</span><span class="label">Damping Range</span></div>
+      <div class="m-box"><span class="val">D-PREFIX</span><span class="label">On-chain DEX Detection</span></div>
+    </div>
+  </div>
+  <div class="slide-num">06 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 7 — BITCOIN-BACKED STABLE TOKENS (USDX, EURX, etc.)
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="Stable Tokens">
+  <div class="stack col-span">
+    <div class="kicker">Bitcoin-Backed Stablecoins</div>
+    <h2>Built-in Stable Tokens: <span class="gold">USDX</span>, <span class="gold">EURX</span>, <span class="gold">GBPX</span>, <span class="gold">COPX</span> &amp; more.</h2>
+  </div>
+  <div class="stack">
+    <p>Bitcoin-backed stablecoins on KnexCoin L1 &mdash; no banks, no custodians, no freezing. Users deposit BTC as over-collateralized reserves (200%+) and mint stable tokens. Collateral is transparent, auditable, and appreciating.</p>
+    <div class="card strong">
+      <h3>Why Bitcoin-Backed?</h3>
+      <table class="bp-table">
+        <tr><th>Advantage</th><th>Detail</th></tr>
+        <tr><td class="green">No bank freeze risk</td><td>BTC on-chain &mdash; no Tether-style seizure</td></tr>
+        <tr><td class="green">Transparent reserves</td><td>Anyone verifies collateral in real-time</td></tr>
+        <tr><td class="green">Appreciating backing</td><td>BTC trends up &rarr; vaults get more secure</td></tr>
+        <tr><td class="green">No counterparty risk</td><td>No SVB, no depeg, no bank run</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card">
+      <h3>Collateral &amp; Liquidation</h3>
+      <table class="bp-table">
+        <tr><th>Threshold</th><th>Action</th></tr>
+        <tr><td>200%+</td><td>Healthy vault &mdash; fully collateralized</td></tr>
+        <tr><td>150%</td><td>Warning &mdash; add collateral or reduce debt</td></tr>
+        <tr><td>130%</td><td>Partial liquidation begins</td></tr>
+        <tr><td>115%</td><td>Full liquidation to restore peg</td></tr>
+        <tr><td>&lt;100%</td><td>KNEX Stability Pool absorbs bad debt</td></tr>
+      </table>
+    </div>
+    <div class="card glow">
+      <h3 class="accent2">$300B Market. Zero BTC-Backed at Scale.</h3>
+      <p>87% of stablecoins rely on banks. DAI proved crypto-backing works ($5B). Nobody has done it with Bitcoin at scale. USDX fills that gap &mdash; feeless, sub-second, fully on-chain.</p>
+    </div>
+    <div class="metrics">
+      <div class="m-box"><span class="val">200%+</span><span class="label">BTC Collateral Ratio</span></div>
+      <div class="m-box"><span class="val">0 FEES</span><span class="label">Token Transfers</span></div>
+      <div class="m-box"><span class="val">10</span><span class="label">Reserved Currencies</span></div>
+    </div>
+  </div>
+  <div class="slide-num">07 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 8 — ECOSYSTEM STACK
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="Ecosystem">
+  <div class="stack col-span">
+    <div class="kicker">Ecosystem</div>
+    <h2>Full-stack merchant commerce loop &mdash; built, not planned.</h2>
+  </div>
+  <div class="stack">
+    <div class="mono-block">Merchant sets KNEX price
+  → Customer taps NFC / scans QR
+    → KnexPay processes payment (0 fees, &lt;1s)
+      → Trade becomes price signal on AyeDEX
+        → Reference feed updates
+          → Market knows "what KNEX buys"</div>
+    <div class="card strong">
+      <h3>Infrastructure (Built)</h3>
+      <table class="bp-table">
+        <tr><th>Component</th><th>Tech</th><th>Status</th></tr>
+        <tr><td>Rust Node</td><td>Rust + RocksDB</td><td class="green">Live</td></tr>
+        <tr><td>KnexPay PWA</td><td>Progressive Web App</td><td class="green">Live</td></tr>
+        <tr><td>NFC Cards</td><td>NTAG 424 DNA + AES-128</td><td class="green">Live</td></tr>
+        <tr><td>KnexKeys</td><td>Offline keygen + HD wallet</td><td class="green">Live</td></tr>
+        <tr><td>Block Explorer</td><td>Knexplorer v2.0</td><td class="green">Live</td></tr>
+        <tr><td>Faucet</td><td>Cloudflare Workers</td><td class="green">Live</td></tr>
+        <tr><td>AyeDEX</td><td>SvelteKit + Vite</td><td class="gold">Beta</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card">
+      <h3>KnexPay Wallet</h3>
+      <div class="bullets">
+        <div class="bullet"><div class="dot"></div><div><b>NFC tap-to-pay</b><span>NTAG 424 DNA hardware cards</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>QR scan payments</b><span>Camera-based instant payments</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>PIN + Biometric</b><span>Face ID / Touch ID secured</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>Offline capable</b><span>Service Worker + PWA installable</span></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Security</h3>
+      <p><b>SPVT</b> &mdash; Stake-Proportional Validation Tiers. Larger transactions require more validator signatures (1-7 validators based on amount).</p>
+      <p style="margin-top:6px"><b>Quantum roadmap</b>: FALCON-512 + Dilithium-65 + Kyber-768 (NIST FIPS)</p>
+    </div>
+  </div>
+  <div class="slide-num">08 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 9 — ROADMAP
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="Roadmap">
+  <div class="stack col-span">
+    <div class="kicker">Execution</div>
+    <h2>Roadmap to a live commerce-weighted price feed.</h2>
+  </div>
+  <div class="stack">
+    <div class="card strong">
+      <h3 class="accent">Phase 1 &mdash; Testnet (Q2 2026)</h3>
+      <div class="bullets">
+        <div class="bullet"><div class="dot"></div><div><b>Merchant onboarding portal</b><span>Registration, KYC, API credentials</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>KnexPay beta</b><span>NFC + QR payments on testnet</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>Basic price feed</b><span>Simulated commerce + initial reference price</span></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="accent2">Phase 2 &mdash; Mainnet Alpha (Q3 2026)</h3>
+      <div class="bullets">
+        <div class="bullet"><div class="dot"></div><div><b>Real merchant transactions</b><span>First 100 anchor merchants live</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>Dual feed live</b><span>Commerce-weighted reference + spot price</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>Stable token launch</b><span>USDX, EURX, GBPX available for settlement</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card glow">
+      <h3 class="green">Phase 3 &mdash; Full Launch (Q4 2026)</h3>
+      <div class="bullets">
+        <div class="bullet"><div class="dot"></div><div><b>3-tier merchant system</b><span>Basic / Verified / Enterprise with weighted influence</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>Public anomaly dashboard</b><span>Transparent market integrity monitoring</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>B2B commerce</b><span>Invoicing, bulk payments, category API</span></div></div>
+        <div class="bullet"><div class="dot"></div><div><b>1,000+ merchants</b><span>Target milestone for credible reference price</span></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Future (2027+)</h3>
+      <p>P2P marketplace &bull; Escrow services &bull; Cross-chain bridge &bull; Post-quantum migration &bull; Governance DAO</p>
+    </div>
+  </div>
+  <div class="slide-num">09 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════
+     SLIDE 10 — THE ASK
+     ════════════════════════════════════════════════════════════════ -->
+<section class="slide layout-split" data-title="The Ask">
+  <div class="stack col-span">
+    <div class="kicker">The Ask</div>
+    <h2>Partner with the merchant network that <span class="accent2">sets the price</span>.</h2>
+  </div>
+  <div class="stack">
+    <div class="card glow">
+      <h3>Partners We Want</h3>
+      <div class="bullets">
+        <div class="bullet"><div class="dot" style="background:var(--bp-green);box-shadow:0 0 6px var(--bp-green)"></div><div>
+          <b>Anchor Merchants</b>
+          <span>High-volume retailers in food, retail, services, electronics. First movers establish pricing benchmarks and earn highest feed influence.</span>
+        </div></div>
+        <div class="bullet"><div class="dot" style="background:var(--bp-accent2);box-shadow:0 0 6px var(--bp-accent2)"></div><div>
+          <b>POS / Hardware Integrators</b>
+          <span>NFC terminal rollouts, KnexCard deployment, merchant onboarding infrastructure.</span>
+        </div></div>
+        <div class="bullet"><div class="dot" style="background:var(--bp-gold);box-shadow:0 0 6px var(--bp-gold)"></div><div>
+          <b>Liquidity Providers</b>
+          <span>Provide depth on the speculative order book. Arbitrage keeps spot &#8776; reference. LPs earn 0.1-0.5% on trades.</span>
+        </div></div>
+        <div class="bullet"><div class="dot" style="background:var(--bp-accent);box-shadow:0 0 6px var(--bp-accent)"></div><div>
+          <b>Strategic Investors</b>
+          <span>Crypto-native funds and fintech partners aligned with merchant-first thesis.</span>
+        </div></div>
+      </div>
+    </div>
+  </div>
+  <div class="stack">
+    <div class="card strong" style="text-align:center;padding:28px">
+      <div class="kicker" style="justify-content:center">Contact</div>
+      <h3 style="font-size:22px;margin:12px 0">SkyKnet</h3>
+      <p style="font-size:14px">
+        <span class="accent2">skyknet.com</span><br/>
+        david@skyknet.com
+      </p>
+      <div class="metrics" style="margin-top:16px">
+        <div class="m-box"><span class="val" style="font-size:14px">knexcoins.com</span><span class="label">KnexCoin</span></div>
+        <div class="m-box"><span class="val" style="font-size:14px">ayedex.com</span><span class="label">AyeDEX Exchange</span></div>
+        <div class="m-box"><span class="val" style="font-size:14px">knexpay.com</span><span class="label">KnexPay Wallet</span></div>
+        <div class="m-box"><span class="val" style="font-size:14px">GitHub</span><span class="label">Open Source</span></div>
+      </div>
+    </div>
+    <div class="card" style="text-align:center">
+      <p style="font-size:13px;color:var(--bp-fg3)">
+        Founded 2020 &bull; @DLTBlockchain<br/>
+        Next step: Schedule a merchant onboarding + pilot geography plan.
+      </p>
+    </div>
+  </div>
+  <div class="slide-num">10 / 10</div>
+  <div class="slide-brand">DLT &mdash; CONFIDENTIAL</div>
+</section>
+
+</div><!-- /deck -->
+
+<!-- ── NAVIGATION BAR ── -->
+<nav class="nav-bar" id="navBar">
+  <button id="prevBtn" title="Previous slide">&larr;</button>
+  <div class="pips" id="pips"></div>
+  <span class="page-label" id="pageLabel">1/10</span>
+  <button id="nextBtn" title="Next slide">&rarr;</button>
+  <button class="export-btn" id="exportBtn" title="Export as PDF (Print dialog)">&#9113; PDF</button>
+</nav>
+
+<script>
+(function() {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const pips = document.getElementById('pips');
+  const pageLabel = document.getElementById('pageLabel');
+  let idx = 0;
+
+  // Build pips
+  slides.forEach((s, i) => {
+    const pip = document.createElement('div');
+    pip.className = 'pip' + (i === 0 ? ' active' : '');
+    pip.title = s.dataset.title || `Slide ${i+1}`;
+    pip.addEventListener('click', () => go(i));
+    pips.appendChild(pip);
+  });
+
+  function sync() {
+    slides.forEach((s, i) => s.classList.toggle('active', i === idx));
+    Array.from(pips.children).forEach((p, i) => p.classList.toggle('active', i === idx));
+    pageLabel.textContent = `${idx + 1}/${slides.length}`;
+    location.hash = `#s${idx + 1}`;
+  }
+
+  function go(i) {
+    idx = Math.max(0, Math.min(slides.length - 1, i));
+    sync();
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => go(idx - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => go(idx + 1));
+
+  // Keyboard
+  window.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); go(idx + 1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'PageUp')  { e.preventDefault(); go(idx - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End')  go(slides.length - 1);
+  }, { passive: false });
+
+  // Hash nav
+  const m = (location.hash || '').match(/^#s(\d+)$/);
+  if (m) { const n = parseInt(m[1], 10); if (n >= 1 && n <= slides.length) idx = n - 1; }
+  sync();
+
+  // Swipe support
+  let sx = 0, sy = 0, down = false;
+  const deck = document.getElementById('deck');
+  deck.addEventListener('pointerdown', e => { down = true; sx = e.clientX; sy = e.clientY; });
+  deck.addEventListener('pointerup', e => {
+    if (!down) return;
+    down = false;
+    const dx = e.clientX - sx;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(e.clientY - sy)) {
+      dx < 0 ? go(idx + 1) : go(idx - 1);
+    }
+  });
+
+  // PDF export
+  document.getElementById('exportBtn').addEventListener('click', () => {
+    window.print();
+  });
+})();
+</script>
+</body>
+</html>

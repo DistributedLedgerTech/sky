@@ -1,11 +1,11 @@
-# Robots.txt for Distributed Ledger Technologies
-# https://distributedledgertechnologies.com
+# Robots.txt for SkyKnet
+# https://skyknet.com
 
 User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://distributedledgertechnologies.com/sitemap.xml
+Sitemap: https://skyknet.com/sitemap.xml
 
 # Crawl-delay (optional, for polite crawlers)
 Crawl-delay: 1
