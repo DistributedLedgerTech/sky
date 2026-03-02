@@ -2,14 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service | SkyKnet</title>
-    <meta name="description" content="Terms of Service for SkyKnet and its products including MacMetal Miner, Cora Wallet, Ayedex, and HydroDollar.">
-    <meta name="robots" content="index, follow">
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="canonical" href="https://skyknet.com/terms.html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-CSZ00L6ZXV"></script>
@@ -17,251 +10,1078 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-CSZ00L6ZXV');
     </script>
-    
+
+    <!-- Primary Meta Tags -->
+    <title>Terms of Service | SkyKnet</title>
+    <meta name="title" content="Terms of Service | SkyKnet">
+    <meta name="description" content="Terms of Service for SkyKnet (Distributed Ledger Technologies Inc.) — the legal agreement governing your use of our blockchain products and services.">
+    <meta name="keywords" content="terms of service, terms and conditions, SkyKnet terms, blockchain terms, cryptocurrency terms">
+    <meta name="author" content="SkyKnet">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://skyknet.com/terms.html">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://skyknet.com/terms.html">
+    <meta property="og:title" content="Terms of Service | SkyKnet">
+    <meta property="og:description" content="Terms of Service for SkyKnet — the legal agreement governing your use of our blockchain products and services.">
+    <meta property="og:image" content="https://skyknet.com/og-image.png">
+    <meta property="og:site_name" content="SkyKnet">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@SkyKnet">
+    <meta name="twitter:title" content="Terms of Service | SkyKnet">
+    <meta name="twitter:description" content="Terms of Service for SkyKnet — the legal agreement governing your use of our blockchain products and services.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="DLT">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Font -->
     <style>
-        .legal-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 140px 24px 80px;
+        @font-face {
+            font-family: 'Ethnocentric';
+            src: url('fonts/ethnocentric.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
         }
-        
-        .legal-content h1 {
-            font-size: 40px;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
+    </style>
+
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .legal-content h1 span {
-            color: var(--neon-blue);
+
+        :root {
+            --black: #000000;
+            --white: #ffffff;
+            --cyan: #00ff00;
+            --electric: #00ff66;
+            --blue: #00aa00;
+            --purple: #00ff00;
+            --magenta: #00ff66;
+            --green: #00ff80;
+            --gold: #00ff00;
+            --red: #ff003c;
+            --orange: #ff6600;
         }
-        
-        .legal-meta {
-            color: var(--text-dim);
-            margin-bottom: 48px;
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: crosshair;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        ::selection {
+            background: var(--cyan);
+            color: #000;
+        }
+
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0, 255, 0, 0.02) 2px, rgba(0, 255, 0, 0.02) 4px); }
+        .overlay::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 255, 0, 0.01); animation: flicker 0.15s infinite; pointer-events: none; }
+        @keyframes flicker { 0%, 100% { opacity: 0.97; } 50% { opacity: 1; } }
+        .vignette { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 2; background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.85) 100%); }
+        .grid-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; opacity: 0.03; background-image: linear-gradient(var(--cyan) 1px, transparent 1px), linear-gradient(90deg, var(--cyan) 1px, transparent 1px); background-size: 50px 50px; }
+
+        /* Content */
+        .content {
+            position: relative;
+            z-index: 10;
+            max-width: 100%;
+            overflow-x: hidden;
+            touch-action: pan-y;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 32px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-symbol {
+            width: 56px;
+            height: 56px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo-symbol img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-text-main {
+            font-family: 'Orbitron', sans-serif;
             font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--cyan);
         }
-        
-        .legal-content h2 {
-            font-size: 24px;
-            margin: 48px 0 16px;
-            color: var(--neon-blue);
+
+        .logo-text-sub {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-top: 4px;
         }
-        
-        .legal-content h3 {
+
+        .nav-links {
+            display: flex;
+            gap: 64px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-decoration: none;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::before {
+            content: '[';
+            position: absolute;
+            left: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(8px);
+        }
+
+        .nav-links a::after {
+            content: ']';
+            position: absolute;
+            right: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(-8px);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--cyan);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            background: transparent;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--cyan);
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+        }
+
+        .mobile-menu.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-menu a {
+            font-family: 'Space Mono', monospace;
             font-size: 18px;
-            margin: 32px 0 12px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
         }
-        
-        .legal-content p {
-            color: var(--text-secondary);
-            margin-bottom: 16px;
+
+        .mobile-menu a:hover {
+            color: var(--cyan);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
+
+        /* Page Header */
+        .page-header {
+            padding: 180px 64px 80px;
+            position: relative;
+            text-align: center;
+        }
+
+        .page-eyebrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .page-eyebrow-line {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cyan));
+            position: relative;
+        }
+
+        .page-eyebrow-line:last-child {
+            background: linear-gradient(90deg, var(--cyan), transparent);
+        }
+
+        .page-eyebrow-line::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -2px;
+            width: 5px;
+            height: 5px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan), 0 0 20px var(--cyan);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        .page-eyebrow-line:last-child::before {
+            left: 0;
+            right: auto;
+        }
+
+        @keyframes pulseDot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        .page-eyebrow-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--cyan);
+        }
+
+        .page-title {
+            font-size: clamp(48px, 10vw, 120px);
+            font-weight: 700;
+            line-height: 0.9;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+        }
+
+        .page-title .gradient {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--cyan);
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: #ffffff;
+            max-width: 700px;
+            margin: 0 auto;
             line-height: 1.8;
         }
-        
-        .legal-content ul {
-            color: var(--text-secondary);
+
+        /* Legal Content */
+        .legal-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 64px 80px;
+        }
+
+        .legal-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--cyan);
+            text-transform: uppercase;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .legal-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            margin: 48px 0 16px;
+            letter-spacing: -0.02em;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .legal-section h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--cyan);
+            box-shadow: 0 0 10px var(--cyan);
+        }
+
+        .legal-section h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--cyan);
+            margin: 32px 0 12px;
+        }
+
+        .legal-section p {
+            font-size: 15px;
+            color: #ffffff;
+            line-height: 1.9;
+            margin-bottom: 16px;
+        }
+
+        .legal-section ul {
+            color: #ffffff;
             margin: 16px 0;
             padding-left: 24px;
         }
-        
-        .legal-content li {
-            margin-bottom: 8px;
-            line-height: 1.7;
+
+        .legal-section li {
+            margin-bottom: 10px;
+            line-height: 1.8;
+            font-size: 15px;
         }
-        
-        .legal-content a {
-            color: var(--neon-blue);
+
+        .legal-section li strong {
+            color: var(--cyan);
+        }
+
+        .legal-section a {
+            color: var(--cyan);
             text-decoration: none;
+            transition: color 0.3s;
         }
-        
-        .legal-content a:hover {
+
+        .legal-section a:hover {
             text-decoration: underline;
         }
-        
-        .legal-content strong {
-            color: var(--text-primary);
+
+        .legal-divider {
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
         }
-        
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--neon-blue);
+
+        /* Footer */
+        .footer {
+            padding: 80px 64px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 64px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            color: #ffffff;
+            line-height: 1.7;
+            margin-top: 24px;
+            max-width: 280px;
+        }
+
+        .footer-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #ffffff;
             text-decoration: none;
-            margin-bottom: 32px;
-            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.2s;
         }
-        
-        .back-link:hover {
-            gap: 12px;
+
+        .footer-links a:hover {
+            color: var(--cyan);
         }
-        
-        .back-link svg {
-            width: 18px;
-            height: 18px;
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
-        
-        .warning-box {
-            background: rgba(247, 147, 26, 0.1);
-            border: 1px solid rgba(247, 147, 26, 0.3);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 24px 0;
+
+        .footer-copyright {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: #ffffff;
+            letter-spacing: 0.1em;
         }
-        
-        .warning-box p {
-            color: #f7931a;
-            margin: 0;
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav {
+                padding: 24px 32px;
+            }
+
+            .page-header {
+                padding: 160px 32px 60px;
+            }
+
+            .legal-section {
+                padding: 0 32px 60px;
+            }
+
+            .footer {
+                padding: 60px 32px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            * {
+                max-width: 100%;
+            }
+
+            .nav {
+                padding: 12px 16px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .page-header {
+                padding: 100px 16px 32px;
+                overflow: hidden;
+            }
+
+            .page-title {
+                font-size: clamp(28px, 8vw, 48px);
+                word-wrap: break-word;
+            }
+
+            .page-subtitle {
+                font-size: 13px;
+            }
+
+            .legal-section {
+                padding: 0 16px 40px;
+            }
+
+            .legal-section h2 {
+                font-size: 20px;
+                margin: 36px 0 12px;
+            }
+
+            .legal-section h3 {
+                font-size: 16px;
+            }
+
+            .legal-section p,
+            .legal-section li {
+                font-size: 14px;
+            }
+
+            .footer {
+                padding: 40px 16px;
+            }
+
+            .footer-grid {
+                display: block;
+            }
+
+            .footer-column {
+                margin-bottom: 32px;
+            }
+
+            .footer-column:last-child {
+                margin-bottom: 0;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                padding: 10px 12px;
+            }
+
+            .logo-symbol {
+                width: 36px;
+                height: 36px;
+            }
+
+            .logo-text-main {
+                font-size: 12px;
+            }
+
+            .logo-text-sub {
+                font-size: 7px;
+            }
+
+            .page-header {
+                padding: 80px 12px 24px;
+            }
+
+            .page-title {
+                font-size: clamp(24px, 10vw, 36px);
+            }
+
+            .page-subtitle {
+                font-size: 12px;
+                line-height: 1.4;
+            }
+
+            .page-eyebrow {
+                margin-bottom: 12px;
+            }
+
+            .legal-section {
+                padding: 0 12px 32px;
+            }
+
+            .legal-section h2 {
+                font-size: 18px;
+            }
+
+            .footer {
+                padding: 32px 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .page-header {
+                padding: 70px 10px 20px;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+            .legal-section {
+                padding: 0 10px 24px;
+            }
+
+            .footer {
+                padding: 28px 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container nav-content">
-            <a href="/" class="logo">
-                <img src="images/logo.svg" alt="SkyKnet Logo" class="logo-icon">
-                <span class="logo-text">SkyKnet</span>
+    <!-- Overlays -->
+    <div class="overlay"></div>
+    <div class="grid-overlay"></div>
+    <div class="vignette"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#products">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="index.html" class="logo" aria-label="SkyKnet Home">
+                <div class="logo-symbol">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                </div>
+                <div>
+                    <div class="logo-text-main">SKYKNET</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
+                </div>
             </a>
             <ul class="nav-links">
-                <li><a href="/#products">Products</a></li>
-                <li><a href="/#technology">Technology</a></li>
-                <li><a href="/#about">About</a></li>
-                <li><a href="/#contact">Contact</a></li>
+                <li><a href="about.html" class="sound-hover">About</a></li>
+                <li><a href="index.html#products" class="sound-hover">Products</a></li>
+                <li><a href="index.html#credentials" class="sound-hover">Credentials</a></li>
+                <li><a href="contact.html" class="sound-hover">Contact</a></li>
+                <li><a href="careers.html" class="sound-hover">Careers</a></li>
             </ul>
-            <div class="nav-toggle" id="navToggle">
+            <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
                 <span></span>
                 <span></span>
                 <span></span>
+            </button>
+        </nav>
+
+        <!-- Page Header -->
+        <header class="page-header">
+            <div class="page-eyebrow">
+                <span class="page-eyebrow-line"></span>
+                <span class="page-eyebrow-text">Legal Agreement</span>
+                <span class="page-eyebrow-line"></span>
             </div>
-        </div>
-    </nav>
-    
-    <main class="legal-content">
-        <a href="/" class="back-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Home
-        </a>
-        
-        <h1>Terms of <span>Service</span></h1>
-        <p class="legal-meta">Last updated: December 28, 2025</p>
-        
-        <p>Welcome to SkyKnet, a DBA of Distributed Ledger Technologies Inc. ("SkyKnet," "we," "our," or "us"). By accessing or using our products and services, you agree to be bound by these Terms of Service ("Terms").</p>
-        
-        <h2>1. Acceptance of Terms</h2>
-        <p>By using any SkyKnet product or service, including but not limited to MacMetal Miner, Cora Wallet, Ayedex, and HydroDollar, you acknowledge that you have read, understood, and agree to be bound by these Terms.</p>
-        
-        <h2>2. Description of Services</h2>
-        <p>SkyKnet provides software products related to cryptocurrency and blockchain technology, including:</p>
-        <ul>
-            <li><strong>MacMetal Miner:</strong> Bitcoin mining software for Apple Silicon Macs</li>
-            <li><strong>Cora Wallet:</strong> Bitcoin Lightning Network wallet</li>
-            <li><strong>Ayedex:</strong> Decentralized exchange platform</li>
-            <li><strong>HydroDollar:</strong> Stablecoin protocol</li>
-        </ul>
-        
-        <h2>3. Risk Disclosure</h2>
-        
-        <div class="warning-box">
-            <p><strong>IMPORTANT:</strong> Cryptocurrency and blockchain activities involve significant risks. You may lose some or all of your investment. Past performance does not guarantee future results.</p>
-        </div>
-        
-        <p>By using our products, you acknowledge and accept the following risks:</p>
-        <ul>
-            <li><strong>Market Volatility:</strong> Cryptocurrency values can fluctuate dramatically</li>
-            <li><strong>Mining Risks:</strong> Solo mining has very low probability of finding blocks; there is no guarantee of returns</li>
-            <li><strong>Technical Risks:</strong> Software bugs, network issues, or hardware failures may occur</li>
-            <li><strong>Regulatory Risks:</strong> Cryptocurrency regulations vary by jurisdiction and may change</li>
-            <li><strong>Security Risks:</strong> You are responsible for securing your private keys and wallet access</li>
-        </ul>
-        
-        <h2>4. User Responsibilities</h2>
-        <p>You agree to:</p>
-        <ul>
-            <li>Use our products only for lawful purposes</li>
-            <li>Comply with all applicable laws and regulations in your jurisdiction</li>
-            <li>Maintain the security of your accounts and private keys</li>
-            <li>Not attempt to reverse engineer, decompile, or modify our software</li>
-            <li>Not use our products to facilitate illegal activities</li>
-            <li>Be solely responsible for reporting and paying any applicable taxes</li>
-        </ul>
-        
-        <h2>5. Subscription and Payment</h2>
-        <p>Certain products may require a subscription or one-time payment:</p>
-        <ul>
-            <li>Subscription fees are billed in advance on a recurring basis</li>
-            <li>You may cancel your subscription at any time</li>
-            <li>Refunds are handled according to our refund policy and payment processor terms</li>
-            <li>We reserve the right to change pricing with reasonable notice</li>
-        </ul>
-        
-        <h2>6. Intellectual Property</h2>
-        <p>All SkyKnet products, including software, documentation, logos, and trademarks, are the property of SkyKnet (Distributed Ledger Technologies Inc.). Some products may be released under source-available licenses that permit inspection but restrict modification and redistribution.</p>
-        
-        <h2>7. Disclaimer of Warranties</h2>
-        <p>OUR PRODUCTS ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED. WE DISCLAIM ALL WARRANTIES, INCLUDING BUT NOT LIMITED TO:</p>
-        <ul>
-            <li>Merchantability and fitness for a particular purpose</li>
-            <li>Accuracy, reliability, or completeness of any information</li>
-            <li>Uninterrupted or error-free operation</li>
-            <li>Any particular level of mining performance or returns</li>
-        </ul>
-        
-        <h2>8. Limitation of Liability</h2>
-        <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, DLT SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO:</p>
-        <ul>
-            <li>Loss of profits, revenue, or data</li>
-            <li>Loss of cryptocurrency or digital assets</li>
-            <li>Business interruption</li>
-            <li>Any damages arising from your use of our products</li>
-        </ul>
-        
-        <h2>9. Indemnification</h2>
-        <p>You agree to indemnify and hold harmless DLT and its officers, directors, employees, and agents from any claims, damages, losses, or expenses arising from your use of our products or violation of these Terms.</p>
-        
-        <h2>10. Modifications to Terms</h2>
-        <p>We reserve the right to modify these Terms at any time. We will notify users of material changes by posting the updated Terms on our website. Your continued use of our products after changes become effective constitutes acceptance of the revised Terms.</p>
-        
-        <h2>11. Termination</h2>
-        <p>We may terminate or suspend your access to our products at any time, without prior notice, for conduct that we believe violates these Terms or is harmful to other users, us, or third parties.</p>
-        
-        <h2>12. Governing Law</h2>
-        <p>These Terms shall be governed by and construed in accordance with the laws of the United States, without regard to its conflict of law provisions.</p>
-        
-        <h2>13. Severability</h2>
-        <p>If any provision of these Terms is found to be unenforceable, the remaining provisions will continue in full force and effect.</p>
-        
-        <h2>14. Contact Information</h2>
-        <p>For questions about these Terms, please contact us at:</p>
-        <p><a href="mailto:david@skyknet.com">david@skyknet.com/a></p>
-        
-        <p style="margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border);">By using our products, you acknowledge that you have read and understood these Terms of Service and agree to be bound by them.</p>
-    </main>
-    
-    <!-- Footer -->
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-logo">
-                <img src="images/favicon.svg" alt="SkyKnet">
-                <span>SkyKnet</span>
+            <h1 class="page-title">
+                <span class="gradient">Terms of Service</span>
+            </h1>
+            <p class="page-subtitle">
+                By accessing or using any SkyKnet products and services, you agree to be bound by these Terms of Service. Please read them carefully before proceeding.
+            </p>
+        </header>
+
+        <!-- Legal Content -->
+        <section class="legal-section">
+            <p class="legal-meta">Last updated: December 28, 2025</p>
+
+            <p>These Terms of Service ("Terms," "Agreement") constitute a legally binding agreement between you ("User," "you," or "your") and SkyKnet, a DBA of Distributed Ledger Technologies Inc. ("SkyKnet," "Company," "we," "our," or "us"), governing your access to and use of our websites, applications, products, and services (collectively, the "Services"). By accessing, browsing, or using any of our Services, you acknowledge that you have read, understood, and agree to be bound by these Terms and our <a href="privacy.html">Privacy Policy</a>, which is incorporated herein by reference.</p>
+
+            <h2>1. Acceptance of Terms</h2>
+
+            <p>By creating an account, accessing, or using any of our Services, you affirm that you are of legal age in your jurisdiction to enter into this Agreement and that you accept and agree to be bound by these Terms. If you are using our Services on behalf of an organization, you represent and warrant that you have the authority to bind that organization to these Terms, and the terms "you" and "your" shall refer to both you individually and the organization.</p>
+
+            <p>If you do not agree to any provision of these Terms, you must immediately cease all use of our Services. Your continued use of any Service after any modification to these Terms constitutes your acceptance of the modified Terms.</p>
+
+            <h2>2. Description of Services</h2>
+
+            <p>SkyKnet, operating as a DBA of Distributed Ledger Technologies Inc., provides a suite of blockchain-based products and services designed for the digital asset economy. Our current product offerings include:</p>
+
+            <h3>Knexcoin</h3>
+            <p>Knexcoin is a layer-1 blockchain protocol utilizing a proprietary proof-of-bandwidth consensus mechanism. Knexcoin enables decentralized transaction processing, smart contract execution, and network participation through bandwidth contribution. The Knexcoin network is maintained by a distributed network of nodes and miners who contribute computational and bandwidth resources.</p>
+
+            <h3>KnexMail</h3>
+            <p>KnexMail is an end-to-end encrypted email communication platform built on decentralized infrastructure. KnexMail provides secure messaging capabilities with cryptographic protections designed to ensure the privacy and integrity of user communications. KnexMail leverages blockchain technology for identity verification and message authentication.</p>
+
+            <h3>Ayedex</h3>
+            <p>Ayedex is a decentralized exchange (DEX) platform that facilitates peer-to-peer trading of digital assets without the need for centralized intermediaries. Ayedex operates through smart contracts deployed on the Knexcoin blockchain and may support cross-chain trading capabilities. Users interact directly with the protocol and maintain custody of their assets during the trading process.</p>
+
+            <h3>KnexPay</h3>
+            <p>KnexPay is a payment processing solution that enables merchants and individuals to accept and send cryptocurrency payments. KnexPay provides payment gateway integration, point-of-sale tools, invoicing, and settlement services designed to bridge traditional commerce with the digital asset ecosystem.</p>
+
+            <h3>KnexWallet</h3>
+            <p>KnexWallet is a non-custodial cryptocurrency wallet application that allows users to store, send, receive, and manage digital assets. KnexWallet supports multiple cryptocurrencies and tokens, and provides users with full control over their private keys and seed phrases. The wallet may include features such as staking, token swaps, and portfolio tracking.</p>
+
+            <h3>Superknet</h3>
+            <p>Superknet is a block explorer and network analytics tool for the Knexcoin blockchain. Superknet allows users to search and inspect blocks, transactions, wallet addresses, smart contracts, and other on-chain data. Superknet provides real-time network statistics, mining data, and transparency tools for the Knexcoin ecosystem.</p>
+
+            <p>We reserve the right to modify, suspend, or discontinue any Service, or any feature or aspect thereof, at any time with or without notice. We shall not be liable to you or any third party for any modification, suspension, or discontinuation of the Services.</p>
+
+            <h2>3. Eligibility</h2>
+
+            <p>To use our Services, you must be at least eighteen (18) years of age or the age of legal majority in your jurisdiction, whichever is greater. By using our Services, you represent and warrant that you meet all eligibility requirements. You further represent that you are not (a) located in, or a resident or national of, any country subject to comprehensive economic sanctions by the United States, the European Union, the United Kingdom, or the United Nations; (b) listed on any sanctions list maintained by the U.S. Department of the Treasury's Office of Foreign Assets Control (OFAC), the European Union, or any other applicable governmental authority; or (c) otherwise prohibited by applicable law from accessing or using the Services.</p>
+
+            <p>We reserve the right to refuse access to the Services to anyone for any reason at any time. We may, in our sole discretion, impose additional eligibility requirements or limitations on the use of our Services.</p>
+
+            <h2>4. Account Registration &amp; Security</h2>
+
+            <p>Certain Services may require you to create an account. When registering for an account, you agree to provide accurate, current, and complete information and to update such information to keep it accurate, current, and complete. You are solely responsible for safeguarding your account credentials, including your password, API keys, private keys, seed phrases, and any other authentication information.</p>
+
+            <p>You agree to immediately notify us at <a href="mailto:hello@skyknet.com">hello@skyknet.com</a> of any unauthorized access to or use of your account. You are responsible for all activities that occur under your account, whether or not you have authorized such activities. SkyKnet shall not be liable for any loss or damage arising from your failure to comply with the security obligations set forth in this section.</p>
+
+            <p>You may not use another person's account without their permission. You may not create multiple accounts for the purpose of circumventing restrictions, engaging in abuse, or evading enforcement actions.</p>
+
+            <h2>5. User Responsibilities</h2>
+
+            <p>You are solely responsible for your conduct while accessing or using the Services and for any content or data you submit, post, or transmit through the Services. You agree to use the Services only for lawful purposes and in accordance with these Terms. You shall comply with all applicable local, state, national, and international laws, statutes, regulations, and ordinances in connection with your use of the Services.</p>
+
+            <p>You acknowledge that blockchain transactions are generally irreversible and that you are solely responsible for verifying the accuracy of all transaction details, including recipient addresses and amounts, before confirming any transaction through the Services. SkyKnet cannot reverse, cancel, or refund blockchain transactions once they have been broadcast to the network.</p>
+
+            <h2>6. Prohibited Activities</h2>
+
+            <p>You agree not to engage in any of the following prohibited activities in connection with your use of the Services:</p>
+
+            <ul>
+                <li>Violating any applicable law, regulation, or third-party rights, including intellectual property, privacy, and anti-money laundering laws</li>
+                <li>Using the Services for any form of fraud, money laundering, terrorist financing, or other illicit financial activity</li>
+                <li>Attempting to gain unauthorized access to the Services, other users' accounts, or any computer systems or networks connected to the Services</li>
+                <li>Introducing malicious software, viruses, worms, Trojan horses, or other harmful code into the Services or any associated systems</li>
+                <li>Conducting denial-of-service attacks, flooding, spamming, or any activity that disrupts or impairs the normal operation of the Services</li>
+                <li>Using the Services to facilitate market manipulation, wash trading, pump-and-dump schemes, spoofing, layering, or other forms of market abuse</li>
+                <li>Circumventing, disabling, or otherwise interfering with any security-related features of the Services</li>
+                <li>Scraping, data mining, or using automated means to access the Services without our prior written consent</li>
+                <li>Impersonating any person or entity, or falsely stating or otherwise misrepresenting your affiliation with a person or entity</li>
+                <li>Using the Services to transmit unsolicited commercial communications or spam</li>
+                <li>Engaging in any activity that could damage, disable, overburden, or impair the functioning of the Services</li>
+                <li>Reverse engineering, decompiling, disassembling, or otherwise attempting to derive the source code of any software used to provide the Services</li>
+                <li>Using the Services in any manner that could interfere with, disrupt, negatively affect, or inhibit other users from fully enjoying the Services</li>
+            </ul>
+
+            <p>We reserve the right to investigate and take appropriate legal action against anyone who, in our sole discretion, violates this provision, including without limitation removing offending content, suspending or terminating accounts, and reporting such activity to law enforcement authorities.</p>
+
+            <h2>7. Intellectual Property</h2>
+
+            <p>All content, features, and functionality of the Services, including but not limited to text, graphics, logos, icons, images, audio clips, digital downloads, data compilations, software, and the compilation thereof, are the exclusive property of SkyKnet, its licensors, or its content suppliers, and are protected by United States and international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws.</p>
+
+            <p>The SkyKnet name, logo, and all related names, logos, product and service names, designs, and slogans, including those of Knexcoin, KnexMail, Ayedex, KnexPay, KnexWallet, and Superknet, are trademarks of SkyKnet or its affiliates. You may not use such marks without the prior written permission of SkyKnet. All other names, logos, product and service names, designs, and slogans on the Services are the trademarks of their respective owners.</p>
+
+            <p>Subject to your compliance with these Terms, SkyKnet grants you a limited, non-exclusive, non-transferable, non-sublicensable, revocable license to access and use the Services solely for your personal, non-commercial use. This license does not include the right to modify, reproduce, distribute, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on the Services, except as permitted by these Terms.</p>
+
+            <h2>8. Cryptocurrency &amp; Blockchain Risks</h2>
+
+            <div style="background: rgba(0, 255, 0, 0.05); border: 1px solid rgba(0, 255, 0, 0.2); border-radius: 8px; padding: 20px; margin: 24px 0;">
+                <p><strong>IMPORTANT RISK DISCLOSURE:</strong> The use of cryptocurrency, blockchain technology, and digital assets involves substantial risks. You should carefully consider whether using our Services is appropriate for you in light of your financial condition, risk tolerance, and understanding of blockchain technology. You acknowledge and agree that you are solely responsible for determining the nature, potential value, suitability, and appropriateness of these risks for yourself.</p>
             </div>
-            <div class="footer-links">
-                <a href="/#products">Products</a>
-                <a href="/#technology">Technology</a>
-                <a href="/#about">About</a>
-                <a href="/#contact">Contact</a>
-                <a href="privacy.html">Privacy</a>
-                <a href="terms.html">Terms</a>
+
+            <p>By using our Services, you acknowledge and accept the following risks:</p>
+
+            <ul>
+                <li><strong>Market Volatility:</strong> The value of cryptocurrencies and digital assets is highly volatile and can fluctuate significantly in short periods. You may experience substantial losses, including the total loss of your digital assets.</li>
+                <li><strong>Regulatory Uncertainty:</strong> The regulatory landscape for cryptocurrencies and blockchain technology is evolving and uncertain. Changes in laws, regulations, or government policies may adversely affect the use, transfer, exchange, or value of digital assets, and may restrict or prohibit the use of our Services in certain jurisdictions.</li>
+                <li><strong>Technology Risks:</strong> Blockchain networks and related technologies are subject to bugs, errors, vulnerabilities, and exploits. Smart contract code may contain defects that could result in the loss of digital assets. Network congestion, forks, or failures may disrupt the functionality of the Services.</li>
+                <li><strong>Cybersecurity Risks:</strong> Despite our security measures, the Services and underlying blockchain networks may be vulnerable to cyberattacks, hacking, phishing, malware, or other security breaches that could result in the loss or theft of digital assets.</li>
+                <li><strong>Irreversibility of Transactions:</strong> Blockchain transactions are generally irreversible. Errors in transaction details, including incorrect recipient addresses, cannot be corrected once a transaction has been confirmed on the blockchain.</li>
+                <li><strong>Network Fees:</strong> Blockchain transactions require network fees (gas fees, transaction fees) that are determined by network conditions and are beyond our control. These fees may be substantial and are non-refundable regardless of whether a transaction succeeds or fails.</li>
+                <li><strong>Third-Party Risks:</strong> Our Services may interact with third-party protocols, smart contracts, or services. We have no control over and assume no responsibility for the content, privacy policies, practices, availability, or security of any third-party services or protocols.</li>
+                <li><strong>Tax Implications:</strong> Cryptocurrency transactions may have tax implications. You are solely responsible for determining what, if any, taxes apply to your transactions and for reporting and remitting the correct tax to the appropriate tax authority.</li>
+                <li><strong>Loss of Access:</strong> Loss of private keys, seed phrases, passwords, or other access credentials may result in permanent and irreversible loss of your digital assets with no possibility of recovery.</li>
+            </ul>
+
+            <p><strong>SkyKnet does not provide investment, financial, legal, or tax advice.</strong> Nothing contained in our Services constitutes a solicitation, recommendation, endorsement, or offer to buy or sell any digital asset. All decisions to buy, sell, hold, or trade digital assets are made solely by you, and you should conduct your own due diligence and consult with qualified advisors before making any financial decisions.</p>
+
+            <h2>9. Wallet &amp; Private Key Responsibility</h2>
+
+            <p>KnexWallet is a non-custodial wallet, meaning SkyKnet does not store, have access to, or maintain custody of your private keys, seed phrases, or digital assets. You are solely and exclusively responsible for the security of your private keys and seed phrases.</p>
+
+            <div style="background: rgba(0, 255, 0, 0.05); border: 1px solid rgba(0, 255, 0, 0.2); border-radius: 8px; padding: 20px; margin: 24px 0;">
+                <p><strong>WARNING:</strong> If you lose your private keys or seed phrase, you will permanently lose access to your digital assets. SkyKnet cannot recover, reset, or restore access to your wallet. There is no "forgot password" mechanism for blockchain-based wallets. It is your sole responsibility to securely back up and store your private keys and seed phrases in a safe location.</p>
             </div>
-            <p class="footer-copyright">© 2025 SkyKnet. All rights reserved.</p>
-        </div>
-    </footer>
-    
-    <script src="js/main.js"></script>
+
+            <p>You acknowledge that SkyKnet bears no responsibility or liability for any loss of digital assets resulting from the loss, theft, or compromise of your private keys, seed phrases, or any other authentication credentials. You agree to take all reasonable precautions to protect and secure your private keys and seed phrases from unauthorized access.</p>
+
+            <h2>10. Mining &amp; Network Participation</h2>
+
+            <p>The Knexcoin network utilizes a proof-of-bandwidth consensus mechanism that allows participants to contribute bandwidth resources to the network in exchange for potential rewards. If you choose to participate in mining or network validation activities, you acknowledge and agree to the following:</p>
+
+            <ul>
+                <li>Mining and network participation rewards are not guaranteed and may vary based on network conditions, difficulty adjustments, total network participation, and other factors beyond our control.</li>
+                <li>You are solely responsible for providing and maintaining the hardware, software, bandwidth, and electrical resources necessary for mining or network participation at your own cost and expense.</li>
+                <li>SkyKnet makes no representations or warranties regarding the profitability or expected returns from mining or network participation activities.</li>
+                <li>You are responsible for complying with all applicable laws and regulations related to cryptocurrency mining in your jurisdiction, including any requirements for business licenses, permits, or tax obligations.</li>
+                <li>Network protocol changes, including consensus mechanism updates, difficulty adjustments, or reward schedule modifications, may affect your mining activities and potential rewards.</li>
+            </ul>
+
+            <h2>11. Subscription &amp; Payment Terms</h2>
+
+            <p>Certain Services or features may require the payment of fees. When you purchase a subscription or pay for any Services, you agree to pay all applicable fees as described at the time of purchase. All fees are quoted in the applicable currency and are exclusive of taxes unless otherwise stated.</p>
+
+            <p>You authorize SkyKnet or its designated payment processor to charge the payment method you provide for all fees incurred in connection with your use of paid Services. You are responsible for providing accurate and complete payment information and for promptly updating such information if it changes.</p>
+
+            <p>Subscription fees are billed in advance on a recurring basis according to the subscription period you select (monthly, annually, or as otherwise specified). Your subscription will automatically renew at the end of each billing period unless you cancel it before the renewal date. You may cancel your subscription at any time through your account settings or by contacting us at <a href="mailto:hello@skyknet.com">hello@skyknet.com</a>.</p>
+
+            <p>SkyKnet reserves the right to change its fees and billing methods at any time, with notice to you as required by applicable law. Continued use of paid Services after a fee change constitutes your agreement to pay the modified fees.</p>
+
+            <h2>12. Refunds &amp; Cancellations</h2>
+
+            <p>Unless otherwise required by applicable law, all fees paid for our Services are non-refundable. This includes, without limitation, subscription fees, transaction fees, network fees, and any other charges associated with the use of the Services.</p>
+
+            <p>If you cancel a subscription, you will continue to have access to the paid features until the end of your current billing period. No partial refunds or credits will be issued for unused portions of a subscription period.</p>
+
+            <p>SkyKnet reserves the right, in its sole discretion, to offer refunds or credits on a case-by-case basis, which shall not constitute a waiver of our right to deny refunds in other instances. Any refund or credit issued by SkyKnet shall not create an obligation to provide future refunds or credits under similar circumstances.</p>
+
+            <h2>13. Service Availability &amp; Modifications</h2>
+
+            <p>SkyKnet strives to maintain high availability of its Services but does not guarantee uninterrupted or error-free operation. The Services may be subject to scheduled maintenance, upgrades, or unexpected outages. We will make commercially reasonable efforts to provide advance notice of planned maintenance when possible.</p>
+
+            <p>SkyKnet reserves the right to modify, update, or discontinue any aspect of the Services at any time, with or without notice. We shall not be liable to you or any third party for any modification, suspension, price change, or discontinuation of the Services. It is your responsibility to ensure that your use of the Services is compatible with any modifications we may implement.</p>
+
+            <h2>14. Disclaimer of Warranties</h2>
+
+            <div style="background: rgba(0, 255, 0, 0.05); border: 1px solid rgba(0, 255, 0, 0.2); border-radius: 8px; padding: 20px; margin: 24px 0;">
+                <p><strong>THE SERVICES ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED.</strong> TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, SKYKNET DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.</p>
+            </div>
+
+            <p>SkyKnet does not warrant that the Services will be uninterrupted, timely, secure, error-free, or free from viruses or other harmful components. SkyKnet does not warrant that the results obtained from the use of the Services will be accurate or reliable. SkyKnet does not warrant that the quality of any products, services, information, or other material obtained through the Services will meet your expectations.</p>
+
+            <p>No advice or information, whether oral or written, obtained from SkyKnet or through the Services shall create any warranty not expressly stated in these Terms. You acknowledge that your use of the Services is at your sole risk.</p>
+
+            <h2>15. Limitation of Liability</h2>
+
+            <p><strong>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL SKYKNET, ITS DIRECTORS, OFFICERS, EMPLOYEES, AGENTS, AFFILIATES, SUCCESSORS, OR ASSIGNS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES,</strong> INCLUDING BUT NOT LIMITED TO DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA, DIGITAL ASSETS, OR OTHER INTANGIBLE LOSSES (EVEN IF SKYKNET HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES), ARISING OUT OF OR IN CONNECTION WITH:</p>
+
+            <ul>
+                <li>Your access to, use of, or inability to access or use the Services</li>
+                <li>Any conduct or content of any third party on or related to the Services</li>
+                <li>Any content obtained from or through the Services</li>
+                <li>Unauthorized access, use, or alteration of your transmissions, data, or digital assets</li>
+                <li>Loss or theft of private keys, seed phrases, or wallet credentials</li>
+                <li>Bugs, errors, or vulnerabilities in smart contracts or blockchain protocols</li>
+                <li>Fluctuations in the value of digital assets</li>
+                <li>Regulatory actions or changes in applicable laws</li>
+                <li>Network failures, forks, or protocol changes on any blockchain network</li>
+            </ul>
+
+            <p><strong>IN NO EVENT SHALL SKYKNET'S TOTAL AGGREGATE LIABILITY TO YOU FOR ALL CLAIMS ARISING OUT OF OR RELATING TO THE USE OF, OR INABILITY TO USE, THE SERVICES EXCEED THE GREATER OF (A) THE AMOUNTS YOU HAVE PAID TO SKYKNET IN THE TWELVE (12) MONTHS PRIOR TO THE EVENT GIVING RISE TO THE LIABILITY, OR (B) ONE HUNDRED UNITED STATES DOLLARS (USD $100.00).</strong></p>
+
+            <p>The limitations of liability set forth above are fundamental elements of the basis of the bargain between SkyKnet and you. Some jurisdictions do not allow the exclusion or limitation of certain damages, so some of the above limitations may not apply to you. In such jurisdictions, SkyKnet's liability shall be limited to the fullest extent permitted by law.</p>
+
+            <h2>16. Indemnification</h2>
+
+            <p>You agree to defend, indemnify, and hold harmless SkyKnet, its parent company Distributed Ledger Technologies Inc., and their respective officers, directors, employees, agents, affiliates, successors, and assigns from and against any and all claims, damages, obligations, losses, liabilities, costs, debts, and expenses (including but not limited to reasonable attorney's fees) arising out of or related to:</p>
+
+            <ul>
+                <li>Your access to or use of the Services</li>
+                <li>Your violation of these Terms or any applicable law or regulation</li>
+                <li>Your violation of any third-party rights, including intellectual property rights</li>
+                <li>Any content or data you submit, post, or transmit through the Services</li>
+                <li>Your negligence or willful misconduct</li>
+                <li>Any disputes between you and any third party relating to the Services</li>
+            </ul>
+
+            <p>SkyKnet reserves the right to assume the exclusive defense and control of any matter subject to indemnification by you, and you agree to cooperate with our defense of such claims. You agree not to settle any such claim without SkyKnet's prior written consent.</p>
+
+            <h2>17. Dispute Resolution &amp; Arbitration</h2>
+
+            <div style="background: rgba(0, 255, 0, 0.05); border: 1px solid rgba(0, 255, 0, 0.2); border-radius: 8px; padding: 20px; margin: 24px 0;">
+                <p><strong>PLEASE READ THIS SECTION CAREFULLY. IT AFFECTS YOUR LEGAL RIGHTS, INCLUDING YOUR RIGHT TO FILE A LAWSUIT IN COURT AND TO HAVE A JURY TRIAL.</strong></p>
+            </div>
+
+            <p>You and SkyKnet agree that any dispute, claim, or controversy arising out of or relating to these Terms or the Services (collectively, "Disputes") shall be resolved through binding individual arbitration rather than in court, except that either party may seek equitable relief in court for infringement or misuse of intellectual property rights.</p>
+
+            <h3>Informal Resolution</h3>
+            <p>Before initiating arbitration, you agree to first attempt to resolve any Dispute informally by contacting us at <a href="mailto:hello@skyknet.com">hello@skyknet.com</a> with a written description of your claim. Both parties agree to negotiate in good faith to resolve the Dispute for at least sixty (60) days before initiating arbitration proceedings.</p>
+
+            <h3>Arbitration Procedures</h3>
+            <p>If a Dispute cannot be resolved informally, you agree that the Dispute shall be resolved by binding arbitration administered by the American Arbitration Association ("AAA") in accordance with its Commercial Arbitration Rules. The arbitration shall be conducted by a single arbitrator. The arbitrator's decision shall be final and binding, and judgment on the award rendered by the arbitrator may be entered in any court having jurisdiction thereof.</p>
+
+            <h3>Class Action Waiver</h3>
+            <p><strong>YOU AND SKYKNET AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS, COLLECTIVE, REPRESENTATIVE, OR PRIVATE ATTORNEY GENERAL ACTION OR PROCEEDING.</strong> Unless both you and SkyKnet agree otherwise in writing, the arbitrator may not consolidate or join more than one person's or party's claims and may not otherwise preside over any form of a consolidated, representative, or class proceeding.</p>
+
+            <h3>Jury Trial Waiver</h3>
+            <p><strong>YOU AND SKYKNET HEREBY WAIVE ANY CONSTITUTIONAL AND STATUTORY RIGHTS TO SUE IN COURT AND HAVE A TRIAL IN FRONT OF A JUDGE OR A JURY.</strong> You and SkyKnet are instead electing that all Disputes shall be resolved by arbitration as set forth in this section.</p>
+
+            <h2>18. Governing Law</h2>
+
+            <p>These Terms and any Disputes arising out of or related to these Terms or the Services shall be governed by and construed in accordance with the laws of the State of Delaware, United States of America, without regard to its conflict of law provisions. To the extent that any lawsuit or court proceeding is permitted hereunder, you and SkyKnet agree to submit to the exclusive personal jurisdiction of the state and federal courts located in the State of Delaware for the purpose of litigating any such action.</p>
+
+            <h2>19. Termination</h2>
+
+            <p>SkyKnet may, in its sole discretion, suspend or terminate your access to all or any part of the Services at any time, with or without cause, and with or without notice, effective immediately. Reasons for termination may include, but are not limited to, violations of these Terms, requests by law enforcement or other government agencies, unexpected technical issues or problems, extended periods of inactivity, or engagement in fraudulent or illegal activities.</p>
+
+            <p>You may terminate your account at any time by discontinuing use of the Services and contacting us at <a href="mailto:hello@skyknet.com">hello@skyknet.com</a>. Upon termination, your right to use the Services will immediately cease.</p>
+
+            <p>The following sections shall survive any termination of these Terms: Intellectual Property, Cryptocurrency &amp; Blockchain Risks, Wallet &amp; Private Key Responsibility, Disclaimer of Warranties, Limitation of Liability, Indemnification, Dispute Resolution &amp; Arbitration, Governing Law, and any other provisions that by their nature should survive termination.</p>
+
+            <p>Termination of your account does not affect any rights or obligations arising from transactions completed before termination. You remain responsible for any outstanding obligations, including fees owed to SkyKnet. SkyKnet shall not be liable to you or any third party for any termination of your access to the Services.</p>
+
+            <h2>20. Severability</h2>
+
+            <p>If any provision of these Terms is held to be unlawful, void, or unenforceable by a court of competent jurisdiction, that provision shall be deemed severable from these Terms and shall not affect the validity and enforceability of the remaining provisions. The unenforceable provision shall be replaced with a valid and enforceable provision that most closely matches the intent and economic effect of the original provision.</p>
+
+            <h2>21. Entire Agreement</h2>
+
+            <p>These Terms, together with our <a href="privacy.html">Privacy Policy</a> and <a href="cookies.html">Cookie Policy</a>, constitute the entire agreement between you and SkyKnet regarding the use of the Services and supersede all prior and contemporaneous understandings, agreements, representations, and warranties, both written and oral, regarding the Services. No waiver of any term or condition set forth in these Terms shall be deemed a further or continuing waiver of such term or condition or a waiver of any other term or condition, and any failure of SkyKnet to assert a right or provision under these Terms shall not constitute a waiver of such right or provision.</p>
+
+            <h2>22. Changes to Terms</h2>
+
+            <p>SkyKnet reserves the right, in its sole discretion, to modify, amend, or replace these Terms at any time. If a revision is material, we will provide at least thirty (30) days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion. We will notify you of material changes by posting the updated Terms on our website and updating the "Last updated" date at the top of this page.</p>
+
+            <p>By continuing to access or use our Services after any revisions become effective, you agree to be bound by the revised Terms. If you do not agree to the new Terms, in whole or in part, you must stop using the Services. We encourage you to periodically review these Terms to stay informed of any updates.</p>
+
+            <h2>23. Contact Information</h2>
+
+            <p>If you have any questions, concerns, or feedback about these Terms of Service, or if you need to report a violation of these Terms, please contact us at:</p>
+
+            <p><strong>SkyKnet</strong><br>
+            A DBA of Distributed Ledger Technologies Inc.<br>
+            Email: <a href="mailto:hello@skyknet.com">hello@skyknet.com</a></p>
+
+            <p>For legal inquiries, notices, or service of process, please direct correspondence to the email address above with the subject line "Legal Notice."</p>
+
+            <p class="legal-divider">By accessing or using any SkyKnet products and services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree to these Terms, you must immediately discontinue use of all Services.</p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" aria-label="DLT Home">
+                        <div class="logo-symbol">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                        </div>
+                    </a>
+                    <p>Building institutional-grade blockchain infrastructure for the digital asset economy.</p>
+                </div>
+                <div>
+                    <div class="footer-title">Products</div>
+                    <ul class="footer-links">
+                        <li><a href="https://www.knexcoin.com" target="_blank" rel="noopener noreferrer">Knexcoin</a></li>
+                        <li><a href="https://www.ayedex.com" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
+                        <li><a href="https://web3.knexpay.com" target="_blank" rel="noopener noreferrer">KnexWallet</a></li>
+                        <li><a href="https://www.superknet.com" target="_blank" rel="noopener noreferrer">Superknet</a></li>
+                        <li><a href="https://www.knexpay.com" target="_blank" rel="noopener noreferrer">KnexPay</a></li>
+                        <li><a href="https://www.knexmail.com" target="_blank" rel="noopener noreferrer">KnexMail</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">Company</div>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-title">Legal</div>
+                    <ul class="footer-links">
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="cookies.html">Cookies</a></li>
+                        <li><a href="sitemap.html">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copyright">&copy; 2026 SkyKnet. All Rights Reserved.</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function openMobileMenu() {
+            document.getElementById('mobileMenu').classList.add('visible');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('visible');
+            document.body.style.overflow = '';
+        }
+    </script>
 </body>
 </html>

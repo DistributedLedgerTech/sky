@@ -81,13 +81,13 @@
         :root {
             --black: #000000;
             --white: #ffffff;
-            --cyan: #00ffff;
-            --electric: #00f0ff;
-            --blue: #0080ff;
-            --purple: #8000ff;
-            --magenta: #ff00ff;
+            --cyan: #00ff00;
+            --electric: #00ff66;
+            --blue: #00aa00;
+            --purple: #00ff00;
+            --magenta: #00ff66;
             --green: #00ff80;
-            --gold: #ffd700;
+            --gold: #00ff00;
         }
 
         html { 
@@ -192,7 +192,7 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
             font-weight: 700;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.3em;
             color: var(--cyan);
         }
 
@@ -200,7 +200,7 @@
             font-size: 10px;
             font-weight: 400;
             letter-spacing: 0.3em;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             text-transform: uppercase;
             margin-top: 4px;
         }
@@ -217,7 +217,7 @@
             font-weight: 400;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             text-decoration: none;
             position: relative;
             padding: 8px 0;
@@ -342,15 +342,13 @@
         }
 
         .page-title .gradient {
-            background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--cyan);
         }
 
         .page-subtitle {
             font-size: 16px;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.7;
@@ -438,7 +436,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            color: rgba(255,255,255,0.6);
+            color: #ffffff;
             text-decoration: none;
             font-size: 14px;
             transition: all 0.3s;
@@ -516,7 +514,7 @@
 
         .xml-text {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
+            color: #ffffff;
         }
 
         .xml-text strong {
@@ -559,7 +557,7 @@
         .footer-copyright {
             font-family: 'Space Mono', monospace;
             font-size: 11px;
-            color: rgba(255,255,255,0.3);
+            color: #ffffff;
             letter-spacing: 0.1em;
         }
 
@@ -573,7 +571,7 @@
             font-size: 11px;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -714,16 +712,17 @@
         <nav class="nav">
             <a href="index.html" class="logo" aria-label="SkyKnet Home">
                 <div class="logo-symbol">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ffff' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ffff' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                 </div>
                 <div>
                     <div class="logo-text-main">SKYKNET</div>
-                    <div class="logo-text-sub">Digital Finance</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
                 </div>
             </a>
             <ul class="nav-links">
                 <li><a href="about.html">About</a></li>
                 <li><a href="index.html#products">Products</a></li>
+                <li><a href="index.html#credentials">Credentials</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="careers.html">Careers</a></li>
             </ul>
@@ -807,12 +806,12 @@
                     </svg>
                     <h2 class="sitemap-group-title">Products</h2>
                     <ul class="sitemap-links">
-                        <li><a href="https://macmetalminer.com" target="_blank" rel="noopener">MacMetal Miner<span class="link-badge external">External</span></a></li>
-                        <li><a href="https://xalon.com" target="_blank" rel="noopener">Echelon<span class="link-badge external">External</span></a></li>
-                        <li><a href="https://hydrodollar.com" target="_blank" rel="noopener">HydroDollar<span class="link-badge external">External</span></a></li>
-                        <li><a href="https://ayedex.com" target="_blank" rel="noopener">Ayedex<span class="link-badge external">External</span></a></li>
-                        <li><a href="https://corawallet.com" target="_blank" rel="noopener">CORA<span class="link-badge external">External</span></a></li>
-                        <li><a href="https://knexcoin.com" target="_blank" rel="noopener">KNEX<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://www.knexcoin.com" target="_blank" rel="noopener">Knexcoin<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://www.ayedex.com" target="_blank" rel="noopener">Ayedex<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://web3.knexpay.com" target="_blank" rel="noopener">KnexWallet<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://www.superknet.com" target="_blank" rel="noopener">Superknet<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://www.knexpay.com" target="_blank" rel="noopener">KnexPay<span class="link-badge external">External</span></a></li>
+                        <li><a href="https://www.knexmail.com" target="_blank" rel="noopener">KnexMail<span class="link-badge external">External</span></a></li>
                     </ul>
                 </div>
 
@@ -855,9 +854,9 @@
                     </svg>
                     <h2 class="sitemap-group-title">Legal</h2>
                     <ul class="sitemap-links">
-                        <li><a href="index.html">Privacy Policy</a></li>
-                        <li><a href="index.html">Terms of Service</a></li>
-                        <li><a href="index.html">Security</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                        <li><a href="cookies.html">Cookie Policy</a></li>
                     </ul>
                 </div>
             </div>

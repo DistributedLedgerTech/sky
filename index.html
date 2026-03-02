@@ -35,7 +35,7 @@
     <title>SkyKnet - Enterprise Blockchain Infrastructure</title>
     <meta name="title" content="SkyKnet - Enterprise Blockchain Infrastructure">
     <meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance. Building critical infrastructure for the digital asset economy.">
-    <meta name="keywords" content="blockchain, distributed ledger, enterprise blockchain, cryptocurrency, Bitcoin mining, institutional blockchain, government blockchain, defense technology, financial infrastructure, digital assets, MacMetal Miner, Echelon, Superknet, Ayedex, Cora, Lightning Network, Bitcoin wallet, Knexcoin, proof of bandwidth, layer 1 blockchain">
+    <meta name="keywords" content="blockchain, distributed ledger, enterprise blockchain, cryptocurrency, Bitcoin mining, institutional blockchain, government blockchain, defense technology, financial infrastructure, digital assets, Knexcoin, KnexMail, Superknet, Ayedex, KnexPay, KnexWallet, Lightning Network, Bitcoin wallet, proof of bandwidth, layer 1 blockchain">
     <meta name="author" content="SkyKnet">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -144,24 +144,24 @@
             /* Core Palette */
             --black: #000000;
             --white: #ffffff;
-            --cyan: #00ffff;
-            --electric: #00f0ff;
-            --blue: #0080ff;
-            --purple: #8000ff;
-            --magenta: #ff00ff;
+            --cyan: #00ff00;
+            --electric: #00ff66;
+            --blue: #00aa00;
+            --purple: #00ff00;
+            --magenta: #00ff66;
             --green: #00ff88;
-            --gold: #ffd700;
+            --gold: #00ff00;
             /* Quantum Palette (from cora.html) */
-            --quantum-blue: #00ccff;
-            --neural-purple: #8844ff;
-            --blockchain-gold: #ffaa00;
+            --quantum-blue: #00ff00;
+            --neural-purple: #00cc00;
+            --blockchain-gold: #00ff00;
             /* Surfaces */
             --surface-0: #000000;
             --surface-1: rgba(0, 20, 25, 0.9);
-            --surface-2: rgba(0, 255, 255, 0.03);
-            --surface-3: rgba(0, 255, 255, 0.06);
-            --border: rgba(0, 255, 255, 0.15);
-            --border-hover: rgba(0, 255, 255, 0.4);
+            --surface-2: rgba(0, 255, 0, 0.03);
+            --surface-3: rgba(0, 255, 0, 0.06);
+            --border: rgba(0, 255, 0, 0.15);
+            --border-hover: rgba(0, 255, 0, 0.4);
             /* Typography Scale */
             --font-primary: 'Space Grotesk', sans-serif;
             --font-mono: 'Space Mono', monospace;
@@ -206,7 +206,7 @@
             position: fixed; inset: 0;
             background: #000;
             z-index: 10000;
-            display: flex; flex-direction: column;
+            display: flex; align-items: center; justify-content: center;
             overflow: hidden;
         }
         .loading-screen.hidden {
@@ -215,134 +215,44 @@
             transition: opacity 0.6s ease, visibility 0.6s ease, filter 0.3s ease;
         }
 
-        /* ── Phase 1: Globe fills entire screen, centered ── */
+        /* ── Globe container: starts centered, slides left ── */
         .loading-globe-container {
-            position: absolute; inset: 0;
-            display: flex; align-items: center; justify-content: center;
+            position: absolute;
+            width: min(70vw, 70vh); height: min(70vw, 70vh);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 2;
-            /* Use transform for GPU-accelerated smooth slide */
-            transform: translateX(0);
-            transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: all 3s cubic-bezier(0.4, 0.0, 0.05, 1.0);
         }
         .loading-globe-container.slid-left {
-            /* Shift the full-screen container left so globe centers in the left 40% */
-            transform: translateX(-30vw);
+            width: min(40vw, 500px); height: min(40vw, 500px);
+            left: 22%;
         }
-        .loading-globe-wrapper {
-            width: min(70vw, 70vh);
-            height: min(70vw, 70vh);
-            position: relative;
-            transition: width 1.8s cubic-bezier(0.25, 1, 0.5, 1), height 1.8s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .loading-globe-container.slid-left .loading-globe-wrapper {
-            width: min(32vw, 460px);
-            height: min(32vw, 460px);
-        }
-        #loadingGlobeCanvas { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
-        .loading-globe-label {
-            position: absolute; bottom: -4px; left: 0; right: 0;
-            text-align: center; font-family: var(--font-mono); font-size: 9px;
-            letter-spacing: 0.25em; color: var(--green);
-            text-shadow: 0 0 8px var(--green); z-index: 2; pointer-events: none;
-            opacity: 0; transition: opacity 0.8s ease 0.6s;
-        }
-        .loading-globe-container.slid-left .loading-globe-label { opacity: 1; }
-        .loading-globe-header {
-            position: absolute; top: -4px; left: 0; right: 0;
-            text-align: center; z-index: 2; pointer-events: none;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            opacity: 0; transition: opacity 0.8s ease 0.6s;
-        }
-        .loading-globe-container.slid-left .loading-globe-header { opacity: 1; }
-        .loading-globe-dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; animation: globeDotPulse 1.5s ease-in-out infinite; }
-        .loading-globe-title { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
-        @keyframes globeDotPulse { 0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--cyan); } 50% { opacity: 0.5; box-shadow: 0 0 5px var(--cyan); } }
+        #loadingGlobeCanvas { width: 100%; height: 100%; }
 
-        /* ── Phase 2: Linux desktop pane slides in from right ── */
-        .loading-desktop-container {
+        /* ── Terminal window ── */
+        .loading-terminal {
             position: absolute;
-            top: 0; right: 0; bottom: 0;
-            width: 60vw;
+            top: 10%; right: 5%; bottom: 10%;
+            width: 50%;
+            background: rgba(0,0,0,0.92);
+            border: 1px solid rgba(0,255,0,0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(0,255,0,0.15), 0 0 60px rgba(0,255,0,0.05), inset 0 0 30px rgba(0,255,0,0.02);
             display: flex; flex-direction: column;
             z-index: 3;
-            transform: translateX(100%);
-            opacity: 0;
-            transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+            opacity: 0; transform: scale(0.95) translateY(10px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
-        .loading-desktop-container.visible {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        /* ── Linux desktop area ── */
-        .linux-desktop {
-            flex: 1;
-            background: #0a0a0f;
-            display: flex; flex-direction: column;
-            padding: 16px 20px 0 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        /* Subtle grid wallpaper */
-        .linux-desktop::before {
-            content: '';
-            position: absolute; inset: 0;
-            background-image:
-                linear-gradient(rgba(0,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,255,255,0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-        }
-        /* Scanline overlay */
-        .linux-desktop::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.015) 2px, rgba(0,255,255,0.015) 4px);
-            pointer-events: none; z-index: 1;
-        }
-
-        /* ── Desktop icons (decorative) ── */
-        .desktop-icons {
-            display: flex; gap: 28px;
-            padding: 8px 4px 12px;
-            z-index: 2;
-        }
-        .desktop-icon {
-            display: flex; flex-direction: column; align-items: center; gap: 4px;
-            cursor: default; opacity: 0.5;
-        }
-        .desktop-icon-img {
-            width: 32px; height: 32px;
-            border: 1px solid rgba(255,0,60,0.25);
-            border-radius: 4px;
-            display: flex; align-items: center; justify-content: center;
-            background: rgba(255,0,60,0.04);
-        }
-        .desktop-icon-img svg {
-            filter: drop-shadow(0 0 3px rgba(255,0,60,0.6));
-        }
-        .desktop-icon-name {
-            font-family: var(--font-mono); font-size: 8px;
-            color: rgba(255,255,255,0.5); letter-spacing: 0.05em;
-        }
-
-        /* ── Terminal window inside desktop ── */
-        .loading-terminal {
-            flex: 1;
-            background: rgba(0,0,0,0.92);
-            border: 1px solid rgba(0,255,255,0.2);
-            border-radius: 6px 6px 0 0;
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(0,255,255,0.1), 0 0 40px rgba(0,255,255,0.05), inset 0 0 30px rgba(0,255,255,0.02);
-            display: flex; flex-direction: column;
-            z-index: 2;
-            margin-bottom: 0;
+        .loading-terminal.visible {
+            opacity: 1; transform: scale(1) translateY(0);
         }
         .terminal-header {
-            background: rgba(0, 255, 255, 0.08);
-            padding: 6px 14px;
+            background: rgba(0, 255, 0, 0.08);
+            padding: 8px 14px;
             display: flex; align-items: center; gap: 8px;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.15);
             flex-shrink: 0;
         }
         .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -351,111 +261,61 @@
         .terminal-dot.green { background: #27ca3f; }
         .terminal-title {
             font-family: var(--font-mono); font-size: 11px;
-            color: rgba(255,255,255,0.5); margin-left: 12px; letter-spacing: 0.1em;
-        }
-        .terminal-header-right {
-            margin-left: auto;
-            font-family: var(--font-mono); font-size: 9px;
-            color: rgba(0,255,255,0.3); letter-spacing: 0.1em;
+            color: #ffffff; margin-left: 12px; letter-spacing: 0.1em;
         }
         .terminal-body {
             flex: 1;
-            padding: 10px 14px;
+            padding: 12px 16px;
             overflow-y: auto;
-            font-family: var(--font-mono); font-size: 11px; line-height: 1.5;
+            font-family: var(--font-mono); font-size: 11px; line-height: 1.6;
             position: relative;
         }
         .terminal-body::before {
             content: ''; position: absolute; inset: 0;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,255,0.02) 2px, rgba(0,255,255,0.02) 4px);
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,0,0.015) 2px, rgba(0,255,0,0.015) 4px);
             pointer-events: none; z-index: 1;
         }
-        .terminal-body::-webkit-scrollbar { width: 5px; }
-        .terminal-body::-webkit-scrollbar-track { background: rgba(0, 255, 255, 0.03); }
-        .terminal-body::-webkit-scrollbar-thumb { background: rgba(0, 255, 255, 0.15); border-radius: 3px; }
+        .terminal-body::-webkit-scrollbar { width: 4px; }
+        .terminal-body::-webkit-scrollbar-track { background: rgba(0, 255, 0, 0.03); }
+        .terminal-body::-webkit-scrollbar-thumb { background: rgba(0, 255, 0, 0.15); border-radius: 3px; }
 
         /* Terminal line types */
-        .terminal-line { color: rgba(255,255,255,0.6); text-shadow: 0 0 3px rgba(0,255,255,0.2); white-space: pre-wrap; word-break: break-all; }
-        .terminal-line.success { color: var(--green); text-shadow: 0 0 4px rgba(0,255,136,0.4); }
-        .terminal-line.info { color: var(--cyan); text-shadow: 0 0 4px rgba(0,255,255,0.4); }
-        .terminal-line.warning { color: var(--gold); text-shadow: 0 0 4px rgba(255,215,0,0.3); animation: terminalGlitch 0.3s ease forwards; }
-        .terminal-line.node-connect { color: #00ff88; }
-        .terminal-line.node-ip { color: rgba(0,255,255,0.7); }
-        .terminal-line .prefix { color: var(--cyan); }
-        .terminal-prompt { color: var(--green); }
-        .terminal-cmd { color: var(--cyan); }
+        .terminal-line { color: #ffffff; text-shadow: 0 0 3px rgba(0,255,0,0.15); white-space: pre-wrap; word-break: break-all; }
+        .terminal-line.success { color: #00ff00; text-shadow: 0 0 4px rgba(0,255,0,0.4); }
+        .terminal-line.info { color: #00ff00; text-shadow: 0 0 4px rgba(0,255,0,0.3); }
+        .terminal-line.warning { color: #ffaa00; text-shadow: 0 0 4px rgba(255,170,0,0.3); }
+        .terminal-prompt { color: #00ff00; }
+        .terminal-cmd { color: #00ff00; }
         .terminal-typing { display: inline; }
-        .terminal-cursor { display: inline-block; width: 7px; height: 13px; background: var(--cyan); animation: blink 0.5s step-end infinite; vertical-align: text-bottom; margin-left: 2px; }
-        .terminal-fast { opacity: 1 !important; }
+        .terminal-cursor { display: inline-block; width: 7px; height: 13px; background: #00ff00; animation: blink 0.5s step-end infinite; vertical-align: text-bottom; margin-left: 2px; }
 
-        /* ── Taskbar (Linux panel at bottom) ── */
-        .linux-taskbar {
-            height: 36px;
-            background: linear-gradient(180deg, rgba(0,255,255,0.06) 0%, rgba(0,0,0,0.95) 100%);
-            border-top: 1px solid rgba(0,255,255,0.15);
-            display: flex; align-items: center;
-            padding: 0 12px;
-            gap: 12px;
-            font-family: var(--font-mono);
-            z-index: 4;
-            flex-shrink: 0;
-        }
-        .taskbar-menu {
-            font-size: 9px; letter-spacing: 0.15em; color: var(--cyan);
-            padding: 4px 10px;
-            border: 1px solid rgba(0,255,255,0.2);
-            border-radius: 3px;
-            cursor: default;
-            text-transform: uppercase;
-            background: rgba(0,255,255,0.04);
-        }
-        .taskbar-divider {
-            width: 1px; height: 20px;
-            background: rgba(0,255,255,0.1);
-        }
-        .taskbar-app {
-            font-size: 9px; color: rgba(255,255,255,0.6);
-            padding: 3px 8px;
-            border-bottom: 2px solid var(--cyan);
-            letter-spacing: 0.05em;
-        }
-        .taskbar-spacer { flex: 1; }
-        .taskbar-tray {
-            display: flex; align-items: center; gap: 10px;
-        }
-        .tray-item {
-            font-size: 8px; color: rgba(255,255,255,0.35);
-            letter-spacing: 0.05em;
-        }
-        .tray-item.network { color: var(--green); }
-        .taskbar-clock {
-            font-size: 10px; color: rgba(255,255,255,0.5);
-            letter-spacing: 0.1em;
-            padding-left: 8px;
-            border-left: 1px solid rgba(0,255,255,0.1);
-        }
-
-        /* ── Progress bar (now inside taskbar area) ── */
+        /* ── Progress bar ── */
         .loading-progress {
-            position: absolute; bottom: 36px; left: 0; right: 0;
-            height: 2px; background: rgba(255,255,255,0.05);
-            overflow: hidden; z-index: 5;
-            opacity: 0; transition: opacity 0.5s ease;
+            position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+            width: 260px; height: 3px; background: rgba(0,255,0,0.1);
+            overflow: hidden; z-index: 10;
+            border-radius: 2px;
+            border: 1px solid rgba(0,255,0,0.15);
         }
-        .loading-desktop-container.visible .loading-progress { opacity: 1; }
         .loading-progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, var(--cyan), var(--blue), var(--cyan));
+            background: #00ff00;
             width: 0%;
-            transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 8px var(--cyan), 0 0 15px rgba(0,255,255,0.3);
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px #00ff00, 0 0 4px #00ff00;
+        }
+        .loading-progress-label {
+            position: absolute; bottom: 42px; left: 50%; transform: translateX(-50%);
+            font-family: var(--font-mono); font-size: 10px; color: #00ff00;
+            letter-spacing: 0.2em; z-index: 10;
+            text-shadow: 0 0 6px rgba(0,255,0,0.5);
         }
 
         /* ── Skip button ── */
         .loading-skip {
-            position: absolute; bottom: 48px; right: 16px;
+            position: absolute; bottom: 24px; right: 24px;
             font-family: var(--font-mono); font-size: 10px;
-            color: rgba(255,255,255,0.3); background: transparent;
+            color: #ffffff; background: transparent;
             border: 1px solid rgba(255,255,255,0.1);
             padding: 5px 14px; cursor: pointer;
             letter-spacing: 0.15em; text-transform: uppercase;
@@ -463,161 +323,36 @@
             opacity: 0; animation: fadeInSkip 0.5s ease 2s forwards;
             z-index: 10;
         }
-        .loading-skip:hover { color: var(--cyan); border-color: var(--cyan); }
+        .loading-skip:hover { color: #00ff00; border-color: #00ff00; }
 
-        /* ── Node status indicator (bottom-left, over globe) ── */
-        .loading-node-status {
-            position: absolute; bottom: 12px; left: 16px;
-            font-family: var(--font-mono); font-size: 9px;
-            color: rgba(0,255,255,0.4); letter-spacing: 0.1em;
-            z-index: 5;
-            opacity: 0; transition: opacity 0.5s ease;
-        }
-        .loading-node-status.visible { opacity: 1; }
-
-        /* ── Terminal visual effects ── */
-        @keyframes terminalGlitch {
-            0% { transform: translate(0); opacity: 1; }
-            10% { transform: translate(-2px, 1px); opacity: 0.8; }
-            20% { transform: translate(2px, -1px); opacity: 1; }
-            30% { transform: translate(0); }
-            100% { transform: translate(0); }
-        }
-        @keyframes terminalShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-2px); }
-            75% { transform: translateX(2px); }
-        }
-        .terminal-shake { animation: terminalShake 0.15s ease 2; }
-        @keyframes terminalFlicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-        .terminal-flicker { animation: terminalFlicker 0.08s ease 1; }
-        @keyframes nodeFlash {
-            0% { background: rgba(0,255,255,0.15); }
-            100% { background: transparent; }
-        }
-
-        /* ── Mobile loading screen ── */
-        /* ── Mobile: globe full-screen centered → slides to top + glassmorphism ── */
+        /* ── Mobile responsive ── */
         @media (max-width: 900px) {
-            .loading-screen { flex-direction: column; }
-            /* Phase 1: Globe fills full screen, perfectly centered */
             .loading-globe-container {
-                position: absolute; inset: 0;
-                display: flex; align-items: center; justify-content: center;
-                z-index: 4;
-                transform: translateX(0);
+                width: min(50vw, 50vh); height: min(50vw, 50vh);
             }
-            .loading-globe-wrapper {
-                width: min(65vw, 65vh); height: min(65vw, 65vh);
-                transform: translateY(0);
-                transition: width 1.4s cubic-bezier(0.25, 1, 0.5, 1),
-                            height 1.4s cubic-bezier(0.25, 1, 0.5, 1),
-                            transform 1.4s cubic-bezier(0.25, 1, 0.5, 1);
-            }
-            /* Phase 2: Globe scales down and glides to top center */
             .loading-globe-container.slid-left {
-                transform: translateX(0);
+                width: min(25vw, 200px); height: min(25vw, 200px);
+                left: 50%; top: 8%;
+                transform: translate(-50%, 0);
             }
-            .loading-globe-container.slid-left .loading-globe-wrapper {
-                width: min(22vw, 140px); height: min(22vw, 140px);
-                transform: translateY(calc(-50vh + 2vh + min(11vw, 70px)));
-            }
-            .loading-desktop-container {
-                position: absolute;
-                left: 0; right: 0; bottom: 0;
-                top: calc(min(22vw, 140px) + 4vh);
-                width: 100%;
-                z-index: 3;
-                transform: translateY(100%);
-                opacity: 0;
-                transition: transform 1.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
-            }
-            .loading-desktop-container.visible { transform: translateY(0); opacity: 1; }
-            .desktop-icons { display: none; }
-            .linux-desktop {
-                padding: 8px 10px 0 10px;
-                background: transparent;
-            }
-            /* ── Glassmorphism terminal ── */
             .loading-terminal {
-                background: rgba(0, 8, 16, 0.65);
-                backdrop-filter: blur(20px) saturate(1.4);
-                -webkit-backdrop-filter: blur(20px) saturate(1.4);
-                border: 1px solid rgba(0, 255, 255, 0.12);
-                box-shadow:
-                    0 8px 32px rgba(0, 0, 0, 0.5),
-                    0 0 20px rgba(0, 255, 255, 0.08),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-                border-radius: 12px 12px 0 0;
+                top: auto; right: 3%; left: 3%; bottom: 60px;
+                width: auto; height: 55%;
+                background: rgba(0, 8, 16, 0.75);
+                backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+                border-radius: 10px;
             }
-            .terminal-header {
-                padding: 5px 10px;
-                background: rgba(0, 255, 255, 0.04);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                border-bottom: 1px solid rgba(0, 255, 255, 0.08);
-            }
-            .terminal-body {
-                font-size: 9px; padding: 8px 10px; line-height: 1.4;
-                background: transparent;
-            }
-            .terminal-body::before { opacity: 0.4; }
-            .terminal-title { font-size: 9px; margin-left: 8px; }
-            .terminal-header-right { display: none; }
-            /* ── Glassmorphism taskbar ── */
-            .linux-taskbar {
-                height: 28px;
-                background: rgba(0, 8, 16, 0.55);
-                backdrop-filter: blur(16px) saturate(1.3);
-                -webkit-backdrop-filter: blur(16px) saturate(1.3);
-                border-top: 1px solid rgba(0, 255, 255, 0.08);
-            }
-            .taskbar-tray { display: none; }
-            /* ── Glassmorphism skip button ── */
-            .loading-skip {
-                bottom: 40px; right: 10px; font-size: 9px;
-                padding: 8px 18px;
-                background: rgba(0, 10, 20, 0.5);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                border: 1px solid rgba(0, 255, 255, 0.15);
-                border-radius: 6px;
-            }
-            .loading-node-status { font-size: 8px; bottom: 8px; left: 10px; }
-            .loading-globe-label { font-size: 7px; letter-spacing: 0.2em; }
-            .loading-globe-title { font-size: 8px; letter-spacing: 0.2em; }
-            .loading-globe-dot { width: 5px; height: 5px; }
-            .loading-progress { bottom: 28px; }
+            .terminal-body { font-size: 9px; line-height: 1.4; padding: 8px 10px; }
+            .loading-skip { bottom: 16px; right: 16px; font-size: 9px; }
+            .loading-progress { bottom: 16px; left: 16px; transform: none; width: 120px; }
+            .loading-progress-label { bottom: 22px; left: 16px; transform: none; }
         }
         @media (max-width: 480px) {
-            .loading-globe-wrapper { width: min(60vw, 60vh); height: min(60vw, 60vh); }
-            .loading-globe-container.slid-left .loading-globe-wrapper {
-                width: 100px; height: 100px;
-                transform: translateY(calc(-50vh + 2vh + 50px));
-            }
-            .loading-desktop-container {
-                top: calc(100px + 3vh);
-            }
-            .terminal-body { font-size: 7.5px; padding: 6px 8px; line-height: 1.35; }
+            .loading-globe-container { width: min(45vw, 45vh); height: min(45vw, 45vh); }
+            .loading-globe-container.slid-left { width: 100px; height: 100px; top: 4%; }
+            .loading-terminal { height: 60%; bottom: 50px; }
+            .terminal-body { font-size: 7.5px; padding: 6px 8px; }
             .terminal-dot { width: 8px; height: 8px; }
-            .terminal-cursor { width: 5px; height: 10px; }
-            .taskbar-menu { font-size: 8px; padding: 3px 8px; }
-            .taskbar-app { font-size: 8px; padding: 2px 6px; }
-            .taskbar-clock { font-size: 8px; }
-        }
-        @media (max-width: 360px) {
-            .terminal-body { font-size: 6.5px; padding: 5px 6px; }
-            .loading-globe-wrapper { width: min(55vw, 55vh); height: min(55vw, 55vh); }
-            .loading-globe-container.slid-left .loading-globe-wrapper {
-                width: 80px; height: 80px;
-                transform: translateY(calc(-50vh + 2vh + 40px));
-            }
-            .loading-desktop-container {
-                top: calc(80px + 2.5vh);
-            }
         }
     </style>
 
@@ -638,10 +373,10 @@
         }
         .cookie-banner.visible { transform: translateY(0); }
         .cookie-banner.hidden { transform: translateY(100%); }
-        .cookie-text { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6; flex: 1; }
+        .cookie-text { font-size: 13px; color: #ffffff; line-height: 1.6; flex: 1; }
         .cookie-text a { color: var(--cyan); text-decoration: none; }
         .cookie-buttons { display: flex; gap: 12px; flex-shrink: 0; }
-        .cookie-btn { font-family: var(--font-mono); font-size: 11px; padding: 10px 20px; cursor: pointer; letter-spacing: 0.1em; text-transform: uppercase; transition: all var(--duration-fast) ease; background: transparent; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.2); }
+        .cookie-btn { font-family: var(--font-mono); font-size: 11px; padding: 10px 20px; cursor: pointer; letter-spacing: 0.1em; text-transform: uppercase; transition: all var(--duration-fast) ease; background: transparent; color: #ffffff; border: 1px solid rgba(255,255,255,0.2); }
         .cookie-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.4); }
         .cookie-btn.accept { background: var(--cyan); color: #000; border-color: var(--cyan); font-weight: 700; }
         .cookie-btn.accept:hover { background: var(--white); border-color: var(--white); }
@@ -668,10 +403,10 @@
         .modal-overlay.visible .modal { transform: scale(1); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; padding: 24px 32px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(0, 10, 15, 0.98); z-index: 1; }
         .modal-title { font-family: var(--font-mono); font-size: 14px; color: var(--cyan); letter-spacing: 0.2em; text-transform: uppercase; }
-        .modal-close { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.5); width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; transition: color var(--duration-fast) ease; }
+        .modal-close { background: none; border: none; cursor: pointer; color: #ffffff; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; transition: color var(--duration-fast) ease; }
         .modal-close:hover { color: var(--white); }
         .modal-close svg { width: 20px; height: 20px; }
-        .modal-body { padding: 32px; font-size: 14px; line-height: 1.8; color: rgba(255,255,255,0.7); }
+        .modal-body { padding: 32px; font-size: 14px; line-height: 1.8; color: #ffffff; }
         .modal-body h2 { color: var(--cyan); font-size: 16px; margin: 32px 0 12px; font-family: var(--font-mono); letter-spacing: 0.1em; }
         .modal-body h2:first-of-type { margin-top: 0; }
         .modal-body ul { padding-left: 20px; margin: 12px 0; }
@@ -684,16 +419,12 @@
          CSS MODULE 4: THREE.JS CANVAS & OVERLAYS
          ============================================ -->
     <style>
-        #webgl { position: fixed; inset: 0; z-index: 0; }
-        .overlay { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.015) 2px, rgba(0, 255, 255, 0.015) 4px); }
-        .vignette { position: fixed; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%); }
-
-        /* Quantum field overlay — new from cora.html */
-        .quantum-field {
-            position: fixed; inset: 0; z-index: 1; pointer-events: none;
-            background: radial-gradient(circle at 30% 40%, rgba(0, 204, 255, 0.02) 0%, transparent 50%),
-                        radial-gradient(circle at 70% 60%, rgba(136, 68, 255, 0.015) 0%, transparent 50%);
-        }
+        #webgl { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0, 255, 0, 0.02) 2px, rgba(0, 255, 0, 0.02) 4px); }
+        .overlay::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 255, 0, 0.01); animation: flicker 0.15s infinite; pointer-events: none; }
+        @keyframes flicker { 0%, 100% { opacity: 0.97; } 50% { opacity: 1; } }
+        .vignette { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 2; background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.85) 100%); }
+        .grid-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; opacity: 0.03; background-image: linear-gradient(var(--cyan) 1px, transparent 1px), linear-gradient(90deg, var(--cyan) 1px, transparent 1px); background-size: 50px 50px; }
     </style>
 
     <!-- ============================================
@@ -701,53 +432,185 @@
          ============================================ -->
     <style>
         .nav {
-            position: fixed; top: 0; left: 0; right: 0;
-            padding: var(--space-md) var(--space-lg);
-            display: flex; align-items: center; justify-content: space-between;
-            z-index: 100;
-            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 32px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            mix-blend-mode: difference;
         }
-        .logo { display: flex; align-items: center; gap: 16px; text-decoration: none; color: var(--white); }
-        .logo-symbol { width: 56px; height: 56px; flex-shrink: 0; }
-        .logo-symbol img { width: 100%; height: 100%; }
-        .logo-text-main { font-family: 'Orbitron', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.4em; text-transform: uppercase; }
-        .logo-text-sub { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.4); letter-spacing: 0.2em; }
 
-        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-symbol {
+            width: 56px;
+            height: 56px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .logo-symbol img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes logoRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text-main {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            color: var(--cyan);
+        }
+
+        .logo-text-sub {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            color: #ffffff;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 64px;
+            list-style: none;
+        }
+
         .nav-links a {
-            font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
-            color: rgba(255,255,255,0.5); text-decoration: none;
-            position: relative; padding: 8px 0;
-            transition: color var(--duration-fast) ease;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-decoration: none;
+            position: relative;
+            padding: 8px 0;
+            transition: color 0.3s;
         }
-        .nav-links a::before, .nav-links a::after {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            font-size: 14px; color: var(--cyan); opacity: 0;
-            transition: all var(--duration-fast) ease;
-        }
-        .nav-links a::before { content: '['; left: -16px; }
-        .nav-links a::after { content: ']'; right: -16px; }
-        .nav-links a:hover { color: var(--cyan); }
-        .nav-links a:hover::before, .nav-links a:hover::after { opacity: 1; }
-        .nav-links a:hover::before { left: -12px; }
-        .nav-links a:hover::after { right: -12px; }
 
-        .mobile-menu-btn {
-            display: none; background: none; border: none; cursor: pointer;
-            width: 48px; height: 48px; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+        .nav-links a::before {
+            content: '[';
+            position: absolute;
+            left: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(8px);
         }
-        .mobile-menu-btn span { display: block; width: 24px; height: 1px; background: var(--white); transition: all var(--duration-fast) ease; }
+
+        .nav-links a::after {
+            content: ']';
+            position: absolute;
+            right: -12px;
+            opacity: 0;
+            color: var(--cyan);
+            transition: all 0.3s;
+            transform: translateX(-8px);
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--cyan);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            background: transparent;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            padding: 12px;
+        }
+
+        .mobile-menu-btn span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: var(--cyan);
+            transition: all 0.3s;
+        }
 
         .mobile-menu {
-            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98); z-index: 9999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 32px;
-            opacity: 0; visibility: hidden; transition: all var(--duration-med) ease;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
         }
+
         .mobile-menu.visible { opacity: 1; visibility: visible; }
-        .mobile-menu a { font-family: var(--font-mono); font-size: 18px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.7); text-decoration: none; transition: color var(--duration-fast) ease; }
+
+        .mobile-menu a {
+            font-family: 'Space Mono', monospace;
+            font-size: 18px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
         .mobile-menu a:hover { color: var(--cyan); }
-        .mobile-menu-close { position: absolute; top: 32px; right: 32px; background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.5); transition: color var(--duration-fast) ease; }
-        .mobile-menu-close:hover { color: var(--white); }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+        }
     </style>
 
     <!-- ============================================
@@ -760,12 +623,12 @@
         .hero {
             min-height: 100vh; position: relative;
             display: flex; flex-direction: column; justify-content: center;
-            padding: var(--space-xl) var(--space-lg) var(--space-lg);
+            padding: var(--space-xl) clamp(200px, 20vw, 320px) var(--space-lg) var(--space-lg);
         }
 
         .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: var(--space-md); }
         .hero-eyebrow-line { display: block; width: 80px; height: 1px; background: linear-gradient(90deg, var(--cyan), transparent); }
-        .hero-eyebrow-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+        .hero-eyebrow-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #ffffff; }
 
         .hero-title {
             font-family: var(--font-primary); font-weight: 700;
@@ -791,18 +654,10 @@
             -webkit-text-stroke: 1.5px var(--cyan);
             position: relative;
         }
-        .hero-title .stroke::after {
-            content: attr(data-text);
-            position: absolute; left: 0; top: 0;
-            background: linear-gradient(135deg, var(--cyan), var(--blue), var(--purple));
-            -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0; animation: glitchStroke 4s ease-in-out 1;
-        }
 
         .hero-description {
             font-size: clamp(14px, 1.5vw, 18px); line-height: 1.8;
-            color: rgba(255,255,255,0.5); max-width: 600px;
+            color: #ffffff; max-width: 600px;
             margin-bottom: var(--space-lg);
             opacity: 0; animation: fadeUp var(--duration-slow) var(--ease-out) 0.8s forwards;
         }
@@ -812,21 +667,21 @@
             content: '';
             width: 6px; height: 6px; border-radius: 50%;
             background: var(--cyan);
-            box-shadow: 0 0 8px var(--cyan), 0 0 16px rgba(0, 204, 255, 0.3);
+            box-shadow: 0 0 8px var(--cyan), 0 0 16px rgba(0, 255, 0, 0.3);
             animation: pulseDot 2s ease-in-out infinite;
         }
 
         .hero-stats {
-            position: absolute; right: var(--space-lg); top: 50%;
+            position: absolute; right: clamp(32px, 4vw, 64px); top: 50%;
             transform: translateY(-50%);
-            display: flex; flex-direction: column; gap: 40px;
+            display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px);
         }
         .hero-stat { text-align: right; opacity: 0; animation: fadeUp var(--duration-slow) var(--ease-out) forwards; }
         .hero-stat:nth-child(1) { animation-delay: 1s; }
         .hero-stat:nth-child(2) { animation-delay: 1.15s; }
         .hero-stat:nth-child(3) { animation-delay: 1.3s; }
-        .hero-stat-value { font-family: var(--font-mono); font-size: 56px; font-weight: 700; color: var(--white); line-height: 1; }
-        .hero-stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 8px; }
+        .hero-stat-value { font-family: var(--font-mono); font-size: clamp(40px, 3.8vw, 56px); font-weight: 700; color: var(--white); line-height: 1; }
+        .hero-stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #ffffff; margin-top: 8px; }
 
         .scroll-hint {
             position: absolute; bottom: var(--space-md); left: var(--space-lg);
@@ -834,7 +689,7 @@
         }
         .scroll-line { width: 1px; height: 40px; background: linear-gradient(180deg, var(--cyan), transparent); position: relative; overflow: hidden; }
         .scroll-line::after { content: ''; position: absolute; top: -100%; left: 0; width: 100%; height: 100%; background: linear-gradient(180deg, transparent, var(--cyan)); animation: scrollLine 2s ease-in-out infinite; }
-        .scroll-text { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.3); writing-mode: vertical-rl; }
+        .scroll-text { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: #ffffff; writing-mode: vertical-rl; }
     </style>
 
     <!-- ============================================
@@ -848,23 +703,23 @@
         }
         .xray-layer {
             position: absolute; inset: 0;
-            border: 1px solid rgba(0, 255, 255, 0.06);
+            border: 1px solid rgba(0, 255, 0, 0.06);
             transition: all var(--duration-med) var(--ease-out);
         }
-        .xray-layer-1 { inset: 0; border-color: rgba(0, 255, 255, 0.15); }
-        .xray-layer-2 { inset: 2px; border-color: rgba(0, 255, 255, 0.1); }
-        .xray-layer-3 { inset: 4px; border-color: rgba(0, 255, 255, 0.08); }
-        .xray-layer-4 { inset: 6px; border-color: rgba(0, 255, 255, 0.05); }
-        .xray-layer-5 { inset: 8px; border-color: rgba(0, 255, 255, 0.03); }
+        .xray-layer-1 { inset: 0; border-color: rgba(0, 255, 0, 0.15); }
+        .xray-layer-2 { inset: 2px; border-color: rgba(0, 255, 0, 0.1); }
+        .xray-layer-3 { inset: 4px; border-color: rgba(0, 255, 0, 0.08); }
+        .xray-layer-4 { inset: 6px; border-color: rgba(0, 255, 0, 0.05); }
+        .xray-layer-5 { inset: 8px; border-color: rgba(0, 255, 0, 0.03); }
 
-        .xray-button:hover .xray-layer-1 { inset: -2px; border-color: rgba(0, 255, 255, 0.3); }
-        .xray-button:hover .xray-layer-2 { inset: -1px; border-color: rgba(0, 255, 255, 0.2); }
+        .xray-button:hover .xray-layer-1 { inset: -2px; border-color: rgba(0, 255, 0, 0.3); }
+        .xray-button:hover .xray-layer-2 { inset: -1px; border-color: rgba(0, 255, 0, 0.2); }
         .xray-button:hover .xray-layer-3 { inset: 0px; }
         .xray-button:hover .xray-layer-4 { inset: 1px; }
         .xray-button:hover .xray-layer-5 { inset: 2px; }
 
-        .xray-base { position: absolute; inset: 0; background: rgba(0, 255, 255, 0.04); transition: background var(--duration-fast) ease; }
-        .xray-button:hover .xray-base { background: rgba(0, 255, 255, 0.08); }
+        .xray-base { position: absolute; inset: 0; background: rgba(0, 255, 0, 0.04); transition: background var(--duration-fast) ease; }
+        .xray-button:hover .xray-base { background: rgba(0, 255, 0, 0.08); }
 
         .xray-corner { position: absolute; width: 12px; height: 12px; transition: all var(--duration-med) ease; }
         .xray-corner-tl { top: -1px; left: -1px; border-top: 2px solid var(--cyan); border-left: 2px solid var(--cyan); }
@@ -884,7 +739,7 @@
         .xray-button:hover .xray-current-bottom,
         .xray-button:hover .xray-current-left { opacity: 1; }
 
-        .xray-glow { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0, 255, 255, 0.15), transparent 70%); opacity: 0; transition: opacity var(--duration-med) ease; }
+        .xray-glow { position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(0, 255, 0, 0.15), transparent 70%); opacity: 0; transition: opacity var(--duration-med) ease; }
         .xray-button:hover .xray-glow { opacity: 1; }
 
         .xray-text {
@@ -905,7 +760,7 @@
         .section-header { padding: 0 var(--space-lg); margin-bottom: var(--space-lg); }
         .section-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: var(--space-sm); }
         .section-eyebrow-num { font-family: var(--font-mono); font-size: 12px; color: var(--cyan); letter-spacing: 0.2em; }
-        .section-eyebrow-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+        .section-eyebrow-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.4em; text-transform: uppercase; color: #ffffff; }
         .section-title { font-size: clamp(36px, 6vw, 80px); font-weight: 700; line-height: 1; }
 
         /* Products Grid */
@@ -930,27 +785,27 @@
         .corner-br { bottom: 16px; right: 16px; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
         .product-card:hover .corner { border-color: var(--border-hover); }
 
-        .product-number { font-family: var(--font-mono); font-size: 12px; color: rgba(255,255,255,0.2); letter-spacing: 0.2em; margin-bottom: 24px; }
+        .product-number { font-family: var(--font-mono); font-size: 12px; color: #ffffff; letter-spacing: 0.2em; margin-bottom: 24px; }
         .product-title { font-size: clamp(24px, 3vw, 36px); font-weight: 700; margin-bottom: 16px; }
-        .product-description { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+        .product-description { font-size: 15px; line-height: 1.7; color: #ffffff; margin-bottom: 24px; }
 
         .product-status {
             display: inline-flex; align-items: center; gap: 8px;
             font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
             padding: 6px 14px;
-            border: 1px solid rgba(0, 255, 136, 0.3); color: var(--green);
+            border: 1px solid rgba(0, 255, 0, 0.3); color: #00ff00;
             margin-bottom: 24px;
         }
         .product-status-dot {
             width: 6px; height: 6px; border-radius: 50%;
-            background: var(--green);
-            box-shadow: 0 0 10px var(--green);
+            background: #00ff00;
+            box-shadow: 0 0 10px #00ff00;
             animation: pulseDot 2s ease-in-out infinite;
         }
 
         .product-link {
             font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;
-            color: rgba(255,255,255,0.4); text-decoration: none;
+            color: #ffffff; text-decoration: none;
             display: inline-flex; align-items: center; gap: 8px;
             transition: color var(--duration-fast) ease;
         }
@@ -969,7 +824,7 @@
         .credential-icon { width: 48px; height: 48px; margin: 0 auto 24px; color: var(--cyan); opacity: 0.5; transition: all var(--duration-med) ease; }
         .credential-card:hover .credential-icon { opacity: 1; filter: drop-shadow(0 0 8px var(--cyan)); }
         .credential-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
-        .credential-desc { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; }
+        .credential-desc { font-family: var(--font-mono); font-size: 11px; color: #ffffff; letter-spacing: 0.1em; }
     </style>
 
     <!-- ============================================
@@ -988,31 +843,31 @@
             background: linear-gradient(135deg, var(--white), rgba(255,255,255,0.6));
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .stat-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 12px; }
+        .stat-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #ffffff; margin-top: 12px; }
 
         .cta { text-align: center; padding: var(--space-2xl) var(--space-lg); }
         .cta-title { font-size: clamp(48px, 10vw, 150px); font-weight: 700; line-height: 0.9; margin-bottom: var(--space-md); }
-        .cta-subtitle { font-size: 18px; color: rgba(255,255,255,0.4); max-width: 500px; margin: 0 auto var(--space-lg); line-height: 1.6; }
+        .cta-subtitle { font-size: 18px; color: #ffffff; max-width: 500px; margin: 0 auto var(--space-lg); line-height: 1.6; }
 
         /* CTA quantum accent glow */
         .cta { position: relative; }
         .cta::before {
             content: ''; position: absolute; top: 50%; left: 50%;
             width: 600px; height: 600px; transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(0, 204, 255, 0.03) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 255, 0, 0.03) 0%, transparent 70%);
             pointer-events: none;
         }
 
         .footer { border-top: 1px solid var(--border); padding: var(--space-lg); }
         .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: var(--space-lg); padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border); }
-        .footer-brand p { font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-top: 16px; }
-        .footer-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 20px; }
+        .footer-brand p { font-size: 14px; color: #ffffff; line-height: 1.6; margin-top: 16px; }
+        .footer-title { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #ffffff; margin-bottom: 20px; }
         .footer-links { list-style: none; }
         .footer-links li { margin-bottom: 12px; }
-        .footer-links a { font-size: 14px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color var(--duration-fast) ease; }
+        .footer-links a { font-size: 14px; color: #ffffff; text-decoration: none; transition: color var(--duration-fast) ease; }
         .footer-links a:hover { color: var(--cyan); }
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: var(--space-md); }
-        .footer-copyright { font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; }
+        .footer-copyright { font-family: var(--font-mono); font-size: 11px; color: #ffffff; letter-spacing: 0.1em; }
     </style>
 
     <!-- ============================================
@@ -1028,14 +883,6 @@
             to { transform: translateY(0); }
         }
 
-        @keyframes glitchStroke {
-            0%, 100% { opacity: 0; }
-            10% { opacity: 0.8; transform: translate(2px, -2px); }
-            12% { opacity: 0; transform: translate(0); }
-            50% { opacity: 0; }
-            51% { opacity: 0.6; transform: translate(-2px, 2px); }
-            53% { opacity: 0; transform: translate(0); }
-        }
 
         @keyframes pulseDot {
             0%, 100% { transform: scale(1); opacity: 1; }
@@ -1068,8 +915,8 @@
         }
 
         @keyframes neuralPulse {
-            0%, 100% { box-shadow: 0 0 6px rgba(136, 68, 255, 0.3); }
-            50% { box-shadow: 0 0 16px rgba(136, 68, 255, 0.7); }
+            0%, 100% { box-shadow: 0 0 6px rgba(0, 255, 0, 0.3); }
+            50% { box-shadow: 0 0 16px rgba(0, 255, 0, 0.7); }
         }
 
         /* Reveal animation */
@@ -1082,6 +929,7 @@
          ============================================ -->
     <style>
         @media (max-width: 1200px) {
+            .hero { padding-right: var(--space-lg); }
             .hero-stats { position: static; transform: none; flex-direction: row; gap: 40px; margin-top: var(--space-lg); }
             .hero-stat { text-align: left; }
         }
@@ -1094,13 +942,15 @@
             .stats-bar { margin: var(--space-xl) var(--space-md); }
         }
 
+        @media (max-width: 1024px) {
+            .nav { padding: 24px 32px; }
+        }
+
         @media (max-width: 768px) {
-            .nav {
-                padding: var(--space-sm) var(--space-md);
-                padding-top: max(var(--space-sm), env(safe-area-inset-top));
-            }
+            .nav { padding: 12px 16px; }
             .nav-links { display: none; }
-            .mobile-menu-btn { display: flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; }
+            .mobile-menu-btn { display: flex; }
+            .mobile-menu { display: flex; }
             .hero-title { font-size: clamp(36px, 10vw, 80px); }
             .hero-stats { flex-direction: column; gap: 24px; }
             .hero-stat-value { font-size: 36px; }
@@ -1110,7 +960,7 @@
                 background: rgba(0, 8, 16, 0.55);
                 backdrop-filter: blur(16px) saturate(1.3);
                 -webkit-backdrop-filter: blur(16px) saturate(1.3);
-                border: 1px solid rgba(0, 255, 255, 0.08);
+                border: 1px solid rgba(0, 255, 0, 0.08);
             }
             .stats-bar { grid-template-columns: repeat(2, 1fr); margin: var(--space-lg) var(--space-md); }
             .footer-grid { grid-template-columns: 1fr; gap: var(--space-md); }
@@ -1123,7 +973,7 @@
                 background: rgba(0, 10, 15, 0.7);
                 backdrop-filter: blur(20px) saturate(1.4);
                 -webkit-backdrop-filter: blur(20px) saturate(1.4);
-                border-top: 1px solid rgba(0, 255, 255, 0.1);
+                border-top: 1px solid rgba(0, 255, 0, 0.1);
             }
             .cookie-btn { min-height: 44px; padding: 12px 24px; font-size: 12px; }
             /* ── Glassmorphism product cards on mobile ── */
@@ -1157,7 +1007,7 @@
         }
 
         @media (-webkit-min-device-pixel-ratio: 2) {
-            .overlay { background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 255, 0.01) 2px, rgba(0, 255, 255, 0.01) 4px); }
+            .overlay { background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 255, 0, 0.01) 2px, rgba(0, 255, 0, 0.01) 4px); }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1171,78 +1021,27 @@
          LOADING SCREEN
          ============================================ -->
     <div class="loading-screen" id="loadingScreen">
-        <!-- Globe: starts full-screen centered, then slides left -->
+        <!-- Globe: starts centered, slides left and shrinks -->
         <div class="loading-globe-container" id="globeContainer">
-            <div class="loading-globe-wrapper" id="globeWrapper">
-                <canvas id="loadingGlobeCanvas"></canvas>
-                <div class="loading-globe-header">
-                    <span class="loading-globe-dot"></span>
-                    <span class="loading-globe-title">GLOBAL NETWORK</span>
-                    <span class="loading-globe-dot"></span>
-                </div>
-                <div class="loading-globe-label">CONNECTED WORLDWIDE</div>
-            </div>
+            <canvas id="loadingGlobeCanvas"></canvas>
         </div>
 
-        <!-- Linux desktop: slides in from right -->
-        <div class="loading-desktop-container" id="desktopContainer">
-            <div class="linux-desktop">
-                <!-- Desktop icons row -->
-                <div class="desktop-icons">
-                    <div class="desktop-icon">
-                        <div class="desktop-icon-img"><svg viewBox="0 0 24 24" fill="none" stroke="#ff003c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16.5" r="1.5"/></svg></div>
-                        <span class="desktop-icon-name">Crypto</span>
-                    </div>
-                    <div class="desktop-icon">
-                        <div class="desktop-icon-img"><svg viewBox="0 0 24 24" fill="none" stroke="#ff003c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
-                        <span class="desktop-icon-name">Ledger</span>
-                    </div>
-                    <div class="desktop-icon">
-                        <div class="desktop-icon-img"><svg viewBox="0 0 24 24" fill="none" stroke="#ff003c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="5" r="3"/><circle cx="5" cy="19" r="3"/><circle cx="19" cy="19" r="3"/><line x1="12" y1="8" x2="5" y2="16"/><line x1="12" y1="8" x2="19" y2="16"/></svg></div>
-                        <span class="desktop-icon-name">Nodes</span>
-                    </div>
-                    <div class="desktop-icon">
-                        <div class="desktop-icon-img"><svg viewBox="0 0 24 24" fill="none" stroke="#ff003c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
-                        <span class="desktop-icon-name">Config</span>
-                    </div>
-                </div>
-
-                <!-- Terminal window -->
-                <div class="loading-terminal" id="loadingTerminal">
-                    <div class="terminal-header">
-                        <span class="terminal-dot red"></span>
-                        <span class="terminal-dot yellow"></span>
-                        <span class="terminal-dot green"></span>
-                        <span class="terminal-title">knex-node &mdash; post-quantum bootstrap</span>
-                        <span class="terminal-header-right" id="terminalPID">PID 1847</span>
-                    </div>
-                    <div class="terminal-body" id="terminalBody"></div>
-                </div>
+        <!-- Terminal window: pops up -->
+        <div class="loading-terminal" id="loadingTerminal">
+            <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">knex-node &mdash; bootstrap</span>
             </div>
-
-            <!-- Progress bar above taskbar -->
-            <div class="loading-progress">
-                <div class="loading-progress-bar" id="progressBar"></div>
-            </div>
-
-            <!-- Linux taskbar -->
-            <div class="linux-taskbar">
-                <div class="taskbar-menu">&#9776; DLT</div>
-                <div class="taskbar-divider"></div>
-                <div class="taskbar-app">&#9632; Terminal</div>
-                <div class="taskbar-spacer"></div>
-                <div class="taskbar-tray">
-                    <span class="tray-item network" id="trayNetwork">&#9679; NET</span>
-                    <span class="tray-item" id="trayNodes">0 nodes</span>
-                    <span class="tray-item">CPU 12%</span>
-                    <span class="tray-item">MEM 42Gi</span>
-                </div>
-                <div class="taskbar-clock" id="taskbarClock">00:00:00</div>
-            </div>
+            <div class="terminal-body" id="terminalBody"></div>
         </div>
 
-        <!-- Node status overlay (bottom-left over globe) -->
-        <div class="loading-node-status" id="nodeStatus">DETECTING NODE ADDRESS...</div>
+        <!-- Progress bar -->
+        <div class="loading-progress">
+            <div class="loading-progress-bar" id="progressBar"></div>
+        </div>
+        <div class="loading-progress-label" id="progressLabel">0%</div>
 
         <!-- Skip button -->
         <button class="loading-skip" id="skipBtn" onclick="skipLoading()">SKIP [ENTER] &rarr;</button>
@@ -1346,7 +1145,7 @@
                 <h2>1. Acceptance of Terms</h2>
                 <p>By accessing or using the SkyKnet website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use our services.</p>
                 <h2>2. Description of Services</h2>
-                <p>SkyKnet provides enterprise blockchain infrastructure solutions, including but not limited to MacMetal Miner, Echelon, Superknet, and Ayedex platforms. Services are subject to change without notice.</p>
+                <p>SkyKnet provides enterprise blockchain infrastructure solutions, including but not limited to Knexcoin, KnexMail, Ayedex, KnexPay, KnexWallet, and Superknet platforms. Services are subject to change without notice.</p>
                 <h2>3. Eligibility</h2>
                 <p>You must be at least 18 years old and capable of forming a binding contract to use our services. By using our services, you represent that you meet these requirements.</p>
                 <h2>4. User Accounts</h2>
@@ -1400,8 +1199,8 @@
          ============================================ -->
     <canvas id="webgl"></canvas>
     <div class="overlay"></div>
+    <div class="grid-overlay"></div>
     <div class="vignette"></div>
-    <div class="quantum-field"></div>
 
     <!-- ============================================
          MOBILE MENU
@@ -1426,11 +1225,11 @@
         <nav class="nav">
             <a href="index.html" class="logo" aria-label="SkyKnet Home">
                 <div class="logo-symbol">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ffff' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ffff' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                 </div>
                 <div>
                     <div class="logo-text-main">SKYKNET</div>
-                    <div class="logo-text-sub">Digital Finance</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
                 </div>
             </a>
             <ul class="nav-links">
@@ -1536,8 +1335,8 @@
                     <div class="product-number">[02]</div>
                     <h3 class="product-title">KnexMail</h3>
                     <p class="product-description">Decentralized Web3 messaging protocol with hex-based identity routing. Secure, censorship-resistant communication for the distributed web.</p>
-                    <div class="product-status" style="border-color: rgba(255, 20, 147, 0.3); color: #ff1493;">
-                        <span class="product-status-dot" style="background: #ff1493; box-shadow: 0 0 10px #ff1493;"></span>
+                    <div class="product-status">
+                        <span class="product-status-dot"></span>
                         Web3
                     </div>
                     <a href="https://www.knexmail.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
@@ -1552,8 +1351,8 @@
                     <div class="product-number">[03]</div>
                     <h3 class="product-title">Ayedex</h3>
                     <p class="product-description">High-performance decentralized exchange for digital assets. Peer-to-peer trading with real-time analytics and optimized order matching.</p>
-                    <div class="product-status" style="border-color: rgba(128, 0, 255, 0.3); color: #a78bfa;">
-                        <span class="product-status-dot" style="background: #a78bfa; box-shadow: 0 0 10px #a78bfa;"></span>
+                    <div class="product-status">
+                        <span class="product-status-dot"></span>
                         DeFi
                     </div>
                     <a href="https://www.ayedex.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
@@ -1568,8 +1367,8 @@
                     <div class="product-number">[04]</div>
                     <h3 class="product-title">KnexPay</h3>
                     <p class="product-description">Point-of-sale payment infrastructure for digital assets. Merchant-ready checkout with instant settlement and multi-currency support.</p>
-                    <div class="product-status" style="border-color: rgba(255, 0, 60, 0.3); color: #ff003c;">
-                        <span class="product-status-dot" style="background: #ff003c; box-shadow: 0 0 10px #ff003c;"></span>
+                    <div class="product-status">
+                        <span class="product-status-dot"></span>
                         Point-of-Sale
                     </div>
                     <a href="https://www.knexpay.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
@@ -1584,9 +1383,9 @@
                     <div class="product-number">[05]</div>
                     <h3 class="product-title">KnexWallet</h3>
                     <p class="product-description">Multi-platform digital asset wallet available as CLI, Progressive Web App, and Chrome Extension. Secure self-custody for the Knex ecosystem.</p>
-                    <div class="product-status" style="border-color: rgba(255, 165, 0, 0.3); color: #ffa500;">
-                        <span class="product-status-dot" style="background: #ffa500; box-shadow: 0 0 10px #ffa500;"></span>
-                        CLI, PWA, Chrome Extension
+                    <div class="product-status">
+                        <span class="product-status-dot"></span>
+                        Apps
                     </div>
                     <a href="https://web3.knexpay.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
                         Learn More
@@ -1600,9 +1399,9 @@
                     <div class="product-number">[06]</div>
                     <h3 class="product-title">Superknet</h3>
                     <p class="product-description">Block explorer and network dashboard for the Knexcoin blockchain. Real-time transactions, accounts, and validator stats.</p>
-                    <div class="product-status" style="border-color: rgba(255, 140, 0, 0.3); color: #FF8C00;">
-                        <span class="product-status-dot" style="background: #FF8C00; box-shadow: 0 0 10px #FF8C00;"></span>
-                        Live
+                    <div class="product-status">
+                        <span class="product-status-dot"></span>
+                        Ledger
                     </div>
                     <a href="https://www.superknet.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
                         Learn More
@@ -1716,7 +1515,7 @@
                 <div class="footer-brand">
                     <a href="index.html" class="logo" aria-label="DLT Home">
                         <div class="logo-symbol">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ffff' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ffff' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                         </div>
                     </a>
                     <p>Building institutional-grade blockchain infrastructure for the digital asset economy.</p>
@@ -1724,12 +1523,12 @@
                 <div>
                     <div class="footer-title">Products</div>
                     <ul class="footer-links">
-                        <li><a href="https://macmetalminer.com" class="sound-hover" target="_blank" rel="noopener noreferrer">MacMetal Miner</a></li>
-                        <li><a href="https://xalon.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Echelon</a></li>
+                        <li><a href="https://www.knexcoin.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Knexcoin</a></li>
+                        <li><a href="https://www.ayedex.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
+                        <li><a href="https://web3.knexpay.com" class="sound-hover" target="_blank" rel="noopener noreferrer">KnexWallet</a></li>
                         <li><a href="https://www.superknet.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Superknet</a></li>
-                        <li><a href="https://ayedex.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
-                        <li><a href="https://corawallet.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Cora</a></li>
-                        <li><a href="https://knexcoin.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Knexcoin</a></li>
+                        <li><a href="https://www.knexpay.com" class="sound-hover" target="_blank" rel="noopener noreferrer">KnexPay</a></li>
+                        <li><a href="https://www.knexmail.com" class="sound-hover" target="_blank" rel="noopener noreferrer">KnexMail</a></li>
                     </ul>
                 </div>
                 <div>
@@ -1743,9 +1542,9 @@
                 <div>
                     <div class="footer-title">Legal</div>
                     <ul class="footer-links">
-                        <li><a href="#" onclick="openModal('privacyModal'); return false;" class="sound-hover">Privacy</a></li>
-                        <li><a href="#" onclick="openModal('termsModal'); return false;" class="sound-hover">Terms</a></li>
-                        <li><a href="#" onclick="openModal('termsModal'); return false;" class="sound-hover">Security</a></li>
+                        <li><a href="privacy.html" class="sound-hover">Privacy</a></li>
+                        <li><a href="terms.html" class="sound-hover">Terms</a></li>
+                        <li><a href="cookies.html" class="sound-hover">Cookies</a></li>
                         <li><a href="sitemap.html" class="sound-hover">Sitemap</a></li>
                     </ul>
                 </div>
@@ -1847,149 +1646,13 @@
         });
     </script>
 
-    <!-- ============================================
-         LOADING GLOBE (Three.js)
-         ============================================ -->
-    <script>
-    (function() {
-        const gc = document.getElementById('loadingGlobeCanvas');
-        if (!gc) return;
-        gc.style.opacity = '0';
-
-        const wrapper = gc.parentElement;
-        const w = wrapper.clientWidth || 380, h = wrapper.clientHeight || 380;
-        const renderer = new THREE.WebGLRenderer({ canvas: gc, antialias: true, alpha: true });
-        renderer.setSize(w, h);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
-        camera.position.z = 4.8;
-
-        const group = new THREE.Group();
-        const eqR = 1.5, polR = eqR * 0.9966, cScale = 1.0, cSqueeze = 0.80;
-
-        function ll2v(lat, lon, rs) {
-            rs = rs || 1;
-            const phi = (90 - lat) * Math.PI / 180, theta = (lon + 180) * Math.PI / 180;
-            const r = eqR * rs, rp = polR * rs;
-            return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), rp * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
-        }
-
-        const nodes = [
-            {lat:40.7,lon:-74},{lat:37.8,lon:-122.4},{lat:34,lon:-118.2},{lat:41.9,lon:-87.6},{lat:25.8,lon:-80.2},
-            {lat:4.6,lon:-74.1},{lat:6.2,lon:-75.6},{lat:-23.5,lon:-46.6},{lat:19.4,lon:-99.1},{lat:-34.6,lon:-58.4},
-            {lat:51.5,lon:-0.1},{lat:50.1,lon:8.7},{lat:48.9,lon:2.3},{lat:47.4,lon:8.5},{lat:52.5,lon:13.4},
-            {lat:25.2,lon:55.3},{lat:32.1,lon:34.8},{lat:6.5,lon:3.4},{lat:-1.3,lon:36.8},{lat:-26.2,lon:28},
-            {lat:30,lon:31.2},{lat:35.7,lon:139.7},{lat:1.3,lon:103.8},{lat:22.3,lon:114.2},{lat:31.2,lon:121.5},
-            {lat:37.5,lon:127},{lat:19,lon:72.8},{lat:28.6,lon:77.2},{lat:13.8,lon:100.5},{lat:-33.9,lon:151.2}
-        ];
-
-        const nodeObjs = [];
-        let gTime = 0;
-
-        fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json')
-            .then(r => r.json())
-            .then(topo => {
-                // Ocean sphere
-                const oGeo = new THREE.SphereGeometry(eqR * 0.995, 64, 48);
-                const oMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide });
-                const ocean = new THREE.Mesh(oGeo, oMat);
-                ocean.scale.y = polR / eqR;
-                group.add(ocean);
-
-                // Continent outlines
-                const geo = topojson.feature(topo, topo.objects.land);
-                const cMat = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.95 });
-                function procGeo(g) {
-                    const procRing = (ring) => {
-                        if (ring.length > 3) {
-                            const pts = ring.map(c => ll2v(c[1] * cSqueeze, c[0] * cSqueeze, cScale));
-                            group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), cMat.clone()));
-                        }
-                    };
-                    if (g.type === 'Polygon') g.coordinates.forEach(procRing);
-                    else if (g.type === 'MultiPolygon') g.coordinates.forEach(p => p.forEach(procRing));
-                }
-                if (geo.type === 'FeatureCollection') geo.features.forEach(f => procGeo(f.geometry));
-                else if (geo.type === 'Feature') procGeo(geo.geometry);
-                else procGeo(geo);
-
-                // Nodes
-                const nGeo = new THREE.SphereGeometry(0.025, 12, 12);
-                const nMat = new THREE.MeshBasicMaterial({ color: 0x00ff80 });
-                const glowGeo = new THREE.SphereGeometry(0.05, 12, 12);
-                const glowMat = new THREE.MeshBasicMaterial({ color: 0x00ff80, transparent: true, opacity: 0.4 });
-                nodes.forEach(n => {
-                    const pos = ll2v(n.lat * cSqueeze, n.lon * cSqueeze, 1.01);
-                    const nm = new THREE.Mesh(nGeo, nMat.clone());
-                    nm.position.copy(pos); group.add(nm);
-                    const gl = new THREE.Mesh(glowGeo, glowMat.clone());
-                    gl.position.copy(pos); group.add(gl);
-                    nodeObjs.push({ glow: gl });
-                });
-
-                group.rotation.x = 0.3; group.rotation.y = 1.62;
-                scene.add(group);
-                gc.style.transition = 'opacity 0.5s ease-in'; gc.style.opacity = '1';
-
-                function animate() {
-                    requestAnimationFrame(animate);
-                    gTime += 0.016;
-                    group.rotation.y += 0.002;
-                    nodeObjs.forEach((o, i) => {
-                        o.glow.material.opacity = 0.35 + Math.sin(gTime * 2.5 + i * 0.3) * 0.25;
-                        const s = 1 + Math.sin(gTime * 2 + i * 0.25) * 0.4;
-                        o.glow.scale.set(s, s, s);
-                    });
-                    renderer.render(scene, camera);
-                }
-                animate();
-            })
-            .catch(() => { gc.style.opacity = '1'; });
-
-        // Responsive resize
-        const ro = new ResizeObserver(() => {
-            const nw = wrapper.clientWidth || 380, nh = wrapper.clientHeight || 380;
-            renderer.setSize(nw, nh);
-            camera.aspect = nw / nh;
-            camera.updateProjectionMatrix();
-        });
-        ro.observe(wrapper);
-    })();
-    </script>
+    <!-- Loading globe removed — replaced by full-page Three.js scene -->
 
     <!-- ============================================
          JS MODULE 2: LOADING SEQUENCE
          ============================================ -->
     <script>
-        // ── Node registry: cities with realistic IPs for the boot sequence ──
-        const peerNodes = [
-            { city: 'New York',     ip: '198.51.100.14',  port: 7076, lat: 40.7,  lon: -74 },
-            { city: 'San Francisco',ip: '203.0.113.42',   port: 7076, lat: 37.8,  lon: -122.4 },
-            { city: 'Washington DC',ip: '192.0.2.88',     port: 7076, lat: 38.9,  lon: -77 },
-            { city: 'Chicago',      ip: '198.51.100.201', port: 7076, lat: 41.9,  lon: -87.6 },
-            { city: 'Miami',        ip: '203.0.113.77',   port: 7076, lat: 25.8,  lon: -80.2 },
-            { city: 'London',       ip: '192.0.2.156',    port: 7076, lat: 51.5,  lon: -0.1 },
-            { city: 'Frankfurt',    ip: '198.51.100.93',  port: 7076, lat: 50.1,  lon: 8.7 },
-            { city: 'Zurich',       ip: '203.0.113.118',  port: 7076, lat: 47.4,  lon: 8.5 },
-            { city: 'Paris',        ip: '192.0.2.34',     port: 7076, lat: 48.9,  lon: 2.3 },
-            { city: 'Tokyo',        ip: '198.51.100.167', port: 7076, lat: 35.7,  lon: 139.7 },
-            { city: 'Singapore',    ip: '203.0.113.205',  port: 7076, lat: 1.3,   lon: 103.8 },
-            { city: 'Hong Kong',    ip: '192.0.2.249',    port: 7076, lat: 22.3,  lon: 114.2 },
-            { city: 'Seoul',        ip: '198.51.100.31',  port: 7076, lat: 37.5,  lon: 127 },
-            { city: 'Dubai',        ip: '203.0.113.144',  port: 7076, lat: 25.2,  lon: 55.3 },
-            { city: 'Sydney',       ip: '192.0.2.178',    port: 7076, lat: -33.9, lon: 151.2 },
-            { city: 'Mumbai',       ip: '198.51.100.62',  port: 7076, lat: 19,    lon: 72.8 },
-            { city: 'Bogota',       ip: '203.0.113.89',   port: 7076, lat: 4.6,   lon: -74.1 },
-            { city: 'Sao Paulo',    ip: '192.0.2.211',    port: 7076, lat: -23.5, lon: -46.6 },
-            { city: 'Cairo',        ip: '198.51.100.135', port: 7076, lat: 30,    lon: 31.2 },
-            { city: 'Nairobi',      ip: '203.0.113.56',   port: 7076, lat: -1.3,  lon: 36.8 },
-            { city: 'Berlin',       ip: '192.0.2.102',    port: 7076, lat: 52.5,  lon: 13.4 },
-            { city: 'Tel Aviv',     ip: '198.51.100.224', port: 7076, lat: 32.1,  lon: 34.8 },
-            { city: 'Lagos',        ip: '203.0.113.173',  port: 7076, lat: 6.5,   lon: 3.4 },
-            { city: 'Mexico City',  ip: '192.0.2.67',     port: 7076, lat: 19.4,  lon: -99.1 },
-        ];
+        let loadingDone = false;
 
         function shouldSkipLoading() { return window.location.hash && window.location.hash.length > 1; }
 
@@ -1997,35 +1660,31 @@
             document.getElementById('loadingScreen').classList.add('hidden');
             document.body.classList.remove('loading-active');
             document.getElementById('mainContent').classList.add('visible');
-            const hash = window.location.hash;
-            const target = document.querySelector(hash);
-            if (target) setTimeout(() => target.scrollIntoView({ behavior: 'instant' }), 50);
             if (!localStorage.getItem('cookiesAccepted')) {
                 setTimeout(() => document.getElementById('cookieBanner').classList.add('visible'), 1000);
             }
+            const hash = window.location.hash;
+            if (hash) setTimeout(() => { const el = document.querySelector(hash); if (el) el.scrollIntoView({ behavior: 'smooth' }); }, 100);
         }
 
-        // Character corruption effect
-        function corruptAndCorrect(el) {
-            const original = el.textContent;
-            const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
-            const corrupted = original.split('').map(c =>
-                Math.random() < 0.3 ? glitchChars[Math.floor(Math.random() * glitchChars.length)] : c
-            ).join('');
-            el.textContent = corrupted;
-            setTimeout(() => { el.textContent = original; }, 80);
+        function corruptAndCorrect(lineEl) {
+            const original = lineEl.textContent;
+            const chars = original.split('');
+            const idx = Math.floor(Math.random() * chars.length);
+            chars[idx] = String.fromCharCode(33 + Math.floor(Math.random() * 93));
+            lineEl.textContent = chars.join('');
+            setTimeout(() => { lineEl.textContent = original; }, 80);
         }
-
-        let loadingDone = false;
-        let connectedNodes = 0;
 
         function finishLoading() {
             if (loadingDone) return;
             loadingDone = true;
             const pb = document.getElementById('progressBar');
+            const pl = document.getElementById('progressLabel');
             if (pb) pb.style.width = '100%';
-            stopAmbientHum();
-            playBootChime();
+            if (pl) pl.textContent = '100%';
+            if (typeof stopAmbientHum === 'function') stopAmbientHum();
+            if (typeof playBootChime === 'function') playBootChime();
             setTimeout(() => {
                 document.getElementById('loadingScreen').classList.add('hidden');
                 document.body.classList.remove('loading-active');
@@ -2036,320 +1695,308 @@
             }, 400);
         }
 
-        // Taskbar clock
-        function updateTaskbarClock() {
-            const now = new Date();
-            const ts = [now.getHours(), now.getMinutes(), now.getSeconds()]
-                .map(n => String(n).padStart(2, '0')).join(':');
-            const el = document.getElementById('taskbarClock');
-            if (el) el.textContent = ts;
+        // ── Three.js Globe for loading screen ──
+        function initLoadingGlobe() {
+            const canvas = document.getElementById('loadingGlobeCanvas');
+            if (!canvas || typeof THREE === 'undefined') return;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+            camera.position.z = 4.8;
+            const group = new THREE.Group();
+
+            const R = 1.5;
+            const Rp = R * 0.9966;
+
+            function latLonToVec(lat, lon, scale) {
+                const phi = (90 - lat) * Math.PI / 180;
+                const theta = (lon + 180) * Math.PI / 180;
+                const r = R * (scale || 1);
+                const rp = Rp * (scale || 1);
+                return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), rp * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
+            }
+
+            // Ocean sphere
+            const ocean = new THREE.Mesh(
+                new THREE.SphereGeometry(R * 0.995, 64, 48),
+                new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide })
+            );
+            ocean.scale.y = Rp / R;
+            group.add(ocean);
+
+            // Load continents
+            fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-10m.json')
+                .then(r => r.json())
+                .then(topo => {
+                    const geo = topojson.feature(topo, topo.objects.land);
+                    const mat = new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.95 });
+                    function proc(geometry) {
+                        const ring = (coords) => {
+                            if (coords.length > 3) {
+                                const pts = coords.map(c => latLonToVec(c[1], c[0], 1.0));
+                                group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat.clone()));
+                            }
+                        };
+                        if (geometry.type === 'Polygon') geometry.coordinates.forEach(ring);
+                        else if (geometry.type === 'MultiPolygon') geometry.coordinates.forEach(p => p.forEach(ring));
+                    }
+                    if (geo.type === 'FeatureCollection') geo.features.forEach(f => proc(f.geometry));
+                    else if (geo.type === 'Feature') proc(geo.geometry);
+                    else proc(geo);
+                }).catch(() => {});
+
+            // Finance nodes
+            const nodes = [
+                { lat: 40.7, lon: -74 }, { lat: 37.8, lon: -122.4 }, { lat: 51.5, lon: -0.1 },
+                { lat: 48.9, lon: 2.3 }, { lat: 50.1, lon: 8.7 }, { lat: 35.7, lon: 139.7 },
+                { lat: 1.3, lon: 103.8 }, { lat: 22.3, lon: 114.2 }, { lat: -23.5, lon: -46.6 },
+                { lat: -33.9, lon: 18.4 }, { lat: 25.3, lon: 55.3 }, { lat: -33.9, lon: 151.2 }
+            ];
+            const nodeGeo = new THREE.SphereGeometry(0.025, 12, 12);
+            const nodeMat = new THREE.MeshBasicMaterial({ color: 0x00ff80 });
+            const glowGeo = new THREE.SphereGeometry(0.05, 12, 12);
+            const glowMat = new THREE.MeshBasicMaterial({ color: 0x00ff80, transparent: true, opacity: 0.4 });
+            const nodeObjs = [];
+            nodes.forEach(n => {
+                const pos = latLonToVec(n.lat, n.lon, 1.01);
+                const nd = new THREE.Mesh(nodeGeo, nodeMat.clone());
+                nd.position.copy(pos); group.add(nd);
+                const gl = new THREE.Mesh(glowGeo, glowMat.clone());
+                gl.position.copy(pos); group.add(gl);
+                nodeObjs.push({ glow: gl });
+            });
+
+            group.rotation.x = 0.3;
+            group.rotation.y = 1.62;
+            scene.add(group);
+
+            let t = 0;
+            let spinStartTime = null;
+            const SPIN_DURATION = 10; // seconds to reach max spin
+            const BASE_SPEED = 0.003; // starting radians/frame
+            const MAX_SPEED = 1000 * 2 * Math.PI / 60; // 1000 loops/sec at 60fps
+
+            function resize() {
+                const w = canvas.parentElement.clientWidth || 400;
+                const h = canvas.parentElement.clientHeight || 400;
+                renderer.setSize(w, h);
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+            }
+            resize();
+            new ResizeObserver(resize).observe(canvas.parentElement);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                t += 0.016;
+
+                // Exponential spin acceleration
+                if (spinStartTime !== null) {
+                    const elapsed = (performance.now() - spinStartTime) / 1000;
+                    const progress = Math.min(elapsed / SPIN_DURATION, 1);
+                    // Exponential curve: starts slow, ramps up to extreme speed
+                    const expFactor = Math.pow(MAX_SPEED / BASE_SPEED, progress);
+                    group.rotation.y += BASE_SPEED * expFactor;
+                } else {
+                    group.rotation.y += BASE_SPEED;
+                }
+
+                nodeObjs.forEach((o, i) => {
+                    o.glow.material.opacity = 0.35 + Math.sin(t * 2.5 + i * 0.3) * 0.25;
+                    const s = 1 + Math.sin(t * 2 + i * 0.25) * 0.4;
+                    o.glow.scale.set(s, s, s);
+                });
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            // Expose spin start for external triggering
+            window._startGlobeSpin = function() { spinStartTime = performance.now(); };
         }
 
-        // ── Main loading sequence with animation phases ──
+        // ── Main loading sequence ──
         async function runLoadingSequence() {
             const terminalBody = document.getElementById('terminalBody');
             const progressBar = document.getElementById('progressBar');
+            const progressLabel = document.getElementById('progressLabel');
             const globeContainer = document.getElementById('globeContainer');
-            const desktopContainer = document.getElementById('desktopContainer');
-            const nodeStatus = document.getElementById('nodeStatus');
-            const trayNodes = document.getElementById('trayNodes');
+            const terminal = document.getElementById('loadingTerminal');
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-            // Start taskbar clock
-            updateTaskbarClock();
-            const clockInterval = setInterval(updateTaskbarClock, 1000);
+            // Initialize globe
+            initLoadingGlobe();
 
-            // Hard cap: auto-finish at 7 seconds
-            const capTimer = setTimeout(finishLoading, 7000);
+            // Hard cap: auto-finish at 10 seconds
+            const capTimer = setTimeout(finishLoading, 10000);
 
-            // ── PHASE 1: Globe centered (1.8s) ──
-            await new Promise(r => setTimeout(r, 1800));
-            if (loadingDone) { clearInterval(clockInterval); return; }
+            const d = (ms) => new Promise(r => setTimeout(r, ms));
+            const typeSpeed = 2;
 
-            // ── PHASE 2: Slide globe left, desktop slides in ──
-            globeContainer.classList.add('slid-left');
-            await new Promise(r => setTimeout(r, 700));
-            desktopContainer.classList.add('visible');
-            nodeStatus.classList.add('visible');
-            await new Promise(r => setTimeout(r, 1000));
-            if (loadingDone) { clearInterval(clockInterval); return; }
+            function updateProgress(pct) {
+                pct = Math.min(pct, 99);
+                if (progressBar) progressBar.style.width = pct + '%';
+                if (progressLabel) progressLabel.textContent = pct + '%';
+            }
 
-            // Start ambient hum
-            startAmbientHum();
-
-            // IP detection (non-blocking, updates node status)
-            let userIP = '10.0.0.1';
-            (async function() {
-                try {
-                    const ctrl = new AbortController();
-                    const t = setTimeout(() => ctrl.abort(), 2000);
-                    const res = await fetch('https://api.ipify.org?format=json', { signal: ctrl.signal });
-                    clearTimeout(t);
-                    const d = await res.json();
-                    userIP = d.ip;
-                    if (nodeStatus) nodeStatus.textContent = 'LOCAL NODE: ' + d.ip;
-                } catch (e) {
-                    if (nodeStatus) nodeStatus.textContent = 'LOCAL NODE: SECURE';
-                }
-            })();
-
-            // ── PHASE 3: Terminal boot sequence ──
-            const typeSpeed = 3;
             async function typeText(el, text) {
                 if (reducedMotion) { el.textContent = text; return; }
                 for (let i = 0; i < text.length; i++) {
                     if (loadingDone) return;
                     el.textContent += text[i];
                     terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
-                    if (i % 3 === 0) playKeystrokeSound();
-                    await new Promise(r => setTimeout(r, typeSpeed + Math.random() * 3));
+                    if (i % 3 === 0 && typeof playKeystrokeSound === 'function') playKeystrokeSound();
+                    await d(typeSpeed + Math.random() * 2);
                 }
             }
 
             async function addPrompt(cmd) {
                 if (loadingDone) return;
-                const lineEl = document.createElement('div');
-                lineEl.className = 'terminal-line terminal-fast';
-                const promptSpan = document.createElement('span');
-                promptSpan.className = 'terminal-prompt';
-                promptSpan.textContent = 'root@knex-node:~# ';
-                lineEl.appendChild(promptSpan);
-                const cmdSpan = document.createElement('span');
-                cmdSpan.className = 'terminal-cmd terminal-typing';
-                lineEl.appendChild(cmdSpan);
-                const cursor = document.createElement('span');
-                cursor.className = 'terminal-cursor';
-                lineEl.appendChild(cursor);
-                terminalBody.appendChild(lineEl);
+                const line = document.createElement('div');
+                line.className = 'terminal-line';
+                const ps = document.createElement('span');
+                ps.className = 'terminal-prompt';
+                ps.textContent = 'root@knex-node:~# ';
+                line.appendChild(ps);
+                const cs = document.createElement('span');
+                cs.className = 'terminal-cmd terminal-typing';
+                line.appendChild(cs);
+                const cur = document.createElement('span');
+                cur.className = 'terminal-cursor';
+                line.appendChild(cur);
+                terminalBody.appendChild(line);
                 terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
-                await typeText(cmdSpan, cmd);
-                cursor.remove();
-                await new Promise(r => setTimeout(r, 12));
+                await typeText(cs, cmd);
+                cur.remove();
+                await d(8);
             }
 
-            function addLine(text, type, flash) {
+            function addLine(text, type) {
                 if (loadingDone) return null;
-                const lineEl = document.createElement('div');
-                lineEl.className = 'terminal-line terminal-fast ' + (type || '');
-                lineEl.textContent = text;
-                if (flash) lineEl.style.animation = 'nodeFlash 0.4s ease';
-                terminalBody.appendChild(lineEl);
+                const el = document.createElement('div');
+                el.className = 'terminal-line ' + (type || '');
+                el.textContent = text;
+                terminalBody.appendChild(el);
                 terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
-                if (type === 'success') playSuccessBeep();
-                if (type === 'warning') {
-                    playWarningTone();
-                    if (!reducedMotion) {
-                        const terminal = document.getElementById('loadingTerminal');
-                        terminal.classList.add('terminal-shake');
-                        setTimeout(() => terminal.classList.remove('terminal-shake'), 300);
-                    }
-                }
-                if (!reducedMotion && Math.random() < 0.12) corruptAndCorrect(lineEl);
-                return lineEl;
+                if (type === 'success' && typeof playSuccessBeep === 'function') playSuccessBeep();
+                if (!reducedMotion && Math.random() < 0.08) corruptAndCorrect(el);
+                return el;
             }
 
-            function updateProgress(pct) {
-                if (progressBar) progressBar.style.width = Math.min(pct, 98) + '%';
-            }
+            // ── PHASE 1: Globe centered (2s) ──
+            await d(2000);
+            if (loadingDone) return;
 
-            function updateTrayNodes() {
-                if (trayNodes) trayNodes.textContent = connectedNodes + ' nodes';
-            }
+            // ── PHASE 2: Slide globe left + spin acceleration + show terminal ──
+            globeContainer.classList.add('slid-left');
+            if (window._startGlobeSpin) window._startGlobeSpin();
+            await d(800);
+            terminal.classList.add('visible');
+            if (typeof startAmbientHum === 'function') startAmbientHum();
+            await d(600);
+            if (loadingDone) return;
 
-            const d = (ms) => new Promise(r => setTimeout(r, ms));
-            const isMobile = window.innerWidth <= 900;
-            const barSize = isMobile ? (window.innerWidth <= 480 ? 12 : 18) : 30;
-
-            // ── Animated unicode progress bar helper (ease-in/out + exponential random) ──
-            async function animateBar(prefix, suffix, type, steps, stepMs, barWidth) {
-                if (loadingDone) return;
-                const totalBlocks = isMobile ? barSize : (barWidth || 30);
-                const el = addLine(prefix + ' \u2502' + '\u2591'.repeat(totalBlocks) + '\u2502 0%', '');
-                for (let s = 1; s <= steps; s++) {
-                    if (loadingDone) return;
-                    const pct = Math.floor((s / steps) * 100);
-                    const filled = Math.floor((s / steps) * totalBlocks);
-                    const bar = '\u2588'.repeat(filled) + '\u2592'.repeat(Math.max(0, totalBlocks - filled));
-                    el.textContent = prefix + ' \u2502' + bar + '\u2502 ' + pct + '%';
-                    terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
-                    // Ease-in/out: slow start → fast middle → slow end + exponential random jitter
-                    const t = s / steps;
-                    const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-                    const jitter = Math.floor(Math.pow(Math.random(), 2) * 14);
-                    await d(Math.floor(stepMs * (1.6 - ease * 1.2)) + jitter);
-                }
-                el.textContent = prefix + ' \u2502' + '\u2588'.repeat(totalBlocks) + '\u2502 ' + suffix;
-                el.className = 'terminal-line terminal-fast ' + (type || 'success');
-                if (type === 'success') playSuccessBeep();
-            }
-
-            // ── Kernel boot ──
-            addLine('KnexCoin CORE v1.0.0 (tty1)', ''); await d(15);
-            addLine('', ''); await d(8);
-            await addPrompt('systemctl start knex-node.service');
-            await d(10);
-            addLine('[  OK  ] Started KnexCoin Node Service', 'success'); await d(12);
+            // ── PHASE 3: Terminal boot (~33 lines, fast) ──
+            addLine('KnexCoin CORE v1.0.0 — Distributed Ledger Technology', 'info');
+            await d(40);
+            addLine('Architecture: Block-lattice DAG | Consensus: SPVT + PoB', '');
+            await d(40);
+            addLine('', '');
             updateProgress(5);
 
-            // ── Network interface ──
-            await addPrompt('ip link set eth0 up && dhclient eth0');
+            // apt update + install
+            await addPrompt('apt update && apt install knexcoin-node -y');
+            await d(20);
+            addLine('Hit:1 https://repo.knexcoins.com/debian stable InRelease', '');
             await d(15);
-            addLine('[NET] eth0: link up, negotiating 10GbE...', ''); await d(20);
-            addLine('[NET] DHCP lease acquired: ' + userIP, 'info'); await d(10);
-            addLine('[NET] MTU 9000 | duplex full | speed 10000Mb/s', ''); await d(6);
-            addLine('[NET] QUIC transport binding UDP :7077 ... OK', 'success'); await d(6);
-            addLine('[NET] HTTP API binding TCP :7076 ... OK', 'success'); await d(8);
-            updateProgress(10);
+            addLine('Reading package lists... Done', '');
+            await d(15);
+            addLine('Setting up knexcoin-node (1.0.0-1) ...', '');
+            await d(20);
 
-            // ── Post-quantum crypto init with loading bars ──
-            await addPrompt('./init_crypto.sh --pq-hybrid --fips=204');
+            // Install progress bar
+            const barW = 25;
+            const installEl = addLine('[install] \u2502' + '\u2591'.repeat(barW) + '\u2502 0%', '');
+            for (let s = 1; s <= 20; s++) {
+                if (loadingDone) break;
+                const pct = Math.floor((s / 20) * 100);
+                const filled = Math.floor((s / 20) * barW);
+                installEl.textContent = '[install] \u2502' + '\u2588'.repeat(filled) + '\u2591'.repeat(barW - filled) + '\u2502 ' + pct + '%';
+                await d(12 + Math.floor(Math.random() * 8));
+            }
+            addLine('[  OK  ] knexcoin-node installed successfully', 'success');
+            updateProgress(18);
+            await d(30);
+
+            // Start service
+            await addPrompt('systemctl start knex-node.service');
+            await d(15);
+            addLine('[  OK  ] Started KnexCoin Node Service', 'success');
+            await d(20);
+            updateProgress(24);
+
+            // Crypto init
+            addLine('[CRYPTO] Ed25519 + ML-DSA-65 (FIPS 204) ........ READY', 'success');
+            await d(15);
+            addLine('[CRYPTO] X25519MLKEM768 (FIPS 203) ............. READY', 'success');
+            await d(15);
+            addLine('[CRYPTO] Blake2b-256 (ledger hash) ............. READY', 'success');
+            await d(20);
+            updateProgress(32);
+
+            // Network
+            addLine('[NET] QUIC transport binding UDP :7077 ......... OK', 'success');
             await d(12);
-            addLine('[CRYPTO] Initializing post-quantum cryptographic engine...', ''); await d(15);
-            await animateBar('[CRYPTO] aws-lc-rs provider', 'LOADED \u2714', 'success', 14, 6, 30);
-            addLine('[CRYPTO] Ed25519 (classical) ....... READY', 'success'); await d(6);
-            addLine('[CRYPTO] ML-DSA-65 (FIPS 204) ...... READY', 'success'); await d(6);
-            addLine('[CRYPTO] X25519MLKEM768 (FIPS 203) . READY', 'success'); await d(6);
-            addLine('[CRYPTO] SHA3-256 (FIPS 202) ....... READY', 'success'); await d(6);
-            addLine('[CRYPTO] Blake2b-256 (ledger) ...... READY', 'success'); await d(8);
-            await animateBar('[CRYPTO] Engine self-test', 'ALL CIPHERS PASSED \u2714', 'success', 12, 5, 30);
-            updateProgress(16);
+            addLine('[NET] HTTP API binding TCP :7076 ............... OK', 'success');
+            await d(20);
+            addLine('', '');
+            updateProgress(38);
 
-            // ── PQ TLS + Identity with loading animation ──
-            addLine('[PQ-TLS] Hybrid key exchange: X25519 + ML-KEM-768', 'info'); await d(8);
-            addLine('[PQ-TLS] rustls provider: aws-lc-rs ... VERIFIED', 'success'); await d(8);
-            const pqKeyHex = Array.from({length: 8}, () => Math.floor(Math.random() * 256).toString(16).padStart(2, '0')).join('');
-            await animateBar('[PQ-ID]  Loading ML-DSA-65 identity', 'LOADED (2,592 bytes) \u2714', 'info', 16, 5, 30);
-            addLine('[PQ-ID]  Public key: ' + pqKeyHex + '...', 'info'); await d(8);
-            addLine('[PQ-ID]  Identity signature ... VALID', 'success'); await d(8);
-            updateProgress(22);
-
-            // ── Firewall ──
-            await addPrompt('iptables -L -n --line-numbers | tail -6');
-            await d(10);
-            addLine('Chain KNEX-INPUT (policy DROP)', 'warning'); await d(8);
-            addLine('1  ACCEPT  tcp  --  0.0.0.0/0  0.0.0.0/0  tcp dpt:7076  /* api */', ''); await d(5);
-            addLine('2  ACCEPT  udp  --  0.0.0.0/0  0.0.0.0/0  udp dpt:7077  /* quic */', ''); await d(5);
-            addLine('3  ACCEPT  tcp  --  0.0.0.0/0  0.0.0.0/0  tcp dpt:443   /* tls */', ''); await d(5);
-            addLine('4  DROP    all  --  0.0.0.0/0  0.0.0.0/0  /* deny-all */', 'warning'); await d(8);
-            updateProgress(26);
-
-            // ── Node discovery ──
-            addLine('', ''); await d(5);
-            await addPrompt('knex-node --bootstrap --pq-handshake --protocol=quic');
+            // Bootstrap + node connections
+            await addPrompt('knex-node --bootstrap --protocol=quic');
             await d(15);
-            addLine('[DISCOVERY] Querying seed nodes: 198.252.104.24, 18.228.153.175', 'info'); await d(18);
-            addLine('[DISCOVERY] QUIC transport v1 initialized (Quinn + rustls)', ''); await d(10);
-            addLine('[DISCOVERY] PQ peer authentication: ML-DSA-65 signed challenges', 'info'); await d(10);
-            addLine('[DISCOVERY] Scanning global validator mesh...', ''); await d(15);
-            await animateBar('[DISCOVERY] QUIC mesh init', 'READY \u2014 24 endpoints mapped \u2714', 'success', 16, 5, 30);
-            addLine('', ''); await d(5);
-            updateProgress(30);
+            addLine('[DISCOVERY] Scanning global validator mesh...', 'info');
+            await d(25);
 
-            // ── Node-by-node connections (the main event) ──
-            const shuffled = [...peerNodes].sort(() => Math.random() - 0.5);
-            const nodesToConnect = shuffled.slice(0, 18); // Connect to 18 random nodes
+            const validators = [
+                { ip: '198.51.100.14', city: 'New York',      ms: 23 },
+                { ip: '203.0.113.42',  city: 'San Francisco', ms: 45 },
+                { ip: '185.34.52.100', city: 'Frankfurt',     ms: 89 },
+                { ip: '103.28.71.9',   city: 'Singapore',     ms: 142 },
+                { ip: '45.77.200.11',  city: 'Tokyo',         ms: 156 },
+                { ip: '177.54.128.3',  city: 'São Paulo',     ms: 178 },
+                { ip: '41.203.18.22',  city: 'Lagos',         ms: 195 },
+                { ip: '13.245.88.41',  city: 'Sydney',        ms: 210 },
+            ];
 
-            for (let i = 0; i < nodesToConnect.length; i++) {
-                if (loadingDone) { clearInterval(clockInterval); return; }
-                const node = nodesToConnect[i];
-                const latency = Math.floor(Math.random() * 180 + 12);
-
-                // Connection attempt
-                addLine('[PEER] Connecting ' + node.ip + ':7077 (' + node.city + ')...', 'node-ip');
-                await d(Math.floor(Math.random() * 30 + 15));
-
-                // PQ QUIC handshake
-                addLine('  QUIC+PQ handshake ... OK | X25519MLKEM768 | ML-DSA-65 verified (' + latency + 'ms)', 'success', true);
-                connectedNodes++;
-                updateTrayNodes();
-                await d(Math.floor(Math.random() * 12 + 5));
-
-                // Milestone events during node connections
-                if (i === 3) {
-                    addLine('[CHAIN] Genesis: 929e6128...1fd4 | Syncing block-lattice DAG...', 'info'); await d(10);
-                }
-                if (i === 5) {
-                    addLine('[PQ] Post-quantum challenge-response with ' + node.city + ' ... PASSED', 'success'); await d(10);
-                }
-                if (i === 7) {
-                    addLine('[WARN] High latency detected: re-routing via Frankfurt QUIC relay', 'warning'); await d(15);
-                    addLine('[NET] Route optimized: ' + latency + 'ms \u2192 ' + Math.floor(latency * 0.6) + 'ms', 'success'); await d(8);
-                }
-                if (i === 9) {
-                    // ── PoB Bandwidth Race (dramatic animated measurement) ──
-                    addLine('[PoB] Bandwidth challenge from S\u00e3o Paulo validator...', 'info'); await d(12);
-                    const pobW = barSize;
-                    const pobEl = addLine('[PoB] Measuring: \u2502' + '\u2591'.repeat(pobW) + '\u2502 0.0 MB/s', '');
-                    const targetSpeed = (Math.random() * 5 + 4).toFixed(1);
-                    for (let b = 1; b <= 16; b++) {
-                        if (loadingDone) break;
-                        const bFilled = Math.floor((b / 16) * pobW);
-                        const bEmpty = pobW - bFilled;
-                        const bSpeed = (targetSpeed * b / 16).toFixed(1);
-                        pobEl.textContent = '[PoB] Measuring: \u2502' + '\u2588'.repeat(bFilled) + '\u2591'.repeat(bEmpty) + '\u2502 ' + bSpeed + ' MB/s';
-                        terminalBody.scrollTo({ top: terminalBody.scrollHeight, behavior: 'smooth' });
-                        // Ease-in/out: fast middle, slow start/end
-                        const t = b / 16;
-                        const ease = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-                        await d(4 + Math.floor((1 - ease) * 16) + Math.floor(Math.random() * 5));
-                    }
-                    pobEl.textContent = '[PoB] Measured: \u2502' + '\u2588'.repeat(pobW) + '\u2502 ' + targetSpeed + ' MB/s';
-                    pobEl.className = 'terminal-line terminal-fast success';
-                    playSuccessBeep();
-                    await d(8);
-                    addLine('[PoB] Challenge PASSED \u2014 ranked Tier-3 (>5 MB/s threshold)', 'success'); await d(10);
-                }
-                if (i === 11) {
-                    addLine('[CONSENSUS] SPVT quorum: ' + connectedNodes + '/12 validators | Tier-3 threshold met', 'success'); await d(12);
-                }
-                if (i === 13) {
-                    // ── Genesis block verification with loading bar ──
-                    addLine('[CHAIN] Verifying genesis block integrity...', ''); await d(8);
-                    await animateBar('[CHAIN] DAG sync', 'SYNCHRONIZED \u2714', 'success', 16, 5, 30);
-                    addLine('[CHAIN] Supply: 100,000,000 KNEX (1,000,000,000,000,000 raw)', 'info'); await d(6);
-                    addLine('[CHAIN] Genesis: 8UtJC7GQ...PbgKvF \u2192 929e6128...1fd4', ''); await d(8);
-                }
-                if (i === 15) {
-                    addLine('[CHAIN] DAG frontier synchronized | Hybrid PQ finality: 412ms', 'info'); await d(10);
-                }
-
-                // Progress: 30% to 90% across node connections
-                updateProgress(30 + Math.floor((i + 1) / nodesToConnect.length * 60));
+            for (let i = 0; i < validators.length; i++) {
+                if (loadingDone) break;
+                const v = validators[i];
+                const lat = v.ms + Math.floor(Math.random() * 20 - 10);
+                addLine('[PEER] ' + v.ip + ':7077 (' + v.city + ') .... OK ' + lat + 'ms', 'success');
+                updateProgress(42 + Math.floor((i / validators.length) * 40));
+                await d(25 + Math.floor(Math.random() * 15));
             }
 
-            if (loadingDone) { clearInterval(clockInterval); return; }
+            await d(20);
+            addLine('', '');
+            addLine('[MESH] 8 validators connected | 6 continents | PQ-secured', 'success');
+            await d(20);
+            addLine('[CONSENSUS] SPVT quorum active | PoB validators online', 'success');
+            await d(20);
+            addLine('[CHAIN] Block #2,847,291 | Supply: 100,000,000 KNEX', 'info');
+            await d(20);
+            updateProgress(92);
 
-            // ── Consensus & finalization ──
-            addLine('', ''); await d(8);
-            addLine('[MESH] ' + connectedNodes + ' peers connected | 6 continents | PQ-secured mesh', 'success'); await d(15);
-            addLine('[CONSENSUS] SPVT active | PoB validators online | BFT f=' + Math.floor(connectedNodes / 3), 'success'); await d(12);
-            updateProgress(94);
+            addLine('[CHAIN] Finality: 412ms | TPS: 2,065 (single core)', 'info');
+            await d(20);
+            addLine('', '');
+            addLine('[SYSTEM] All services nominal — launching interface...', 'success');
+            updateProgress(99);
 
-            // ── Final status with typed command ──
-            await addPrompt('knex-node --status');
-            await d(10);
-            addLine('', ''); await d(5);
-            addLine('  Node ID:     knex-' + Math.random().toString(36).substr(2, 8), ''); await d(5);
-            addLine('  Network:     MAINNET', 'info'); await d(5);
-            addLine('  Protocol:    Hybrid PQ (Ed25519 + ML-DSA-65)', ''); await d(5);
-            addLine('  Transport:   QUIC + PQ-TLS (X25519MLKEM768)', ''); await d(5);
-            addLine('  Peers:       ' + connectedNodes + ' / ' + peerNodes.length + ' discovered', ''); await d(5);
-            addLine('  Genesis:     929e6128...1fd4', ''); await d(5);
-            addLine('  Block:       #2,847,291', ''); await d(5);
-            addLine('  TPS:         2,065 (single core)', 'info'); await d(5);
-            addLine('  Uptime:      0h 0m 7s', ''); await d(5);
-            addLine('  Status:      OPERATIONAL \u2714', 'success'); await d(10);
-            updateProgress(98);
-
-            // ── Final typing effect ──
-            addLine('', ''); await d(5);
-            addLine('[SYSTEM] All services nominal \u2014 launching interface...', 'info'); await d(8);
-            await addPrompt('echo "Post-quantum node online. Lattice shields active."');
-            updateProgress(100);
-
-            clearInterval(clockInterval);
-            clearTimeout(capTimer);
             await d(300);
+            clearTimeout(capTimer);
             finishLoading();
         }
 
@@ -2358,7 +2005,6 @@
             else runLoadingSequence();
         });
 
-        // Keyboard shortcut to skip loading
         document.addEventListener('keydown', function(e) {
             if ((e.key === 'Enter' || e.key === ' ') &&
                 !document.getElementById('loadingScreen').classList.contains('hidden')) {
@@ -2395,138 +2041,138 @@
     </script>
 
     <!-- ============================================
-         JS MODULE 4: THREE.JS SCENE
+         JS MODULE 4: THREE.JS SCENE (SERIAL.CASH)
          ============================================ -->
     <script>
-        const canvas = document.getElementById('webgl');
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 15, 50);
+
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl'), antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000);
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 15, 40);
-        camera.lookAt(0, 0, 0);
-
-        /* Infinite Grid */
+        /* Multi-layer Grid */
         const gridGroup = new THREE.Group();
-        for (let layer = 0; layer < 5; layer++) {
-            const size = 200, div = 60, z = -layer * 15, opacity = 1 - layer * 0.2;
-            const positions = [];
-            for (let i = 0; i <= div; i++) {
-                const x = (i / div - 0.5) * size;
-                positions.push(x, 0, -size/2 + z, x, 0, size/2 + z);
+        for (let layer = 0; layer < 3; layer++) {
+            const gridGeo = new THREE.BufferGeometry();
+            const pos = [];
+            const size = 200;
+            const div = 40 - layer * 10;
+            const step = size / div;
+            for (let i = -div / 2; i <= div / 2; i++) {
+                const p = i * step;
+                pos.push(-size/2, -20 - layer * 0.5, p, size/2, -20 - layer * 0.5, p);
+                pos.push(p, -20 - layer * 0.5, -size/2, p, -20 - layer * 0.5, size/2);
             }
-            for (let i = 0; i <= div; i++) {
-                const zPos = (i / div - 0.5) * size + z;
-                positions.push(-size/2, 0, zPos, size/2, 0, zPos);
-            }
-            const geo = new THREE.BufferGeometry();
-            geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-            const mat = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: opacity * 0.15 });
-            const grid = new THREE.LineSegments(geo, mat);
-            grid.position.y = -20;
+            gridGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+            const grid = new THREE.LineSegments(gridGeo, new THREE.LineBasicMaterial({
+                color: 0x00ff00,
+                transparent: true,
+                opacity: 0.12 * (1 - layer * 0.3)
+            }));
             gridGroup.add(grid);
         }
         scene.add(gridGroup);
 
         /* Particles */
-        const pCount = 3000;
-        const pGeo = new THREE.BufferGeometry();
-        const pPos = new Float32Array(pCount * 3);
-        const pSpeed = new Float32Array(pCount);
-        for (let i = 0; i < pCount; i++) {
-            pPos[i*3] = (Math.random() - 0.5) * 200;
-            pPos[i*3+1] = -20;
-            pPos[i*3+2] = (Math.random() - 0.5) * 200 - 50;
-            pSpeed[i] = Math.random() * 0.8 + 0.2;
+        const partCount = 3000;
+        const partGeo = new THREE.BufferGeometry();
+        const partPos = new Float32Array(partCount * 3);
+        const partSpd = new Float32Array(partCount);
+        for (let i = 0; i < partCount; i++) {
+            partPos[i * 3] = (Math.random() - 0.5) * 200;
+            partPos[i * 3 + 1] = -20 + Math.random() * 5;
+            partPos[i * 3 + 2] = (Math.random() - 0.5) * 200;
+            partSpd[i] = Math.random() * 0.6 + 0.2;
         }
-        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        const pMat = new THREE.PointsMaterial({ color: 0x00ffff, size: 0.3, transparent: true, opacity: 0.8, blending: THREE.AdditiveBlending, sizeAttenuation: true });
-        const particles = new THREE.Points(pGeo, pMat);
+        partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
+        const particles = new THREE.Points(partGeo, new THREE.PointsMaterial({
+            color: 0x00ff00,
+            size: 0.4,
+            transparent: true,
+            opacity: 0.7,
+            blending: THREE.AdditiveBlending
+        }));
         scene.add(particles);
 
         /* Energy Streams */
         const streams = [];
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 25; i++) {
+            const streamGeo = new THREE.BufferGeometry();
             const pts = [];
-            const sx = (Math.random() - 0.5) * 150;
+            const startX = (Math.random() - 0.5) * 150;
             for (let j = 0; j <= 100; j++) {
                 const t = j / 100;
-                pts.push(sx + Math.sin(t * Math.PI * 4) * 3, -20 + Math.sin(t * Math.PI * 2) * 0.5, -100 + t * 200);
+                pts.push(
+                    startX + Math.sin(t * Math.PI * 4) * 3,
+                    -20 + Math.sin(t * Math.PI * 2) * 0.5,
+                    -100 + t * 200
+                );
             }
-            const geo = new THREE.BufferGeometry();
-            geo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
-            const mat = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.2 });
-            const stream = new THREE.Line(geo, mat);
-            stream.userData = { baseOpacity: Math.random() * 0.3 + 0.1, phase: Math.random() * Math.PI * 2, speed: Math.random() * 2 + 1 };
+            streamGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+            const stream = new THREE.Line(streamGeo, new THREE.LineBasicMaterial({
+                color: 0x00ff00,
+                transparent: true,
+                opacity: 0.15
+            }));
+            stream.userData = {
+                baseOpacity: Math.random() * 0.2 + 0.1,
+                phase: Math.random() * Math.PI * 2,
+                speed: Math.random() * 2 + 1
+            };
             streams.push(stream);
             scene.add(stream);
         }
 
-        /* Quantum-Neural Nodes (new — inspired by cora.html) */
-        const qNodes = [];
-        for (let i = 0; i < 8; i++) {
-            const geo = new THREE.OctahedronGeometry(0.6);
-            const mat = new THREE.MeshBasicMaterial({ color: 0x8844ff, transparent: true, opacity: 0.4, wireframe: true });
-            const node = new THREE.Mesh(geo, mat);
-            node.position.set((Math.random() - 0.5) * 80, -20 + Math.random() * 20, (Math.random() - 0.5) * 100 - 20);
-            node.userData = { phase: Math.random() * Math.PI * 2, floatSpeed: 0.3 + Math.random() * 0.7 };
-            qNodes.push(node);
-            scene.add(node);
+        /* Vertical Pillars */
+        for (let i = 0; i < 20; i++) {
+            const pillarGeo = new THREE.BufferGeometry();
+            const x = (Math.random() - 0.5) * 180;
+            const z = (Math.random() - 0.5) * 120 - 30;
+            pillarGeo.setAttribute('position', new THREE.Float32BufferAttribute([x, -20, z, x, 60, z], 3));
+            const pillar = new THREE.Line(pillarGeo, new THREE.LineBasicMaterial({
+                color: 0x00ff00,
+                transparent: true,
+                opacity: 0.08
+            }));
+            scene.add(pillar);
         }
 
-        /* Quantum connections between nodes */
-        for (let i = 0; i < qNodes.length - 1; i++) {
-            const geo = new THREE.BufferGeometry().setFromPoints([qNodes[i].position, qNodes[i+1].position]);
-            const mat = new THREE.LineBasicMaterial({ color: 0x8844ff, transparent: true, opacity: 0.08 });
-            scene.add(new THREE.Line(geo, mat));
-        }
-
-        /* Vertical Energy Pillars */
-        for (let i = 0; i < 15; i++) {
-            const x = (Math.random() - 0.5) * 150, z = (Math.random() - 0.5) * 100 - 30;
-            const geo = new THREE.BufferGeometry();
-            geo.setAttribute('position', new THREE.Float32BufferAttribute([x, -20, z, x, 50, z], 3));
-            const mat = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.1 });
-            scene.add(new THREE.Line(geo, mat));
-        }
-
-        /* Mouse Interaction */
-        let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+        /* Mouse */
+        let mx = 0, my = 0, tx = 0, ty = 0;
         document.addEventListener('mousemove', e => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+            mx = (e.clientX / window.innerWidth - 0.5) * 2;
+            my = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
-        /* Animation Loop */
+        /* Animation */
         let time = 0;
         function animate() {
             requestAnimationFrame(animate);
             time += 0.01;
-            targetX += (mouseX * 10 - targetX) * 0.02;
-            targetY += (-mouseY * 5 - targetY) * 0.02;
-            camera.position.x = targetX;
-            camera.position.y = 15 + targetY;
+
+            tx += (mx * 12 - tx) * 0.02;
+            ty += (-my * 6 - ty) * 0.02;
+            camera.position.x = tx;
+            camera.position.y = 15 + ty;
             camera.lookAt(0, 0, -20);
+
             gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
 
             const pos = particles.geometry.attributes.position.array;
-            for (let i = 0; i < pCount; i++) {
-                pos[i*3+2] += pSpeed[i];
-                if (pos[i*3+2] > 100) { pos[i*3+2] = -100; pos[i*3] = (Math.random() - 0.5) * 200; }
+            for (let i = 0; i < partCount; i++) {
+                pos[i * 3 + 2] += partSpd[i];
+                if (pos[i * 3 + 2] > 100) {
+                    pos[i * 3 + 2] = -100;
+                    pos[i * 3] = (Math.random() - 0.5) * 200;
+                }
             }
             particles.geometry.attributes.position.needsUpdate = true;
 
-            streams.forEach(s => { s.material.opacity = s.userData.baseOpacity + Math.sin(time * s.userData.speed + s.userData.phase) * 0.15; });
-
-            /* Quantum node animations */
-            qNodes.forEach(n => {
-                n.rotation.x += 0.005;
-                n.rotation.y += 0.008;
-                n.position.y += Math.sin(time * n.userData.floatSpeed + n.userData.phase) * 0.01;
-                const pulse = Math.sin(time * 2 + n.userData.phase) * 0.5 + 0.5;
-                n.material.opacity = 0.2 + pulse * 0.3;
+            streams.forEach(s => {
+                s.material.opacity = s.userData.baseOpacity + Math.sin(time * s.userData.speed + s.userData.phase) * 0.1;
             });
 
             renderer.render(scene, camera);

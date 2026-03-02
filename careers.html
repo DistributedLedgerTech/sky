@@ -153,7 +153,7 @@
             "@context": "https://schema.org",
             "@type": "JobPosting",
             "title": "Senior macOS/iOS Developer",
-            "description": "Build native Apple Silicon applications for our MacMetal Miner product. Expert knowledge of Swift, Metal API, and GPU programming required.",
+            "description": "Build native applications for our Knexcoin and KnexWallet products. Expert knowledge of Swift, blockchain protocols, and distributed systems required.",
             "datePosted": "2026-01-01",
             "validThrough": "2026-06-30",
             "employmentType": "FULL_TIME",
@@ -258,7 +258,7 @@
             "@context": "https://schema.org",
             "@type": "JobPosting",
             "title": "Technical Writer",
-            "description": "Create clear, comprehensive documentation for MacMetal Miner, APIs, and developer tools. Translate complex blockchain concepts for diverse audiences.",
+            "description": "Create clear, comprehensive documentation for Knexcoin, APIs, and developer tools. Translate complex blockchain concepts for diverse audiences.",
             "datePosted": "2026-01-01",
             "validThrough": "2026-06-30",
             "employmentType": "FULL_TIME",
@@ -328,7 +328,7 @@
             "@context": "https://schema.org",
             "@type": "JobPosting",
             "title": "Customer Support Engineer",
-            "description": "Provide technical support to MacMetal Miner users. Troubleshoot mining issues, guide setup, and escalate bugs to engineering.",
+            "description": "Provide technical support to Knexcoin and KnexWallet users. Troubleshoot blockchain issues, guide setup, and escalate bugs to engineering.",
             "datePosted": "2026-01-01",
             "validThrough": "2026-06-30",
             "employmentType": "FULL_TIME",
@@ -363,7 +363,7 @@
             "@context": "https://schema.org",
             "@type": "JobPosting",
             "title": "Senior Smart Contract Engineer",
-            "description": "Design and implement secure smart contracts for our Echelon and CORA platforms. Deep expertise in Stellar/Soroban and security auditing required.",
+            "description": "Design and implement secure smart contracts for our Ayedex and KnexPay platforms. Deep expertise in Stellar/Soroban and security auditing required.",
             "datePosted": "2026-01-01",
             "validThrough": "2026-06-30",
             "employmentType": "FULL_TIME",
@@ -792,13 +792,13 @@
         :root {
             --black: #000000;
             --white: #ffffff;
-            --cyan: #00ffff;
-            --electric: #00f0ff;
-            --blue: #0080ff;
-            --purple: #8000ff;
-            --magenta: #ff00ff;
+            --cyan: #00ff00;
+            --electric: #00ff66;
+            --blue: #00aa00;
+            --purple: #00ff00;
+            --magenta: #00ff66;
             --green: #00ff80;
-            --gold: #ffd700;
+            --gold: #00ff00;
             --red: #ff003c;
             --orange: #ff6600;
         }
@@ -840,45 +840,12 @@
             color: #000;
         }
 
-        /* Three.js Canvas */
-        #webgl {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-
-        /* Overlays */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 1;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent 0px,
-                    transparent 2px,
-                    rgba(0, 255, 255, 0.01) 2px,
-                    rgba(0, 255, 255, 0.01) 4px
-                );
-        }
-
-        .vignette {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 2;
-            background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
-        }
+        #webgl { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0, 255, 0, 0.02) 2px, rgba(0, 255, 0, 0.02) 4px); }
+        .overlay::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 255, 0, 0.01); animation: flicker 0.15s infinite; pointer-events: none; }
+        @keyframes flicker { 0%, 100% { opacity: 0.97; } 50% { opacity: 1; } }
+        .vignette { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 2; background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.85) 100%); }
+        .grid-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; opacity: 0.03; background-image: linear-gradient(var(--cyan) 1px, transparent 1px), linear-gradient(90deg, var(--cyan) 1px, transparent 1px); background-size: 50px 50px; }
 
         /* Content */
         .content {
@@ -937,7 +904,7 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
             font-weight: 700;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.3em;
             color: var(--cyan);
         }
 
@@ -945,7 +912,7 @@
             font-size: 10px;
             font-weight: 400;
             letter-spacing: 0.3em;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             text-transform: uppercase;
             margin-top: 4px;
         }
@@ -962,7 +929,7 @@
             font-weight: 400;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             text-decoration: none;
             position: relative;
             padding: 8px 0;
@@ -1005,7 +972,7 @@
             display: none;
             width: 48px;
             height: 48px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 0, 0.3);
             background: transparent;
             cursor: pointer;
             flex-direction: column;
@@ -1066,7 +1033,7 @@
             right: 32px;
             width: 48px;
             height: 48px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 0, 0.3);
             background: transparent;
             cursor: pointer;
             display: flex;
@@ -1129,15 +1096,13 @@
         }
 
         .page-title .gradient {
-            background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--cyan);
         }
 
         .page-subtitle {
             font-size: 18px;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             max-width: 700px;
             line-height: 1.8;
         }
@@ -1148,9 +1113,9 @@
             justify-content: center;
             gap: 64px;
             padding: 48px 64px;
-            background: rgba(0, 255, 255, 0.02);
-            border-top: 1px solid rgba(0, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            background: rgba(0, 255, 0, 0.02);
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.1);
             margin-bottom: 80px;
         }
 
@@ -1163,7 +1128,7 @@
             font-size: 48px;
             font-weight: 700;
             color: var(--cyan);
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
         }
 
         .careers-stat-label {
@@ -1171,7 +1136,7 @@
             font-size: 10px;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             margin-top: 8px;
         }
 
@@ -1209,14 +1174,14 @@
 
         .benefit-card {
             background: rgba(0, 10, 15, 0.6);
-            border: 1px solid rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.1);
             padding: 32px 24px;
             text-align: center;
             transition: all 0.4s;
         }
 
         .benefit-card:hover {
-            border-color: rgba(0, 255, 255, 0.3);
+            border-color: rgba(0, 255, 0, 0.3);
             background: rgba(0, 20, 30, 0.8);
             transform: translateY(-4px);
         }
@@ -1245,7 +1210,7 @@
 
         .benefit-desc {
             font-size: 12px;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             line-height: 1.6;
         }
 
@@ -1263,23 +1228,23 @@
             letter-spacing: 0.15em;
             text-transform: uppercase;
             padding: 12px 24px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 0, 0.2);
             background: transparent;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             cursor: pointer;
             transition: all 0.3s;
         }
 
         .filter-btn:hover {
-            border-color: rgba(0, 255, 255, 0.5);
+            border-color: rgba(0, 255, 0, 0.5);
             color: var(--white);
         }
 
         .filter-btn.active {
             border-color: var(--cyan);
-            background: rgba(0, 255, 255, 0.1);
+            background: rgba(0, 255, 0, 0.1);
             color: var(--cyan);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
         }
 
         /* Jobs Grid */
@@ -1295,7 +1260,7 @@
 
         .job-card {
             background: rgba(0, 10, 15, 0.8);
-            border: 1px solid rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.1);
             padding: 40px;
             position: relative;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1314,7 +1279,7 @@
         }
 
         .job-card:hover {
-            border-color: rgba(0, 255, 255, 0.3);
+            border-color: rgba(0, 255, 0, 0.3);
             background: rgba(0, 20, 30, 0.9);
             transform: translateY(-4px);
         }
@@ -1359,7 +1324,7 @@
             align-items: center;
             gap: 8px;
             font-size: 12px;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
         }
 
         .job-meta-item svg {
@@ -1371,7 +1336,7 @@
 
         .job-description {
             font-size: 14px;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             line-height: 1.7;
             margin-bottom: 24px;
         }
@@ -1389,8 +1354,8 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             padding: 6px 12px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.2);
             color: var(--cyan);
         }
 
@@ -1407,27 +1372,27 @@
         }
 
         .job-level.senior {
-            border-color: rgba(0, 255, 128, 0.3);
-            color: #00ff80;
-            background: rgba(0, 255, 128, 0.1);
+            border-color: rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
         }
 
         .job-level.entry {
-            border-color: rgba(148, 0, 211, 0.3);
-            color: #9400d3;
-            background: rgba(148, 0, 211, 0.1);
+            border-color: rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
         }
 
         .job-level.mid {
-            border-color: rgba(255, 165, 0, 0.3);
-            color: #ffa500;
-            background: rgba(255, 165, 0, 0.1);
+            border-color: rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
         }
 
         .job-level.intern {
-            border-color: rgba(255, 20, 147, 0.3);
-            color: #ff1493;
-            background: rgba(255, 20, 147, 0.1);
+            border-color: rgba(0, 255, 0, 0.3);
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
         }
 
         .job-apply-btn {
@@ -1474,7 +1439,7 @@
             font-size: 9px;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
+            color: #ffffff;
             margin-right: 4px;
         }
 
@@ -1499,12 +1464,12 @@
         .share-btn svg {
             width: 14px;
             height: 14px;
-            fill: rgba(255,255,255,0.5);
+            fill: #ffffff;
             transition: fill 0.3s;
         }
 
         .share-btn:hover svg {
-            fill: rgba(255,255,255,0.9);
+            fill: #ffffff;
         }
 
         .share-btn.twitter:hover { border-color: #1da1f2; }
@@ -1549,7 +1514,7 @@
             width: 100%;
             max-width: 700px;
             background: rgba(0, 10, 15, 0.98);
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 0, 0.3);
             position: relative;
             transform: scale(0.9) translateY(20px);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1562,7 +1527,7 @@
 
         .modal-header {
             padding: 32px 40px;
-            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -1605,7 +1570,7 @@
         .modal-close:hover {
             border-color: var(--cyan);
             color: var(--cyan);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
         }
 
         .modal-close svg {
@@ -1665,7 +1630,7 @@
             font-size: 10px;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             margin-bottom: 8px;
         }
 
@@ -1678,7 +1643,7 @@
             width: 100%;
             padding: 14px 18px;
             background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 0, 0.2);
             color: var(--white);
             font-family: 'Space Grotesk', sans-serif;
             font-size: 14px;
@@ -1689,17 +1654,17 @@
         .form-input:focus,
         .form-select:focus {
             border-color: var(--cyan);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), inset 0 0 20px rgba(0, 255, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2), inset 0 0 20px rgba(0, 255, 0, 0.05);
         }
 
         .form-input::placeholder {
-            color: rgba(255,255,255,0.3);
+            color: #ffffff;
         }
 
         .form-select {
             cursor: pointer;
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ffff' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2300ff00' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: right 16px center;
             padding-right: 48px;
@@ -1716,7 +1681,7 @@
         }
 
         .file-upload-area {
-            border: 2px dashed rgba(0, 255, 255, 0.3);
+            border: 2px dashed rgba(0, 255, 0, 0.3);
             padding: 32px;
             text-align: center;
             cursor: pointer;
@@ -1726,13 +1691,13 @@
 
         .file-upload-area:hover {
             border-color: var(--cyan);
-            background: rgba(0, 255, 255, 0.05);
+            background: rgba(0, 255, 0, 0.05);
         }
 
         .file-upload-area.dragover {
             border-color: var(--cyan);
-            background: rgba(0, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
         }
 
         .file-upload-area.has-file {
@@ -1754,7 +1719,7 @@
 
         .file-upload-text {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
+            color: #ffffff;
             margin-bottom: 8px;
         }
 
@@ -1764,7 +1729,7 @@
 
         .file-upload-hint {
             font-size: 11px;
-            color: rgba(255,255,255,0.3);
+            color: #ffffff;
         }
 
         .file-upload input[type="file"] {
@@ -1800,13 +1765,13 @@
             gap: 12px;
             cursor: pointer;
             padding: 16px;
-            border: 1px solid rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 0, 0.15);
             transition: all 0.3s;
         }
 
         .checkbox-item:hover {
-            border-color: rgba(0, 255, 255, 0.4);
-            background: rgba(0, 255, 255, 0.05);
+            border-color: rgba(0, 255, 0, 0.4);
+            background: rgba(0, 255, 0, 0.05);
         }
 
         .checkbox-item input {
@@ -1816,7 +1781,7 @@
         .checkbox-custom {
             width: 20px;
             height: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.4);
+            border: 1px solid rgba(0, 255, 0, 0.4);
             position: relative;
             flex-shrink: 0;
             transition: all 0.3s;
@@ -1843,7 +1808,7 @@
 
         .checkbox-label {
             font-size: 13px;
-            color: rgba(255,255,255,0.7);
+            color: #ffffff;
             line-height: 1.5;
         }
 
@@ -1885,13 +1850,13 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
             transition: left 0.5s;
         }
 
         .submit-btn:hover {
-            background: rgba(0, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3), inset 0 0 30px rgba(0, 255, 255, 0.1);
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), inset 0 0 30px rgba(0, 255, 0, 0.1);
         }
 
         .submit-btn:hover::before {
@@ -1953,7 +1918,7 @@
 
         .success-message {
             font-size: 14px;
-            color: rgba(255,255,255,0.6);
+            color: #ffffff;
             line-height: 1.7;
         }
 
@@ -1971,7 +1936,7 @@
 
         .footer-brand p {
             font-size: 14px;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             line-height: 1.7;
             margin-top: 24px;
             max-width: 280px;
@@ -1983,7 +1948,7 @@
             font-weight: 700;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
+            color: #ffffff;
             margin-bottom: 24px;
         }
 
@@ -1996,7 +1961,7 @@
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             text-decoration: none;
             font-size: 14px;
             transition: color 0.2s;
@@ -2018,7 +1983,7 @@
         .footer-copyright {
             font-family: 'Space Mono', monospace;
             font-size: 11px;
-            color: rgba(255,255,255,0.3);
+            color: #ffffff;
             letter-spacing: 0.1em;
         }
 
@@ -2674,9 +2639,10 @@
 <body>
     <!-- Three.js Canvas -->
     <canvas id="webgl"></canvas>
-    
+
     <!-- Overlays -->
     <div class="overlay"></div>
+    <div class="grid-overlay"></div>
     <div class="vignette"></div>
 
     <!-- Mobile Menu -->
@@ -2805,45 +2771,45 @@
 
                     <!-- Intern-Specific Fields (Hidden by default) -->
                     <div class="form-section intern-fields" id="internFields" style="display: none;">
-                        <div class="form-section-title" style="color: #ff1493;">Academic Information (Interns Only)</div>
+                        <div class="form-section-title" style="color: #00ff00;">Academic Information (Interns Only)</div>
                         
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label" style="color: #ff1493;">GPA <span class="required">*</span></label>
+                                <label class="form-label" style="color: #00ff00;">GPA <span class="required">*</span></label>
                                 <input type="text" name="gpa" id="gpaInput" class="form-input sound-hover" placeholder="3.5 / 4.0" style="border-color: rgba(255, 20, 147, 0.3);">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" style="color: #ff1493;">University / College <span class="required">*</span></label>
+                                <label class="form-label" style="color: #00ff00;">University / College <span class="required">*</span></label>
                                 <input type="text" name="university" id="universityInput" class="form-input sound-hover" placeholder="University Name" style="border-color: rgba(255, 20, 147, 0.3);">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label" style="color: #ff1493;">Major / Field of Study <span class="required">*</span></label>
+                                <label class="form-label" style="color: #00ff00;">Major / Field of Study <span class="required">*</span></label>
                                 <input type="text" name="major" id="majorInput" class="form-input sound-hover" placeholder="Computer Science" style="border-color: rgba(255, 20, 147, 0.3);">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" style="color: #ff1493;">Expected Graduation</label>
+                                <label class="form-label" style="color: #00ff00;">Expected Graduation</label>
                                 <input type="text" name="graduation" class="form-input sound-hover" placeholder="May 2026" style="border-color: rgba(255, 20, 147, 0.3);">
                             </div>
                         </div>
 
                         <div class="form-row single">
                             <div class="form-group">
-                                <label class="form-label" style="color: #ff1493;">College Transcript (Optional)</label>
+                                <label class="form-label" style="color: #00ff00;">College Transcript (Optional)</label>
                                 <div class="file-upload">
                                     <div class="file-upload-area" id="transcriptUpload" style="border-color: rgba(255, 20, 147, 0.3);">
-                                        <svg class="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="#ff1493" stroke-width="1.5">
+                                        <svg class="file-upload-icon" viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="1.5">
                                             <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
                                             <path d="M14 2v6h6M12 18v-6M9 15l3-3 3 3"/>
                                         </svg>
-                                        <div class="file-upload-text"><strong style="color: #ff1493;">Click to upload</strong> or drag and drop</div>
+                                        <div class="file-upload-text"><strong style="color: #00ff00;">Click to upload</strong> or drag and drop</div>
                                         <div class="file-upload-hint">PDF only (Max 10MB)</div>
                                     </div>
                                     <input type="file" name="transcript" id="transcriptInput" accept=".pdf">
                                     <div class="file-name" id="transcriptName" style="display: none;">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="#ff1493" stroke-width="2">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="#00ff00" stroke-width="2">
                                             <path d="M20 6L9 17l-5-5"/>
                                         </svg>
                                         <span></span>
@@ -2936,16 +2902,17 @@
         <nav class="nav">
             <a href="index.html" class="logo" aria-label="SkyKnet Home">
                 <div class="logo-symbol">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ffff' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ffff' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                 </div>
                 <div>
                     <div class="logo-text-main">SKYKNET</div>
-                    <div class="logo-text-sub">Digital Finance</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
                 </div>
             </a>
             <ul class="nav-links">
                 <li><a href="about.html" class="sound-hover">About</a></li>
                 <li><a href="index.html#products" class="sound-hover">Products</a></li>
+                <li><a href="index.html#credentials" class="sound-hover">Credentials</a></li>
                 <li><a href="contact.html" class="sound-hover">Contact</a></li>
                 <li><a href="careers.html" class="sound-hover active">Careers</a></li>
             </ul>
@@ -3065,7 +3032,7 @@
             <button class="filter-btn sound-click" data-filter="senior">Senior Level</button>
             <button class="filter-btn sound-click" data-filter="mid">Mid Level</button>
             <button class="filter-btn sound-click" data-filter="entry">Entry Level</button>
-            <button class="filter-btn sound-click" data-filter="intern" style="border-color: rgba(255, 20, 147, 0.3); color: #ff1493;">Internships</button>
+            <button class="filter-btn sound-click" data-filter="intern" style="border-color: rgba(0, 255, 0, 0.3); color: #00ff00;">Internships</button>
             <button class="filter-btn sound-click" data-filter="engineering">Engineering</button>
             <button class="filter-btn sound-click" data-filter="ai">AI</button>
             <button class="filter-btn sound-click" data-filter="product">Product</button>
@@ -3194,7 +3161,7 @@
                             Full-time
                         </div>
                     </div>
-                    <p class="job-description">Build native Apple Silicon applications for our MacMetal Miner product. Expert knowledge of Swift, Metal API, and GPU programming required.</p>
+                    <p class="job-description">Build native applications for our Knexcoin and KnexWallet products. Expert knowledge of Swift, blockchain protocols, and distributed systems required.</p>
                     <div class="job-tags">
                         <span class="job-tag">Swift</span>
                         <span class="job-tag">Metal</span>
@@ -3347,7 +3314,7 @@
                             Full-time
                         </div>
                     </div>
-                    <p class="job-description">Create clear, comprehensive documentation for MacMetal Miner, APIs, and developer tools. Translate complex blockchain concepts for diverse audiences.</p>
+                    <p class="job-description">Create clear, comprehensive documentation for Knexcoin, APIs, and developer tools. Translate complex blockchain concepts for diverse audiences.</p>
                     <div class="job-tags">
                         <span class="job-tag">Documentation</span>
                         <span class="job-tag">API Docs</span>
@@ -3449,7 +3416,7 @@
                             Full-time
                         </div>
                     </div>
-                    <p class="job-description">Provide technical support to MacMetal Miner users. Troubleshoot mining issues, guide setup, and escalate bugs to engineering.</p>
+                    <p class="job-description">Provide technical support to Knexcoin and KnexWallet users. Troubleshoot blockchain issues, guide setup, and escalate bugs to engineering.</p>
                     <div class="job-tags">
                         <span class="job-tag">Technical Support</span>
                         <span class="job-tag">Mining</span>
@@ -3500,7 +3467,7 @@
                             Full-time
                         </div>
                     </div>
-                    <p class="job-description">Design and implement secure smart contracts for our Echelon and CORA platforms. Deep expertise in Stellar/Soroban and security auditing required.</p>
+                    <p class="job-description">Design and implement secure smart contracts for our Ayedex and KnexPay platforms. Deep expertise in Stellar/Soroban and security auditing required.</p>
                     <div class="job-tags">
                         <span class="job-tag">Soroban</span>
                         <span class="job-tag">Rust</span>
@@ -4105,7 +4072,7 @@
                 <div class="footer-brand">
                     <a href="index.html" class="logo" aria-label="DLT Home">
                         <div class="logo-symbol">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ffff' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ffff' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                         </div>
                     </a>
                     <p>Building institutional-grade blockchain infrastructure for the digital asset economy.</p>
@@ -4113,12 +4080,12 @@
                 <div>
                     <div class="footer-title">Products</div>
                     <ul class="footer-links">
-                        <li><a href="https://macmetalminer.com" target="_blank" rel="noopener noreferrer">MacMetal Miner</a></li>
-                        <li><a href="https://xalon.com" target="_blank" rel="noopener noreferrer">Echelon</a></li>
-                        <li><a href="https://hydrodollar.com" target="_blank" rel="noopener noreferrer">HydroDollar</a></li>
-                        <li><a href="https://ayedex.com" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
-                        <li><a href="https://corawallet.com" target="_blank" rel="noopener noreferrer">CORA</a></li>
-                        <li><a href="https://knexcoin.com" target="_blank" rel="noopener noreferrer">KNEX</a></li>
+                        <li><a href="https://www.knexcoin.com" target="_blank" rel="noopener noreferrer">Knexcoin</a></li>
+                        <li><a href="https://www.ayedex.com" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
+                        <li><a href="https://web3.knexpay.com" target="_blank" rel="noopener noreferrer">KnexWallet</a></li>
+                        <li><a href="https://www.superknet.com" target="_blank" rel="noopener noreferrer">Superknet</a></li>
+                        <li><a href="https://www.knexpay.com" target="_blank" rel="noopener noreferrer">KnexPay</a></li>
+                        <li><a href="https://www.knexmail.com" target="_blank" rel="noopener noreferrer">KnexMail</a></li>
                     </ul>
                 </div>
                 <div>
@@ -4132,9 +4099,9 @@
                 <div>
                     <div class="footer-title">Legal</div>
                     <ul class="footer-links">
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms</a></li>
-                        <li><a href="#">Security</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="cookies.html">Cookies</a></li>
                         <li><a href="sitemap.html">Sitemap</a></li>
                     </ul>
                 </div>
@@ -4530,132 +4497,95 @@
             }
         });
 
-        // ============================================
-        // THREE.JS BACKGROUND
-        // ============================================
-        
-        const canvas = document.getElementById('webgl');
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    </script>
+    <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 15, 50);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl'), antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000);
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 15, 40);
-        camera.lookAt(0, 0, 0);
-
-        // Grid
-        const gridGroup = new THREE.Group();
-        
-        for (let layer = 0; layer < 5; layer++) {
-            const gridSize = 200;
-            const divisions = 60;
-            const gridGeometry = new THREE.BufferGeometry();
-            const gridPositions = [];
-            
-            const z = -layer * 15;
-            const opacity = 1 - (layer * 0.2);
-            
-            for (let i = 0; i <= divisions; i++) {
-                const x = (i / divisions - 0.5) * gridSize;
-                gridPositions.push(x, 0, -gridSize/2 + z, x, 0, gridSize/2 + z);
-            }
-            
-            for (let i = 0; i <= divisions; i++) {
-                const zPos = (i / divisions - 0.5) * gridSize + z;
-                gridPositions.push(-gridSize/2, 0, zPos, gridSize/2, 0, zPos);
-            }
-            
-            gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPositions, 3));
-            
-            const gridMaterial = new THREE.LineBasicMaterial({
-                color: 0x00ffff,
-                transparent: true,
-                opacity: opacity * 0.15
-            });
-            
-            const grid = new THREE.LineSegments(gridGeometry, gridMaterial);
-            grid.position.y = -20;
-            gridGroup.add(grid);
+    const gridGroup = new THREE.Group();
+    for (let layer = 0; layer < 3; layer++) {
+        const gridGeo = new THREE.BufferGeometry();
+        const pos = [];
+        const size = 200, div = 40 - layer * 10, step = size / div;
+        for (let i = -div / 2; i <= div / 2; i++) {
+            const p = i * step;
+            pos.push(-size/2, -20 - layer * 0.5, p, size/2, -20 - layer * 0.5, p);
+            pos.push(p, -20 - layer * 0.5, -size/2, p, -20 - layer * 0.5, size/2);
         }
-        
-        scene.add(gridGroup);
+        gridGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+        gridGroup.add(new THREE.LineSegments(gridGeo, new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.12 * (1 - layer * 0.3) })));
+    }
+    scene.add(gridGroup);
 
-        // Particles
-        const particleCount = 2000;
-        const particleGeometry = new THREE.BufferGeometry();
-        const particlePositions = new Float32Array(particleCount * 3);
-        const particleSpeeds = new Float32Array(particleCount);
-        
-        for (let i = 0; i < particleCount; i++) {
-            particlePositions[i * 3] = (Math.random() - 0.5) * 200;
-            particlePositions[i * 3 + 1] = -20;
-            particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 200 - 50;
-            particleSpeeds[i] = Math.random() * 0.8 + 0.2;
+    const partCount = 3000;
+    const partGeo = new THREE.BufferGeometry();
+    const partPos = new Float32Array(partCount * 3);
+    const partSpd = new Float32Array(partCount);
+    for (let i = 0; i < partCount; i++) {
+        partPos[i*3] = (Math.random() - 0.5) * 200;
+        partPos[i*3+1] = -20 + Math.random() * 5;
+        partPos[i*3+2] = (Math.random() - 0.5) * 200;
+        partSpd[i] = Math.random() * 0.6 + 0.2;
+    }
+    partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
+    const particles = new THREE.Points(partGeo, new THREE.PointsMaterial({ color: 0x00ff00, size: 0.4, transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending }));
+    scene.add(particles);
+
+    const streams = [];
+    for (let i = 0; i < 25; i++) {
+        const streamGeo = new THREE.BufferGeometry();
+        const pts = [];
+        const startX = (Math.random() - 0.5) * 150;
+        for (let j = 0; j <= 100; j++) {
+            const t = j / 100;
+            pts.push(startX + Math.sin(t * Math.PI * 4) * 3, -20 + Math.sin(t * Math.PI * 2) * 0.5, -100 + t * 200);
         }
-        
-        particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-        
-        const particleMaterial = new THREE.PointsMaterial({
-            color: 0x00ffff,
-            size: 0.3,
-            transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending,
-            sizeAttenuation: true
-        });
-        
-        const particles = new THREE.Points(particleGeometry, particleMaterial);
-        scene.add(particles);
+        streamGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+        const stream = new THREE.Line(streamGeo, new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.15 }));
+        stream.userData = { baseOpacity: Math.random() * 0.2 + 0.1, phase: Math.random() * Math.PI * 2, speed: Math.random() * 2 + 1 };
+        streams.push(stream);
+        scene.add(stream);
+    }
 
-        // Mouse interaction
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
+    for (let i = 0; i < 20; i++) {
+        const pillarGeo = new THREE.BufferGeometry();
+        const x = (Math.random() - 0.5) * 180, z = (Math.random() - 0.5) * 120 - 30;
+        pillarGeo.setAttribute('position', new THREE.Float32BufferAttribute([x, -20, z, x, 60, z], 3));
+        scene.add(new THREE.Line(pillarGeo, new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.08 })));
+    }
 
-        // Animation
-        let time = 0;
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            time += 0.01;
-            
-            targetX += (mouseX * 10 - targetX) * 0.02;
-            targetY += (-mouseY * 5 - targetY) * 0.02;
-            camera.position.x = targetX;
-            camera.position.y = 15 + targetY;
-            camera.lookAt(0, 0, -20);
-            
-            gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
-            
-            const positions = particles.geometry.attributes.position.array;
-            for (let i = 0; i < particleCount; i++) {
-                positions[i * 3 + 2] += particleSpeeds[i];
-                
-                if (positions[i * 3 + 2] > 100) {
-                    positions[i * 3 + 2] = -100;
-                    positions[i * 3] = (Math.random() - 0.5) * 200;
-                }
-            }
-            particles.geometry.attributes.position.needsUpdate = true;
-            
-            renderer.render(scene, camera);
+    let mx = 0, my = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', e => { mx = (e.clientX / window.innerWidth - 0.5) * 2; my = (e.clientY / window.innerHeight - 0.5) * 2; });
+
+    let time = 0;
+    function animate() {
+        requestAnimationFrame(animate);
+        time += 0.01;
+        tx += (mx * 12 - tx) * 0.02;
+        ty += (-my * 6 - ty) * 0.02;
+        camera.position.x = tx;
+        camera.position.y = 15 + ty;
+        camera.lookAt(0, 0, -20);
+        gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
+        const pos = particles.geometry.attributes.position.array;
+        for (let i = 0; i < partCount; i++) {
+            pos[i*3+2] += partSpd[i];
+            if (pos[i*3+2] > 100) { pos[i*3+2] = -100; pos[i*3] = (Math.random() - 0.5) * 200; }
         }
-        
-        animate();
+        particles.geometry.attributes.position.needsUpdate = true;
+        streams.forEach(s => { s.material.opacity = s.userData.baseOpacity + Math.sin(time * s.userData.speed + s.userData.phase) * 0.1; });
+        renderer.render(scene, camera);
+    }
+    animate();
 
-        // Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+    window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+    </script>
+    <script>
 
         // ============================================
         // SCROLL ANIMATIONS

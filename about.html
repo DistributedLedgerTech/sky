@@ -92,7 +92,7 @@
             "name": "David"
         },
         "sameAs": [
-            "https://github.com/MacMetalMiner"
+            "https://github.com/SkyKnet"
         ]
     }
     </script>
@@ -107,13 +107,13 @@
         :root {
             --black: #000000;
             --white: #ffffff;
-            --cyan: #00ffff;
-            --electric: #00f0ff;
-            --blue: #0080ff;
-            --purple: #8000ff;
-            --magenta: #ff00ff;
+            --cyan: #00ff00;
+            --electric: #00ff66;
+            --blue: #00aa00;
+            --purple: #00ff00;
+            --magenta: #00ff66;
             --green: #00ff80;
-            --gold: #ffd700;
+            --gold: #00ff00;
             --red: #ff003c;
             --orange: #ff6600;
         }
@@ -143,46 +143,12 @@
             color: #000;
         }
 
-        /* Three.js Canvas */
-        #webgl {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Overlays */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 1;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    transparent 0px,
-                    transparent 2px,
-                    rgba(0, 255, 255, 0.01) 2px,
-                    rgba(0, 255, 255, 0.01) 4px
-                );
-        }
-
-        .vignette {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            pointer-events: none;
-            z-index: 2;
-            background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
-        }
+        #webgl { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        .overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0, 255, 0, 0.02) 2px, rgba(0, 255, 0, 0.02) 4px); }
+        .overlay::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 255, 0, 0.01); animation: flicker 0.15s infinite; pointer-events: none; }
+        @keyframes flicker { 0%, 100% { opacity: 0.97; } 50% { opacity: 1; } }
+        .vignette { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 2; background: radial-gradient(ellipse at center, transparent 0%, transparent 40%, rgba(0,0,0,0.85) 100%); }
+        .grid-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 1; opacity: 0.03; background-image: linear-gradient(var(--cyan) 1px, transparent 1px), linear-gradient(90deg, var(--cyan) 1px, transparent 1px); background-size: 50px 50px; }
 
         /* Content */
         .content {
@@ -242,7 +208,7 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 14px;
             font-weight: 700;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.3em;
             color: var(--cyan);
         }
 
@@ -250,7 +216,7 @@
             font-size: 10px;
             font-weight: 400;
             letter-spacing: 0.3em;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             text-transform: uppercase;
             margin-top: 4px;
         }
@@ -267,7 +233,7 @@
             font-weight: 400;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             text-decoration: none;
             position: relative;
             padding: 8px 0;
@@ -310,7 +276,7 @@
             display: none;
             width: 48px;
             height: 48px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 0, 0.3);
             background: transparent;
             cursor: pointer;
             flex-direction: column;
@@ -371,7 +337,7 @@
             right: 32px;
             width: 48px;
             height: 48px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 0, 0.3);
             background: transparent;
             cursor: pointer;
             display: flex;
@@ -445,15 +411,13 @@
         }
 
         .page-title .gradient {
-            background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--cyan);
         }
 
         .page-subtitle {
             font-size: 18px;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             max-width: 700px;
             margin: 0 auto;
             line-height: 1.8;
@@ -503,7 +467,7 @@
 
         .section-text {
             font-size: 16px;
-            color: rgba(255,255,255,0.6);
+            color: #ffffff;
             line-height: 1.9;
             margin-bottom: 24px;
         }
@@ -603,7 +567,7 @@
             font-family: 'Space Mono', monospace;
             font-size: 9px;
             letter-spacing: 0.15em;
-            color: rgba(255, 255, 255, 0.5);
+            color: #ffffff;
         }
 
         /* Core Values Section */
@@ -625,7 +589,7 @@
 
         .value-card {
             background: rgba(0, 10, 15, 0.8);
-            border: 1px solid rgba(0, 255, 255, 0.15);
+            border: 1px solid rgba(0, 255, 0, 0.15);
             padding: 64px 48px;
             text-align: center;
             position: relative;
@@ -649,15 +613,15 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle at center, rgba(0, 255, 0, 0.1) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.5s;
         }
 
         .value-card:hover {
-            border-color: rgba(0, 255, 255, 0.4);
+            border-color: rgba(0, 255, 0, 0.4);
             transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.15);
+            box-shadow: 0 20px 60px rgba(0, 255, 0, 0.15);
         }
 
         .value-card:hover::before {
@@ -672,7 +636,7 @@
             font-family: 'Space Mono', monospace;
             font-size: 64px;
             font-weight: 700;
-            color: rgba(0, 255, 255, 0.1);
+            color: rgba(0, 255, 0, 0.1);
             position: absolute;
             top: 24px;
             right: 32px;
@@ -692,7 +656,7 @@
         .value-icon-ring {
             position: absolute;
             inset: 0;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(0, 255, 0, 0.3);
             border-radius: 50%;
             animation: valueRingPulse 3s ease-in-out infinite;
         }
@@ -722,7 +686,7 @@
             fill: none;
             position: relative;
             z-index: 1;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+            filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5));
         }
 
         .value-title {
@@ -748,7 +712,7 @@
 
         .value-description {
             font-size: 15px;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             line-height: 1.8;
             position: relative;
             z-index: 1;
@@ -757,10 +721,10 @@
         .value-quote {
             margin-top: 32px;
             padding-top: 24px;
-            border-top: 1px solid rgba(0, 255, 255, 0.1);
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
             font-style: italic;
             font-size: 14px;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             position: relative;
             z-index: 1;
         }
@@ -819,7 +783,7 @@
             top: 32px;
             bottom: -32px;
             width: 1px;
-            background: linear-gradient(180deg, var(--cyan), rgba(0, 255, 255, 0.1));
+            background: linear-gradient(180deg, var(--cyan), rgba(0, 255, 0, 0.1));
         }
 
         .story-block:last-child .story-line {
@@ -828,7 +792,7 @@
 
         .story-text {
             background: rgba(0, 10, 15, 0.6);
-            border: 1px solid rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.1);
             padding: 32px;
             position: relative;
         }
@@ -842,7 +806,7 @@
             height: 0;
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
-            border-right: 12px solid rgba(0, 255, 255, 0.1);
+            border-right: 12px solid rgba(0, 255, 0, 0.1);
         }
 
         .story-text h3 {
@@ -854,16 +818,16 @@
 
         .story-text p {
             font-size: 15px;
-            color: rgba(255,255,255,0.6);
+            color: #ffffff;
             line-height: 1.8;
         }
 
         /* Stats Section */
         .stats-section {
             padding: 80px 64px;
-            background: rgba(0, 255, 255, 0.02);
-            border-top: 1px solid rgba(0, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            background: rgba(0, 255, 0, 0.02);
+            border-top: 1px solid rgba(0, 255, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 255, 0, 0.1);
         }
 
         .stats-grid {
@@ -884,12 +848,12 @@
             color: var(--cyan);
             line-height: 1;
             margin-bottom: 12px;
-            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            text-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
         }
 
         .stat-value .suffix {
             font-size: 32px;
-            color: rgba(0, 255, 255, 0.6);
+            color: rgba(0, 255, 0, 0.6);
         }
 
         .stat-label {
@@ -897,7 +861,7 @@
             font-size: 11px;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
         }
 
         /* Philosophy Section */
@@ -923,7 +887,7 @@
 
         .philosophy-card {
             background: rgba(0, 10, 15, 0.6);
-            border: 1px solid rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.1);
             padding: 40px;
             position: relative;
             transition: all 0.4s;
@@ -941,7 +905,7 @@
         }
 
         .philosophy-card:hover {
-            border-color: rgba(0, 255, 255, 0.3);
+            border-color: rgba(0, 255, 0, 0.3);
             background: rgba(0, 20, 30, 0.8);
         }
 
@@ -974,7 +938,7 @@
 
         .philosophy-text {
             font-size: 14px;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             line-height: 1.8;
         }
 
@@ -999,7 +963,7 @@
 
         .cta-text {
             font-size: 18px;
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             line-height: 1.8;
             margin-bottom: 48px;
         }
@@ -1036,7 +1000,7 @@
         .cta-btn.primary:hover {
             background: transparent;
             color: var(--cyan);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
         }
 
         .cta-btn.secondary {
@@ -1048,7 +1012,7 @@
         .cta-btn.secondary:hover {
             border-color: var(--cyan);
             color: var(--cyan);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
         }
 
         .cta-btn svg {
@@ -1075,7 +1039,7 @@
 
         .footer-brand p {
             font-size: 14px;
-            color: rgba(255,255,255,0.4);
+            color: #ffffff;
             line-height: 1.7;
             margin-top: 24px;
             max-width: 280px;
@@ -1087,7 +1051,7 @@
             font-weight: 700;
             letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
+            color: #ffffff;
             margin-bottom: 24px;
         }
 
@@ -1100,7 +1064,7 @@
         }
 
         .footer-links a {
-            color: rgba(255,255,255,0.5);
+            color: #ffffff;
             text-decoration: none;
             font-size: 14px;
             transition: color 0.2s;
@@ -1122,7 +1086,7 @@
         .footer-copyright {
             font-family: 'Space Mono', monospace;
             font-size: 11px;
-            color: rgba(255,255,255,0.3);
+            color: #ffffff;
             letter-spacing: 0.1em;
         }
 
@@ -1574,6 +1538,7 @@
     
     <!-- Overlays -->
     <div class="overlay"></div>
+    <div class="grid-overlay"></div>
     <div class="vignette"></div>
 
     <!-- Mobile Menu -->
@@ -1596,16 +1561,17 @@
         <nav class="nav">
             <a href="index.html" class="logo" aria-label="SkyKnet Home">
                 <div class="logo-symbol">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ffff' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ffff' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                 </div>
                 <div>
                     <div class="logo-text-main">SKYKNET</div>
-                    <div class="logo-text-sub">Digital Finance</div>
+                    <div class="logo-text-sub">Distributed Ledger</div>
                 </div>
             </a>
             <ul class="nav-links">
                 <li><a href="about.html" class="sound-hover active">About</a></li>
                 <li><a href="index.html#products" class="sound-hover">Products</a></li>
+                <li><a href="index.html#credentials" class="sound-hover">Credentials</a></li>
                 <li><a href="contact.html" class="sound-hover">Contact</a></li>
                 <li><a href="careers.html" class="sound-hover">Careers</a></li>
             </ul>
@@ -1635,7 +1601,7 @@
         <section class="mission-section">
             <div class="mission-content reveal-left">
                 <div class="section-label">Our Mission</div>
-                <h2 class="section-title">Building the Future of Digital Finance</h2>
+                <h2 class="section-title">Building the Future of Distributed Ledger</h2>
                 <p class="section-text">
                     At SkyKnet, we believe that blockchain technology represents the most significant paradigm shift in financial infrastructure since the internet. Our mission is to build the bridges between traditional systems and the decentralized future.
                 </p>
@@ -1792,8 +1758,8 @@
                             <div class="story-line"></div>
                         </div>
                         <div class="story-text">
-                            <h3>MacMetal Miner is Born</h3>
-                            <p>Recognizing the untapped potential of Apple Silicon for cryptocurrency mining, we developed MacMetal Miner—the first professional-grade Bitcoin mining application optimized for M-series chips. This breakthrough brought mining capabilities to millions of Mac users worldwide.</p>
+                            <h3>Knexcoin is Born</h3>
+                            <p>Recognizing the need for a scalable, energy-efficient blockchain, we developed Knexcoin—a Layer-1 blockchain powered by proof of bandwidth consensus. This breakthrough brought sustainable distributed ledger technology to developers and enterprises worldwide.</p>
                         </div>
                     </div>
 
@@ -1804,7 +1770,7 @@
                         </div>
                         <div class="story-text">
                             <h3>Expanding the Ecosystem</h3>
-                            <p>With the success of MacMetal Miner, we expanded our portfolio to include Echelon for enterprise blockchain solutions and began development on revolutionary payment systems. The KNEX protocol emerged as our answer to sustainable, bandwidth-based consensus mechanisms.</p>
+                            <p>With the success of Knexcoin, we expanded our portfolio to include KnexPay for payment processing and KnexWallet for secure cryptocurrency management. The ecosystem grew rapidly as enterprises adopted our infrastructure for real-world applications.</p>
                         </div>
                     </div>
 
@@ -1815,7 +1781,7 @@
                         </div>
                         <div class="story-text">
                             <h3>Innovation Accelerates</h3>
-                            <p>HydroDollar launched as our hydrogen-backed stablecoin initiative, while CORA revolutionized the gaming industry with Bitcoin-backed casino chips. The Ayedex decentralized exchange brought new liquidity options to the Stellar ecosystem.</p>
+                            <p>KnexMail launched as our encrypted communication platform, while Superknet debuted as the definitive block explorer for the Knexcoin network. The Ayedex decentralized exchange brought new liquidity options and trustless trading to our growing ecosystem.</p>
                         </div>
                     </div>
 
@@ -1909,7 +1875,7 @@
                 <div class="footer-brand">
                     <a href="index.html" class="logo" aria-label="DLT Home">
                         <div class="logo-symbol">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ffff' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ffff' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='28' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3ESKY%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                         </div>
                     </a>
                     <p>Building institutional-grade blockchain infrastructure for the digital asset economy.</p>
@@ -1917,12 +1883,12 @@
                 <div>
                     <div class="footer-title">Products</div>
                     <ul class="footer-links">
-                        <li><a href="https://macmetalminer.com" target="_blank" rel="noopener noreferrer">MacMetal Miner</a></li>
-                        <li><a href="https://xalon.com" target="_blank" rel="noopener noreferrer">Echelon</a></li>
-                        <li><a href="https://hydrodollar.com" target="_blank" rel="noopener noreferrer">HydroDollar</a></li>
-                        <li><a href="https://ayedex.com" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
-                        <li><a href="https://corawallet.com" target="_blank" rel="noopener noreferrer">CORA</a></li>
-                        <li><a href="https://knexcoin.com" target="_blank" rel="noopener noreferrer">KNEX</a></li>
+                        <li><a href="https://www.knexcoin.com" target="_blank" rel="noopener noreferrer">Knexcoin</a></li>
+                        <li><a href="https://www.ayedex.com" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
+                        <li><a href="https://web3.knexpay.com" target="_blank" rel="noopener noreferrer">KnexWallet</a></li>
+                        <li><a href="https://www.superknet.com" target="_blank" rel="noopener noreferrer">Superknet</a></li>
+                        <li><a href="https://www.knexpay.com" target="_blank" rel="noopener noreferrer">KnexPay</a></li>
+                        <li><a href="https://www.knexmail.com" target="_blank" rel="noopener noreferrer">KnexMail</a></li>
                     </ul>
                 </div>
                 <div>
@@ -1936,9 +1902,9 @@
                 <div>
                     <div class="footer-title">Legal</div>
                     <ul class="footer-links">
-                        <li><a href="#">Privacy</a></li>
-                        <li><a href="#">Terms</a></li>
-                        <li><a href="#">Security</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                        <li><a href="cookies.html">Cookies</a></li>
                         <li><a href="sitemap.html">Sitemap</a></li>
                     </ul>
                 </div>
@@ -2043,7 +2009,7 @@
                     
                     // Visual feedback
                     key.style.transform = 'scale(0.95)';
-                    key.style.boxShadow = '0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.2)';
+                    key.style.boxShadow = '0 0 20px rgba(0, 255, 0, 0.5), inset 0 0 10px rgba(0, 255, 0, 0.2)';
                     
                     setTimeout(() => {
                         key.style.transform = '';
@@ -2111,132 +2077,95 @@
             playClickSound();
         }
 
-        // ============================================
-        // THREE.JS BACKGROUND
-        // ============================================
-        
-        const canvas = document.getElementById('webgl');
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    </script>
+    <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 15, 50);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('webgl'), antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000);
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 15, 40);
-        camera.lookAt(0, 0, 0);
-
-        // Grid
-        const gridGroup = new THREE.Group();
-        
-        for (let layer = 0; layer < 5; layer++) {
-            const gridSize = 200;
-            const divisions = 60;
-            const gridGeometry = new THREE.BufferGeometry();
-            const gridPositions = [];
-            
-            const z = -layer * 15;
-            const opacity = 1 - (layer * 0.2);
-            
-            for (let i = 0; i <= divisions; i++) {
-                const x = (i / divisions - 0.5) * gridSize;
-                gridPositions.push(x, 0, -gridSize/2 + z, x, 0, gridSize/2 + z);
-            }
-            
-            for (let i = 0; i <= divisions; i++) {
-                const zPos = (i / divisions - 0.5) * gridSize + z;
-                gridPositions.push(-gridSize/2, 0, zPos, gridSize/2, 0, zPos);
-            }
-            
-            gridGeometry.setAttribute('position', new THREE.Float32BufferAttribute(gridPositions, 3));
-            
-            const gridMaterial = new THREE.LineBasicMaterial({
-                color: 0x00ffff,
-                transparent: true,
-                opacity: opacity * 0.15
-            });
-            
-            const grid = new THREE.LineSegments(gridGeometry, gridMaterial);
-            grid.position.y = -20;
-            gridGroup.add(grid);
+    const gridGroup = new THREE.Group();
+    for (let layer = 0; layer < 3; layer++) {
+        const gridGeo = new THREE.BufferGeometry();
+        const pos = [];
+        const size = 200, div = 40 - layer * 10, step = size / div;
+        for (let i = -div / 2; i <= div / 2; i++) {
+            const p = i * step;
+            pos.push(-size/2, -20 - layer * 0.5, p, size/2, -20 - layer * 0.5, p);
+            pos.push(p, -20 - layer * 0.5, -size/2, p, -20 - layer * 0.5, size/2);
         }
-        
-        scene.add(gridGroup);
+        gridGeo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+        gridGroup.add(new THREE.LineSegments(gridGeo, new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.12 * (1 - layer * 0.3) })));
+    }
+    scene.add(gridGroup);
 
-        // Particles
-        const particleCount = 2000;
-        const particleGeometry = new THREE.BufferGeometry();
-        const particlePositions = new Float32Array(particleCount * 3);
-        const particleSpeeds = new Float32Array(particleCount);
-        
-        for (let i = 0; i < particleCount; i++) {
-            particlePositions[i * 3] = (Math.random() - 0.5) * 200;
-            particlePositions[i * 3 + 1] = -20;
-            particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 200 - 50;
-            particleSpeeds[i] = Math.random() * 0.8 + 0.2;
+    const partCount = 3000;
+    const partGeo = new THREE.BufferGeometry();
+    const partPos = new Float32Array(partCount * 3);
+    const partSpd = new Float32Array(partCount);
+    for (let i = 0; i < partCount; i++) {
+        partPos[i*3] = (Math.random() - 0.5) * 200;
+        partPos[i*3+1] = -20 + Math.random() * 5;
+        partPos[i*3+2] = (Math.random() - 0.5) * 200;
+        partSpd[i] = Math.random() * 0.6 + 0.2;
+    }
+    partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
+    const particles = new THREE.Points(partGeo, new THREE.PointsMaterial({ color: 0x00ff00, size: 0.4, transparent: true, opacity: 0.7, blending: THREE.AdditiveBlending }));
+    scene.add(particles);
+
+    const streams = [];
+    for (let i = 0; i < 25; i++) {
+        const streamGeo = new THREE.BufferGeometry();
+        const pts = [];
+        const startX = (Math.random() - 0.5) * 150;
+        for (let j = 0; j <= 100; j++) {
+            const t = j / 100;
+            pts.push(startX + Math.sin(t * Math.PI * 4) * 3, -20 + Math.sin(t * Math.PI * 2) * 0.5, -100 + t * 200);
         }
-        
-        particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-        
-        const particleMaterial = new THREE.PointsMaterial({
-            color: 0x00ffff,
-            size: 0.3,
-            transparent: true,
-            opacity: 0.8,
-            blending: THREE.AdditiveBlending,
-            sizeAttenuation: true
-        });
-        
-        const particles = new THREE.Points(particleGeometry, particleMaterial);
-        scene.add(particles);
+        streamGeo.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+        const stream = new THREE.Line(streamGeo, new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.15 }));
+        stream.userData = { baseOpacity: Math.random() * 0.2 + 0.1, phase: Math.random() * Math.PI * 2, speed: Math.random() * 2 + 1 };
+        streams.push(stream);
+        scene.add(stream);
+    }
 
-        // Mouse interaction
-        let mouseX = 0;
-        let mouseY = 0;
-        let targetX = 0;
-        let targetY = 0;
-        
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
+    for (let i = 0; i < 20; i++) {
+        const pillarGeo = new THREE.BufferGeometry();
+        const x = (Math.random() - 0.5) * 180, z = (Math.random() - 0.5) * 120 - 30;
+        pillarGeo.setAttribute('position', new THREE.Float32BufferAttribute([x, -20, z, x, 60, z], 3));
+        scene.add(new THREE.Line(pillarGeo, new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.08 })));
+    }
 
-        // Animation
-        let time = 0;
-        
-        function animate() {
-            requestAnimationFrame(animate);
-            time += 0.01;
-            
-            targetX += (mouseX * 10 - targetX) * 0.02;
-            targetY += (-mouseY * 5 - targetY) * 0.02;
-            camera.position.x = targetX;
-            camera.position.y = 15 + targetY;
-            camera.lookAt(0, 0, -20);
-            
-            gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
-            
-            const positions = particles.geometry.attributes.position.array;
-            for (let i = 0; i < particleCount; i++) {
-                positions[i * 3 + 2] += particleSpeeds[i];
-                
-                if (positions[i * 3 + 2] > 100) {
-                    positions[i * 3 + 2] = -100;
-                    positions[i * 3] = (Math.random() - 0.5) * 200;
-                }
-            }
-            particles.geometry.attributes.position.needsUpdate = true;
-            
-            renderer.render(scene, camera);
+    let mx = 0, my = 0, tx = 0, ty = 0;
+    document.addEventListener('mousemove', e => { mx = (e.clientX / window.innerWidth - 0.5) * 2; my = (e.clientY / window.innerHeight - 0.5) * 2; });
+
+    let time = 0;
+    function animate() {
+        requestAnimationFrame(animate);
+        time += 0.01;
+        tx += (mx * 12 - tx) * 0.02;
+        ty += (-my * 6 - ty) * 0.02;
+        camera.position.x = tx;
+        camera.position.y = 15 + ty;
+        camera.lookAt(0, 0, -20);
+        gridGroup.rotation.y = Math.sin(time * 0.1) * 0.02;
+        const pos = particles.geometry.attributes.position.array;
+        for (let i = 0; i < partCount; i++) {
+            pos[i*3+2] += partSpd[i];
+            if (pos[i*3+2] > 100) { pos[i*3+2] = -100; pos[i*3] = (Math.random() - 0.5) * 200; }
         }
-        
-        animate();
+        particles.geometry.attributes.position.needsUpdate = true;
+        streams.forEach(s => { s.material.opacity = s.userData.baseOpacity + Math.sin(time * s.userData.speed + s.userData.phase) * 0.1; });
+        renderer.render(scene, camera);
+    }
+    animate();
 
-        // Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
+    window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+    </script>
+    <script>
 
         // ============================================
         // SCROLL ANIMATIONS
@@ -2322,7 +2251,7 @@
             const equatorialRadius = 1.5;
             const polarRadius = equatorialRadius * 0.9966;
             const continentScale = 1.0;
-            const coordSqueeze = 0.80;
+            const coordSqueeze = 1.0;
             
             // Helper to convert lat/lon to 3D position on oblate spheroid
             function latLonToVector3(lat, lon, radiusScale = 1) {
@@ -2402,7 +2331,7 @@
             let globeTime = 0;
             
             // Load everything then start
-            fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-50m.json')
+            fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-10m.json')
                 .then(response => response.json())
                 .then(topoData => {
                     // 1. Create ocean sphere
@@ -2414,7 +2343,7 @@
                     
                     // 2. Create continent lines
                     const geoData = topojson.feature(topoData, topoData.objects.land);
-                    const continentMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.95 });
+                    const continentMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.95 });
                     
                     let totalPoints = 0;
                     function processGeometry(geometry) {
