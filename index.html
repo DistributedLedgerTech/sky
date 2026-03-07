@@ -828,6 +828,355 @@
     </style>
 
     <!-- ============================================
+         CSS MODULE 8B: LOS ELIJO PANORAMIC SECTION
+         ============================================ -->
+    <style>
+        .los-elijo-panoramic {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: #030712;
+        }
+
+        /* Panoramic background — deep blue-black with cyan atmosphere */
+        .los-elijo-panoramic::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 120% 60% at 50% 80%, rgba(0,240,255,0.06) 0%, transparent 70%),
+                radial-gradient(ellipse 80% 40% at 70% 50%, rgba(191,0,255,0.04) 0%, transparent 60%),
+                linear-gradient(180deg, rgba(3,7,18,0.9) 0%, rgba(3,7,18,0.3) 40%, rgba(3,7,18,0.3) 70%, rgba(3,7,18,0.95) 100%);
+            z-index: 2;
+        }
+
+        /* Bottom glow — cyan/fuchsia atmosphere */
+        .los-elijo-panoramic::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 40%;
+            background: linear-gradient(180deg, transparent, rgba(0,240,255,0.015) 40%, rgba(0,240,255,0.04));
+            z-index: 2;
+        }
+
+        /* Grid with cyan tint */
+        .los-elijo-grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,240,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,240,255,0.025) 1px, transparent 1px);
+            background-size: 80px 80px;
+            z-index: 1;
+            animation: gridPan 30s linear infinite;
+        }
+
+        @keyframes gridPan {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-80px); }
+        }
+
+        /* Horizon glow — cyan to fuchsia gradient line */
+        .los-elijo-horizon {
+            position: absolute;
+            left: 0; right: 0;
+            bottom: 35%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,240,255,0.3) 15%, rgba(0,240,255,0.5) 35%, rgba(191,0,255,0.5) 65%, rgba(191,0,255,0.3) 85%, transparent);
+            z-index: 3;
+            box-shadow: 0 0 30px rgba(0,240,255,0.15), 0 0 60px rgba(191,0,255,0.08);
+        }
+
+        .los-elijo-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: var(--space-xl) var(--space-lg);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            align-items: center;
+        }
+
+        .los-elijo-title-block {
+            max-width: 700px;
+        }
+
+        .los-elijo-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: var(--space-md);
+        }
+
+        .los-elijo-eyebrow::before {
+            content: '';
+            width: 6px; height: 6px; border-radius: 50%;
+            background: #00f0ff;
+            box-shadow: 0 0 8px #00f0ff, 0 0 20px rgba(0,240,255,0.4);
+            animation: pulseDot 2s ease-in-out infinite;
+        }
+
+        .los-elijo-eyebrow-tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: #00f0ff;
+            padding: 4px 12px;
+            border: 1px solid rgba(0,240,255,0.3);
+        }
+
+        .los-elijo-eyebrow-text {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .los-elijo-name {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: clamp(56px, 10vw, 140px);
+            line-height: 0.85;
+            margin-bottom: var(--space-sm);
+            letter-spacing: -0.02em;
+        }
+
+        .los-elijo-name .le-line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .los-elijo-name .le-stroke {
+            color: transparent;
+            -webkit-text-stroke: 1.5px #00f0ff;
+        }
+
+        .los-elijo-name .le-gradient {
+            background: linear-gradient(135deg, #00f0ff, #bf00ff, #00ff88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .los-elijo-subtitle {
+            font-family: var(--font-mono);
+            font-size: clamp(12px, 1.2vw, 16px);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(191,0,255,0.7);
+            margin-bottom: var(--space-md);
+        }
+
+        .los-elijo-description {
+            font-size: clamp(14px, 1.5vw, 18px);
+            line-height: 1.8;
+            color: rgba(255,255,255,0.75);
+            max-width: 520px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .los-elijo-description strong {
+            color: #00f0ff;
+            font-weight: 600;
+        }
+
+        /* Right side — Info cards */
+        .los-elijo-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .los-elijo-info-card {
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0,240,255,0.1);
+            padding: 32px 36px;
+            position: relative;
+            overflow: hidden;
+            transition: all var(--duration-med) ease;
+        }
+
+        .los-elijo-info-card:hover {
+            background: rgba(5, 15, 30, 0.95);
+            border-color: rgba(0,240,255,0.25);
+        }
+
+        .los-elijo-info-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
+            background: linear-gradient(180deg, #00f0ff, #bf00ff, transparent);
+            opacity: 0;
+            transition: opacity var(--duration-med) ease;
+        }
+
+        .los-elijo-info-card:hover::before {
+            opacity: 1;
+        }
+
+        .los-elijo-info-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: rgba(0,240,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .los-elijo-info-value {
+            font-family: var(--font-primary);
+            font-size: clamp(18px, 2vw, 26px);
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .los-elijo-info-value .le-currency {
+            color: #bf00ff;
+            font-weight: 700;
+        }
+
+        .los-elijo-info-value .le-highlight {
+            color: #00f0ff;
+        }
+
+        .los-elijo-info-detail {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: rgba(255,255,255,0.4);
+            margin-top: 6px;
+            letter-spacing: 0.05em;
+        }
+
+        /* CTA link — cyan */
+        .los-elijo-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #00f0ff;
+            padding: 16px 0;
+            position: relative;
+            transition: all var(--duration-fast) ease;
+        }
+
+        .los-elijo-cta::after {
+            content: '';
+            position: absolute;
+            bottom: 12px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, #00f0ff, #bf00ff, transparent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--duration-med) var(--ease-out);
+        }
+
+        .los-elijo-cta:hover::after {
+            transform: scaleX(1);
+        }
+
+        .los-elijo-cta svg {
+            width: 16px; height: 16px;
+            transition: transform var(--duration-fast) ease;
+        }
+
+        .los-elijo-cta:hover svg {
+            transform: translateX(6px);
+        }
+
+        /* Corner decorations — cyan + fuchsia */
+        .los-elijo-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            z-index: 10;
+        }
+
+        .los-elijo-corner--tl {
+            top: var(--space-md); left: var(--space-md);
+            border-top: 1px solid rgba(0,240,255,0.25);
+            border-left: 1px solid rgba(0,240,255,0.25);
+        }
+
+        .los-elijo-corner--tr {
+            top: var(--space-md); right: var(--space-md);
+            border-top: 1px solid rgba(191,0,255,0.25);
+            border-right: 1px solid rgba(191,0,255,0.25);
+        }
+
+        .los-elijo-corner--bl {
+            bottom: var(--space-md); left: var(--space-md);
+            border-bottom: 1px solid rgba(191,0,255,0.25);
+            border-left: 1px solid rgba(191,0,255,0.25);
+        }
+
+        .los-elijo-corner--br {
+            bottom: var(--space-md); right: var(--space-md);
+            border-bottom: 1px solid rgba(0,240,255,0.25);
+            border-right: 1px solid rgba(0,240,255,0.25);
+        }
+
+        /* Scanlines — subtle cyan */
+        .los-elijo-scanlines {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,240,255,0.006) 2px,
+                rgba(0,240,255,0.006) 4px
+            );
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .los-elijo-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+                padding: var(--space-lg) var(--space-md);
+            }
+            .los-elijo-name {
+                font-size: clamp(44px, 10vw, 80px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .los-elijo-panoramic {
+                min-height: auto;
+                padding: var(--space-lg) 0;
+            }
+            .los-elijo-content {
+                padding: var(--space-md) var(--space-sm);
+            }
+            .los-elijo-info-card {
+                padding: 24px 20px;
+            }
+            .los-elijo-corner {
+                display: none;
+            }
+        }
+    </style>
+
+    <!-- ============================================
          CSS MODULE 9: STATS, CTA, FOOTER
          ============================================ -->
     <style>
@@ -1214,6 +1563,7 @@
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
         <a href="whoami.html">WhoAmI</a>
+        <a href="#loselijo" onclick="closeMobileMenu()">Los Elijo</a>
         <a href="#products" onclick="closeMobileMenu()">Products</a>
         <a href="#credentials" onclick="closeMobileMenu()">Credentials</a>
         <a href="contact.html">Contact</a>
@@ -1238,6 +1588,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="whoami.html" class="sound-hover">WhoAmI</a></li>
+                <li><a href="#loselijo" class="sound-hover">Los Elijo</a></li>
                 <li><a href="#products" class="sound-hover">Products</a></li>
                 <li><a href="#credentials" class="sound-hover">Credentials</a></li>
                 <li><a href="contact.html" class="sound-hover">Contact</a></li>
@@ -1302,6 +1653,71 @@
             <div class="scroll-hint">
                 <div class="scroll-line"></div>
                 <span class="scroll-text">Scroll</span>
+            </div>
+        </section>
+
+        <!-- ═══ Los Elijo — Panoramic Showcase ═══ -->
+        <section class="los-elijo-panoramic" id="loselijo">
+            <!-- Decorative layers -->
+            <div class="los-elijo-grid-bg"></div>
+            <div class="los-elijo-horizon"></div>
+            <div class="los-elijo-scanlines"></div>
+            <div class="los-elijo-corner los-elijo-corner--tl"></div>
+            <div class="los-elijo-corner los-elijo-corner--tr"></div>
+            <div class="los-elijo-corner los-elijo-corner--bl"></div>
+            <div class="los-elijo-corner los-elijo-corner--br"></div>
+
+            <div class="los-elijo-content">
+                <!-- Left — Title & Description -->
+                <div class="los-elijo-title-block reveal">
+                    <div class="los-elijo-eyebrow">
+                        <span class="los-elijo-eyebrow-tag">NAU</span>
+                        <span class="los-elijo-eyebrow-text">Quadratic-Governance Protocol</span>
+                    </div>
+
+                    <h2 class="los-elijo-name">
+                        <span class="le-line"><span class="le-gradient">Los</span></span>
+                        <span class="le-line"><span class="le-stroke">Elijo</span></span>
+                    </h2>
+
+                    <div class="los-elijo-subtitle">The City Chosen by the People</div>
+
+                    <p class="los-elijo-description">
+                        The first sovereign smart city governed by <strong>quadratic voting</strong> — where every citizen's voice carries equal weight. Powered by the <strong>Lumero Ł</strong> currency and built on NAU governance infrastructure.
+                    </p>
+
+                    <a href="https://loselijo.com" class="los-elijo-cta sound-click" target="_blank" rel="noopener noreferrer">
+                        Explore the City
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
+                <!-- Right — Info Cards -->
+                <div class="los-elijo-info">
+                    <div class="los-elijo-info-card reveal sound-hover">
+                        <div class="los-elijo-info-label">Governance Model</div>
+                        <div class="los-elijo-info-value"><span class="le-highlight">Quadratic Voting</span></div>
+                        <div class="los-elijo-info-detail">One person, one voice — cost of influence grows quadratically</div>
+                    </div>
+
+                    <div class="los-elijo-info-card reveal sound-hover">
+                        <div class="los-elijo-info-label">Native Currency</div>
+                        <div class="los-elijo-info-value">Lumero <span class="le-currency">Ł</span></div>
+                        <div class="los-elijo-info-detail">On-chain governance token for civic participation &amp; economy</div>
+                    </div>
+
+                    <div class="los-elijo-info-card reveal sound-hover">
+                        <div class="los-elijo-info-label">Protocol</div>
+                        <div class="los-elijo-info-value"><span class="le-highlight">NAU</span> Governance Protocol</div>
+                        <div class="los-elijo-info-detail">Decentralized decision-making for the New American Union</div>
+                    </div>
+
+                    <div class="los-elijo-info-card reveal sound-hover">
+                        <div class="los-elijo-info-label">Districts</div>
+                        <div class="los-elijo-info-value">9 Sovereign <span class="le-highlight">Districts</span></div>
+                        <div class="los-elijo-info-detail">Financial &bull; Technology &bull; University &bull; Arts &bull; Residential &bull; Parks &bull; Waterfront &bull; Transit &bull; SkyMountain</div>
+                    </div>
+                </div>
             </div>
         </section>
 
