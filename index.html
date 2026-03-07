@@ -622,8 +622,8 @@
 
         .hero {
             min-height: 100vh; position: relative;
-            display: flex; flex-direction: column; justify-content: center;
-            padding: var(--space-xl) clamp(200px, 20vw, 320px) var(--space-lg) var(--space-lg);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+            padding: var(--space-xl) var(--space-lg) var(--space-lg);
         }
 
         .hero-eyebrow { display: flex; align-items: center; gap: 16px; margin-bottom: var(--space-md); }
@@ -657,7 +657,7 @@
 
         .hero-description {
             font-size: clamp(14px, 1.5vw, 18px); line-height: 1.8;
-            color: #ffffff; max-width: 600px;
+            color: #ffffff; max-width: 600px; margin-left: auto; margin-right: auto;
             margin-bottom: var(--space-lg);
             opacity: 0; animation: fadeUp var(--duration-slow) var(--ease-out) 0.8s forwards;
         }
