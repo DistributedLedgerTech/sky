@@ -1,0 +1,204 @@
+/* ============================================
+   SHARED NAVIGATION — PAU Governance Protocol
+   All pages link to this file for consistent nav styling
+   ============================================ */
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 32px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    mix-blend-mode: difference;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo-symbol {
+    width: 56px;
+    height: 56px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.logo-symbol img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes logoRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.logo-text-main {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--cyan);
+}
+
+.logo-text-sub {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    color: #ffffff;
+    margin-top: 4px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 64px;
+    list-style: none;
+}
+
+.nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-decoration: none;
+    position: relative;
+    padding: 8px 0;
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.nav-links a::before {
+    content: '[';
+    position: absolute;
+    left: -12px;
+    opacity: 0;
+    color: var(--cyan);
+    transition: all 0.3s;
+    transform: translateX(8px);
+}
+
+.nav-links a::after {
+    content: ']';
+    position: absolute;
+    right: -12px;
+    opacity: 0;
+    color: var(--cyan);
+    transition: all 0.3s;
+    transform: translateX(-8px);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--cyan);
+}
+
+.nav-links a:hover::before,
+.nav-links a:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    background: transparent;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 6px;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: #ffffff;
+    transition: all 0.3s;
+}
+
+/* Mobile Menu Overlay */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.97);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.mobile-menu a {
+    font-family: 'Space Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.mobile-menu a:hover {
+    color: var(--cyan, #00ff00);
+}
+
+.mobile-menu-close {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white, #ffffff);
+}
+
+.mobile-menu.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .nav { padding: 24px 32px; }
+}
+
+@media (max-width: 768px) {
+    .nav { padding: 12px 16px; }
+    .nav-links { display: none; }
+    .mobile-menu-btn { display: flex; }
+    .mobile-menu { display: flex; }
+}
+
+@media (max-width: 480px) {
+    .nav { padding: 10px 12px; }
+    .logo-symbol { width: 36px; height: 36px; }
+    .logo-text-main { font-size: 12px; }
+    .logo-text-sub { font-size: 7px; }
+}

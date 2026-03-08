@@ -82,6 +82,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="nav.css">
 
     <!-- Custom Font -->
     <style>
@@ -428,192 +429,6 @@
     </style>
 
     <!-- ============================================
-         CSS MODULE 5: NAVIGATION
-         ============================================ -->
-    <style>
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 32px 64px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            mix-blend-mode: difference;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .logo-symbol {
-            width: 56px;
-            height: 56px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .logo-symbol img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes logoRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .logo-text-main {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            color: var(--cyan);
-        }
-
-        .logo-text-sub {
-            font-size: 10px;
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            color: #ffffff;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 64px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #ffffff;
-            text-decoration: none;
-            position: relative;
-            padding: 8px 0;
-            transition: color 0.3s;
-        }
-
-        .nav-links a::before {
-            content: '[';
-            position: absolute;
-            left: -12px;
-            opacity: 0;
-            color: var(--cyan);
-            transition: all 0.3s;
-            transform: translateX(8px);
-        }
-
-        .nav-links a::after {
-            content: ']';
-            position: absolute;
-            right: -12px;
-            opacity: 0;
-            color: var(--cyan);
-            transition: all 0.3s;
-            transform: translateX(-8px);
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--cyan);
-        }
-
-        .nav-links a:hover::before,
-        .nav-links a:hover::after {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(0, 255, 0, 0.3);
-            background: transparent;
-            cursor: pointer;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            padding: 12px;
-        }
-
-        .mobile-menu-btn span {
-            display: block;
-            width: 100%;
-            height: 1px;
-            background: var(--cyan);
-            transition: all 0.3s;
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.98);
-            z-index: 999;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 32px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s;
-        }
-
-        .mobile-menu.visible { opacity: 1; visibility: visible; }
-
-        .mobile-menu a {
-            font-family: 'Space Mono', monospace;
-            font-size: 18px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--white);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .mobile-menu a:hover { color: var(--cyan); }
-
-        .mobile-menu-close {
-            position: absolute;
-            top: 32px;
-            right: 32px;
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(0, 255, 0, 0.3);
-            background: transparent;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-        }
-    </style>
-
-    <!-- ============================================
          CSS MODULE 6: HERO SECTION
          ============================================ -->
     <style>
@@ -672,7 +487,7 @@
         }
 
         .hero-stats {
-            position: absolute; right: clamp(32px, 4vw, 64px); top: 50%;
+            position: absolute; right: clamp(32px, 4vw, 64px); top: 42%;
             transform: translateY(-50%);
             display: flex; flex-direction: column; gap: clamp(24px, 3vw, 40px);
         }
@@ -699,7 +514,8 @@
         .xray-button {
             position: relative; display: inline-flex; align-items: center; justify-content: center;
             align-self: center;
-            padding: 18px 40px; text-decoration: none; cursor: pointer;
+            margin-left: calc(clamp(200px, 20vw, 320px) - var(--space-lg));
+            padding: 18px 72px; text-decoration: none; cursor: pointer;
             opacity: 0; animation: fadeUp var(--duration-slow) var(--ease-out) 1s forwards;
         }
         .xray-layer {
@@ -1284,7 +1100,7 @@
          CSS MODULE 11: RESPONSIVE
          ============================================ -->
     <style>
-        @media (max-width: 1200px) {
+        @media (max-width: 768px) {
             .hero { padding-right: var(--space-lg); }
             .hero-stats { position: static; transform: none; flex-direction: row; gap: 40px; margin-top: var(--space-lg); }
             .hero-stat { text-align: left; }
@@ -1298,15 +1114,7 @@
             .stats-bar { margin: var(--space-xl) var(--space-md); }
         }
 
-        @media (max-width: 1024px) {
-            .nav { padding: 24px 32px; }
-        }
-
         @media (max-width: 768px) {
-            .nav { padding: 12px 16px; }
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: flex; }
-            .mobile-menu { display: flex; }
             .hero-title { font-size: clamp(36px, 10vw, 80px); }
             .hero-stats { flex-direction: column; gap: 24px; }
             .hero-stat-value { font-size: 36px; }
@@ -1340,20 +1148,9 @@
                 -webkit-backdrop-filter: blur(12px);
             }
             .scroll-hint { display: none; }
-            /* ── Glassmorphism mobile menu ── */
-            .mobile-menu {
-                background: rgba(0, 5, 10, 0.85);
-                backdrop-filter: blur(24px) saturate(1.5);
-                -webkit-backdrop-filter: blur(24px) saturate(1.5);
-            }
-            .mobile-menu a { min-height: 44px; display: flex; align-items: center; }
         }
 
         @media (max-width: 480px) {
-            .nav { padding: 10px 12px; }
-            .logo-symbol { width: 36px; height: 36px; }
-            .logo-text-main { font-size: 12px; }
-            .logo-text-sub { font-size: 7px; }
             .hero { padding: var(--space-lg) var(--space-sm) var(--space-md); }
             .section-header { padding: 0 var(--space-sm); }
             .cta { padding: var(--space-xl) var(--space-sm); }
@@ -1589,8 +1386,8 @@
                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='22' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3EWWW%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                 </div>
                 <div>
-                    <div class="logo-text-main">PAU</div>
-                    <div class="logo-text-sub">Governance Protocol</div>
+                    <div class="logo-text-main">Distributed Ledger</div>
+                    <div class="logo-text-sub">Technologies</div>
                 </div>
             </a>
             <ul class="nav-links">
@@ -1645,16 +1442,16 @@
             </a>
             <div class="hero-stats">
                 <div class="hero-stat sound-hover">
-                    <div class="hero-stat-value">6</div>
-                    <div class="hero-stat-label">Enterprise Products</div>
+                    <div class="hero-stat-value">7</div>
+                    <div class="hero-stat-label">dApps</div>
                 </div>
                 <div class="hero-stat sound-hover">
-                    <div class="hero-stat-value">950+</div>
-                    <div class="hero-stat-label">MH/s Capacity</div>
+                    <div class="hero-stat-value">32</div>
+                    <div class="hero-stat-label">Cores</div>
                 </div>
                 <div class="hero-stat sound-hover">
-                    <div class="hero-stat-value">24/7</div>
-                    <div class="hero-stat-label">Global Operations</div>
+                    <div class="hero-stat-value">700k</div>
+                    <div class="hero-stat-label">TPS</div>
                 </div>
             </div>
             <div class="scroll-hint">

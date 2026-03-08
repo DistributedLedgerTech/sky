@@ -59,7 +59,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link rel="stylesheet" href="nav.css">
+
     <!-- Custom Font -->
     <style>
         @font-face {
@@ -141,164 +142,6 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 32px 64px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            mix-blend-mode: difference;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .logo-symbol {
-            width: 56px;
-            height: 56px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .logo-symbol img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes logoRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .logo-text-main {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 0.3em;
-            color: var(--cyan);
-        }
-
-        .logo-text-sub {
-            font-size: 10px;
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            color: #ffffff;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 64px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #ffffff;
-            text-decoration: none;
-            position: relative;
-            padding: 8px 0;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--cyan);
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            background: transparent;
-            cursor: pointer;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 6px;
-            padding: 12px;
-        }
-
-        .mobile-menu-btn span {
-            display: block;
-            width: 100%;
-            height: 1px;
-            background: var(--cyan);
-        }
-
-        .mobile-menu {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.98);
-            z-index: 999;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 32px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s;
-        }
-
-        .mobile-menu.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-menu a {
-            font-family: 'Space Mono', monospace;
-            font-size: 18px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: var(--white);
-            text-decoration: none;
-        }
-
-        .mobile-menu a:hover {
-            color: var(--cyan);
-        }
-
-        .mobile-menu-close {
-            position: absolute;
-            top: 32px;
-            right: 32px;
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            background: transparent;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
         }
 
         /* Page Header */
@@ -582,10 +425,6 @@
 
         /* Responsive */
         @media (max-width: 1024px) {
-            .nav {
-                padding: 24px 32px;
-            }
-
             .page-header {
                 padding: 160px 32px 48px;
             }
@@ -609,22 +448,6 @@
         }
 
         @media (max-width: 768px) {
-            .nav {
-                padding: 16px 24px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            .mobile-menu {
-                display: flex;
-            }
-
             .page-header {
                 padding: 140px 24px 40px;
             }
@@ -716,8 +539,8 @@
                     <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23000' width='100' height='100'/%3E%3Crect x='4' y='4' width='92' height='92' fill='none' stroke='%2300ff00' stroke-width='3'/%3E%3Ctext x='50' y='50' font-size='22' text-anchor='middle' dominant-baseline='central' fill='%2300ff00' font-family='Oxygen,Arial,sans-serif' font-weight='bold' letter-spacing='2'%3EWWW%3C/text%3E%3C/svg%3E" alt="SkyKnet">
                 </div>
                 <div>
-                    <div class="logo-text-main">PAU</div>
-                    <div class="logo-text-sub">Governance Protocol</div>
+                    <div class="logo-text-main">Distributed Ledger</div>
+                    <div class="logo-text-sub">Technologies</div>
                 </div>
             </a>
             <ul class="nav-links">
