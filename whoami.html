@@ -297,8 +297,9 @@
 
         /* Three.js Globe Styles */
         .globe-wrapper {
-            width: 450px;
-            height: 450px;
+            width: 100%;
+            max-width: 550px;
+            aspect-ratio: 1;
             position: relative;
             display: flex;
             align-items: center;
@@ -981,8 +982,7 @@
             }
 
             .globe-wrapper {
-                width: 320px;
-                height: 360px;
+                max-width: 320px;
             }
 
             .values-section {
@@ -1067,8 +1067,7 @@
             }
 
             .globe-wrapper {
-                width: 280px;
-                height: 320px;
+                max-width: 280px;
             }
 
             .globe-title {
@@ -1991,221 +1990,174 @@
         }
 
         // ============================================
-        // THREE.JS GLOBE - CONTINENT OUTLINES ONLY
+        // THREE.JS GLOBE — IDENTICAL TO INDEX.HTML
         // ============================================
-        
+
         const globeCanvas = document.getElementById('globeCanvas');
-        if (globeCanvas) {
+        if (globeCanvas && typeof THREE !== 'undefined') {
             // Hide canvas until fully loaded
             globeCanvas.style.opacity = '0';
-            
+
             const globeRenderer = new THREE.WebGLRenderer({ canvas: globeCanvas, antialias: true, alpha: true });
-            globeRenderer.setSize(450, 450);
             globeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            globeRenderer.sortObjects = true;
-            
             const globeScene = new THREE.Scene();
             const globeCamera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
             globeCamera.position.z = 4.8;
-            
             const globeGroup = new THREE.Group();
-            
-            // WGS84 oblate spheroid parameters
-            const equatorialRadius = 1.5;
-            const polarRadius = equatorialRadius * 0.9966;
-            const continentScale = 1.0;
-            const coordSqueeze = 1.0;
-            
-            // Helper to convert lat/lon to 3D position on oblate spheroid
-            function latLonToVector3(lat, lon, radiusScale = 1) {
+
+            const R = 1.5;
+            const Rp = R * 0.9966;
+
+            function latLonToVec(lat, lon, scale) {
                 const phi = (90 - lat) * Math.PI / 180;
                 const theta = (lon + 180) * Math.PI / 180;
-                const r = equatorialRadius * radiusScale;
-                const rPolar = polarRadius * radiusScale;
-                const x = -r * Math.sin(phi) * Math.cos(theta);
-                const y = rPolar * Math.cos(phi);
-                const z = r * Math.sin(phi) * Math.sin(theta);
-                return new THREE.Vector3(x, y, z);
+                const r = R * (scale || 1);
+                const rp = Rp * (scale || 1);
+                return new THREE.Vector3(
+                    -r * Math.sin(phi) * Math.cos(theta),
+                    rp * Math.cos(phi),
+                    r * Math.sin(phi) * Math.sin(theta)
+                );
             }
-            
-            // Global financial & emerging market nodes
-            const financeNodes = [
-                // North America
-                { lat: 40.7, lon: -74, name: 'New York' },
-                { lat: 37.8, lon: -122.4, name: 'San Francisco' },
-                { lat: 34, lon: -118.2, name: 'Los Angeles' },
-                { lat: 41.9, lon: -87.6, name: 'Chicago' },
-                { lat: 43.7, lon: -79.4, name: 'Toronto' },
-                { lat: 25.8, lon: -80.2, name: 'Miami' },
-                // Latin America
-                { lat: 4.6, lon: -74.1, name: 'Bogotá' },
-                { lat: 6.2, lon: -75.6, name: 'Medellín' },
-                { lat: -23.5, lon: -46.6, name: 'São Paulo' },
-                { lat: -22.9, lon: -43.2, name: 'Rio de Janeiro' },
-                { lat: 19.4, lon: -99.1, name: 'Mexico City' },
-                { lat: -34.6, lon: -58.4, name: 'Buenos Aires' },
-                { lat: -33.4, lon: -70.6, name: 'Santiago' },
-                { lat: -12, lon: -77, name: 'Lima' },
-                { lat: 9, lon: -79.5, name: 'Panama City' },
-                { lat: 10.5, lon: -66.9, name: 'Caracas' },
-                // Europe
-                { lat: 51.5, lon: -0.1, name: 'London' },
-                { lat: 50.1, lon: 8.7, name: 'Frankfurt' },
-                { lat: 48.9, lon: 2.3, name: 'Paris' },
-                { lat: 47.4, lon: 8.5, name: 'Zurich' },
-                { lat: 52.4, lon: 4.9, name: 'Amsterdam' },
-                { lat: 52.5, lon: 13.4, name: 'Berlin' },
-                { lat: 59.3, lon: 18.1, name: 'Stockholm' },
-                { lat: 55.7, lon: 12.6, name: 'Copenhagen' },
-                // Middle East
-                { lat: 25.2, lon: 55.3, name: 'Dubai' },
-                { lat: 32.1, lon: 34.8, name: 'Tel Aviv' },
-                { lat: 24.7, lon: 46.7, name: 'Riyadh' },
-                // Africa
-                { lat: 6.5, lon: 3.4, name: 'Lagos' },
-                { lat: -1.3, lon: 36.8, name: 'Nairobi' },
-                { lat: -26.2, lon: 28, name: 'Johannesburg' },
-                { lat: 30, lon: 31.2, name: 'Cairo' },
-                { lat: -33.9, lon: 18.4, name: 'Cape Town' },
-                { lat: 5.6, lon: -0.2, name: 'Accra' },
-                { lat: 14.7, lon: -17.5, name: 'Dakar' },
-                { lat: -4.3, lon: 15.3, name: 'Kinshasa' },
-                { lat: 9, lon: 38.7, name: 'Addis Ababa' },
-                // Asia Pacific
-                { lat: 35.7, lon: 139.7, name: 'Tokyo' },
-                { lat: 1.3, lon: 103.8, name: 'Singapore' },
-                { lat: 22.3, lon: 114.2, name: 'Hong Kong' },
-                { lat: 31.2, lon: 121.5, name: 'Shanghai' },
-                { lat: 39.9, lon: 116.4, name: 'Beijing' },
-                { lat: 37.5, lon: 127, name: 'Seoul' },
-                { lat: 19, lon: 72.8, name: 'Mumbai' },
-                { lat: 28.6, lon: 77.2, name: 'New Delhi' },
-                { lat: 13.8, lon: 100.5, name: 'Bangkok' },
-                { lat: -6.2, lon: 106.8, name: 'Jakarta' },
-                { lat: 14.6, lon: 121, name: 'Manila' },
-                { lat: 3.1, lon: 101.7, name: 'Kuala Lumpur' },
-                // Oceania
-                { lat: -33.9, lon: 151.2, name: 'Sydney' },
-                { lat: -37.8, lon: 145, name: 'Melbourne' },
-                { lat: -36.8, lon: 174.8, name: 'Auckland' },
-            ];
-            
-            const nodeObjects = [];
-            let globeTime = 0;
-            
-            // Load everything then start
+
+            // Ocean sphere — identical to index.html
+            const ocean = new THREE.Mesh(
+                new THREE.SphereGeometry(R * 0.995, 64, 48),
+                new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide })
+            );
+            ocean.scale.y = Rp / R;
+            globeGroup.add(ocean);
+
+            // Load continents — identical to index.html
             fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/land-10m.json')
-                .then(response => response.json())
-                .then(topoData => {
-                    // 1. Create ocean sphere
-                    const oceanGeometry = new THREE.SphereGeometry(equatorialRadius * 0.995, 64, 48);
-                    const oceanMaterial = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide });
-                    const oceanSphere = new THREE.Mesh(oceanGeometry, oceanMaterial);
-                    oceanSphere.scale.y = polarRadius / equatorialRadius;
-                    globeGroup.add(oceanSphere);
-                    
-                    // 2. Create continent lines
-                    const geoData = topojson.feature(topoData, topoData.objects.land);
-                    const continentMaterial = new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.95 });
-                    
-                    let totalPoints = 0;
-                    function processGeometry(geometry) {
-                        const processRing = (ring) => {
-                            if (ring.length > 3) {
-                                const points = ring.map(coord => {
-                                    const squeezedLat = coord[1] * coordSqueeze;
-                                    const squeezedLon = coord[0] * coordSqueeze;
-                                    return latLonToVector3(squeezedLat, squeezedLon, continentScale);
-                                });
-                                totalPoints += points.length;
-                                const geo = new THREE.BufferGeometry().setFromPoints(points);
-                                const line = new THREE.Line(geo, continentMaterial.clone());
-                                globeGroup.add(line);
+                .then(r => r.json())
+                .then(topo => {
+                    const geo = topojson.feature(topo, topo.objects.land);
+                    const mat = new THREE.LineBasicMaterial({ color: 0x00ff00, transparent: true, opacity: 0.95 });
+                    function proc(geometry) {
+                        const ring = (coords) => {
+                            if (coords.length > 3) {
+                                const pts = coords.map(c => latLonToVec(c[1], c[0], 1.0));
+                                globeGroup.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat.clone()));
                             }
                         };
-                        
-                        if (geometry.type === 'Polygon') {
-                            geometry.coordinates.forEach(processRing);
-                        } else if (geometry.type === 'MultiPolygon') {
-                            geometry.coordinates.forEach(polygon => polygon.forEach(processRing));
-                        }
+                        if (geometry.type === 'Polygon') geometry.coordinates.forEach(ring);
+                        else if (geometry.type === 'MultiPolygon') geometry.coordinates.forEach(p => p.forEach(ring));
                     }
-                    
-                    if (geoData.type === 'FeatureCollection') {
-                        geoData.features.forEach(f => processGeometry(f.geometry));
-                    } else if (geoData.type === 'Feature') {
-                        processGeometry(geoData.geometry);
-                    } else {
-                        processGeometry(geoData);
-                    }
-                    
-                    // 3. Create nodes
-                    const nodeGeometry = new THREE.SphereGeometry(0.025, 12, 12);
-                    const nodeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff80 });
-                    const nodeGlowGeometry = new THREE.SphereGeometry(0.05, 12, 12);
-                    const nodeGlowMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff80, transparent: true, opacity: 0.4 });
-                    
-                    financeNodes.forEach(node => {
-                        const squeezedLat = node.lat * coordSqueeze;
-                        const squeezedLon = node.lon * coordSqueeze;
-                        const pos = latLonToVector3(squeezedLat, squeezedLon, 1.01);
-                        
-                        const nodeObj = new THREE.Mesh(nodeGeometry, nodeMaterial.clone());
-                        nodeObj.position.copy(pos);
-                        globeGroup.add(nodeObj);
-                        
-                        const glow = new THREE.Mesh(nodeGlowGeometry, nodeGlowMaterial.clone());
-                        glow.position.copy(pos);
-                        globeGroup.add(glow);
-                        
-                        nodeObjects.push({ node: nodeObj, glow, data: node });
-                    });
-                    
-                    // 4. Set rotation and add to scene
-                    globeGroup.rotation.x = 0.3;
-                    globeGroup.rotation.y = 1.62;
-                    globeScene.add(globeGroup);
-                    
-                    // 5. Show canvas with fade in
+                    if (geo.type === 'FeatureCollection') geo.features.forEach(f => proc(f.geometry));
+                    else if (geo.type === 'Feature') proc(geo.geometry);
+                    else proc(geo);
+
+                    // Show canvas after continents load
                     globeCanvas.style.transition = 'opacity 0.5s ease-in';
                     globeCanvas.style.opacity = '1';
-                    
-                    console.log('Globe loaded with', totalPoints, 'continent outline points');
-                    
-                    // 6. Start animation
-                    function animateGlobe() {
-                        requestAnimationFrame(animateGlobe);
-                        globeTime += 0.016;
-                        globeGroup.rotation.y += 0.0015;
-                        
-                        nodeObjects.forEach((obj, i) => {
-                            const pulse = 0.35 + Math.sin(globeTime * 2.5 + i * 0.3) * 0.25;
-                            obj.glow.material.opacity = pulse;
-                            const scale = 1 + Math.sin(globeTime * 2 + i * 0.25) * 0.4;
-                            obj.glow.scale.set(scale, scale, scale);
-                        });
-                        
-                        globeRenderer.render(globeScene, globeCamera);
-                    }
-                    animateGlobe();
-                })
-                .catch(err => {
-                    console.error('Failed to load globe:', err);
-                    globeCanvas.style.opacity = '1';
-                });
-            
-            // Handle resize
-            const globeWrapper = globeCanvas.parentElement;
-            if (globeWrapper) {
-                const resizeObserver = new ResizeObserver(() => {
-                    const width = globeWrapper.clientWidth || 450;
-                    const height = globeWrapper.clientHeight || 450;
-                    globeRenderer.setSize(width, height);
-                    globeCamera.aspect = width / height;
-                    globeCamera.updateProjectionMatrix();
-                });
-                resizeObserver.observe(globeWrapper);
+                }).catch(() => { globeCanvas.style.opacity = '1'; });
+
+            // Finance nodes — identical 12 nodes from index.html
+            const nodes = [
+                { lat: 40.7, lon: -74 }, { lat: 37.8, lon: -122.4 }, { lat: 51.5, lon: -0.1 },
+                { lat: 48.9, lon: 2.3 }, { lat: 50.1, lon: 8.7 }, { lat: 35.7, lon: 139.7 },
+                { lat: 1.3, lon: 103.8 }, { lat: 22.3, lon: 114.2 }, { lat: -23.5, lon: -46.6 },
+                { lat: -33.9, lon: 18.4 }, { lat: 25.3, lon: 55.3 }, { lat: -33.9, lon: 151.2 }
+            ];
+            const nodeGeo = new THREE.SphereGeometry(0.025, 12, 12);
+            const nodeMat = new THREE.MeshBasicMaterial({ color: 0x00ff80 });
+            const glowGeo = new THREE.SphereGeometry(0.05, 12, 12);
+            const glowMat = new THREE.MeshBasicMaterial({ color: 0x00ff80, transparent: true, opacity: 0.4 });
+            const nodeObjs = [];
+            nodes.forEach(n => {
+                const pos = latLonToVec(n.lat, n.lon, 1.01);
+                const nd = new THREE.Mesh(nodeGeo, nodeMat.clone());
+                nd.position.copy(pos); globeGroup.add(nd);
+                const gl = new THREE.Mesh(glowGeo, glowMat.clone());
+                gl.position.copy(pos); globeGroup.add(gl);
+                nodeObjs.push({ glow: gl });
+            });
+
+            // ── 25,000 Data Points — particle cloud on globe surface ──
+            const DATA_POINTS = 25000;
+            const dpPositions = new Float32Array(DATA_POINTS * 3);
+            const dpColors = new Float32Array(DATA_POINTS * 3);
+            const dpSizes = new Float32Array(DATA_POINTS);
+
+            for (let i = 0; i < DATA_POINTS; i++) {
+                // Uniform distribution on oblate spheroid
+                const u = Math.random();
+                const v = Math.random();
+                const theta = 2 * Math.PI * u;
+                const phi = Math.acos(2 * v - 1);
+                const surfaceR = R * 1.002; // slightly above surface
+                const surfaceRp = Rp * 1.002;
+
+                const x = -surfaceR * Math.sin(phi) * Math.cos(theta);
+                const y = surfaceRp * Math.cos(phi);
+                const z = surfaceR * Math.sin(phi) * Math.sin(theta);
+
+                dpPositions[i * 3] = x;
+                dpPositions[i * 3 + 1] = y;
+                dpPositions[i * 3 + 2] = z;
+
+                // Color: mix of green tones (0x00ff00 to 0x00ff80)
+                const greenVariance = 0.5 + Math.random() * 0.5;
+                dpColors[i * 3] = 0;
+                dpColors[i * 3 + 1] = greenVariance;
+                dpColors[i * 3 + 2] = Math.random() * 0.5;
+
+                // Random sizes for depth variation
+                dpSizes[i] = 0.5 + Math.random() * 1.5;
             }
+
+            const dpGeometry = new THREE.BufferGeometry();
+            dpGeometry.setAttribute('position', new THREE.BufferAttribute(dpPositions, 3));
+            dpGeometry.setAttribute('color', new THREE.BufferAttribute(dpColors, 3));
+            dpGeometry.setAttribute('size', new THREE.BufferAttribute(dpSizes, 1));
+
+            const dpMaterial = new THREE.PointsMaterial({
+                size: 0.008,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.6,
+                sizeAttenuation: true,
+                depthWrite: false
+            });
+
+            const dataCloud = new THREE.Points(dpGeometry, dpMaterial);
+            globeGroup.add(dataCloud);
+            console.log('Globe: 25,000 data points added');
+
+            // Initial rotation — identical to index.html
+            globeGroup.rotation.x = 0.3;
+            globeGroup.rotation.y = 1.62;
+            globeScene.add(globeGroup);
+
+            let t = 0;
+            const BASE_SPEED = 0.003; // identical to index.html
+
+            // Resize — responsive via parent container, identical to index.html
+            function resize() {
+                const w = globeCanvas.parentElement.clientWidth || 400;
+                const h = globeCanvas.parentElement.clientHeight || 400;
+                globeRenderer.setSize(w, h);
+                globeCamera.aspect = w / h;
+                globeCamera.updateProjectionMatrix();
+            }
+            resize();
+            new ResizeObserver(resize).observe(globeCanvas.parentElement);
+
+            // Animation loop — identical speed & glow to index.html
+            function animateGlobe() {
+                requestAnimationFrame(animateGlobe);
+                t += 0.016;
+                globeGroup.rotation.y += BASE_SPEED;
+
+                nodeObjs.forEach((o, i) => {
+                    o.glow.material.opacity = 0.35 + Math.sin(t * 2.5 + i * 0.3) * 0.25;
+                    const s = 1 + Math.sin(t * 2 + i * 0.25) * 0.4;
+                    o.glow.scale.set(s, s, s);
+                });
+                globeRenderer.render(globeScene, globeCamera);
+            }
+            animateGlobe();
         }
     </script>
 
