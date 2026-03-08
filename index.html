@@ -35,7 +35,7 @@
     <title>SkyKnet - Pan-American Union</title>
     <meta name="title" content="SkyKnet - Pan-American Union">
     <meta name="description" content="Enterprise blockchain infrastructure. Institutional-grade solutions for governments, defense, and global finance. Building critical infrastructure for the digital asset economy.">
-    <meta name="keywords" content="blockchain, distributed ledger, enterprise blockchain, cryptocurrency, Bitcoin mining, institutional blockchain, government blockchain, defense technology, financial infrastructure, digital assets, Knexcoin, KnexMail, Superknet, Ayedex, KnexPay, KnexWeb, Lightning Network, Bitcoin wallet, proof of bandwidth, layer 1 blockchain">
+    <meta name="keywords" content="blockchain, distributed ledger, enterprise blockchain, cryptocurrency, Bitcoin mining, institutional blockchain, government blockchain, defense technology, financial infrastructure, digital assets, Knexcoin, KnexMail, Superknet, Ayedex, KnexPay, Alieux, Lightning Network, Bitcoin wallet, proof of bandwidth, layer 1 blockchain">
     <meta name="author" content="SkyKnet">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
@@ -514,7 +514,6 @@
         .xray-button {
             position: relative; display: inline-flex; align-items: center; justify-content: center;
             align-self: center;
-            margin-left: calc(clamp(200px, 20vw, 320px) - var(--space-lg));
             padding: 18px 72px; text-decoration: none; cursor: pointer;
             opacity: 0; animation: fadeUp var(--duration-slow) var(--ease-out) 1s forwards;
         }
@@ -568,6 +567,12 @@
         }
         .xray-text svg { width: 16px; height: 16px; transition: transform var(--duration-fast) ease; }
         .xray-button:hover .xray-text svg { transform: translateX(4px); }
+
+        .hero .xray-button { margin-left: calc(clamp(200px, 20vw, 320px) - var(--space-lg)); }
+
+        @media (max-width: 768px) {
+            .hero .xray-button { margin-left: 0; align-self: center; }
+        }
     </style>
 
     <!-- ============================================
@@ -1302,7 +1307,7 @@
                 <h2>1. Acceptance of Terms</h2>
                 <p>By accessing or using the SkyKnet website and services, you agree to be bound by these Terms of Service. If you do not agree to these terms, do not use our services.</p>
                 <h2>2. Description of Services</h2>
-                <p>SkyKnet provides enterprise blockchain infrastructure solutions, including but not limited to Knexcoin, KnexMail, Ayedex, KnexPay, KnexWeb, and Superknet platforms. Services are subject to change without notice.</p>
+                <p>SkyKnet provides enterprise blockchain infrastructure solutions, including but not limited to Knexcoin, KnexMail, Ayedex, KnexPay, Alieux, and Superknet platforms. Services are subject to change without notice.</p>
                 <h2>3. Eligibility</h2>
                 <p>You must be at least 18 years old and capable of forming a binding contract to use our services. By using our services, you represent that you meet these requirements.</p>
                 <h2>4. User Accounts</h2>
@@ -1372,6 +1377,7 @@
         <a href="#credentials" onclick="closeMobileMenu()">Credentials</a>
         <a href="contact.html">Contact</a>
         <a href="careers.html">Careers</a>
+        <a href="https://app.skyknet.com" class="connect-btn" onclick="closeMobileMenu()">Connect</a>
     </div>
 
     <!-- ============================================
@@ -1398,6 +1404,7 @@
                 <li><a href="contact.html" class="sound-hover">Contact</a></li>
                 <li><a href="careers.html" class="sound-hover">Careers</a></li>
             </ul>
+            <a href="https://app.skyknet.com" class="connect-btn desktop sound-hover">Connect</a>
             <button class="mobile-menu-btn" onclick="openMobileMenu()" aria-label="Open menu">
                 <span></span><span></span><span></span>
             </button>
@@ -1605,13 +1612,13 @@
                     <div class="corner corner-tl"></div>
                     <div class="corner corner-br"></div>
                     <div class="product-number">[05]</div>
-                    <h3 class="product-title">KnexWeb</h3>
+                    <h3 class="product-title">Alieux</h3>
                     <p class="product-description">A multi-faceted Web3 wallet for your any browser-capable app extension with encrypted end-to-end messaging protocol.</p>
                     <div class="product-status">
                         <span class="product-status-dot"></span>
                         Apps
                     </div>
-                    <a href="https://knexweb.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
+                    <a href="https://alieux.com" class="product-link sound-click" target="_blank" rel="noopener noreferrer">
                         Learn More
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
@@ -1682,16 +1689,16 @@
         <!-- Stats -->
         <div class="stats-bar">
             <div class="stat-item reveal sound-hover">
-                <div class="stat-value">6</div>
-                <div class="stat-label">Enterprise Products</div>
+                <div class="stat-value">7</div>
+                <div class="stat-label">dApps</div>
             </div>
             <div class="stat-item reveal sound-hover">
-                <div class="stat-value">100%</div>
-                <div class="stat-label">Native Software</div>
+                <div class="stat-value">32</div>
+                <div class="stat-label">Cores</div>
             </div>
             <div class="stat-item reveal sound-hover">
-                <div class="stat-value">950+</div>
-                <div class="stat-label">MH/s Hashrate</div>
+                <div class="stat-value">700k</div>
+                <div class="stat-label">TPS</div>
             </div>
             <div class="stat-item reveal sound-hover">
                 <div class="stat-value">2020</div>
@@ -1749,7 +1756,7 @@
                     <ul class="footer-links">
                         <li><a href="https://www.knexcoin.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Knexcoin</a></li>
                         <li><a href="https://www.ayedex.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Ayedex</a></li>
-                        <li><a href="https://www.knexweb.com" class="sound-hover" target="_blank" rel="noopener noreferrer">KnexWeb</a></li>
+                        <li><a href="https://www.alieux.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Alieux</a></li>
                         <li><a href="https://www.superknet.com" class="sound-hover" target="_blank" rel="noopener noreferrer">Superknet</a></li>
                         <li><a href="https://www.knexpay.com" class="sound-hover" target="_blank" rel="noopener noreferrer">KnexPay</a></li>
                         <li><a href="https://www.knexmail.com" class="sound-hover" target="_blank" rel="noopener noreferrer">KnexMail</a></li>

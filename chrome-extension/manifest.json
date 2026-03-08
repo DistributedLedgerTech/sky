@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "ALIEUX",
+  "short_name": "ALIEUX",
+  "version": "1.0.0",
+  "description": "Triple wallet (BTC + KNEX + UMX) with TrollBox chat, DEX integration, and streaming payments.",
+  "action": {
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    },
+    "default_title": "ALIEUX"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png",
+    "512": "icons/icon-512.png"
+  },
+  "permissions": ["storage", "activeTab", "tabs"],
+  "content_scripts": [{
+    "matches": ["https://www.skyknet.com/*", "https://skyknet.com/*"],
+    "js": ["js/trollbox.js"],
+    "css": ["css/trollbox.css"],
+    "run_at": "document_idle"
+  }],
+  "web_accessible_resources": [{
+    "resources": ["pages/*", "fonts/*", "icons/*", "js/*", "css/*"],
+    "matches": ["<all_urls>"]
+  }]
+}
