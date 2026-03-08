@@ -4,15 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CSZ00L6ZXV"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-CSZ00L6ZXV');
-    </script>
-    
     <!-- Primary Meta Tags -->
     <title>Careers | SkyKnet</title>
     <meta name="title" content="Careers | SkyKnet">
@@ -30,10 +21,6 @@
     <meta property="og:url" content="https://skyknet.com/careers">
     <meta property="og:title" content="Careers | SkyKnet">
     <meta property="og:description" content="Join SkyKnet. Explore career opportunities in blockchain and enterprise technology.">
-    <meta property="og:image" content="https://skyknet.com/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="SkyKnet - Enterprise Blockchain Infrastructure">
     <meta property="og:site_name" content="SkyKnet">
     <meta property="og:locale" content="en_US">
     
@@ -43,31 +30,21 @@
     <meta name="twitter:url" content="https://skyknet.com/careers">
     <meta name="twitter:title" content="Careers | SkyKnet">
     <meta name="twitter:description" content="Join SkyKnet. Explore career opportunities in blockchain and enterprise technology.">
-    <meta name="twitter:image" content="https://skyknet.com/twitter-image.png">
     <meta name="twitter:image:alt" content="SkyKnet">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-title" content="DLT">
-    <link rel="manifest" href="/site.webmanifest">
     
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@700&family=Orbitron:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="../../nav.css">
 
     <!-- Custom Font -->
     <style>
         @font-face {
             font-family: 'Ethnocentric';
-            src: url('fonts/ethnocentric.otf') format('opentype');
+            src: url('../fonts/ethnocentric.otf') format('opentype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
@@ -2421,6 +2398,22 @@
     <div class="grid-overlay"></div>
     <div class="vignette"></div>
 
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="closeMobileMenu()">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 6L6 18M6 6l12 12"/>
+            </svg>
+        </button>
+        <a href="index.html">Home</a>
+        <a href="whoami.html">WhoAmI</a>
+        <a href="index.html#loselijo">Los Elijo</a>
+        <a href="index.html#products">Products</a>
+        <a href="contact.html">Contact</a>
+        <a href="careers.html">Careers</a>
+        <a href="https://app.skyknet.com" class="connect-btn" onclick="closeMobileMenu()">Connect</a>
+    </div>
+
     <!-- Application Modal -->
     <div class="modal-overlay" id="applicationModal">
         <div class="modal">
@@ -3972,14 +3965,12 @@
         
         function openMobileMenu() {
             document.getElementById('mobileMenu').classList.add('visible');
-            document.body.classList.add('menu-open');
             document.body.style.overflow = 'hidden';
             playClickSound();
         }
 
         function closeMobileMenu() {
             document.getElementById('mobileMenu').classList.remove('visible');
-            document.body.classList.remove('menu-open');
             document.body.style.overflow = '';
             playClickSound();
         }
@@ -4367,19 +4358,5 @@
         
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
-
-    <!-- Mobile Menu (last in body for correct stacking) -->
-    <div class="mobile-menu" id="mobileMenu">
-        <button class="mobile-menu-close" onclick="closeMobileMenu()">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-        <a href="whoami.html">WhoAmI</a>
-        <a href="index.html#loselijo" onclick="closeMobileMenu()">Los Elijo</a>
-        <a href="index.html#products" onclick="closeMobileMenu()">Products</a>
-        <a href="index.html#credentials" onclick="closeMobileMenu()">Credentials</a>
-        <a href="contact.html">Contact</a>
-        <a href="careers.html">Careers</a>
-        <a href="https://app.skyknet.com" class="connect-btn" onclick="closeMobileMenu()">Connect</a>
-    </div>
 </body>
 </html>
