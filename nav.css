@@ -53,6 +53,7 @@
     font-weight: 700;
     letter-spacing: 0.3em;
     color: var(--cyan);
+    white-space: nowrap;
 }
 
 .logo-text-sub {
@@ -66,7 +67,7 @@
 
 .nav-links {
     display: flex;
-    gap: 64px;
+    gap: 32px;
     list-style: none;
 }
 
@@ -142,12 +143,18 @@
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.97);
+    z-index: 99999;
+    background: #000000;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 40px;
+    gap: 28px;
+    padding: 80px 24px 40px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    isolation: isolate;
+    overflow-y: auto;
 }
 
 .mobile-menu a {
@@ -162,6 +169,20 @@
 
 .mobile-menu a:hover {
     color: var(--cyan, #00ff00);
+}
+
+.mobile-menu .connect-btn {
+    font-size: 14px;
+    color: var(--cyan, #00ff00);
+    border: 1px solid var(--cyan, #00ff00);
+    padding: 14px 36px;
+    margin-top: 20px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.mobile-menu .connect-btn:hover {
+    background: var(--cyan, #00ff00);
+    color: #000;
 }
 
 .mobile-menu-close {
@@ -184,6 +205,35 @@
     visibility: visible;
 }
 
+/* Hide page layers when mobile menu is open */
+body.menu-open #webgl,
+body.menu-open .overlay,
+body.menu-open .vignette,
+body.menu-open .grid-overlay,
+body.menu-open .content {
+    visibility: hidden;
+}
+
+/* Connect Button */
+.connect-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--cyan, #00ff00);
+    text-decoration: none;
+    border: 1px solid var(--cyan, #00ff00);
+    padding: 10px 24px;
+    transition: background 0.3s, color 0.3s;
+    white-space: nowrap;
+}
+
+.connect-btn:hover {
+    background: var(--cyan, #00ff00);
+    color: #000;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .nav { padding: 24px 32px; }
@@ -192,6 +242,7 @@
 @media (max-width: 768px) {
     .nav { padding: 12px 16px; }
     .nav-links { display: none; }
+    .connect-btn.desktop { display: none; }
     .mobile-menu-btn { display: flex; }
     .mobile-menu { display: flex; }
 }
