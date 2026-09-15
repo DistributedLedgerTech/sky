@@ -208,7 +208,7 @@
       let a = '';
       let b = '';
       for (let i = 0; i < 8; i += 1) {
-        a += `SIM/BLK ${String(4100 + i * 3).padStart(7, '0')}  00000000${hex(56)}   `;
+        a += `SIM/BLK ${hex(7)}  00000000${hex(56)}   `;
         b += `SIM/TX ${hex(64)}  ML-DSA OK   `;
       }
       this.feedA = a;

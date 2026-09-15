@@ -146,7 +146,6 @@
     <div class="utility-bar">
       <div class="shell utility-inner">
         <p>Investor deck · confidential · for discussion only</p>
-        <a href="index.html#proof"><span class="status-dot" aria-hidden="true"></span>xCoin mainnet in preparation</a>
       </div>
     </div>
     <div class="shell nav-row">
@@ -202,8 +201,8 @@
           <p>Four pressures, one opening: the corridor tax, the quantum clock, warehouse mining, and a last mile that card terminals never reached.</p>
         </div>
         <div class="deck-grid">
-          <article class="deck-cell"><div class="card-top"><span>REMITTANCES</span><span>01</span></div><h3>The corridor tax</h3><p>Mexico received <mark class="hl">$61.8B in 2025</mark> (Banxico). The average transfer is <mark class="hl">$405</mark>, and a typical 3.5% fee costs the sender <mark class="hl">~$14</mark>. The xCoin protocol fee floor is <mark class="hl">1 sat per virtual byte</mark>, about 1,480 sat for a typical payment, whatever the amount. That difference is the entire business: arithmetic, not a projection.</p></article>
-          <article class="deck-cell"><div class="card-top"><span>QUANTUM</span><span>02</span></div><h3>The signature time bomb</h3><p>Nearly every live blockchain rests on elliptic-curve signatures that quantum computers are expected to break. Retrofitting post-quantum cryptography onto a network already holding value is a hard fork most incumbents will struggle to execute.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>REMITTANCES</span><span>01</span></div><h3>The corridor tax</h3><p>Mexico received <mark class="hl">$61.8B in 2025</mark> (Banxico). The average transfer is <mark class="hl">$405</mark>, and a typical 3.5% fee costs the sender <mark class="hl">~$14</mark>. xCoin's default relay-policy fee floor is <mark class="hl">1 sat per virtual byte</mark>, about 1,480 sat for a typical payment, whatever the amount. That difference is the entire business: arithmetic, not a projection.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>QUANTUM</span><span>02</span></div><h3>The signature time bomb</h3><p>Nearly every existing blockchain rests on elliptic-curve signatures that quantum computers are expected to break. Retrofitting post-quantum cryptography onto a network already holding value is a hard fork most incumbents will struggle to execute.</p></article>
           <article class="deck-cell"><div class="card-top"><span>MINING</span><span>03</span></div><h3>Warehouse capture</h3><p>ASIC farms and industrial pools have pushed ordinary people out of proof-of-work. The security budget of most chains is now controlled by a handful of operators.</p></article>
           <article class="deck-cell"><div class="card-top"><span>ACCEPTANCE</span><span>04</span></div><h3>The last mile</h3><p>In cash economies, card terminals never arrived. Digital dollars still can't be spent where the money actually goes.</p></article>
         </div>
@@ -218,7 +217,7 @@
         <div>
           <ul class="deck-list">
             <li><span><b>Post-quantum from block zero.</b> Every spend is signed with ML-DSA-65 (FIPS 204), with a hash-based SLH-DSA fallback. No migration debt, no legacy curve to defend: the problem incumbents face is designed out at genesis.</span></li>
-            <li><span><b>MetalDAG proof-of-work.</b> A memory-hard algorithm that leans on memory bandwidth, the one resource ordinary hardware already has plenty of. A Mac, a laptop, a browser tab: all meaningfully take part.</span></li>
+            <li><span><b>MetalDAG proof-of-work.</b> A memory-hard algorithm that leans on memory bandwidth, the one resource ordinary hardware already has plenty of. A Mac, a laptop, a browser tab: all can meaningfully take part.</span></li>
             <li><span><b>Fixed, predictable money.</b> 21,000,000 XCF hard cap, 14 XCF per block in the first era, halving every 750,000 blocks. No discretionary issuance.</span></li>
             <li><span><b>The full stack in-house.</b> Node, wallet, native and browser miners, block explorer, and encrypted communications: one builder, one codebase discipline, no integration risk.</span></li>
           </ul>
@@ -237,7 +236,7 @@
         <div class="deck-grid">
           <article class="deck-cell"><div class="card-top"><span>MEMORY-HARD</span><span>01</span></div><h3>Bandwidth is the resource</h3><p>Ethash-family design: memory-hard, so mining speed is bounded by memory bandwidth, not raw logic.</p></article>
           <article class="deck-cell"><div class="card-top"><span>APPLE-SILICON-FAVORING</span><span>02</span></div><h3>Built for unified memory</h3><p>Designed around the wide, fast memory of Apple Silicon. A Mac people already own is a genuinely good miner. The DAG is <mark class="hl">4 GiB</mark> at launch and grows 128 MiB per 14-day epoch.</p></article>
-          <article class="deck-cell"><div class="card-top"><span>VERIFIED</span><span>03</span></div><h3>Cross-checked implementations</h3><p>Independent C++ verifier and Metal GPU miner, cross-checked byte-for-byte and wired into consensus.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>REHEARSAL</span><span>03</span></div><h3>Rehearsed before genesis</h3><p>The node verifies MetalDAG with a light per-epoch cache; only mining needs the full DAG. Mainnet genesis is gated on a rehearsal of nodes, pool and miner on a private test chain, not on a date.</p></article>
           <article class="deck-cell"><div class="card-top"><span>POST-QUANTUM</span><span>04</span></div><h3>ML-DSA everywhere</h3><p>PQ-only spend rules: only post-quantum outputs can be created, so there is no ECDSA or Schnorr path for any coin. The node accepts no private key over RPC; an offline wallet signs and the node broadcasts.</p></article>
         </div>
         <div class="slide-meta"><span>04 / 10</span><span>DLT · Confidential</span></div>
@@ -249,7 +248,7 @@
       <div class="shell">
         <div class="section-head">
           <div><p class="section-index">[05] MONETARY POLICY</p><h2 id="s5-title">Scarce. Fixed. <em>Boring on purpose.</em></h2></div>
-          <p>The schedule is consensus law. Anyone can read it from the chain, and nobody can change it by decree.</p>
+          <p>The schedule is consensus law. Anyone can read it in the code, and nobody can change it by decree.</p>
         </div>
         <div class="stat-grid" style="margin-top:0">
           <article class="stat-card stat-card-lime"><span class="stat-label">Hard cap</span><strong>21M</strong><span class="stat-note">XCF maximum supply</span></article>
@@ -270,7 +269,7 @@
       <div class="shell">
         <div class="section-head">
           <div><p class="section-index">[06] PRODUCT SUITE</p><h2 id="s6-title">Seven products. <em>One stack.</em></h2></div>
-          <p>Every layer a user touches, from the chain to the wallet to the community, is built and operated in-house.</p>
+          <p>Every layer a user touches, from the chain to the wallet to the community, is built in-house.</p>
         </div>
         <div class="product-grid">
           <article class="product-card product-featured"><div class="card-top"><span>LAYER 1</span><span>01</span></div><h3>xCoin</h3><p>The post-quantum currency (XCF). MetalDAG PoW, ML-DSA signatures, 21M cap.</p><a href="https://www.xcoinproject.com" target="_blank" rel="noopener">Explore the network ↗</a></article>
@@ -301,20 +300,20 @@
       </div>
     </section>
 
-    <!-- 08 TRACTION -->
-    <section class="deck-slide" id="s8" data-slide data-title="Traction" aria-labelledby="s8-title">
+    <!-- 08 BUILT -->
+    <section class="deck-slide" id="s8" data-slide data-title="Built" aria-labelledby="s8-title">
       <div class="shell">
         <div class="section-head">
           <div><p class="section-index">[08] WHAT HAS BEEN BUILT</p><h2 id="s8-title">Shipped, not <em>planned.</em></h2></div>
-          <p>Everything below is running and open to inspection. Claims resolve to code, blocks, and public tools, not to a roadmap.</p>
+          <p>Everything below is built and open to inspection. Claims resolve to code, not to a roadmap; the chain itself is pre-launch.</p>
         </div>
         <ul class="deck-list">
           <li><span><b>xCoin node built</b> with MetalDAG proof-of-work and post-quantum ML-DSA spends end-to-end. Mainnet genesis is gated on a go/no-go checklist, not a date.</span></li>
-          <li><span><b>Native Mac miner</b> (CLI + GUI) cross-checked byte-for-byte against an independent verifier.</span></li>
-          <li><span><b>Self-custodial wallet:</b> full transaction CLI with encrypted key storage plus the xPay PWA, verified against the node.</span></li>
+          <li><span><b>Native Mac miner</b> (CLI + GUI) built for MetalDAG. The pre-genesis rehearsal requires it to run alongside the node and pool for at least three quiet days before mainnet genesis.</span></li>
+          <li><span><b>Self-custodial wallet:</b> full transaction CLI with encrypted key storage plus the xPay PWA.</span></li>
           <li><span><b>SuperKnet explorer</b> built for blocks, transactions, and mining stats; currently offline.</span></li>
           <li><span><b>Browser mining + community pool</b> at xcoinminer.com, the lowest-friction on-ramp in crypto.</span></li>
-          <li><span><b>xFone</b> encrypted calls and messaging live as a PWA with a native iOS shell.</span></li>
+          <li><span><b>xFone</b> encrypted calls and messaging shipped as a PWA with a native iOS shell.</span></li>
         </ul>
         <p class="fine">Stage: pre-revenue. Mainnet genesis has not been mined; corridor volume and merchant acceptance are funded milestones, not current facts.</p>
         <div class="slide-meta"><span>08 / 10</span><span>DLT · Confidential</span></div>
@@ -345,7 +344,7 @@
             </tbody>
           </table>
         </div>
-        <p class="fine">24-month milestones: mainnet independently audited · Android parity · live corridor volume within 9 months via a licensed partner · merchant tap-acceptance pilot in one Mexican metro · IFPE application filed and progressing.</p>
+        <p class="fine">24-month milestones: mainnet independently audited · Android parity · corridor volume within 9 months via a licensed partner · merchant tap-acceptance pilot in one Mexican metro · IFPE application filed and progressing.</p>
         <div class="slide-meta"><span>09 / 10</span><span>DLT · Confidential</span></div>
       </div>
     </section>
