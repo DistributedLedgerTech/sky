@@ -146,7 +146,7 @@
     <div class="utility-bar">
       <div class="shell utility-inner">
         <p>Investor deck · confidential · for discussion only</p>
-        <a href="index.html#proof"><span class="status-dot" aria-hidden="true"></span>xCoin mainnet live</a>
+        <a href="index.html#proof"><span class="status-dot" aria-hidden="true"></span>xCoin mainnet in preparation</a>
       </div>
     </div>
     <div class="shell nav-row">
@@ -202,7 +202,7 @@
           <p>Four pressures, one opening: the corridor tax, the quantum clock, warehouse mining, and a last mile that card terminals never reached.</p>
         </div>
         <div class="deck-grid">
-          <article class="deck-cell"><div class="card-top"><span>REMITTANCES</span><span>01</span></div><h3>The corridor tax</h3><p>Mexico received <mark class="hl">$61.8B in 2025</mark> (Banxico). The average transfer is <mark class="hl">$405</mark>, and a typical 3.5% fee costs the sender <mark class="hl">~$14</mark>. At the xCoin protocol rate the same transfer costs <mark class="hl">~$0.28</mark>. That difference is the entire business: arithmetic, not a projection.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>REMITTANCES</span><span>01</span></div><h3>The corridor tax</h3><p>Mexico received <mark class="hl">$61.8B in 2025</mark> (Banxico). The average transfer is <mark class="hl">$405</mark>, and a typical 3.5% fee costs the sender <mark class="hl">~$14</mark>. The xCoin protocol fee floor is <mark class="hl">1 sat per virtual byte</mark>, about 1,480 sat for a typical payment, whatever the amount. That difference is the entire business: arithmetic, not a projection.</p></article>
           <article class="deck-cell"><div class="card-top"><span>QUANTUM</span><span>02</span></div><h3>The signature time bomb</h3><p>Nearly every live blockchain rests on elliptic-curve signatures that quantum computers are expected to break. Retrofitting post-quantum cryptography onto a network already holding value is a hard fork most incumbents will struggle to execute.</p></article>
           <article class="deck-cell"><div class="card-top"><span>MINING</span><span>03</span></div><h3>Warehouse capture</h3><p>ASIC farms and industrial pools have pushed ordinary people out of proof-of-work. The security budget of most chains is now controlled by a handful of operators.</p></article>
           <article class="deck-cell"><div class="card-top"><span>ACCEPTANCE</span><span>04</span></div><h3>The last mile</h3><p>In cash economies, card terminals never arrived. Digital dollars still can't be spent where the money actually goes.</p></article>
@@ -217,9 +217,9 @@
         <div><p class="section-index">[03] THE ANSWER</p><h2 id="s3-title">xCoin: post-quantum at genesis, <em>mining for people.</em></h2></div>
         <div>
           <ul class="deck-list">
-            <li><span><b>Post-quantum from block zero.</b> Every spend is signed with ML-DSA (FIPS 204). No migration debt, no legacy curve to defend: the problem incumbents face is designed out at genesis.</span></li>
+            <li><span><b>Post-quantum from block zero.</b> Every spend is signed with ML-DSA-65 (FIPS 204), with a hash-based SLH-DSA fallback. No migration debt, no legacy curve to defend: the problem incumbents face is designed out at genesis.</span></li>
             <li><span><b>MetalDAG proof-of-work.</b> A memory-hard algorithm that leans on memory bandwidth, the one resource ordinary hardware already has plenty of. A Mac, a laptop, a browser tab: all meaningfully take part.</span></li>
-            <li><span><b>Fixed, predictable money.</b> 21,000,000 XCF hard cap with a flat 50 XCF per block. No halving cliffs, no discretionary issuance.</span></li>
+            <li><span><b>Fixed, predictable money.</b> 21,000,000 XCF hard cap, 14 XCF per block in the first era, halving every 750,000 blocks. No discretionary issuance.</span></li>
             <li><span><b>The full stack in-house.</b> Node, wallet, native and browser miners, block explorer, and encrypted communications: one builder, one codebase discipline, no integration risk.</span></li>
           </ul>
           <div class="slide-meta"><span>03 / 10</span><span>DLT · Confidential</span></div>
@@ -235,10 +235,10 @@
           <p>Mining speed is bounded by memory bandwidth, the resource ordinary hardware already has. Every spend is post-quantum by rule, not by option.</p>
         </div>
         <div class="deck-grid">
-          <article class="deck-cell"><div class="card-top"><span>MEMORY-HARD</span><span>01</span></div><h3>Bandwidth is the resource</h3><p>Ethash-family design: mining speed is bounded by memory bandwidth, not raw logic. There is no giant advantage for a custom chip to exploit, so there is no manufacturer chokepoint.</p></article>
-          <article class="deck-cell"><div class="card-top"><span>APPLE-SILICON-FAVORING</span><span>02</span></div><h3>Built for unified memory</h3><p>Designed around the wide, fast memory of Apple Silicon. A Mac people already own is a genuinely good miner. Benched at <mark class="hl">8.2 MH/s</mark> on an M3 Pro with a 4 GiB DAG.</p></article>
-          <article class="deck-cell"><div class="card-top"><span>VERIFIED</span><span>03</span></div><h3>Cross-checked implementations</h3><p>Independent C++ verifier and Metal GPU miner, cross-checked byte-for-byte, wired into consensus and running on the live network.</p></article>
-          <article class="deck-cell"><div class="card-top"><span>POST-QUANTUM</span><span>04</span></div><h3>ML-DSA everywhere</h3><p>PQ-only spend rules with deterministic ML-DSA signing. One seed backs up the whole wallet; keys never leave the device.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>MEMORY-HARD</span><span>01</span></div><h3>Bandwidth is the resource</h3><p>Ethash-family design: memory-hard, so mining speed is bounded by memory bandwidth, not raw logic.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>APPLE-SILICON-FAVORING</span><span>02</span></div><h3>Built for unified memory</h3><p>Designed around the wide, fast memory of Apple Silicon. A Mac people already own is a genuinely good miner. The DAG is <mark class="hl">4 GiB</mark> at launch and grows 128 MiB per 14-day epoch.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>VERIFIED</span><span>03</span></div><h3>Cross-checked implementations</h3><p>Independent C++ verifier and Metal GPU miner, cross-checked byte-for-byte and wired into consensus.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>POST-QUANTUM</span><span>04</span></div><h3>ML-DSA everywhere</h3><p>PQ-only spend rules: only post-quantum outputs can be created, so there is no ECDSA or Schnorr path for any coin. The node accepts no private key over RPC; an offline wallet signs and the node broadcasts.</p></article>
         </div>
         <div class="slide-meta"><span>04 / 10</span><span>DLT · Confidential</span></div>
       </div>
@@ -248,17 +248,17 @@
     <section class="deck-slide section-wash" id="s5" data-slide data-title="Monetary policy" aria-labelledby="s5-title">
       <div class="shell">
         <div class="section-head">
-          <div><p class="section-index">[05] MONETARY POLICY</p><h2 id="s5-title">Scarce. Flat. <em>Boring on purpose.</em></h2></div>
+          <div><p class="section-index">[05] MONETARY POLICY</p><h2 id="s5-title">Scarce. Fixed. <em>Boring on purpose.</em></h2></div>
           <p>The schedule is consensus law. Anyone can read it from the chain, and nobody can change it by decree.</p>
         </div>
         <div class="stat-grid" style="margin-top:0">
           <article class="stat-card stat-card-lime"><span class="stat-label">Hard cap</span><strong>21M</strong><span class="stat-note">XCF maximum supply</span></article>
-          <article class="stat-card"><span class="stat-label">Block reward</span><strong>50</strong><span class="stat-note">XCF per block · flat, no halving</span></article>
-          <article class="stat-card"><span class="stat-label">Founder premine</span><strong>1M</strong><span class="stat-note">~4.8% of maximum supply</span></article>
+          <article class="stat-card"><span class="stat-label">Block reward</span><strong>14</strong><span class="stat-note">XCF per block in era 0 · halves every 750,000 blocks</span></article>
+          <article class="stat-card"><span class="stat-label">Premine</span><strong>0</strong><span class="stat-note">Every XCF is mined, none granted</span></article>
         </div>
         <ul class="deck-list" style="margin-top:42px">
-          <li><span><b>No halving cliffs.</b> A constant 50 XCF per block keeps the security budget predictable for miners and removes speculative supply-shock theater.</span></li>
-          <li><span><b>Transparent premine.</b> A single 1M XCF founder allocation, minted at genesis in the open and verifiable by anyone on the explorer.</span></li>
+          <li><span><b>Thirty-one eras.</b> 14 XCF per block for the first 750,000 blocks, then half of the era before, rounded down to a whole sat, until the last era pays one sat per block. After block 23,250,000 miners are paid by fees alone.</span></li>
+          <li><span><b>No premine.</b> Genesis mints nothing; block 1 pays the first subsidy to whoever mines it. Every XCF is mined, none are granted.</span></li>
           <li><span><b>No discretionary issuance.</b> The schedule is consensus law, not policy.</span></li>
         </ul>
         <div class="slide-meta"><span>05 / 10</span><span>DLT · Confidential</span></div>
@@ -274,8 +274,8 @@
         </div>
         <div class="product-grid">
           <article class="product-card product-featured"><div class="card-top"><span>LAYER 1</span><span>01</span></div><h3>xCoin</h3><p>The post-quantum currency (XCF). MetalDAG PoW, ML-DSA signatures, 21M cap.</p><a href="https://www.xcoinproject.com" target="_blank" rel="noopener">Explore the network ↗</a></article>
-          <article class="product-card"><div class="card-top"><span>EXPLORER</span><span>02</span></div><h3>SuperKnet</h3><p>Real-time blocks, transactions, and mining stats for the xCoin network.</p><a href="https://www.superknet.com" target="_blank" rel="noopener">Inspect the chain ↗</a></article>
-          <article class="product-card"><div class="card-top"><span>BROWSER MINING</span><span>03</span></div><h3>xCoinMiner</h3><p>Learn-by-doing browser miner plus a 0%-fee community pool.</p><a href="https://www.xcoinminer.com" target="_blank" rel="noopener">Start mining ↗</a></article>
+          <article class="product-card"><div class="card-top"><span>EXPLORER</span><span>02</span></div><h3>SuperKnet</h3><p>Block explorer for blocks, transactions, and mining activity on the xCoin network.</p><a>Explorer offline</a></article>
+          <article class="product-card"><div class="card-top"><span>BROWSER MINING</span><span>03</span></div><h3>xCoinMiner</h3><p>Learn-by-doing browser miner plus a community pool.</p><a href="https://www.xcoinminer.com" target="_blank" rel="noopener">Start mining ↗</a></article>
           <article class="product-card"><div class="card-top"><span>MACOS MINING</span><span>04</span></div><h3>NerdMiner</h3><p>Native Metal miner for Apple Silicon: CLI and GUI, silent and efficient.</p><a href="https://www.nerdminer.app" target="_blank" rel="noopener">Mine on Mac ↗</a></article>
           <article class="product-card"><div class="card-top"><span>WALLET</span><span>05</span></div><h3>xPay</h3><p>Self-custodial post-quantum wallet PWA. Keys never leave the device.</p><a href="https://xpayapp.com" target="_blank" rel="noopener">Open xPay ↗</a></article>
           <article class="product-card"><div class="card-top"><span>COMMUNICATIONS</span><span>06</span></div><h3>xFone</h3><p>Encrypted calls and messages on 8-digit hex numbers. No phone number, no account.</p><a href="https://xfoneapp.com" target="_blank" rel="noopener">Explore xFone ↗</a></article>
@@ -309,14 +309,14 @@
           <p>Everything below is running and open to inspection. Claims resolve to code, blocks, and public tools, not to a roadmap.</p>
         </div>
         <ul class="deck-list">
-          <li><span><b>xCoin mainnet live</b> and running MetalDAG proof-of-work with post-quantum ML-DSA spends end-to-end.</span></li>
-          <li><span><b>Native Mac miner</b> (CLI + GUI) cross-checked byte-for-byte against an independent verifier; 8.2 MH/s on M3 Pro.</span></li>
+          <li><span><b>xCoin node built</b> with MetalDAG proof-of-work and post-quantum ML-DSA spends end-to-end. Mainnet genesis is gated on a go/no-go checklist, not a date.</span></li>
+          <li><span><b>Native Mac miner</b> (CLI + GUI) cross-checked byte-for-byte against an independent verifier.</span></li>
           <li><span><b>Self-custodial wallet:</b> full transaction CLI with encrypted key storage plus the xPay PWA, verified against the node.</span></li>
-          <li><span><b>SuperKnet explorer</b> live with real-time blocks, transactions, and mining stats.</span></li>
-          <li><span><b>Browser mining + 0%-fee pool</b> live at xcoinminer.com, the lowest-friction on-ramp in crypto.</span></li>
+          <li><span><b>SuperKnet explorer</b> built for blocks, transactions, and mining stats; currently offline.</span></li>
+          <li><span><b>Browser mining + community pool</b> at xcoinminer.com, the lowest-friction on-ramp in crypto.</span></li>
           <li><span><b>xFone</b> encrypted calls and messaging live as a PWA with a native iOS shell.</span></li>
         </ul>
-        <p class="fine">Stage: pre-revenue. Mainnet is live; corridor volume and merchant acceptance are funded milestones, not current facts.</p>
+        <p class="fine">Stage: pre-revenue. Mainnet genesis has not been mined; corridor volume and merchant acceptance are funded milestones, not current facts.</p>
         <div class="slide-meta"><span>08 / 10</span><span>DLT · Confidential</span></div>
       </div>
     </section>
@@ -389,7 +389,7 @@
     <div class="shell footer-grid">
       <div class="footer-brand"><a class="brand" href="index.html" aria-label="Distributed Ledger Technologies home"><span class="brand-mark" aria-hidden="true">DL</span><span class="brand-copy"><strong>Distributed Ledger</strong><span>Technologies</span></span></a><p>Public infrastructure for digital independence.</p></div>
       <div><h2>Explore</h2><a href="whoami.html">WhoAmI</a><a href="index.html#proof">Network proof</a><a href="index.html#products">Product stack</a><a href="index.html#community">Community</a></div>
-      <div><h2>Participate</h2><a href="https://www.xcoinminer.com" target="_blank" rel="noopener">Start mining ↗</a><a href="https://www.superknet.com" target="_blank" rel="noopener">Verify the network ↗</a><a href="https://www.minedifferent.com" target="_blank" rel="noopener">Join the community ↗</a><a href="index.html#careers">Future careers</a></div>
+      <div><h2>Participate</h2><a href="https://www.xcoinminer.com" target="_blank" rel="noopener">Start mining ↗</a><a>Explorer offline</a><a href="https://www.minedifferent.com" target="_blank" rel="noopener">Join the community ↗</a><a href="index.html#careers">Future careers</a></div>
       <div><h2>Company</h2><a href="contact.html">Contact</a><a href="pitch-deck.html">Pitch deck</a><a href="sitemap.html">Sitemap</a></div>
       <div><h2>Legal</h2><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="cookies.html">Cookies</a></div>
     </div>
