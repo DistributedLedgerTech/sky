@@ -29,6 +29,7 @@
 
   /* dlt-site.js found no [data-boot] on this page and released the lock; take it back */
   document.body.classList.add('boot-locked');
+  boot.classList.add('is-live');
 
   const lines = [...boot.querySelectorAll('[data-boot-line]')];
   const progressEl = boot.querySelector('[data-boot-progress]');
@@ -524,7 +525,7 @@
 
   /* ------------------------------------------------------------- timeline */
   const T = scene3
-    ? { converge: [0.35, 2.6], line: [0, 1.1, 2.6, 5.25], ring: [1.7, 2.45], dock: [2.8, 5.25], end: 5.25 }
+    ? { converge: [0.08, 2.4], line: [0, 1.0, 2.4, 5.0], ring: [1.55, 2.3], dock: [2.6, 5.0], end: 5.0 }
     : { converge: [0, 1], line: [0, 0.8, 1.7, 2.9], ring: [0, 1], dock: [1, 3.1], end: 3.1 };
   if (scene3) {
     scene3.blocks.forEach((b, i) => {

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
+<script>/* the address bar shows the site, not which intro rolled; a refresh rolls again from / */(function(){try{if(/intro-t=/.test(location.search))return;history.replaceState(null,"","/"+location.hash);}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#c7ff2e">
   <meta name="color-scheme" content="light">
@@ -31,8 +32,9 @@
 
   <link rel="stylesheet" href="dlt-acid.css">
   <noscript><style>.boot-screen{display:none}body.boot-locked{overflow:auto}</style></noscript>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-10m.json" as="fetch" crossorigin>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script" fetchpriority="high">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-10m.json" as="fetch" crossorigin fetchpriority="low">
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" fetchpriority="high"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
   <script defer src="dlt-site.js"></script>
   <script defer src="dlt-intro-b.js"></script>
