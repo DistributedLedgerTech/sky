@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-<script>/* intro roll: one of three intros on every load; ?intro=off skips */(function(){try{var q=location.search;if(/intro=off/.test(q)||/intro-[abc]\.html$/.test(location.pathname))return;var m=/intro=([abc])/.exec(q);var v=m?m[1]:"abc"[Math.floor(Math.random()*3)];location.replace("/intro-"+v+".html"+location.hash);}catch(e){}})();</script>
+<script>/* intro roll: one of three intros on every load; ?intro=off skips */(function(){try{var q=location.search;if(/intro=off/.test(q)||/intro-[abc]\.html$/.test(location.pathname))return;var m=/intro=([abc])/.exec(q);var v=m?m[1]:"abc"[Math.floor(Math.random()*3)];location.replace("/intro-"+v+".html?b="+Date.now()+location.hash);}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#c7ff2e">
   <meta name="color-scheme" content="light">
