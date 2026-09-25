@@ -183,7 +183,7 @@
         <p class="section-index">[01] COVER</p>
         <p class="eyebrow">Distributed Ledger Technologies, Inc. · Wyoming C-Corporation</p>
         <h1 id="s1-title">Post-quantum <span>money.</span></h1>
-        <p class="deck-lede">xCoin (XCF) is a post-quantum layer 1 currency with a 21M hard cap, ML-DSA signatures, and MetalDAG memory-hard proof-of-work. Wallets, miners, explorers, and encrypted communications: the full stack, built in-house.</p>
+        <p class="deck-lede">xCoin (XID) is a post-quantum layer 1 currency with a 100,000,000 XID hard cap, ML-DSA signatures, and MetalDAG memory-hard proof-of-work. Wallets, miners, explorers, and encrypted communications: the full stack, built in-house.</p>
         <div class="stat-grid">
           <article class="stat-card stat-card-lime"><span class="stat-label">Raise</span><strong>$7.5M</strong><span class="stat-note">38% equity</span></article>
           <article class="stat-card"><span class="stat-label">Post-money</span><strong>~$19.7M</strong><span class="stat-note">Implied valuation</span></article>
@@ -216,9 +216,9 @@
         <div><p class="section-index">[03] THE ANSWER</p><h2 id="s3-title">xCoin: post-quantum at genesis, <em>mining for people.</em></h2></div>
         <div>
           <ul class="deck-list">
-            <li><span><b>Post-quantum from block zero.</b> Every spend is signed with ML-DSA-65 (FIPS 204), with a hash-based SLH-DSA fallback. No migration debt, no legacy curve to defend: the problem incumbents face is designed out at genesis.</span></li>
+            <li><span><b>Post-quantum from block zero.</b> Every spend is signed with ML-DSA-65 (FIPS 204), with a hash-based SLH-DSA fallback, and node connections use a hybrid post-quantum handshake (ML-KEM-768, XIP-4) from launch. No migration debt, no legacy curve to defend: the problem incumbents face is designed out at genesis.</span></li>
             <li><span><b>MetalDAG proof-of-work.</b> A memory-hard algorithm that leans on memory bandwidth, the one resource ordinary hardware already has plenty of. A Mac, a laptop, a browser tab: all can meaningfully take part.</span></li>
-            <li><span><b>Fixed, predictable money.</b> 21,000,000 XCF hard cap, 14 XCF per block in the first era, halving every 750,000 blocks. No discretionary issuance.</span></li>
+            <li><span><b>Fixed, predictable money.</b> Exactly 100,000,000 XID hard cap, 8 decimals, emitted under the Annual Tenth: a warm-up, 50 XID per block to block 220,000, then 10% less every 110,000 blocks, never below 1.5 XID. No discretionary issuance.</span></li>
             <li><span><b>The full stack in-house.</b> Node, wallet, native and browser miners, block explorer, and encrypted communications: one builder, one codebase discipline, no integration risk.</span></li>
           </ul>
           <div class="slide-meta"><span>03 / 10</span><span>DLT · Confidential</span></div>
@@ -236,7 +236,7 @@
         <div class="deck-grid">
           <article class="deck-cell"><div class="card-top"><span>MEMORY-HARD</span><span>01</span></div><h3>Bandwidth is the resource</h3><p>Ethash-family design: memory-hard, so mining speed is bounded by memory bandwidth, not raw logic.</p></article>
           <article class="deck-cell"><div class="card-top"><span>APPLE-SILICON-FAVORING</span><span>02</span></div><h3>Built for unified memory</h3><p>Designed around the wide, fast memory of Apple Silicon. A Mac people already own is a genuinely good miner. The DAG is <mark class="hl">4 GiB</mark> at launch and grows 128 MiB per 14-day epoch.</p></article>
-          <article class="deck-cell"><div class="card-top"><span>REHEARSAL</span><span>03</span></div><h3>Rehearsed before genesis</h3><p>The node verifies MetalDAG with a light per-epoch cache; only mining needs the full DAG. Mainnet genesis is gated on a rehearsal of nodes, pool and miner on a private test chain, not on a date.</p></article>
+          <article class="deck-cell"><div class="card-top"><span>REHEARSAL</span><span>03</span></div><h3>Rehearsed before genesis</h3><p>The node verifies MetalDAG with a light per-epoch cache; only mining needs the full DAG. Nodes, pool and miner were rehearsed on testnet A, now retired with its ledger archived at height 3,555. Mainnet genesis: 2026-09-26 00:00:00 UTC.</p></article>
           <article class="deck-cell"><div class="card-top"><span>POST-QUANTUM</span><span>04</span></div><h3>ML-DSA everywhere</h3><p>PQ-only spend rules: only post-quantum outputs can be created, so there is no ECDSA or Schnorr path for any coin. The node accepts no private key over RPC; an offline wallet signs and the node broadcasts.</p></article>
         </div>
         <div class="slide-meta"><span>04 / 10</span><span>DLT · Confidential</span></div>
@@ -251,14 +251,14 @@
           <p>The schedule is consensus law. Anyone can read it in the code, and nobody can change it by decree.</p>
         </div>
         <div class="stat-grid" style="margin-top:0">
-          <article class="stat-card stat-card-lime"><span class="stat-label">Hard cap</span><strong>21M</strong><span class="stat-note">XCF maximum supply</span></article>
-          <article class="stat-card"><span class="stat-label">Block reward</span><strong>14</strong><span class="stat-note">XCF per block in era 0 · halves every 750,000 blocks</span></article>
-          <article class="stat-card"><span class="stat-label">Premine</span><strong>0</strong><span class="stat-note">Every XCF is mined, none granted</span></article>
+          <article class="stat-card stat-card-lime"><span class="stat-label">Hard cap</span><strong>100M</strong><span class="stat-note">XID maximum supply, 8 decimals</span></article>
+          <article class="stat-card"><span class="stat-label">Block reward</span><strong>50</strong><span class="stat-note">XID per block to block 220,000 · then 10% less every 110,000 blocks</span></article>
+          <article class="stat-card"><span class="stat-label">Premine</span><strong>0</strong><span class="stat-note">Every XID is mined, none granted</span></article>
         </div>
         <ul class="deck-list" style="margin-top:42px">
-          <li><span><b>Thirty-one eras.</b> 14 XCF per block for the first 750,000 blocks, then half of the era before, rounded down to a whole sat, until the last era pays one sat per block. After block 23,250,000 miners are paid by fees alone.</span></li>
-          <li><span><b>No premine.</b> Genesis mints nothing; block 1 pays the first subsidy to whoever mines it. Every XCF is mined, none are granted.</span></li>
-          <li><span><b>No discretionary issuance.</b> The schedule is consensus law, not policy.</span></li>
+          <li><span><b>The Annual Tenth.</b> A warm-up of 6.25, 12.5 and 25 XID per block for 20,000 blocks each, then 50 XID per block to block 220,000 (~Dec 2028). After that the reward falls 10% every 110,000 blocks (~382 days), never below a 1.5 XID floor (reached ~2063 to ~2325). The last coin is mined ~2363.</span></li>
+          <li><span><b>No premine, no founder allocation.</b> Genesis mints nothing; block 1 pays the first subsidy to whoever mines it. Every XID is mined, none are granted.</span></li>
+          <li><span><b>No discretionary issuance.</b> The schedule is consensus law, not policy. Mainnet genesis 2026-09-26 00:00:00 UTC: <a href="https://superknet.com" target="_blank" rel="noopener">countdown ↗</a> · <a href="https://xcoinproject.com/#emission" target="_blank" rel="noopener">emission ↗</a></span></li>
         </ul>
         <div class="slide-meta"><span>05 / 10</span><span>DLT · Confidential</span></div>
       </div>
@@ -272,7 +272,7 @@
           <p>Every layer a user touches, from the chain to the wallet to the community, is built in-house.</p>
         </div>
         <div class="product-grid">
-          <article class="product-card product-featured"><div class="card-top"><span>LAYER 1</span><span>01</span></div><h3>xCoin</h3><p>The post-quantum currency (XCF). MetalDAG PoW, ML-DSA signatures, 21M cap.</p><a href="https://www.xcoinproject.com" target="_blank" rel="noopener">Explore the network ↗</a></article>
+          <article class="product-card product-featured"><div class="card-top"><span>LAYER 1</span><span>01</span></div><h3>xCoin</h3><p>The post-quantum currency (XID). MetalDAG PoW, ML-DSA signatures, 100M cap.</p><a href="https://www.xcoinproject.com" target="_blank" rel="noopener">Explore the network ↗</a></article>
           <article class="product-card"><div class="card-top"><span>EXPLORER</span><span>02</span></div><h3>SuperKnet</h3><p>Block explorer for blocks, transactions, and mining activity on the xCoin network.</p><a href="https://superknet.com" target="_blank" rel="noopener">Open the explorer ↗</a></article>
           <article class="product-card"><div class="card-top"><span>BROWSER MINING</span><span>03</span></div><h3>xCoinMiner</h3><p>Learn-by-doing browser miner plus a community pool.</p><a href="https://www.xcoinminer.com" target="_blank" rel="noopener">Start mining ↗</a></article>
           <article class="product-card"><div class="card-top"><span>MACOS MINING</span><span>04</span></div><h3>NerdMiner</h3><p>Native Metal miner for Apple Silicon: CLI and GUI, silent and efficient.</p><a href="https://www.nerdminer.app" target="_blank" rel="noopener">Mine on Mac ↗</a></article>
@@ -308,14 +308,14 @@
           <p>Everything below is built and open to inspection. Claims resolve to code, not to a roadmap; the chain itself is pre-launch.</p>
         </div>
         <ul class="deck-list">
-          <li><span><b>xCoin node built</b> with MetalDAG proof-of-work and post-quantum ML-DSA spends end-to-end. Mainnet genesis is gated on a go/no-go checklist, not a date.</span></li>
-          <li><span><b>Native Mac miner</b> (CLI + GUI) built for MetalDAG. The pre-genesis rehearsal requires it to run alongside the node and pool for at least three quiet days before mainnet genesis.</span></li>
+          <li><span><b>xCoin node built</b> with MetalDAG proof-of-work and post-quantum ML-DSA spends end-to-end. Mainnet genesis: 2026-09-26 00:00:00 UTC, with a public countdown at <a href="https://superknet.com" target="_blank" rel="noopener">superknet.com</a>.</span></li>
+          <li><span><b>Native Mac miner</b> (CLI + GUI) built for MetalDAG. It ran alongside the node and pool through the testnet A rehearsal, now retired (ledger archived at height 3,555); mining at launch is MMM on Apple Silicon Macs.</span></li>
           <li><span><b>Self-custodial wallet:</b> full transaction CLI with encrypted key storage plus the xPay PWA.</span></li>
           <li><span><b>SuperKnet explorer</b> built for blocks, transactions, and mining stats; currently offline.</span></li>
           <li><span><b>Browser mining + community pool</b> at xcoinminer.com, the lowest-friction on-ramp in crypto.</span></li>
           <li><span><b>xFone</b> encrypted calls and messaging shipped as a PWA with a native iOS shell.</span></li>
         </ul>
-        <p class="fine">Stage: pre-revenue. Mainnet genesis has not been mined; corridor volume and merchant acceptance are funded milestones, not current facts.</p>
+        <p class="fine">Stage: pre-revenue. Mainnet genesis is set for 2026-09-26 00:00:00 UTC; corridor volume and merchant acceptance are funded milestones, not current facts.</p>
         <div class="slide-meta"><span>08 / 10</span><span>DLT · Confidential</span></div>
       </div>
     </section>
