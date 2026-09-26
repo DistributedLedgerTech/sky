@@ -14,11 +14,14 @@
       this.visible = true;
       this.createPoints(options.points || 900);
       this.satellites = options.satellites ? [
-        // orbits drawn out in the dark space around the globe: inclination, ascending node, starting phase, angular speed (rad/ms)
-        { inc: .92, node: .2, phase: 0, w: .00042 },
-        { inc: -.55, node: 1.4, phase: 2.1, w: .00036 },
-        { inc: 1.25, node: 2.6, phase: 4.0, w: .00031 },
-        { inc: .3, node: 4.1, phase: 1.2, w: .00039 },
+        // seven satellites on higher orbits, out in the dark space: inclination, ascending node, phase, speed (rad/ms), altitude
+        { inc: .92, node: .2, phase: 0, w: .00084, alt: 1.34 },
+        { inc: -.55, node: 1.4, phase: 2.1, w: .00072, alt: 1.4 },
+        { inc: 1.25, node: 2.6, phase: 4.0, w: .00064, alt: 1.3 },
+        { inc: .3, node: 4.1, phase: 1.2, w: .00078, alt: 1.37 },
+        { inc: -1.1, node: 3.3, phase: 5.2, w: .0007, alt: 1.33 },
+        { inc: .6, node: 5.4, phase: 3.3, w: .00088, alt: 1.42 },
+        { inc: -.2, node: .9, phase: .6, w: .00068, alt: 1.28 },
       ] : [];
       this.resize = this.resize.bind(this);
       this.draw = this.draw.bind(this);
@@ -68,59 +71,85 @@
       return { x: this.width / 2 + x * radius, y: this.height / 2 + point.y * radius, z };
     }
 
-    // A satellite's position on its orbit (unit sphere scaled by `alt`), in the fixed sky frame.
-    satPosition(sat, now, alt = 1.36) {
+    // A satellite's position on its orbit, in the fixed sky frame (the globe spins beneath it).
+    satPosition(sat, now, alt = sat.alt) {
       const u = sat.phase + (reduceMotion ? 0 : now * sat.w);
       const ox = Math.cos(u), oz = Math.sin(u);
       const y = oz * Math.sin(sat.inc), zi = oz * Math.cos(sat.inc);
-      return { x: (ox * Math.cos(sat.node) - zi * Math.sin(sat.node)) * alt, y, z: (ox * Math.sin(sat.node) + zi * Math.cos(sat.node)) * alt };
+      return { x: (ox * Math.cos(sat.node) - zi * Math.sin(sat.node)) * alt, y, z: (ox * Math.sin(sat.node) + zi * Math.cos(sat.node)) * alt, u };
     }
 
     drawSatellites(ctx, now, radius) {
-      const sats = this.satellites.map((sat) => ({ sat, w: this.satPosition(sat, now) }));
+      const W = '255,255,255', L = '199,255,46';
+      const cx = this.width / 2, cy = this.height / 2;
       const proj = (v) => this.project(v, 0, radius);
       const rot = (n) => { const c = Math.cos(this.rotation), s = Math.sin(this.rotation); return { x: n.x * c - n.z * s, y: n.y, z: n.x * s + n.z * c }; };
       const len = (v) => Math.hypot(v.x, v.y, v.z);
-      const dot = (a, b) => (a.x * b.x + a.y * b.y + a.z * b.z) / (len(a) * len(b));
-      // orbit tracks
-      this.satellites.forEach((sat) => {
-        ctx.beginPath();
-        for (let i = 0; i <= 72; i += 1) {
-          const p = proj(this.satPosition({ ...sat, phase: i / 72 * Math.PI * 2, w: 0 }, 0));
-          if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y);
+      const cosAngle = (a, b) => (a.x * b.x + a.y * b.y + a.z * b.z) / (len(a) * len(b));
+      const hidden = (v, p) => v.z < 0 && Math.hypot(p.x - cx, p.y - cy) < radius;   // behind the planet
+      const sats = this.satellites.map((sat, i) => { const w = this.satPosition(sat, now); const p = proj(w); return { sat, i, w, p, hidden: hidden(w, p) }; });
+
+      // 1. trajectory: a curved dashed trail behind each satellite, fading along its orbit
+      ctx.save(); ctx.setLineDash([5, 4]); ctx.lineWidth = 1.2;
+      sats.forEach(({ sat, w }) => {
+        const steps = 26, sweep = 1.5;   // radians of orbit shown behind the satellite
+        let prev = null;
+        for (let k = 0; k <= steps; k += 1) {
+          const v = this.satPosition({ ...sat, phase: w.u - (k / steps) * sweep, w: 0 }, 0);
+          const p = proj(v);
+          if (prev && !hidden(v, p)) {
+            ctx.strokeStyle = `rgba(${W},${(1 - k / steps) * .55})`;
+            ctx.beginPath(); ctx.moveTo(prev.x, prev.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+          }
+          prev = p;
         }
-        ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.lineWidth = 1; ctx.stroke();
       });
-      const beam = (a, b, alpha, t) => {
-        ctx.save(); ctx.setLineDash([4, 3]); ctx.strokeStyle = `rgba(255,255,255,${alpha})`; ctx.lineWidth = 1.4;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.restore();
-        const k = reduceMotion ? .5 : t % 1;
-        ctx.fillStyle = '#ffffff'; ctx.fillRect(a.x + (b.x - a.x) * k - 1.5, a.y + (b.y - a.y) * k - 1.5, 3, 3);
-      };
-      // crosslinks between satellites that can see each other over the horizon
+      ctx.restore();
+
+      // 2. inter-satellite links: fast, intermittent bursts on arcs that bow outward around the planet
+      const burst = (i, j) => { const period = 900 + ((i * 7 + j * 13) % 5) * 260; const t = (now + i * 311 + j * 173) % period; return reduceMotion ? .6 : t < period * .42 ? 1 - t / (period * .42) : 0; };
       for (let i = 0; i < sats.length; i += 1) for (let j = i + 1; j < sats.length; j += 1) {
         const a = sats[i], b = sats[j];
-        if (dot(a.w, b.w) > .35 && a.w.z > -.4 && b.w.z > -.4) beam(proj(a.w), proj(b.w), .5, now * .0005 + i * .31 + j * .17);
+        if (a.hidden || b.hidden || cosAngle(a.w, b.w) < .05) continue;
+        const on = burst(i, j);
+        if (!on) continue;
+        const mx = (a.p.x + b.p.x) / 2, my = (a.p.y + b.p.y) / 2;
+        const dx = mx - cx, dy = my - cy, d = Math.hypot(dx, dy) || 1;
+        const lift = radius * .55 + Math.hypot(a.p.x - b.p.x, a.p.y - b.p.y) * .18;   // push the arc out, around the globe
+        const qx = cx + dx / d * (d + lift), qy = cy + dy / d * (d + lift);
+        ctx.save(); ctx.setLineDash([2, 3]); ctx.lineWidth = 1.1; ctx.strokeStyle = `rgba(${W},${.2 + on * .6})`;
+        ctx.beginPath(); ctx.moveTo(a.p.x, a.p.y); ctx.quadraticCurveTo(qx, qy, b.p.x, b.p.y); ctx.stroke(); ctx.restore();
+        for (let n = 0; n < 3; n += 1) {   // packets racing along the arc
+          const t = reduceMotion ? .3 + n * .2 : ((now * .0022) + n / 3 + i * .13 + j * .07) % 1;
+          const x = (1 - t) * (1 - t) * a.p.x + 2 * (1 - t) * t * qx + t * t * b.p.x;
+          const y = (1 - t) * (1 - t) * a.p.y + 2 * (1 - t) * t * qy + t * t * b.p.y;
+          ctx.fillStyle = `rgba(${W},${.5 + on * .5})`; ctx.fillRect(x - 1.5, y - 1.5, 3, 3);
+        }
       }
-      // downlinks to surface nodes under each satellite
-      sats.forEach(({ w }, si) => {
-        const sp = proj(w);
+
+      // 3. ground links, a different pattern: a straight dotted beam straight down, a slow packet, a lime ping on the node
+      sats.forEach(({ w, p, hidden: h }, si) => {
+        if (h) return;
         this.nodes.forEach((node, ni) => {
           const n = rot(node);
-          if (n.z < .05 || dot(n, w) < .72) return;
-          beam(sp, this.project(node, this.rotation, radius * 1.01), .8, now * .0009 + si * .23 + ni * .41);
+          if (n.z < .05 || cosAngle(n, w) < .7) return;
+          const g = this.project(node, this.rotation, radius * 1.01);
+          ctx.save(); ctx.setLineDash([1, 5]); ctx.lineCap = 'round'; ctx.lineWidth = 1.6; ctx.strokeStyle = `rgba(${W},.6)`;
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(g.x, g.y); ctx.stroke(); ctx.restore();
+          const t = reduceMotion ? .5 : ((now * .0006) + si * .21 + ni * .37) % 1;
+          ctx.fillStyle = `rgb(${W})`; ctx.fillRect(p.x + (g.x - p.x) * t - 1.5, p.y + (g.y - p.y) * t - 1.5, 3, 3);
+          const ping = reduceMotion ? .5 : ((now * .0012) + ni * .3) % 1;
+          ctx.strokeStyle = `rgba(${L},${1 - ping})`; ctx.lineWidth = 1.2;
+          ctx.beginPath(); ctx.arc(g.x, g.y, 3 + ping * 12, 0, Math.PI * 2); ctx.stroke();
         });
       });
-      // the satellites themselves: body and two solar panels, dimmer behind the globe
-      sats.forEach(({ w }) => {
-        const p = proj(w), behind = w.z < 0 && Math.hypot(p.x - this.width / 2, p.y - this.height / 2) < radius;
-        if (behind) return;
-        const a = w.z < 0 ? .45 : 1;
-        ctx.fillStyle = `rgba(255,255,255,${a})`;
-        ctx.fillRect(p.x - 2.5, p.y - 2.5, 5, 5);
-        ctx.fillStyle = `rgba(255,255,255,${a * .7})`;
-        ctx.fillRect(p.x - 11, p.y - 1.5, 6, 3); ctx.fillRect(p.x + 5, p.y - 1.5, 6, 3);
-        ctx.strokeStyle = `rgba(255,255,255,${a * .5})`; ctx.beginPath(); ctx.arc(p.x, p.y, 7 + (reduceMotion ? 0 : (now * .004) % 5), 0, Math.PI * 2); ctx.stroke();
+
+      // 4. the satellites: a white body with two solar panels
+      sats.forEach(({ p, w, hidden: h }) => {
+        if (h) return;
+        const a = w.z < 0 ? .5 : 1;
+        ctx.fillStyle = `rgba(${W},${a})`; ctx.fillRect(p.x - 2.5, p.y - 2.5, 5, 5);
+        ctx.fillStyle = `rgba(${W},${a * .75})`; ctx.fillRect(p.x - 11, p.y - 1.5, 6, 3); ctx.fillRect(p.x + 5, p.y - 1.5, 6, 3);
       });
     }
 
