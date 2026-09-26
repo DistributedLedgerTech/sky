@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-<script>/* intro roll: one of three intros on every load; ?intro=off skips */(function(){try{var q=location.search;if(/intro=off/.test(q)||/intro-[abc]\.html$/.test(location.pathname))return;var m=/intro=([abc])/.exec(q);var v=m?m[1]:"abc"[Math.floor(Math.random()*3)];location.replace("/intro-"+v+".html?b="+Date.now()+location.hash);}catch(e){}})();</script>
+<script>/* intro roll: one of three intros on every load of the homepage; ?intro=a|b|c picks one, ?intro=off skips */(function(){var v="abc"[Math.floor(Math.random()*3)];try{var q=location.search;if(/intro=off/.test(q))v="off";var m=/intro=([abc])/.exec(q);if(m)v=m[1];}catch(e){}document.documentElement.classList.add("intro-"+v);window.DLT_INTRO=v;try{if(/intro=/.test(location.search))history.replaceState(null,"","/"+location.hash);}catch(e){}})();</script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#c7ff2e">
   <meta name="color-scheme" content="light">
@@ -32,7 +32,87 @@
 
   <link rel="stylesheet" href="dlt-acid.css?v=20260917e">
   <noscript><style>.boot-screen{display:none}body.boot-locked{overflow:auto}</style></noscript>
-  <script defer src="dlt-site.js"></script>
+  <style>/* the three intros, each scoped to html.intro-<v> */
+html.intro-a .boot-screen.boot-signal{grid-template-rows:minmax(0,1fr);align-items:stretch;overflow:hidden;background:#0a0a0a;transition:opacity .82s cubic-bezier(.4,0,.2,1),filter .82s cubic-bezier(.4,0,.2,1),transform .82s cubic-bezier(.4,0,.2,1),visibility .82s}
+html.intro-a .boot-screen.boot-signal.is-done{opacity:0;visibility:hidden;transform:scale(1.04);filter:blur(12px) brightness(1.6)}
+html.intro-a .boot-screen.boot-signal[hidden]{display:none}
+html.intro-a .boot-signal .boot-globe{position:absolute;inset:0;z-index:0;width:100%;height:100%}
+html.intro-a .boot-signal .boot-stage{position:relative;z-index:1;min-width:0;min-height:0}
+html.intro-a .boot-signal .boot-frame{position:relative;height:100%;border:1px solid rgba(255,255,255,.16);transition:border-color .2s}
+html.intro-a .boot-signal .boot-frame::before,html.intro-a .boot-signal .boot-frame::after{content:"";position:absolute;background:rgba(255,255,255,.09);pointer-events:none}
+html.intro-a .boot-signal .boot-frame::before{top:50%;left:-28px;right:-28px;height:1px}
+html.intro-a .boot-signal .boot-frame::after{top:-28px;bottom:-28px;left:50%;width:1px}
+html.intro-a .boot-signal .boot-frame i{position:absolute;width:14px;height:14px;border:1px solid var(--accent);pointer-events:none}
+html.intro-a .boot-signal .boot-frame i:nth-of-type(1){top:-1px;left:-1px;border-right:0;border-bottom:0}
+html.intro-a .boot-signal .boot-frame i:nth-of-type(2){top:-1px;right:-1px;border-left:0;border-bottom:0}
+html.intro-a .boot-signal .boot-frame i:nth-of-type(3){bottom:-1px;left:-1px;border-right:0;border-top:0}
+html.intro-a .boot-signal .boot-frame i:nth-of-type(4){bottom:-1px;right:-1px;border-left:0;border-top:0}
+html.intro-a .boot-signal .globe-label{z-index:2;transition:background .18s,color .18s}
+html.intro-a .boot-signal .globe-label-b{top:auto;right:12px;bottom:12px}
+html.intro-a .boot-signal .boot-readout{position:absolute;left:12px;bottom:14px;z-index:2;color:#8c8c8c;font-size:.62rem;font-weight:800;letter-spacing:.1em;font-variant-numeric:tabular-nums}
+html.intro-a .boot-signal .boot-scale{position:absolute;top:12px;right:12px;z-index:2;color:#8c8c8c;font-size:.62rem;font-weight:800;letter-spacing:.1em}
+html.intro-a .boot-signal.is-snapped .boot-frame{border-color:var(--accent)}
+html.intro-a .boot-signal.is-snapped .globe-label-b{background:var(--accent);color:var(--accent-ink)}
+html.intro-a .boot-signal.is-snapped .boot-readout{color:var(--accent)}
+html.intro-a .boot-signal .boot-terminal{position:relative;z-index:2;align-self:center}
+html.intro-a .boot-signal .boot-flash{position:absolute;inset:0;z-index:3;background:var(--accent);opacity:0;pointer-events:none;transition:opacity .46s cubic-bezier(.2,.7,.3,1)}
+html.intro-a .boot-signal .boot-flash.is-on{opacity:.5;transition:none}
+html.intro-a .boot-signal.is-2d .boot-globe{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+html.intro-a body.boot-exited .hero-copy{animation:signalRise .9s cubic-bezier(.16,1,.3,1) both}
+@keyframes signalRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@media(max-width:980px){html.intro-a .boot-signal .boot-frame::before{left:-16px;right:-16px}
+html.intro-a .boot-signal .boot-frame::after{top:-16px;bottom:-16px}}
+@media(max-width:680px){html.intro-a .boot-screen.boot-signal{grid-template-rows:auto auto;align-items:center}
+html.intro-a .boot-signal .boot-stage{width:min(80vw,380px);aspect-ratio:1;justify-self:center}
+html.intro-a .boot-signal .boot-frame::before{left:-10px;right:-10px}
+html.intro-a .boot-signal .boot-frame::after{top:-10px;bottom:-10px}
+html.intro-a .boot-signal .boot-readout{bottom:12px}}
+@media(prefers-reduced-motion:reduce){html.intro-a .boot-screen.boot-signal.is-done{transform:none;filter:none}
+html.intro-a body.boot-exited .hero-copy{animation:none}}
+html.intro-b .boot-screen.boot-b{background:#0b0b0b;transition:opacity .62s cubic-bezier(.4,0,.2,1),transform .62s cubic-bezier(.4,0,.2,1),filter .62s cubic-bezier(.4,0,.2,1),visibility .62s;will-change:opacity,transform}
+html.intro-b .boot-screen.boot-b.is-done{opacity:0;transform:scale(1.035);filter:blur(10px);visibility:hidden}
+html.intro-b .boot-b .boot-gl{position:absolute;inset:0;z-index:1;width:100%;height:100%}
+html.intro-b .boot-b .boot-scan{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none;background:repeating-linear-gradient(180deg,transparent 0 2px,rgba(11,11,11,.32) 2px 3px)}
+html.intro-b .boot-b .boot-scan::after{content:"";position:absolute;left:0;right:0;top:-16%;height:14%;background:linear-gradient(180deg,transparent,rgba(255,255,255,.04) 50%,transparent);animation:boot-b-sweep 5.2s linear infinite}
+@keyframes boot-b-sweep{to{transform:translateY(860%)}}
+html.intro-b .boot-b .boot-visual,html.intro-b .boot-b .boot-terminal{position:relative;z-index:3}
+html.intro-b .boot-b .globe-label-b{min-width:118px;text-align:right}
+html.intro-b .boot-b .boot-flash{position:absolute;inset:0;z-index:6;background:#fff;opacity:0;pointer-events:none}
+html.intro-b body:has(.boot-b:not(.is-done)){overflow:hidden}
+@media(prefers-reduced-motion:reduce){html.intro-b .boot-b .boot-scan::after{animation:none}
+html.intro-b .boot-screen.boot-b{transition:none}}
+html.intro-c .boot-screen{transform-origin:50% 50%;transition:none;will-change:transform}
+html.intro-c .boot-screen::before{content:"";position:absolute;left:0;right:0;top:-24vh;height:22vh;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(199,255,46,0) 0%,rgba(199,255,46,.045) 50%,rgba(199,255,46,0) 100%);animation:boot-roll 5.2s linear infinite}
+html.intro-c .boot-screen::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.26) 0 1px,rgba(0,0,0,0) 1px 3px)}
+@keyframes boot-roll{to{transform:translateY(150vh)}}
+html.intro-c .boot-visual{border-color:#2a2a2a;background:#0b0b0b;box-shadow:0 0 0 1px #0b0b0b,0 0 40px rgba(199,255,46,.08)}
+html.intro-c .boot-visual::before,html.intro-c .boot-visual::after{display:none}
+html.intro-c .boot-visual .boot-globe{image-rendering:auto}
+html.intro-c .globe-label{z-index:2;background:#0b0b0b}
+html.intro-c .globe-label-b{top:12px;right:12px;bottom:auto}
+html.intro-c .globe-corner{position:absolute;width:14px;height:14px;border:1px solid var(--accent);z-index:2;opacity:.8}
+html.intro-c .globe-corner-a{left:-1px;bottom:-1px;border-top:0;border-right:0}
+html.intro-c .globe-corner-b{right:-1px;bottom:-1px;border-top:0;border-left:0}
+html.intro-c .boot-terminal{box-shadow:12px 12px 0 var(--accent),0 0 48px rgba(199,255,46,.12)}
+html.intro-c .boot-terminal-body p{color:#e6e6e6;text-shadow:0 0 7px rgba(199,255,46,.38)}
+html.intro-c .boot-terminal-body p.is-current::after{content:"\2588";margin-left:4px;color:var(--accent);animation:boot-blink .9s steps(2,end) infinite}
+@keyframes boot-blink{50%{opacity:0}}
+html.intro-c .boot-progress span{background:repeating-linear-gradient(90deg,var(--accent) 0 6px,rgba(199,255,46,0) 6px 8px);box-shadow:0 0 10px rgba(199,255,46,.35)}
+html.intro-c .boot-terminal-foot span:first-child{font-variant-numeric:tabular-nums;text-shadow:0 0 8px rgba(199,255,46,.55)}
+html.intro-c .boot-screen.is-glitch .boot-terminal{animation:boot-jitter .22s steps(3,end) 1}
+@keyframes boot-jitter{0%{transform:translate(-3px,0)}33%{transform:translate(4px,-1px)}66%{transform:translate(-2px,1px)}100%{transform:none}}
+html.intro-c .boot-screen.is-done{visibility:visible;transform:scale(1,.004);transition:transform .34s cubic-bezier(.8,0,.95,.4)}
+html.intro-c .boot-screen.is-done::before,html.intro-c .boot-screen.is-done::after{display:none}
+html.intro-c .boot-screen.is-done.is-dot{transform:scale(.002,.004);opacity:0;transition:transform .34s cubic-bezier(.2,.8,.2,1),opacity .12s linear .24s}
+html.intro-c .boot-screen[hidden]{display:none}
+html.intro-c .boot-collapse{position:fixed;left:50%;top:50%;z-index:1000;width:100vw;height:3px;transform:translate(-50%,-50%);background:#fff;box-shadow:0 0 14px 3px var(--accent),0 0 60px 14px rgba(199,255,46,.55);opacity:0;pointer-events:none}
+html.intro-c .boot-collapse.is-on{opacity:1;transition:opacity .28s ease-in}
+html.intro-c .boot-collapse.is-dot{transform:translate(-50%,-50%) scaleX(0);opacity:0;transition:transform .34s cubic-bezier(.2,.8,.2,1),opacity .12s linear .26s}
+html.intro-c .boot-collapse[hidden]{display:none}
+html.intro-c .boot-screen.is-noglobe .boot-globe{display:none}
+@media(prefers-reduced-motion:reduce){html.intro-c .boot-screen::before,html.intro-c .boot-terminal-body p.is-current::after{animation:none}
+html.intro-c .boot-screen.is-done{transform:none;visibility:hidden}}
+  </style>
 
   <script type="application/ld+json">
   {
@@ -60,14 +140,20 @@
 <body class="boot-locked">
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="boot-screen" data-boot role="dialog" aria-modal="true" aria-label="DLT system introduction">
-    <div class="boot-visual" aria-hidden="true">
-      <canvas class="boot-globe" data-globe="intro"></canvas>
-      <div class="globe-axis globe-axis-x"></div>
-      <div class="globe-axis globe-axis-y"></div>
-      <span class="globe-label globe-label-a">NODE / 01</span>
-      <span class="globe-label globe-label-b">GLOBAL / READY</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div data-intro-variant="a" class="boot-screen boot-signal" data-boot role="dialog" aria-modal="true" aria-label="DLT system introduction">
+    <canvas class="boot-globe" data-globe="intro" aria-hidden="true"></canvas>
+    <div class="boot-stage" aria-hidden="true">
+      <div class="boot-frame" data-intro-frame>
+        <i></i><i></i><i></i><i></i>
+        <span class="globe-label globe-label-a" data-intro-label-a>NODE / 01</span>
+        <span class="globe-label globe-label-b" data-intro-label-b>GLOBAL / READY</span>
+        <span class="boot-scale">XID / MAINNET</span>
+        <span class="boot-readout" data-intro-readout>SIGNAL / ACQUIRING</span>
+      </div>
     </div>
+    <div class="boot-flash" data-intro-flash aria-hidden="true"></div>
     <div class="boot-terminal">
       <div class="boot-terminal-bar"><span>DLT / PUBLIC INFRASTRUCTURE</span><span>● ● ●</span></div>
       <div class="boot-terminal-body" aria-live="polite">
@@ -80,7 +166,55 @@
       <div class="boot-terminal-foot"><span data-boot-percent>0%</span><button type="button" data-boot-skip>Skip intro [Enter] →</button></div>
     </div>
   </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
+  <div data-intro-variant="b" class="boot-screen boot-b" data-boot-b role="dialog" aria-modal="true" aria-label="DLT system introduction">
+    <canvas class="boot-gl" data-boot-gl aria-hidden="true"></canvas>
+    <div class="boot-scan" aria-hidden="true"></div>
+    <div class="boot-visual" aria-hidden="true">
+      <canvas class="boot-globe" data-globe="intro"></canvas>
+      <div class="globe-axis globe-axis-x"></div>
+      <div class="globe-axis globe-axis-y"></div>
+      <span class="globe-label globe-label-a">ASSEMBLY / 01</span>
+      <span class="globe-label globe-label-b" data-boot-label>BLOCKS 00/16</span>
+    </div>
+    <div class="boot-terminal">
+      <div class="boot-terminal-bar"><span>DLT / PUBLIC INFRASTRUCTURE</span><span>● ● ●</span></div>
+      <div class="boot-terminal-body" aria-live="polite">
+        <p data-boot-line>Initializing distributed systems...</p>
+        <p data-boot-line>Loading public network map...</p>
+        <p data-boot-line>Verifying community entry points... <span data-boot-count></span></p>
+        <p data-boot-line>System ready. Welcome.</p>
+      </div>
+      <div class="boot-progress" aria-hidden="true"><span data-boot-progress></span></div>
+      <div class="boot-terminal-foot"><span data-boot-percent>0%</span><button type="button" data-boot-skip>Skip intro [Enter] →</button></div>
+    </div>
+    <div class="boot-flash" data-boot-flash aria-hidden="true"></div>
+  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div data-intro-variant="c" class="boot-screen" data-boot role="dialog" aria-modal="true" aria-label="DLT system introduction">
+    <div class="boot-visual" aria-hidden="true">
+      <canvas class="boot-globe" data-globe="intro"></canvas>
+      <span class="globe-label globe-label-a">CRT / PHOSPHOR</span>
+      <span class="globe-label globe-label-b">GLOBAL / READY</span>
+      <span class="globe-corner globe-corner-a"></span>
+      <span class="globe-corner globe-corner-b"></span>
+    </div>
+    <div class="boot-terminal">
+      <div class="boot-terminal-bar"><span>DLT / PUBLIC INFRASTRUCTURE</span><span>● ● ●</span></div>
+      <div class="boot-terminal-body" aria-live="polite">
+        <p data-boot-line>Warming cathode. Initializing distributed systems...</p>
+        <p data-boot-line>Rasterizing public network map...</p>
+        <p data-boot-line>Verifying community entry points...</p>
+        <p data-boot-line>System ready. Welcome.</p>
+      </div>
+      <div class="boot-progress" aria-hidden="true"><span data-boot-progress></span></div>
+      <div class="boot-terminal-foot"><span data-boot-percent>0%</span><button type="button" data-boot-skip>Skip intro [Enter] →</button></div>
+    </div>
+  </div>
+  <div class="boot-collapse" data-boot-collapse aria-hidden="true" hidden></div>
+  <script>/* keep the rolled intro, drop the others, then load its scripts in order */(function(){var v=window.DLT_INTRO||"off",L={"a": ["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", "dlt-intro-a.js", "dlt-site.js"], "b": ["https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js", "dlt-site.js", "dlt-intro-b.js"], "c": ["dlt-intro-c.js"], "off": ["dlt-site.js"]};document.querySelectorAll("[data-intro-variant]").forEach(function(el){if(el.getAttribute("data-intro-variant")!==v)el.remove();});if(v==="off")document.body.classList.remove("boot-locked");function go(){(L[v]||L.off).forEach(function(src){var s=document.createElement("script");s.src=src;s.async=false;document.body.appendChild(s);});}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",go);else go();})();</script>
   <header class="site-header" data-header>
     <div class="utility-bar">
       <div class="shell utility-inner">
