@@ -8,6 +8,9 @@
       this.speed = options.speed || 0.00022;
       this.rotation = options.rotation || 0;
       this.tilt = options.tilt || 0;
+      this.baseTilt = this.tilt;
+      this.cinematic = !!options.satellites;
+      this.stars = this.cinematic ? Array.from({ length: 140 }, (_, i) => ({ x: ((i * 7919) % 997) / 997, y: ((i * 104729) % 991) / 991, r: .4 + ((i * 31) % 10) / 12, tw: (i * 2.39) % 6.28 })) : [];
       this.points = [];
       this.nodes = [];
       this.frame = 0;
@@ -78,7 +81,8 @@
     ringPoint(k, u, alt = 1.36) {
       const a = k ? -.62 : .62;                       // each ring's slant, as seen on screen
       const x = Math.cos(u) * alt, z = Math.sin(u) * alt;
-      return { x: x * Math.cos(a), y: x * Math.sin(a), z };
+      const open = k ? -.34 : .34;                    // tip each ring toward the viewer so it curves into an ellipse
+      return { x: x * Math.cos(a) - z * open * Math.sin(a), y: x * Math.sin(a) + z * open * Math.cos(a), z: z * Math.sqrt(1 - open * open) };
     }
 
     drawSatellites(ctx, now, radius) {
@@ -120,11 +124,15 @@
         const lift = radius * .18 + Math.hypot(a.p.x - b.p.x, a.p.y - b.p.y) * .2;
         const qx = cx + dx / dd * (dd + lift), qy = cy + dy / dd * (dd + lift);
         ctx.save(); ctx.setLineDash([2, 3]); ctx.lineWidth = 1.1; ctx.strokeStyle = `rgba(${W},${.2 + on * .6})`;
+        ctx.shadowColor = 'rgba(255,255,255,.9)'; ctx.shadowBlur = 6 * on;
         ctx.beginPath(); ctx.moveTo(a.p.x, a.p.y); ctx.quadraticCurveTo(qx, qy, b.p.x, b.p.y); ctx.stroke(); ctx.restore();
-        for (let n = 0; n < 3; n += 1) {
+        const at = (t) => ({ x: (1 - t) ** 2 * a.p.x + 2 * (1 - t) * t * qx + t * t * b.p.x, y: (1 - t) ** 2 * a.p.y + 2 * (1 - t) * t * qy + t * t * b.p.y });
+        for (let n = 0; n < 3; n += 1) {   // comets: a bright head and a fading tail
           const t = reduceMotion ? .3 + n * .2 : ((now * .0026) + n / 3 + a.i * .13 + b.i * .07) % 1;
-          ctx.fillStyle = `rgba(${W},${.5 + on * .5})`;
-          ctx.fillRect((1 - t) ** 2 * a.p.x + 2 * (1 - t) * t * qx + t * t * b.p.x - 1.5, (1 - t) ** 2 * a.p.y + 2 * (1 - t) * t * qy + t * t * b.p.y - 1.5, 3, 3);
+          for (let k = 5; k >= 0; k -= 1) {
+            const q = at(Math.max(0, t - k * .018)), size = k ? 2.2 - k * .3 : 3.2;
+            ctx.fillStyle = `rgba(${W},${(.5 + on * .5) * (1 - k / 6)})`; ctx.fillRect(q.x - size / 2, q.y - size / 2, size, size);
+          }
         }
       });
 
@@ -140,8 +148,9 @@
           const t = reduceMotion ? .5 : ((now * .0006) + si * .21 + ni * .37) % 1;
           ctx.fillStyle = `rgb(${W})`; ctx.fillRect(p.x + (s.x - p.x) * t - 1.5, p.y + (s.y - p.y) * t - 1.5, 3, 3);
           const ping = reduceMotion ? .5 : ((now * .0012) + ni * .3) % 1;
+          ctx.save(); ctx.shadowColor = 'rgba(199,255,46,.9)'; ctx.shadowBlur = 8;
           ctx.strokeStyle = `rgba(${L},${1 - ping})`; ctx.lineWidth = 1.2;
-          ctx.beginPath(); ctx.arc(s.x, s.y, 3 + ping * 12, 0, Math.PI * 2); ctx.stroke();
+          ctx.beginPath(); ctx.arc(s.x, s.y, 3 + ping * 12, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
         });
       });
 
@@ -149,7 +158,8 @@
       sats.forEach(({ p, front, hidden: h }) => {
         if (h) return;
         const a = front ? 1 : .45;
-        ctx.fillStyle = `rgba(${W},${a})`; ctx.fillRect(p.x - 2.5, p.y - 2.5, 5, 5);
+        ctx.save(); ctx.shadowColor = 'rgba(255,255,255,.95)'; ctx.shadowBlur = front ? 12 : 4;
+        ctx.fillStyle = `rgba(${W},${a})`; ctx.fillRect(p.x - 2.5, p.y - 2.5, 5, 5); ctx.restore();
         ctx.fillStyle = `rgba(${W},${a * .75})`; ctx.fillRect(p.x - 11, p.y - 1.5, 6, 3); ctx.fillRect(p.x + 5, p.y - 1.5, 6, 3);
       });
     }
@@ -159,8 +169,21 @@
         const elapsed = Math.min(40, now - this.last);
         if (!reduceMotion) this.rotation += elapsed * this.speed;
         const ctx = this.context;
-        const radius = Math.min(this.width, this.height) * .36;
+        let radius = Math.min(this.width, this.height) * .36;
         ctx.clearRect(0, 0, this.width, this.height);
+        if (this.cinematic) {
+          // a slow camera: the view breathes in and out and the tilt sways
+          if (!reduceMotion) { radius *= 1 + Math.sin(now * .00012) * .03; this.tilt = this.baseTilt + Math.sin(now * .00009) * .08; }
+          this.stars.forEach((st) => {
+            const a = reduceMotion ? .35 : .18 + (Math.sin(now * .0015 + st.tw) + 1) * .22;
+            ctx.fillStyle = `rgba(255,255,255,${a})`; ctx.fillRect(st.x * this.width, st.y * this.height, st.r, st.r);
+          });
+          // atmosphere: a soft lime glow hugging the planet's edge
+          const cxg = this.width / 2, cyg = this.height / 2;
+          const glow = ctx.createRadialGradient(cxg, cyg, radius * .92, cxg, cyg, radius * 1.22);
+          glow.addColorStop(0, 'rgba(199,255,46,.16)'); glow.addColorStop(1, 'rgba(199,255,46,0)');
+          ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(cxg, cyg, radius * 1.22, 0, Math.PI * 2); ctx.fill();
+        }
 
         ctx.strokeStyle = 'rgba(199,255,46,.18)';
         ctx.lineWidth = 1;
