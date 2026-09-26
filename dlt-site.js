@@ -119,12 +119,18 @@
       // 2. the laser mesh: in-plane fore/aft (permanent) and cross-plane left/right (0-1 ... 4-5; never
       //    across the seam 5-0), cross links fading out between 68 and 72 deg latitude at the poles
       const links = [];
+      const bow = (a, b) => {
+        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2, dx = mx - cx, dy = my - cy, d = Math.hypot(dx, dy) || 1;
+        const lift = Math.hypot(a.x - b.x, a.y - b.y) * .22;
+        return { x: mx + dx / d * lift, y: my + dy / d * lift };
+      };
       const edge = (a, b, alpha) => {
         if (alpha <= 0 || a.occ || b.occ) return;
         const w = a.back || b.back ? alpha * .3 : alpha;
         links.push([a, b]);
         ctx.strokeStyle = `rgba(${W},${w * .34})`; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(a.sp.x, a.sp.y); ctx.lineTo(b.sp.x, b.sp.y); ctx.stroke();
+        const q = bow(a.sp, b.sp);
+        ctx.beginPath(); ctx.moveTo(a.sp.x, a.sp.y); ctx.quadraticCurveTo(q.x, q.y, b.sp.x, b.sp.y); ctx.stroke();
       };
       const polar = (lat) => Math.max(0, Math.min(1, (72 - Math.abs(lat)) / 4));
       for (const s of sats) {
@@ -168,9 +174,14 @@
         if (r.path.length && r.a !== r.b) {
           const pts = [earth(this.nodes[r.a]), ...r.path.map((i) => sats[i].sp), earth(this.nodes[r.b])];
           ctx.save(); ctx.shadowColor = 'rgba(199,255,46,.9)'; ctx.shadowBlur = 8; ctx.strokeStyle = `rgba(${L},.85)`; ctx.lineWidth = 1.6;
-          ctx.beginPath(); pts.forEach((q, i) => (i ? ctx.lineTo(q.x, q.y) : ctx.moveTo(q.x, q.y))); ctx.stroke();
-          const f = Math.min(.999, phase / .55) * (pts.length - 1), i = Math.floor(f), t = f - i;
-          ctx.fillStyle = '#ffffff'; ctx.fillRect(pts[i].x + (pts[i + 1].x - pts[i].x) * t - 2.5, pts[i].y + (pts[i + 1].y - pts[i].y) * t - 2.5, 5, 5);
+          const last = pts.length - 1, ctrl = (i) => (i === 0 || i === last - 1 ? null : bow(pts[i], pts[i + 1]));
+          ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+          for (let i = 0; i < last; i += 1) { const c = ctrl(i); if (c) ctx.quadraticCurveTo(c.x, c.y, pts[i + 1].x, pts[i + 1].y); else ctx.lineTo(pts[i + 1].x, pts[i + 1].y); }
+          ctx.stroke();
+          const f = Math.min(.999, phase / .55) * last, i = Math.floor(f), t = f - i, c = ctrl(i), A = pts[i], B = pts[i + 1];
+          const hx = c ? (1 - t) ** 2 * A.x + 2 * (1 - t) * t * c.x + t * t * B.x : A.x + (B.x - A.x) * t;
+          const hy = c ? (1 - t) ** 2 * A.y + 2 * (1 - t) * t * c.y + t * t * B.y : A.y + (B.y - A.y) * t;
+          ctx.fillStyle = '#ffffff'; ctx.fillRect(hx - 2.5, hy - 2.5, 5, 5);
           ctx.restore();
         }
       }
