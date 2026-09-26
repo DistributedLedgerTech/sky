@@ -89,13 +89,13 @@
           const p = proj(this.satPosition({ ...sat, phase: i / 72 * Math.PI * 2, w: 0 }, 0));
           if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y);
         }
-        ctx.strokeStyle = 'rgba(199,255,46,.14)'; ctx.lineWidth = 1; ctx.stroke();
+        ctx.strokeStyle = 'rgba(255,255,255,.14)'; ctx.lineWidth = 1; ctx.stroke();
       });
       const beam = (a, b, alpha, t) => {
-        ctx.save(); ctx.setLineDash([4, 3]); ctx.strokeStyle = `rgba(199,255,46,${alpha})`; ctx.lineWidth = 1.4;
+        ctx.save(); ctx.setLineDash([4, 3]); ctx.strokeStyle = `rgba(255,255,255,${alpha})`; ctx.lineWidth = 1.4;
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.restore();
         const k = reduceMotion ? .5 : t % 1;
-        ctx.fillStyle = '#c7ff2e'; ctx.fillRect(a.x + (b.x - a.x) * k - 1.5, a.y + (b.y - a.y) * k - 1.5, 3, 3);
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(a.x + (b.x - a.x) * k - 1.5, a.y + (b.y - a.y) * k - 1.5, 3, 3);
       };
       // crosslinks between satellites that can see each other over the horizon
       for (let i = 0; i < sats.length; i += 1) for (let j = i + 1; j < sats.length; j += 1) {
@@ -116,11 +116,11 @@
         const p = proj(w), behind = w.z < 0 && Math.hypot(p.x - this.width / 2, p.y - this.height / 2) < radius;
         if (behind) return;
         const a = w.z < 0 ? .45 : 1;
-        ctx.fillStyle = `rgba(199,255,46,${a})`;
+        ctx.fillStyle = `rgba(255,255,255,${a})`;
         ctx.fillRect(p.x - 2.5, p.y - 2.5, 5, 5);
-        ctx.fillStyle = `rgba(199,255,46,${a * .7})`;
+        ctx.fillStyle = `rgba(255,255,255,${a * .7})`;
         ctx.fillRect(p.x - 11, p.y - 1.5, 6, 3); ctx.fillRect(p.x + 5, p.y - 1.5, 6, 3);
-        ctx.strokeStyle = `rgba(199,255,46,${a * .5})`; ctx.beginPath(); ctx.arc(p.x, p.y, 7 + (reduceMotion ? 0 : (now * .004) % 5), 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = `rgba(255,255,255,${a * .5})`; ctx.beginPath(); ctx.arc(p.x, p.y, 7 + (reduceMotion ? 0 : (now * .004) % 5), 0, Math.PI * 2); ctx.stroke();
       });
     }
 
