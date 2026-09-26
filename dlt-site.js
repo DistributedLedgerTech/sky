@@ -9,6 +9,8 @@
       this.rotation = options.rotation || 0;
       this.tilt = options.tilt || 0;
       this.baseTilt = this.tilt;
+      this.cam = 0;       // camera orbit angle around the scene (cinematic mode)
+      this.camPitch = 0;  // the camera's rise and dip along its curved path
       this.cinematic = !!options.satellites;
       this.stars = this.cinematic ? Array.from({ length: 140 }, (_, i) => ({ x: ((i * 7919) % 997) / 997, y: ((i * 104729) % 991) / 991, r: .4 + ((i * 31) % 10) / 12, tw: (i * 2.39) % 6.28 })) : [];
       this.points = [];
@@ -67,8 +69,8 @@
     }
 
     project(point, angle, radius) {
-      const cos = Math.cos(angle);
-      const sin = Math.sin(angle);
+      const cos = Math.cos(angle + this.cam);
+      const sin = Math.sin(angle + this.cam);
       const x = point.x * cos - point.z * sin;
       const z0 = point.x * sin + point.z * cos;
       const ct = Math.cos(this.tilt), st = Math.sin(this.tilt);
@@ -82,7 +84,10 @@
       const a = k ? -.62 : .62;                       // each ring's slant, as seen on screen
       const x = Math.cos(u) * alt, z = Math.sin(u) * alt;
       const open = k ? -.34 : .34;                    // tip each ring toward the viewer so it curves into an ellipse
-      return { x: x * Math.cos(a) - z * open * Math.sin(a), y: x * Math.sin(a) + z * open * Math.cos(a), z: z * Math.sqrt(1 - open * open) };
+      const v = { x: x * Math.cos(a) - z * open * Math.sin(a), y: x * Math.sin(a) + z * open * Math.cos(a), z: z * Math.sqrt(1 - open * open) };
+      const cy = Math.cos(this.cam * .6), sy = Math.sin(this.cam * .6), cp = Math.cos(this.camPitch), sp = Math.sin(this.camPitch);
+      const x1 = v.x * cy - v.z * sy, z1 = v.x * sy + v.z * cy;
+      return { x: x1, y: v.y * cp - z1 * sp, z: v.y * sp + z1 * cp };
     }
 
     drawSatellites(ctx, now, radius) {
@@ -173,7 +178,13 @@
         ctx.clearRect(0, 0, this.width, this.height);
         if (this.cinematic) {
           // a slow camera: the view breathes in and out and the tilt sways
-          if (!reduceMotion) { radius *= 1 + Math.sin(now * .00012) * .03; this.tilt = this.baseTilt + Math.sin(now * .00009) * .08; }
+          if (!reduceMotion) {
+            // a camera that orbits the scene on a curved path: it circles slowly while rising and dipping
+            this.cam = now * .00007;
+            this.camPitch = Math.sin(now * .00011) * .22;
+            radius *= 1 + Math.sin(now * .00012) * .03;
+            this.tilt = this.baseTilt + this.camPitch;
+          }
           this.stars.forEach((st) => {
             const a = reduceMotion ? .35 : .18 + (Math.sin(now * .0015 + st.tw) + 1) * .22;
             ctx.fillStyle = `rgba(255,255,255,${a})`; ctx.fillRect(st.x * this.width, st.y * this.height, st.r, st.r);
