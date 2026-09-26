@@ -13,6 +13,13 @@
       this.last = performance.now();
       this.visible = true;
       this.createPoints(options.points || 900);
+      this.satellites = options.satellites ? [
+        // low Earth orbits: inclination, ascending node, starting phase, angular speed (rad/ms)
+        { inc: .92, node: .2, phase: 0, w: .00042 },
+        { inc: -.55, node: 1.4, phase: 2.1, w: .00036 },
+        { inc: 1.25, node: 2.6, phase: 4.0, w: .00031 },
+        { inc: .3, node: 4.1, phase: 1.2, w: .00039 },
+      ] : [];
       this.resize = this.resize.bind(this);
       this.draw = this.draw.bind(this);
       this.observer = new ResizeObserver(this.resize);
@@ -61,6 +68,62 @@
       return { x: this.width / 2 + x * radius, y: this.height / 2 + point.y * radius, z };
     }
 
+    // A satellite's position on its orbit (unit sphere scaled by `alt`), in the fixed sky frame.
+    satPosition(sat, now, alt = 1.16) {
+      const u = sat.phase + (reduceMotion ? 0 : now * sat.w);
+      const ox = Math.cos(u), oz = Math.sin(u);
+      const y = oz * Math.sin(sat.inc), zi = oz * Math.cos(sat.inc);
+      return { x: (ox * Math.cos(sat.node) - zi * Math.sin(sat.node)) * alt, y, z: (ox * Math.sin(sat.node) + zi * Math.cos(sat.node)) * alt };
+    }
+
+    drawSatellites(ctx, now, radius) {
+      const sats = this.satellites.map((sat) => ({ sat, w: this.satPosition(sat, now) }));
+      const proj = (v) => this.project(v, 0, radius);
+      const rot = (n) => { const c = Math.cos(this.rotation), s = Math.sin(this.rotation); return { x: n.x * c - n.z * s, y: n.y, z: n.x * s + n.z * c }; };
+      const len = (v) => Math.hypot(v.x, v.y, v.z);
+      const dot = (a, b) => (a.x * b.x + a.y * b.y + a.z * b.z) / (len(a) * len(b));
+      // orbit tracks
+      this.satellites.forEach((sat) => {
+        ctx.beginPath();
+        for (let i = 0; i <= 72; i += 1) {
+          const p = proj(this.satPosition({ ...sat, phase: i / 72 * Math.PI * 2, w: 0 }, 0));
+          if (i) ctx.lineTo(p.x, p.y); else ctx.moveTo(p.x, p.y);
+        }
+        ctx.strokeStyle = 'rgba(199,255,46,.14)'; ctx.lineWidth = 1; ctx.stroke();
+      });
+      const beam = (a, b, alpha, t) => {
+        ctx.save(); ctx.setLineDash([4, 3]); ctx.strokeStyle = `rgba(199,255,46,${alpha})`; ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.restore();
+        const k = reduceMotion ? .5 : t % 1;
+        ctx.fillStyle = '#c7ff2e'; ctx.fillRect(a.x + (b.x - a.x) * k - 1.5, a.y + (b.y - a.y) * k - 1.5, 3, 3);
+      };
+      // crosslinks between satellites that can see each other over the horizon
+      for (let i = 0; i < sats.length; i += 1) for (let j = i + 1; j < sats.length; j += 1) {
+        const a = sats[i], b = sats[j];
+        if (dot(a.w, b.w) > .35 && a.w.z > -.4 && b.w.z > -.4) beam(proj(a.w), proj(b.w), .5, now * .0005 + i * .31 + j * .17);
+      }
+      // downlinks to surface nodes under each satellite
+      sats.forEach(({ w }, si) => {
+        const sp = proj(w);
+        this.nodes.forEach((node, ni) => {
+          const n = rot(node);
+          if (n.z < .05 || dot(n, w) < .86) return;
+          beam(sp, this.project(node, this.rotation, radius * 1.01), .8, now * .0009 + si * .23 + ni * .41);
+        });
+      });
+      // the satellites themselves: body and two solar panels, dimmer behind the globe
+      sats.forEach(({ w }) => {
+        const p = proj(w), behind = w.z < 0 && Math.hypot(p.x - this.width / 2, p.y - this.height / 2) < radius;
+        if (behind) return;
+        const a = w.z < 0 ? .45 : 1;
+        ctx.fillStyle = `rgba(199,255,46,${a})`;
+        ctx.fillRect(p.x - 2.5, p.y - 2.5, 5, 5);
+        ctx.fillStyle = `rgba(199,255,46,${a * .7})`;
+        ctx.fillRect(p.x - 11, p.y - 1.5, 6, 3); ctx.fillRect(p.x + 5, p.y - 1.5, 6, 3);
+        ctx.strokeStyle = `rgba(199,255,46,${a * .5})`; ctx.beginPath(); ctx.arc(p.x, p.y, 7 + (reduceMotion ? 0 : (now * .004) % 5), 0, Math.PI * 2); ctx.stroke();
+      });
+    }
+
     draw(now) {
       if (this.visible) {
         const elapsed = Math.min(40, now - this.last);
@@ -95,6 +158,7 @@
           ctx.fillStyle = '#c7ff2e';
           ctx.fillRect(p.x - 1.5, p.y - 1.5, 3, 3);
         });
+        if (this.satellites.length) this.drawSatellites(ctx, now, radius);
       }
       this.last = now;
       this.frame = requestAnimationFrame(this.draw);
@@ -105,7 +169,8 @@
     new AcidGlobe(canvas, {
       points: canvas.dataset.globe === 'intro' ? 1150 : 1500,
       speed: canvas.dataset.globe === 'intro' ? .0003 : .00018,
-      rotation: canvas.dataset.globe === 'identity' ? 1.1 : 0
+      rotation: canvas.dataset.globe === 'identity' ? 1.1 : 0,
+      satellites: canvas.dataset.globe === 'identity'
     });
   });
 
