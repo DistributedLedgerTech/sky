@@ -14,7 +14,7 @@
       this.visible = true;
       this.createPoints(options.points || 900);
       this.satellites = options.satellites ? [
-        // low Earth orbits: inclination, ascending node, starting phase, angular speed (rad/ms)
+        // orbits drawn out in the dark space around the globe: inclination, ascending node, starting phase, angular speed (rad/ms)
         { inc: .92, node: .2, phase: 0, w: .00042 },
         { inc: -.55, node: 1.4, phase: 2.1, w: .00036 },
         { inc: 1.25, node: 2.6, phase: 4.0, w: .00031 },
@@ -69,7 +69,7 @@
     }
 
     // A satellite's position on its orbit (unit sphere scaled by `alt`), in the fixed sky frame.
-    satPosition(sat, now, alt = 1.16) {
+    satPosition(sat, now, alt = 1.36) {
       const u = sat.phase + (reduceMotion ? 0 : now * sat.w);
       const ox = Math.cos(u), oz = Math.sin(u);
       const y = oz * Math.sin(sat.inc), zi = oz * Math.cos(sat.inc);
@@ -107,7 +107,7 @@
         const sp = proj(w);
         this.nodes.forEach((node, ni) => {
           const n = rot(node);
-          if (n.z < .05 || dot(n, w) < .86) return;
+          if (n.z < .05 || dot(n, w) < .72) return;
           beam(sp, this.project(node, this.rotation, radius * 1.01), .8, now * .0009 + si * .23 + ni * .41);
         });
       });
