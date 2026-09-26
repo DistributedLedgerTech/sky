@@ -153,8 +153,8 @@
         ctx.beginPath(); ctx.moveTo(g.x, g.y); ctx.lineTo(s.sp.x, s.sp.y); ctx.stroke();
       });
 
-      // 4. a relay pulse every ~7 s: city -> satellite -> hops across the mesh -> satellite -> city
-      const slot = Math.floor(now / 7000), phase = (now % 7000) / 7000;
+      // 4. a relay pulse every ~28 s: city -> satellite -> hops across the mesh -> satellite -> city
+      const slot = Math.floor(now / 28000), phase = (now % 28000) / 28000;
       if (!reduceMotion && phase < .55 && cityLinks.size > 1) {
         if (this.route?.slot !== slot) {
           const cities = [...cityLinks.keys()], a = cities[(slot * 7) % cities.length], b = cities[(slot * 13 + 5) % cities.length];
@@ -208,13 +208,13 @@
           // a slow camera: the view breathes in and out and the tilt sways
           if (!reduceMotion) {
             // a camera that orbits the scene on a curved path: it circles slowly while rising and dipping
-            this.cam = now * .00007;
-            this.camPitch = Math.sin(now * .00011) * .22;
-            radius *= 1 + Math.sin(now * .00012) * .03;
+            this.cam = now * .0000175;
+            this.camPitch = Math.sin(now * .0000275) * .22;
+            radius *= 1 + Math.sin(now * .00003) * .03;
             this.tilt = this.baseTilt + this.camPitch;
           }
           this.stars.forEach((st) => {
-            const a = reduceMotion ? .35 : .18 + (Math.sin(now * .0015 + st.tw) + 1) * .22;
+            const a = reduceMotion ? .35 : .18 + (Math.sin(now * .000375 + st.tw) + 1) * .22;
             ctx.fillStyle = `rgba(255,255,255,${a})`; ctx.fillRect(st.x * this.width, st.y * this.height, st.r, st.r);
           });
           // atmosphere: a soft lime glow hugging the planet's edge
@@ -260,7 +260,7 @@
   document.querySelectorAll('[data-globe]').forEach((canvas) => {
     new AcidGlobe(canvas, {
       points: canvas.dataset.globe === 'intro' ? 1150 : 1500,
-      speed: canvas.dataset.globe === 'intro' ? .0003 : canvas.dataset.globe === 'identity' ? .00045 : .00018,
+      speed: canvas.dataset.globe === 'intro' ? .0003 : canvas.dataset.globe === 'identity' ? .0001125 : .00018,
       rotation: canvas.dataset.globe === 'identity' ? 1.1 : 0,
       satellites: canvas.dataset.globe === 'identity',
       tilt: canvas.dataset.globe === 'identity' ? -.38 : 0
